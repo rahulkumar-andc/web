@@ -1,0 +1,89 @@
+{% extends 'core/base.html' %}
+{% load static %}
+
+{% block title %}Home - VillenSec{% endblock %}
+
+{% block content %}
+
+<style>
+  body, html {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    overflow-x: hidden;
+    font-family: 'Source Code Pro', monospace;
+  }
+
+  .video-bg {
+    position: fixed;
+    right: 0;
+    bottom: 0;
+    min-width: 100%;
+    min-height: 100%;
+    z-index: -1;
+    object-fit: cover;
+    filter: brightness(0.2) contrast(1.2);
+  }
+
+  .home-container {
+    text-align: center;
+    margin-top: 8rem;
+    color: #00ffea;
+    position: relative;
+    z-index: 1;
+  }
+
+  h1 {
+    font-size: 3rem;
+    font-weight: 700;
+    margin-bottom: 1rem;
+  }
+
+  p {
+    font-size: 1.2rem;
+    margin: 1rem 0;
+    color: #00ffaacc;
+  }
+
+  a.btn-primary {
+    background-color: #00ffea;
+    border: none;
+    color: #000;
+    font-weight: 600;
+    padding: 0.6rem 1.8rem;
+    text-transform: uppercase;
+    border-radius: 4px;
+    box-shadow: 0 0 8px #00ffea;
+    transition: box-shadow 0.3s ease;
+  }
+
+  a.btn-primary:hover {
+    box-shadow: 0 0 18px #00ffeaaa;
+    color: #fff;
+  }
+
+  a.link-highlight {
+    color: #00ffea;
+    text-decoration: underline;
+  }
+</style>
+
+<!-- 🔥 Background Video 🔥 -->
+<video autoplay muted loop class="video-bg" style="position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; object-fit: cover; z-index: -1;">
+  <source src="https://raw.githubusercontent.com/villenbhai/my-static-files/main/video/bg.mp4" type="video/mp4">
+  Your browser does not support the video tag.
+</video>
+
+<!-- 🔓 Main Content -->
+<div class="home-container">
+  <h1>Welcome to VillenSec!</h1>
+  
+  {% if user.is_authenticated %}
+    <p>Hello, <strong>{{ user.username }}</strong>! <a href="{% url 'core:logout' %}" class="link-highlight"></a></p>
+  {% else %}
+    <p>You are not logged in. <a href="{% url 'core:login' %}" class="link-highlight">Login</a> or <a href="{% url 'core:register' %}" class="link-highlight">Register</a></p>
+  {% endif %}
+  
+  <p><a href="{% url 'core:services' %}" class="btn btn-primary mt-3">View Our Services</a></p>
+</div>
+{% endblock %}

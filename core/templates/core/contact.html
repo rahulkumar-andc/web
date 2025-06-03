@@ -1,0 +1,84 @@
+{% extends 'core/base.html' %}
+{% load static %}
+{% block title %}Contact Us - Villen{% endblock %}
+{% block head %}
+<link rel="stylesheet" href="{% static 'css/contact.css' %}">
+{% endblock %}
+
+{% block content %}
+<h1>Contact Us</h1>
+
+<div id="alert-success" class="alert alert-success d-none" role="alert"></div>
+<div id="alert-error" class="alert alert-danger d-none" role="alert"></div>
+
+<form id="contact-form" method="post" novalidate>
+    {% csrf_token %}
+    {{ form.non_field_errors }}
+    <div class="mb-3">
+        <label for="id_name" class="form-label">Name</label>
+        {{ form.name }}
+        {{ form.name.errors }}
+    </div>
+    <div class="mb-3">
+        <label for="id_email" class="form-label">Email</label>
+        {{ form.email }}
+        {{ form.email.errors }}
+    </div>
+    <div class="mb-3">
+        <label for="id_subject" class="form-label">Subject</label>
+        {{ form.subject }}
+        {{ form.subject.errors }}
+    </div>
+    <div class="mb-3">
+        <label for="id_message" class="form-label">Message</label>
+        {{ form.message }}
+        {{ form.message.errors }}
+    </div>
+    <div class="mb-3">
+        {{ form.captcha }}
+        {{ form.captcha.errors }}
+        <noscript>
+            <div class="alert alert-warning mt-2">JavaScript is required for reCAPTCHA validation. Please enable JavaScript and reload the page.</div>
+        </noscript>
+    </div>
+    <script src="https://www.google.com/recaptcha/api.js" async defer></script>
+    <button type="submit" class="btn btn-primary">Submit</button>
+</form>
+
+<script>
+document.getElementById('contact-form').addEventListener('submit', function(event) {
+    event.preventDefault();
+    const form = event.target;
+    const formData = new FormData(form);
+    const alertSuccess = document.getElementById('alert-success');
+    const alertError = document.getElementById('alert-error');
+    alertSuccess.classList.add('d-none');
+    alertError.classList.add('d-none');
+    fetch(form.action || window.location.href, {
+        method: 'POST',
+        headers: {
+            'X-Requested-With': 'XMLHttpRequest',
+            'X-CSRFToken': formData.get('csrfmiddlewaretoken'),
+        },
+        body: formData,
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.success) {
+            alertSuccess.textContent = data.message;
+            alertSuccess.classList.remove('d-none');
+            form.reset();
+            if (typeof grecaptcha !== 'undefined') grecaptcha.reset();
+        } else {
+            alertError.textContent = data.message || 'There was an error submitting the form.';
+            alertError.classList.remove('d-none');
+        }
+    })
+    .catch(error => {
+        alertError.textContent = 'An unexpected error occurred.';
+        alertError.classList.remove('d-none');
+    });
+});
+</script>
+
+{% endblock %}

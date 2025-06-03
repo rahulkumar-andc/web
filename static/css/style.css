@@ -1,0 +1,147 @@
+/* Base Dark Theme */
+body.dark-theme {
+    background: #0e0e0e;
+    color: #eee;
+    font-family: 'Source Code Pro', monospace, monospace;
+    letter-spacing: 0.05em;
+}
+
+a, a:hover, a:focus {
+    color: #08fdd8;
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+a:hover, a:focus {
+    color: #00ffe1;
+    text-shadow:
+      0 0 5px #00ffe1,
+      0 0 10px #00ffe1,
+      0 0 20px #00ffe1;
+}
+
+/* Navbar */
+.navbar-dark .navbar-nav .nav-link.active {
+    color: #00ffe1 !important;
+    font-weight: 700;
+    text-shadow:
+      0 0 8px #00ffe1,
+      0 0 15px #00ffe1;
+}
+
+/* Glitch text effect */
+.glitch-text {
+  position: relative;
+  color: #08fdd8;
+  font-weight: 900;
+  font-size: 1.8rem;
+  animation: flicker 2s infinite alternate;
+}
+
+.glitch-text::before,
+.glitch-text::after {
+  content: attr(data-text);
+  position: absolute;
+  left: 0;
+  right: 0;
+  opacity: 0.8;
+  clip: rect(0, 900px, 0, 0);
+}
+
+.glitch-text::before {
+  animation: glitch-top 1.5s infinite linear alternate-reverse;
+  color: #00ffe1;
+  left: 2px;
+  text-shadow: -2px 0 #0ff;
+}
+
+.glitch-text::after {
+  animation: glitch-bottom 1.5s infinite linear alternate;
+  color: #0ff;
+  left: -2px;
+  text-shadow: 2px 0 #0ff;
+}
+
+@keyframes flicker {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.85; }
+}
+
+@keyframes glitch-top {
+  0% { clip: rect(0, 9999px, 0, 0); }
+  20% { clip: rect(0, 9999px, 20px, 0); }
+  40% { clip: rect(0, 9999px, 0, 0); }
+  60% { clip: rect(0, 9999px, 15px, 0); }
+  80% { clip: rect(0, 9999px, 0, 0); }
+  100% { clip: rect(0, 9999px, 20px, 0); }
+}
+
+@keyframes glitch-bottom {
+  0% { clip: rect(0, 9999px, 0, 0); }
+  20% { clip: rect(10px, 9999px, 40px, 0); }
+  40% { clip: rect(0, 9999px, 0, 0); }
+  60% { clip: rect(5px, 9999px, 25px, 0); }
+  80% { clip: rect(0, 9999px, 0, 0); }
+  100% { clip: rect(10px, 9999px, 40px, 0); }
+}
+
+/* Container padding and main content */
+main.container {
+    max-width: 960px;
+}
+
+/* Footer */
+footer.footer {
+    font-family: 'Source Code Pro', monospace;
+    font-weight: 400;
+    letter-spacing: 0.1em;
+}
+
+/* Buttons with neon glow on hover */
+.btn-primary {
+    background-color: #00ffe1;
+    border-color: #00ffe1;
+    color: #0e0e0e;
+    transition: all 0.3s ease;
+}
+
+.btn-primary:hover {
+    background-color: #08fdd8;
+    border-color: #08fdd8;
+    box-shadow:
+        0 0 10px #08fdd8,
+        0 0 20px #08fdd8,
+        0 0 30px #08fdd8;
+    color: #000;
+}
+
+/* Form inputs styling */
+input, select, textarea {
+    background-color: #121212;
+    border: 1px solid #222;
+    color: #eee;
+    font-family: 'Source Code Pro', monospace;
+}
+
+input:focus, select:focus, textarea:focus {
+    outline: none;
+    border-color: #00ffe1;
+    box-shadow: 0 0 5px #00ffe1;
+}
+
+/* Scrollbar for dark theme */
+::-webkit-scrollbar {
+    width: 8px;
+}
+::-webkit-scrollbar-track {
+    background: #0e0e0e;
+}
+::-webkit-scrollbar-thumb {
+    background: #00ffe1;
+    border-radius: 4px;
+}
+.contact-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 90vh;
+}

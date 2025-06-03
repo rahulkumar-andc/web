@@ -1,0 +1,191 @@
+{% extends 'core/base.html' %}
+{% block title %}About Villen Bhai — The Mind Behind the Code{% endblock %}
+{% load static %}
+{% block content %}
+<!-- Video Background -->
+<div id="video-bg">
+  <video autoplay muted loop class="video-bg" style="position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; object-fit: cover; z-index: -1;">
+    <source src="{% static 'video/birds.mp4' %}" type="video/mp4">
+     Your browser does not support the video tag.
+</video>
+</div>
+
+<!-- Transparent About Section -->
+<section id="about-villen" class="container rounded-4 p-5 my-5 text-center" 
+         style="background-color: rgba(15, 17, 18, 0.422); color: #222;">
+  <h2 class="display-4 mb-4 fw-bold" style="color: #00a2ff;">Villen Bhai</h2>
+  <p id="dynamic-about" class="fs-5"></p>
+</section>
+
+
+
+<!-- Script for Dynamic Content -->
+<script>
+  const techSkills = [
+    'Python', 'C++', 'Java', 'Django', 'React.js',
+    'Kali Linux', 'Ethical Hacking', 'Cybersecurity',
+    'Network Security', 'Penetration Testing'
+  ];
+
+  const passions = [
+    'coding', 'ethical hacking', 'gaming (PUBG, Free Fire, GTA 5, Minecraft)',
+    'GATE exam prep', 'romantic shayari', 'life advice'
+  ];
+
+  const values = [
+    'relentless curiosity', 'unwavering dedication', 'a hunger for knowledge',
+    'passion for perfection', 'heart full of empathy', 'mind sharp like a blade',
+    'spirit that never settles'
+  ];
+
+  const lifeQuotes = [
+    '“Life is a code — sometimes buggy, always beautiful.”',
+    '“In every failure lies the seed of a stronger comeback.”',
+    '“Dream big, hustle hard, and code your destiny.”',
+    '“When passion leads, success follows.”',
+    '“The greatest hack is to live authentically.”',
+    '“From the darkest nights emerge the brightest stars.”',
+  ];
+
+  function getRandom(arr) {
+    return arr[Math.floor(Math.random() * arr.length)];
+  }
+
+  function generateAboutText() {
+  const colors = ['#1E90FF', '#FF4500', '#32CD32', '#8A2BE2', '#FFD700', '#FF69B4', '#00CED1', '#FF8C00'];
+
+  function getRandomColor() {
+    return colors[Math.floor(Math.random() * colors.length)];
+  }
+
+  return `
+    <p style="color:${getRandomColor()};">By day, I wield my skills in <span class="fw-bold">${getRandom(techSkills)}</span> and <span class="fw-bold">${getRandom(techSkills)}</span>, crafting solutions 
+    that bridge logic and creativity.</p>
+    
+    <p style="color:${getRandomColor()};">Driven by <span class="fw-semibold">${getRandom(values)}</span>, I dive deep into <span class="fw-semibold">${getRandom(passions)}</span>, 
+    whether it’s the thrill of ethical hacking or the poetry hidden in romantic shayari.</p>
+    
+    <p style="color:${getRandomColor()};">Every challenge I face, every bug I squash, is a step toward mastery — not just of code, but of life itself.</p>
+    
+    <p style="color:${getRandomColor()};">I am Villen Bhai — a seeker, a creator, a dreamer, and above all, a believer that the journey 
+    matters more than the destination.</p>
+    
+    <p style="color:${getRandomColor()};"><em class="fw-bold fst-italic">${getRandom(lifeQuotes)}</em></p>
+  `;
+}
+
+
+
+  document.getElementById('dynamic-about').innerHTML = generateAboutText();
+</script>
+{% endblock %}
+
+{% block extra_css %}
+<style>
+  /* Video Background Styling */
+  #video-bg {
+    position: fixed;
+    top: 0; left: 0;
+    width: 100vw;
+    height: 100vh;
+    overflow: hidden;
+    z-index: -1;
+  }
+
+  #video-bg video {
+    position: absolute;
+    top: 50%; left: 50%;
+    min-width: 100%;
+    min-height: 100%;
+    width: auto;
+    height: auto;
+    transform: translate(-50%, -50%);
+    object-fit: cover;
+    pointer-events: none;
+  }
+
+  /* About Section Styling */
+  #about-villen {
+    max-width: 850px;
+    margin: 100px auto;
+    padding: 40px;
+    text-align: center;
+    color: #ffffff;
+    font-family: 'Segoe UI', sans-serif;
+    font-size: 1.2rem;
+    background-color: rgba(0, 0, 0, 0.4); /* Slight transparent black overlay */
+    border-radius: 10px;
+    backdrop-filter: blur(3px);
+  }
+
+  #about-villen h2 {
+    font-size: 2.5rem;
+    margin-bottom: 20px;
+    letter-spacing: 1px;
+  }
+
+  #about-villen em {
+    color: #00e5ff;
+    font-weight: 500;
+  }
+  .video-bg {
+  position: fixed;
+  right: 0;
+  bottom: 0;
+  min-width: 100%;
+  min-height: 100%;
+  z-index: -1;
+  filter: brightness(0.3);
+}
+
+.hero-content {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  color: #fff;
+  text-align: center;
+  padding: 0 20px;
+}
+
+.hero-content h1 {
+  font-size: 3.5rem;
+  font-weight: bold;
+  text-shadow: 0 0 15px #28cab7;
+  margin-bottom: 20px;
+}
+
+.hero-content p {
+  font-size: 1.5rem;
+  line-height: 1.6;
+  margin: 10px 0;
+}
+
+.hero-content blockquote {
+  font-size: 1.3rem;
+  margin-top: 20px;
+  font-style: italic;
+  color: #d3d3d3;
+}
+
+.villen {
+  color: #00ffdd;
+  text-shadow: 0 0 10px #00ffee;
+}
+
+.highlight {
+  color: #ff69b4;
+  font-weight: bold;
+  text-shadow: 0 0 5px #ff1493;
+}
+
+.glow {
+  color: #87cefa;
+  font-weight: bold;
+  text-shadow: 0 0 10px #00bfff;
+}
+
+
+</style>
+{% endblock %}

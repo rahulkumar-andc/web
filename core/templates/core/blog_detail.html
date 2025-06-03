@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>{{ post.title }} - Villen</title>
+</head>
+<body>
+    <h1>{{ post.title }}</h1>
+    <p>By {{ post.author.username }} on {{ post.created_at|date:"F j, Y" }}</p>
+    <div>
+        {{ post.content|linebreaks }}
+    </div>
+    <p><a href="{% url 'core:blog_list' %}">Back to Blog List</a></p>
+</body>
+</html>
