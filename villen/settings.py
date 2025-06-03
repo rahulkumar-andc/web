@@ -146,3 +146,15 @@ EMAIL_USE_TLS = True
 EMAIL_HOST_USER = 'queenvillen00007@gmail.com'
 DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
 EMAIL_HOST_PASSWORD = 'whbi joeb tshw sjrs'
+
+
+CSRF_TRUSTED_ORIGINS = [
+    "https://www.villen.me",
+]
+
+# Secure Cookies — Yeh secure karega cookies ko sirf HTTPS par bhejne ka:
+CSRF_COOKIE_SECURE = True
+SESSION_COOKIE_SECURE = True
+
+# Proxy SSL Header — Jab proxy (Nginx) se HTTPS info mile, tab Django ko pata chale:
+SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
