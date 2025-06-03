@@ -25,8 +25,7 @@ SECRET_KEY = 'django-insecure-no29r7e23af(enta!e0-4r)duhsbyp2bggo7x_xdt*xfhxw^3^
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['web-soz1.onrender.com', 'localhost', '127.0.0.1']
-
+ALLOWED_HOSTS = ['web-soz1.onrender.com', 'localhost', '127.0.0.1', 'villen.me', 'www.villen.me', '.villen.me']
 
 
 # Application definition
@@ -146,4 +145,4 @@ EMAIL_PORT = 587
 EMAIL_USE_TLS = True
 EMAIL_HOST_USER = 'queenvillen00007@gmail.com'
 DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
-EMAIL_HOST_PASSWORD = os.getenv('EMAIL_HOST_PASSWORD')
+EMAIL_HOST_PASSWORD = 'whbi joeb tshw sjrs'
