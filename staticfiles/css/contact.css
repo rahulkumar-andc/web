@@ -1,0 +1,92 @@
+/* Full page layout to center everything */
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background-color: #0d0d0d;
+    margin: 0;
+    padding: 20px;
+    font-family: 'Segoe UI', sans-serif;
+}
+
+/* Centered contact form container */
+#contact-form {
+    background-color: #121212;
+    padding: 30px;
+    border-radius: 15px;
+    box-shadow: 0 0 20px rgba(0, 255, 180, 0.1);
+    color: #e0e0e0;
+    width: 100%;
+    max-width: 600px;
+    margin: auto;
+}
+
+/* Headline */
+h1 {
+    text-align: center;
+    margin-bottom: 30px;
+    font-weight: 700;
+    font-size: 2rem;
+    color: #00ffc8;
+}
+
+/* Labels */
+.form-label {
+    color: #00ffc8;
+    font-weight: 500;
+    margin-bottom: 5px;
+}
+
+/* Input fields */
+#contact-form input,
+#contact-form textarea {
+    background-color: #1e1e1e;
+    border: 1px solid #444;
+    color: #f1f1f1;
+    padding: 10px 12px;
+    width: 100%;
+    border-radius: 6px;
+    margin-bottom: 15px;
+    transition: border-color 0.3s, box-shadow 0.3s;
+}
+
+/* Placeholder text */
+#contact-form input::placeholder,
+#contact-form textarea::placeholder {
+    color: #888;
+}
+
+/* Focus effect */
+#contact-form input:focus,
+#contact-form textarea:focus {
+    border-color: #00ffc8;
+    box-shadow: 0 0 8px rgba(0, 255, 200, 0.3);
+    outline: none;
+}
+
+/* Submit button */
+.btn-primary {
+    background-color: #00ffc8;
+    color: #121212;
+    font-weight: bold;
+    border: none;
+    padding: 10px 20px;
+    width: 100%;
+    border-radius: 6px;
+    transition: background-color 0.3s ease;
+}
+
+.btn-primary:hover {
+    background-color: #00bfa5;
+    color: #fff;
+}
+
+/* Alert messages */
+.alert {
+    max-width: 600px;
+    margin: 15px auto;
+    border-radius: 6px;
+    text-align: center;
+    font-weight: 500;
+}

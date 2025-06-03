@@ -3,10 +3,24 @@ from django.conf import settings
 from django.utils.text import slugify
 from django.urls import reverse
 
+# models.py
+from django.db import models
+
 class Service(models.Model):
+    CATEGORY_CHOICES = [
+        ('web', 'Web Development'),
+        ('seo', 'SEO'),
+        ('app', 'App Development'),
+        ('design', 'UI/UX Design'),
+        #add more categories as needed
+
+    ]
+
     title = models.CharField(max_length=100)
     description = models.TextField()
-    icon = models.CharField(max_length=100)  # CSS class for icon
+    icon = models.CharField(max_length=100)
+    image_url = models.URLField(blank=True, null=True)
+    category = models.CharField(max_length=20, choices=CATEGORY_CHOICES, default='web')
 
     def __str__(self):
         return self.title
@@ -15,9 +29,11 @@ class BlogPost(models.Model):
     title = models.CharField(max_length=200)
     slug = models.SlugField(max_length=200, unique=True, blank=True)
     content = models.TextField()
+    image = models.ImageField(upload_to='blog_images/', blank=True, null=True)  # <-- new field
     author = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='blog_posts')
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
+    
 
     def save(self, *args, **kwargs):
         if not self.slug:

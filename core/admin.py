@@ -2,13 +2,27 @@ from django.contrib import admin
 from django.contrib.auth.models import User
 from django.contrib.auth.admin import UserAdmin
 from .models import Service, BlogPost, UserProfile, ContactMessage
+from django.utils.html import format_html
+from django.utils.safestring import mark_safe
+
 
 @admin.register(Service)
 class ServiceAdmin(admin.ModelAdmin):
-    list_display = ('title', 'icon')
+    list_display = ('title', 'icon', 'show_image', 'show_icon')  # <== yahi bol raha tha Django
     search_fields = ('title', 'description')
     list_filter = ()
 
+    def show_icon(self, obj):
+      return format_html('<i class="{}" style="font-size: 18px;"></i>', obj.icon)
+
+    show_icon.short_description = "Icon Preview"
+
+    def show_image(self, obj):
+        if obj.image_url:
+            return format_html(f'<img src="{obj.image_url}" width="60" height="60" />')
+        return "No Image"
+
+    show_image.short_description = "Image Preview"
     def has_module_permission(self, request):
         return request.user.is_superuser
 

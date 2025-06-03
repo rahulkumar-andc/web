@@ -3,20 +3,107 @@
 {% block title %}Services - Villen{% endblock %}
 
 {% block content %}
-<h1 class="text-light">Our Services</h1>
-<div class="row">
-    {% for service in services %}
-    <div class="col-md-4 mb-3">
-        <div class="card bg-dark text-white rounded shadow-sm h-100 hover-shadow">
-            <div class="card-body text-center">
-                <i class="{{ service.icon }} fa-3x mb-3"></i>
-                <h5 class="card-title">{{ service.title }}</h5>
-                <p class="card-text">{{ service.description }}</p>
+<h1 class="text-center text-light my-5 display-4 fw-bold">Our Services</h1>
+
+<!-- Search & Filter Form -->
+<div class="container mb-4">
+    <form method="get" class="row g-3 justify-content-center">
+        <div class="col-md-5">
+            <input 
+                type="text" 
+                name="q" 
+                value="{{ query }}" 
+                class="form-control form-control-lg" 
+                placeholder="Search services..." 
+                aria-label="Search services">
+        </div>
+        <div class="col-md-4">
+            <select name="category" class="form-select form-select-lg" aria-label="Filter by category">
+                <option value="">All Categories</option>
+                {% for key, value in categories %}
+                    <option value="{{ key }}" {% if category == key %}selected{% endif %}>{{ value }}</option>
+                {% endfor %}
+            </select>
+        </div>
+        <div class="col-md-2">
+            <button type="submit" class="btn btn-warning btn-lg w-100">Filter</button>
+        </div>
+    </form>
+</div>
+
+<!-- Services Grid -->
+<div class="container">
+    <div class="row">
+        {% for service in services %}
+        <div class="col-md-6 col-lg-4 mb-5 fade-in-up">
+            <div class="card-wrapper position-relative">
+                <div class="card h-100 bg-dark text-white rounded shadow-lg border-0 service-card">
+                    {% if service.image_url %}
+                    <img src="{{ service.image_url }}" class="card-img-top service-img rounded-top" alt="{{ service.title }}">
+                    {% endif %}
+                    <div class="card-body text-center px-4">
+                        <i class="{{ service.icon }} fa-3x text-warning mb-3"></i>
+                        <h5 class="card-title fw-semibold">{{ service.title }}</h5>
+                        <p class="card-text text-light small">{{ service.description }}</p>
+                    </div>
+                    <div class="card-footer bg-transparent text-center pb-3 border-0">
+                        <a href="#" class="btn btn-outline-warning btn-sm px-4">Learn More</a>
+                    </div>
+                </div>
             </div>
         </div>
+        {% empty %}
+        <p class="text-light text-center">No services found matching your criteria.</p>
+        {% endfor %}
     </div>
-    {% empty %}
-    <p>No services available at the moment.</p>
-    {% endfor %}
 </div>
+
+<!-- JS Animation -->
+<script>
+    const observer = new IntersectionObserver(entries => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('visible');
+            }
+        });
+    });
+    document.querySelectorAll('.fade-in-up').forEach(el => {
+        observer.observe(el);
+    });
+</script>
+
+<!-- Tenor Embed Script -->
+<script type="text/javascript" async src="https://tenor.com/embed.js"></script>
+
+<!-- Anime GIF Styling -->
+<style>
+    .card-wrapper {
+        position: relative;
+        overflow: hidden;
+    }
+
+    .anime-gif-wrapper {
+        position: absolute;
+        bottom: 10px;
+        right: 10px;
+        opacity: 0;
+        transform: scale(0.8);
+        transition: all 0.3s ease;
+        pointer-events: none;
+        z-index: 5;
+    }
+
+    .card-wrapper:hover .anime-gif-wrapper {
+        opacity: 1;
+        transform: scale(1.1) translateY(-5px);
+        animation: kawaiiMove 0.8s ease-in-out infinite alternate;
+    }
+
+    @keyframes kawaiiMove {
+        0%   { transform: scale(1.05) translateY(0); }
+        50%  { transform: scale(1.15) translateY(-3px) rotate(-2deg); }
+        100% { transform: scale(1.1) translateY(0) rotate(2deg); }
+    }
+</style>
+
 {% endblock %}

@@ -5,11 +5,13 @@ from django.contrib.auth.decorators import login_required, user_passes_test
 from django.core.mail import send_mail
 from django.conf import settings
 from .models import Service, BlogPost, UserProfile, ContactMessage
-from .forms import ContactForm, UserProfileForm
+from .forms import ContactForm, UserProfileForm, BlogPostForm
 from django import forms
 import logging
 from django.contrib.auth import authenticate
 from django.contrib.auth.models import User
+from django.http import HttpResponse
+
 
 logger = logging.getLogger(__name__)
 
@@ -62,7 +64,7 @@ from django.contrib.auth.decorators import user_passes_test
 def blog_create(request):
     """Allow only superusers to create blog posts."""
     if request.method == 'POST':
-        form = BlogPostForm(request.POST)
+        form = BlogPostForm(request.POST, request.FILES)
         if form.is_valid():
             blog_post = form.save(commit=False)
             blog_post.author = request.user
@@ -103,11 +105,6 @@ def blog_delete(request, slug):
         return redirect('core:blog_list')
     return render(request, 'core/confirm_delete.html', {'object': blog_post, 'title': 'Delete Blog Post'})
 
-class BlogPostForm(forms.ModelForm):
-    class Meta:
-        model = BlogPost
-        fields = ['title', 'content']
-
 def register(request):
     """User registration with duplicate and password validation."""
     if request.method == 'POST':
@@ -128,9 +125,28 @@ def register(request):
         form = UserCreationForm()
     return render(request, 'core/register.html', {'form': form})
 
-def services(request):
-    services_list = Service.objects.all()
-    return render(request, 'core/services.html', {'services': services_list})
+from django.shortcuts import render
+from .models import Service
+
+def services_view(request):
+    query = request.GET.get('q', '')
+    category = request.GET.get('category', '')
+
+    services = Service.objects.all()
+
+    if query:
+        services = services.filter(title__icontains=query)
+
+    if category:
+        services = services.filter(category=category)
+
+    context = {
+        'services': services,
+        'query': query,
+        'category': category,
+        'categories': Service.CATEGORY_CHOICES,
+    }
+    return render(request, 'core/services.html', context)
 
 def blog_list(request):
     posts = BlogPost.objects.all().order_by('-created_at')

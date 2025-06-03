@@ -3,11 +3,78 @@
 {% block title %}Confirm Delete - Villen{% endblock %}
 
 {% block content %}
-<h1>Confirm Delete</h1>
-<p>Are you sure you want to delete "{{ object }}"?</p>
-<form method="post">
+<style>
+  .confirm-delete-container {
+    max-width: 480px;
+    margin: 60px auto;
+    padding: 30px 40px;
+    background-color: #1a1a1a;
+    border-radius: 14px;
+    box-shadow: 0 0 25px rgba(255, 0, 80, 0.4);
+    color: #eee;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    animation: fadeInScale 0.6s ease forwards;
+    text-align: center;
+  }
+  .confirm-delete-container h1 {
+    color: #ff004f;
+    text-shadow: 0 0 8px #ff004f;
+    margin-bottom: 20px;
+  }
+  .confirm-delete-container p {
+    font-size: 1.2rem;
+    margin-bottom: 30px;
+  }
+  .btn-danger {
+    background-color: #ff004f;
+    border: none;
+    padding: 12px 28px;
+    font-weight: 700;
+    font-size: 1.1rem;
+    border-radius: 10px;
+    box-shadow: 0 0 15px #ff004f;
+    transition: background-color 0.3s ease, box-shadow 0.3s ease;
+  }
+  .btn-danger:hover {
+    background-color: #e60042;
+    box-shadow: 0 0 25px #e60042;
+  }
+  .btn-secondary {
+    margin-left: 15px;
+    padding: 12px 28px;
+    border-radius: 10px;
+    font-weight: 600;
+    font-size: 1.1rem;
+    background-color: #333;
+    color: #ccc;
+    border: none;
+    box-shadow: 0 0 12px #444;
+    transition: background-color 0.3s ease, color 0.3s ease;
+  }
+  .btn-secondary:hover {
+    background-color: #555;
+    color: #fff;
+  }
+
+  @keyframes fadeInScale {
+    0% {
+      opacity: 0;
+      transform: scale(0.85);
+    }
+    100% {
+      opacity: 1;
+      transform: scale(1);
+    }
+  }
+</style>
+
+<div class="confirm-delete-container">
+  <h1>Confirm Delete</h1>
+  <p>Are you sure you want to delete "<strong>{{ object }}</strong>"?</p>
+  <form method="post">
     {% csrf_token %}
     <button type="submit" class="btn btn-danger">Yes, delete</button>
     <a href="javascript:history.back()" class="btn btn-secondary">Cancel</a>
-</form>
+  </form>
+</div>
 {% endblock %}
