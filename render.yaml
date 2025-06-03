@@ -1,0 +1,15 @@
+services:
+  - type: web
+    name: villen-django-app
+    runtime: python                   # Specify the Python runtime version, e.g., python3.10
+    region: singapore
+    branch: master                   # Ya 'main', jo tera git branch hai
+    buildCommand: pip install -r requirements.txt
+    startCommand: gunicorn villen.wsgi:application
+    envVars:
+      - key: DJANGO_SETTINGS_MODULE
+        value: villen.settings
+      - key: SECRET_KEY
+        value: your-secret-key-here  # Isko better hai Render ke Secret Manager me dal ke yahan fromSecret se access karo
+      - key: ALLOWED_HOSTS
+        value: villen.me
