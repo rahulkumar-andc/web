@@ -1,12 +1,16 @@
-# core/templatetags/math_filters.py
-
 from django import template
 
 register = template.Library()
 
 @register.filter
-def multiply(value, arg):
+def mul(value, arg):
     try:
         return float(value) * float(arg)
+    except (ValueError, TypeError):
+        return ''
+@register.filter
+def div(value, arg):
+    try:
+        return float(value) / float(arg)
     except (ValueError, TypeError):
         return ''

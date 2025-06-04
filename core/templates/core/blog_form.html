@@ -74,13 +74,14 @@
     <form method="post" enctype="multipart/form-data">
         {% csrf_token %}
         {{ form.as_p }}
-
-        {% if form.image.value %}
+        {% if form.image_url.value %}
             <div>
                 <label>Current Image:</label><br>
-                <img src="{{ form.instance.image.url }}" alt="Image Preview" class="preview-img">
+                <img src="{{ form.image_url.value }}" alt="Image Preview" class="preview-img" style="max-width: 100%; height: auto;">
             </div>
         {% endif %}
+
+        
 
         <div class="mt-4 d-flex justify-content-between">
             <button type="submit" class="btn btn-villen">Save</button>
