@@ -51,9 +51,11 @@
         <li class="nav-item">
           <a class="nav-link disabled">{{ user.username }}</a>
         </li>
-        <li class="nav-item">
-          <a class="nav-link" href="{% url 'core:logout' %}">Logout</a>
-        </li>
+        <form method="post" action="{% url 'core:logout' %}">
+            {% csrf_token %}
+            <button type="submit" class="btn btn-danger">Logout</button>
+        </form>
+
         {% else %}
         <li class="nav-item">
           <a class="nav-link {% if request.resolver_match.url_name == 'login' %}active{% endif %}" href="{% url 'core:login' %}">Login</a>

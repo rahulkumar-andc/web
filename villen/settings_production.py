@@ -9,7 +9,7 @@ Production settings for Villen Django project.
 
 from .settings import *
 
-DEBUG = False
+DEBUG = True  # Set to False in production
 
 ALLOWED_HOSTS = [
     'localhost', 
