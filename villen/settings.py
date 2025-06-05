@@ -39,6 +39,15 @@ INSTALLED_APPS = [
     'corsheaders',
     'whitenoise.runserver_nostatic',
     'whitenoise',
+    # Allauth apps
+    'allauth',
+    'allauth.account',
+    'allauth.socialaccount',
+
+    # Social providers
+    'allauth.socialaccount.providers.google',
+    'allauth.socialaccount.providers.github',
+
 ]
 
 # Middleware stack - the guardians of your app’s request & response
@@ -52,6 +61,8 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'allauth.account.middleware.AccountMiddleware',
+
 ]
 
 ROOT_URLCONF = 'villen.urls'
@@ -157,4 +168,32 @@ LOGGING = {
             'propagate': True,
         },
     },
+}
+
+
+SITE_ID = 1
+
+AUTHENTICATION_BACKENDS = (
+    'django.contrib.auth.backends.ModelBackend',  # Default
+    'allauth.account.auth_backends.AuthenticationBackend',  # For allauth
+)
+
+LOGIN_REDIRECT_URL = 'core:home'
+LOGOUT_REDIRECT_URL = 'core:home'
+
+SOCIALACCOUNT_PROVIDERS = {
+    'google': {
+        'APP': {
+            'client_id': 'tumhara-google-client-id',
+            'secret': 'tumhara-google-client-secret',
+            'key': ''
+        }
+    },
+    'github': {
+        'APP': {
+            'client_id': 'Ov23liCMsjB8TW59UcYF',
+            'secret': 'd30185165685deba496eced7598255b291407bb8',
+            'key': ''
+        }
+    }
 }
