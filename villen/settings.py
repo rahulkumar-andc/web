@@ -85,9 +85,22 @@ TEMPLATES = [
 WSGI_APPLICATION = 'villen.wsgi.application'
 
 # Database configuration - environment friendly
-DATABASES = {
-    'default': dj_database_url.config(default=os.getenv('DATABASE_URL'))
-}
+DATABASE_URL = os.getenv('DATABASE_URL')
+
+if DATABASE_URL:
+    # Agar DATABASE_URL mil gaya toh use kar PostgreSQL ya koi external DB
+    DATABASES = {
+        'default': dj_database_url.config(default=DATABASE_URL)
+    }
+else:
+    # Nahi toh default SQLite use karo (dev friendly)
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.sqlite3',
+            'NAME': BASE_DIR / "db.sqlite3",
+        }
+    }
+
 
 # Password validation - keep your users safe
 AUTH_PASSWORD_VALIDATORS = [
