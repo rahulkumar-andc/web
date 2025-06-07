@@ -1,0 +1,68 @@
+{% extends "core/base.html" %}
+{% block content %}
+<h1>{{ tool.title }}</h1>
+<img src="{{ tool.image.url }}" alt="{{ tool.title }}" style="max-width: 100%; height: auto; border-radius: 8px;" />
+<div class="tool-detail-content">
+    {{ tool.detailed_content|linebreaks }}
+</div>
+
+<h2>Average Rating: {{ average_rating|floatformat:1 }} / 5</h2>
+
+<h3>Reviews:</h3>
+{% if reviews %}
+    <ul>
+    {% for review in reviews %}
+        <li>
+            <strong>{{ review.user.username }}</strong> rated {{ review.rating }} / 5<br/>
+            {{ review.review_text|linebreaks }}
+            <br/><small>on {{ review.created_at|date:"M d, Y" }}</small>
+        </li>
+    {% endfor %}
+    </ul>
+{% else %}
+    <p>No reviews yet.</p>
+{% endif %}
+
+{% if user.is_authenticated and user.profile.is_premium %}
+<h3>Submit Your Review:</h3>
+<form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit" class="btn btn-primary">Submit Review</button>
+</form>
+{% else %}
+<p><a href="{% url 'tools:request_premium' %}">Upgrade to premium</a> to submit reviews.</p>
+{% endif %}
+
+<a href="{% url 'tools:tools_list' %}" class="btn btn-secondary">Back to Tools List</a>
+<style>
+.tool-detail-content {
+    margin-top: 20px;
+    font-size: 1.1em;
+    line-height: 1.6;
+}
+.btn-secondary {
+    display: inline-block;
+    margin-top: 20px;
+    padding: 8px 12px;
+    background-color: #6c757d;
+    color: white;
+    text-decoration: none;
+    border-radius: 4px;
+}
+.btn-secondary:hover {
+    background-color: #5a6268;
+}
+.btn-primary {
+    background-color: #007bff;
+    color: white;
+    padding: 8px 12px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+.btn-primary:hover {
+    background-color: #0056b3;
+}
+</style>
+{% endblock %}

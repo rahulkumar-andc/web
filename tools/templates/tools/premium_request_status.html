@@ -1,0 +1,28 @@
+{% extends "core/base.html" %}
+{% block content %}
+<h2>Premium Request Status</h2>
+{% if status == 'pending' %}
+    <p>Your premium request is currently pending approval. Please wait for an admin to review your request.</p>
+{% elif status == 'approved' %}
+    <p>Congratulations! Your premium request has been approved. You now have access to premium tools.</p>
+{% elif status == 'rejected' %}
+    <p>Unfortunately, your premium request was rejected. You can contact support for more information.</p>
+{% else %}
+    <p>You have not submitted any premium request yet.</p>
+{% endif %}
+<a href="{% url 'tools:tools_list' %}" class="btn btn-secondary">Back to Tools List</a>
+<style>
+.btn-secondary {
+    display: inline-block;
+    margin-top: 20px;
+    padding: 8px 12px;
+    background-color: #6c757d;
+    color: white;
+    text-decoration: none;
+    border-radius: 4px;
+}
+.btn-secondary:hover {
+    background-color: #5a6268;
+}
+</style>
+{% endblock %}

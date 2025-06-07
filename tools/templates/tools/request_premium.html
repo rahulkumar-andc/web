@@ -1,0 +1,37 @@
+{% extends "core/base.html" %}
+{% block content %}
+<h2>Request Premium Access</h2>
+<p>Fill the form below to request premium access. Your request will be reviewed by an admin.</p>
+<form method="post">
+    {% csrf_token %}
+    <button type="submit" class="btn btn-primary">Submit Request</button>
+</form>
+<a href="{% url 'tools:tools_list' %}" class="btn btn-secondary">Back to Tools List</a>
+<style>
+.btn-primary {
+    display: inline-block;
+    margin: 10px 10px 10px 0;
+    padding: 8px 12px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+.btn-primary:hover {
+    background-color: #0056b3;
+}
+.btn-secondary {
+    display: inline-block;
+    margin: 10px 0 10px 10px;
+    padding: 8px 12px;
+    background-color: #6c757d;
+    color: white;
+    text-decoration: none;
+    border-radius: 4px;
+}
+.btn-secondary:hover {
+    background-color: #5a6268;
+}
+</style>
+{% endblock %}

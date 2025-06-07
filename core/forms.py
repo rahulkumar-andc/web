@@ -42,7 +42,7 @@ class BlogPostForm(forms.ModelForm):
 class UserProfileForm(forms.ModelForm):
     class Meta:
         model = UserProfile
-        fields = ['bio', 'profile_picture']
+        fields = ['bio', 'profile_picture', 'twitter_link', 'facebook_link', 'linkedin_link', 'instagram_link']
 
     def clean_profile_picture(self):
         picture = self.cleaned_data.get('profile_picture')
