@@ -1,3 +1,5 @@
+from .models import Tool, ToolReview
+from django.db.models import Avg
 from django.shortcuts import render, get_object_or_404, redirect
 from django.contrib.auth.decorators import login_required, user_passes_test
 from django.contrib import messages
@@ -21,7 +23,7 @@ def tool_detail(request, pk):
         return render(request, 'tools/upgrade_required.html', {'tool': tool})
 
     reviews = tool.reviews.all()
-    average_rating = reviews.aggregate(models.Avg('rating'))['rating__avg'] or 0
+    average_rating = reviews.aggregate(Avg('rating'))['rating__avg'] or 0
 
     if request.method == 'POST':
         if not user_profile.is_premium:

@@ -1091,3 +1091,111 @@ Traceback (most recent call last):
 django.template.exceptions.TemplateSyntaxError: Invalid block tag on line 97: 'provider_login_url', expected 'endblock'. Did you forget to register or load this tag?
 "GET /login/ HTTP/1.1" 500 183327
 "GET /static/images/favicon.png HTTP/1.1" 404 1868
+Not Found: /favicon.ico
+"GET /favicon.ico HTTP/1.1" 404 6078
+Internal Server Error: /tools/tool/1/
+Traceback (most recent call last):
+  File "/home/kali/Desktop/7may/web/myenv/lib/python3.13/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+  File "/home/kali/Desktop/7may/web/myenv/lib/python3.13/site-packages/django/core/handlers/base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/home/kali/Desktop/7may/web/myenv/lib/python3.13/site-packages/django/contrib/auth/decorators.py", line 59, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+  File "/home/kali/Desktop/7may/web/tools/views.py", line 24, in tool_detail
+    average_rating = reviews.aggregate(models.Avg('rating'))['rating__avg'] or 0
+                                       ^^^^^^
+NameError: name 'models' is not defined
+"GET /tools/tool/1/ HTTP/1.1" 500 74556
+Not Found: /favicon.ico
+Internal Server Error: /tools/tool/1/
+Traceback (most recent call last):
+  File "/home/kali/Desktop/7may/web/myenv/lib/python3.13/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+  File "/home/kali/Desktop/7may/web/myenv/lib/python3.13/site-packages/django/core/handlers/base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/home/kali/Desktop/7may/web/myenv/lib/python3.13/site-packages/django/contrib/auth/decorators.py", line 59, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+  File "/home/kali/Desktop/7may/web/tools/views.py", line 25, in tool_detail
+    average_rating = reviews.aggregate(models.Avg('rating'))['rating__avg'] or 0
+                                       ^^^^^^^^^^
+AttributeError: module 'tools.models' has no attribute 'Avg'
+"GET /tools/tool/1/ HTTP/1.1" 500 74698
+Internal Server Error: /tools/tool/1/
+Traceback (most recent call last):
+  File "/home/kali/Desktop/7may/web/myenv/lib/python3.13/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+  File "/home/kali/Desktop/7may/web/myenv/lib/python3.13/site-packages/django/core/handlers/base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/home/kali/Desktop/7may/web/myenv/lib/python3.13/site-packages/django/contrib/auth/decorators.py", line 59, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+  File "/home/kali/Desktop/7may/web/tools/views.py", line 25, in tool_detail
+    average_rating = reviews.aggregate(models.Avg('rating'))['rating__avg'] or 0
+                                       ^^^^^^^^^^
+AttributeError: module 'tools.models' has no attribute 'Avg'
+"GET /tools/tool/1/ HTTP/1.1" 500 74698
+Internal Server Error: /tools/tool/1/
+Traceback (most recent call last):
+  File "/home/kali/Desktop/7may/web/myenv/lib/python3.13/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+  File "/home/kali/Desktop/7may/web/myenv/lib/python3.13/site-packages/django/core/handlers/base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/home/kali/Desktop/7may/web/myenv/lib/python3.13/site-packages/django/contrib/auth/decorators.py", line 59, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+  File "/home/kali/Desktop/7may/web/tools/views.py", line 25, in tool_detail
+    average_rating = reviews.aggregate(models.Avg('rating'))['rating__avg'] or 0
+                                       ^^^^^^^^^^
+AttributeError: module 'tools.models' has no attribute 'Avg'
+"GET /tools/tool/1/ HTTP/1.1" 500 74698
+Internal Server Error: /tools/tool/1/
+Traceback (most recent call last):
+  File "/home/kali/Desktop/7may/web/myenv/lib/python3.13/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+  File "/home/kali/Desktop/7may/web/myenv/lib/python3.13/site-packages/django/core/handlers/base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/home/kali/Desktop/7may/web/myenv/lib/python3.13/site-packages/django/contrib/auth/decorators.py", line 59, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+  File "/home/kali/Desktop/7may/web/tools/views.py", line 25, in tool_detail
+    average_rating = reviews.aggregate(models.Avg('rating'))['rating__avg'] or 0
+                                       ^^^^^^^^^^
+AttributeError: module 'tools.models' has no attribute 'Avg'
+"GET /tools/tool/1/ HTTP/1.1" 500 74698
+Internal Server Error: /tools/tool/1/
+Traceback (most recent call last):
+  File "/home/kali/Desktop/7may/web/myenv/lib/python3.13/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+  File "/home/kali/Desktop/7may/web/myenv/lib/python3.13/site-packages/django/core/handlers/base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/home/kali/Desktop/7may/web/myenv/lib/python3.13/site-packages/django/contrib/auth/decorators.py", line 59, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+  File "/home/kali/Desktop/7may/web/tools/views.py", line 26, in tool_detail
+    average_rating = reviews.aggregate(models.Avg('rating'))['rating__avg'] or 0
+                                       ^^^^^^
+NameError: name 'models' is not defined
+"GET /tools/tool/1/ HTTP/1.1" 500 74556
+Internal Server Error: /tools/tool/1/
+Traceback (most recent call last):
+  File "/home/kali/Desktop/7may/web/myenv/lib/python3.13/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+  File "/home/kali/Desktop/7may/web/myenv/lib/python3.13/site-packages/django/core/handlers/base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/home/kali/Desktop/7may/web/myenv/lib/python3.13/site-packages/django/contrib/auth/decorators.py", line 59, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+  File "/home/kali/Desktop/7may/web/tools/views.py", line 26, in tool_detail
+    average_rating = reviews.aggregate(models.Avg('rating'))['rating__avg'] or 0
+                                       ^^^^^^
+NameError: name 'models' is not defined
+"GET /tools/tool/1/ HTTP/1.1" 500 74556
+Internal Server Error: /tools/tool/1/
+Traceback (most recent call last):
+  File "/home/kali/Desktop/7may/web/myenv/lib/python3.13/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+  File "/home/kali/Desktop/7may/web/myenv/lib/python3.13/site-packages/django/core/handlers/base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/home/kali/Desktop/7may/web/myenv/lib/python3.13/site-packages/django/contrib/auth/decorators.py", line 59, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+  File "/home/kali/Desktop/7may/web/tools/views.py", line 26, in tool_detail
+    average_rating = reviews.aggregate(models.Avg('rating'))['rating__avg'] or 0
+                                       ^^^^^^
+NameError: name 'models' is not defined
+"GET /tools/tool/1/ HTTP/1.1" 500 74556
+Not Found: /favicon.ico

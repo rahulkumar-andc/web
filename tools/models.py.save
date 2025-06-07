@@ -1,3 +1,17 @@
+class Tool(models.Model):
+    title = models.CharField(max_length=200)
+    short_description = models.CharField(max_length=300)
+    image = models.ImageField(upload_to='tools_images/')
+    detailed_content = models.TextField()
+    
+    category = models.CharField(max_length=100, default='General')
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return self.title
+
+    def get_absolute_url(self):
+        return reverse('tools:tool_detail', kwargs={'pk': self.pk})
 from django.db import models
 from django.urls import reverse
 from django.contrib.auth.models import User
@@ -8,8 +22,6 @@ class Tool(models.Model):
     short_description = models.CharField(max_length=300)
     image = models.ImageField(upload_to='tools_images/')
     detailed_content = models.TextField()
-    category = models.CharField(max_length=100, default='General')
-    created_at = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
         return self.title
