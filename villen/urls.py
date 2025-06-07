@@ -23,6 +23,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('core.urls')),
     path('accounts/', include('allauth.urls')),  # For Google and GitHub login
+    path('tools/', include('tools.urls')),
 ]
 
 if settings.DEBUG:
