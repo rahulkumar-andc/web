@@ -1,0 +1,15 @@
+{% extends "core/base.html" %}
+{% block content %}
+
+<h1 class="text-center text-light mt-4">Update Tool</h1>
+
+<div class="container" style="max-width: 600px; margin-top: 20px;">
+    <form method="post" enctype="multipart/form-data" class="p-4 bg-dark rounded">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit" class="btn btn-primary">Save Changes</button>
+        <a href="{{ tool.get_absolute_url }}" class="btn btn-secondary ms-2">Cancel</a>
+    </form>
+</div>
+
+{% endblock %}

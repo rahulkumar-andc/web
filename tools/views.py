@@ -9,7 +9,33 @@ from .models import Tool, PremiumRequest, ToolReview
 from django.contrib.auth.models import User
 from django.core.mail import send_mail
 from django.conf import settings
-from .forms import ToolReviewForm
+from .forms import ToolReviewForm, ToolForm
+
+@login_required
+@user_passes_test(lambda u: u.is_superuser)
+def tool_update(request, pk):
+    tool = get_object_or_404(Tool, pk=pk)
+    if request.method == 'POST':
+        form = ToolForm(request.POST, request.FILES, instance=tool)
+        if form.is_valid():
+            form.save()
+            messages.success(request, 'Tool updated successfully.')
+            return redirect(tool.get_absolute_url())
+    else:
+        form = ToolForm(instance=tool)
+    return render(request, 'tools/tool_form.html', {'form': form, 'tool': tool})
+
+@login_required
+@user_passes_test(lambda u: u.is_superuser)
+def tool_delete(request, pk):
+    tool = get_object_or_404(Tool, pk=pk)
+    if request.method == 'POST':
+        tool.delete()
+        messages.success(request, 'Tool deleted successfully.')
+        return redirect('tools:tools_list')
+    else:
+        messages.error(request, 'Invalid request method.')
+        return redirect(tool.get_absolute_url())
 
 def tools_list(request):
     tools = Tool.objects.all()

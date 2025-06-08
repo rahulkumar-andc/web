@@ -5,8 +5,10 @@ from . import views
 app_name = 'tools'
 
 urlpatterns = [
-    path('', views.tools_list, name='tools_list'),
+    path('tools/', views.tools_list, name='tools_list'),
     path('tool/<int:pk>/', views.tool_detail, name='tool_detail'),
+    path('tool/<int:pk>/update/', views.tool_update, name='tool_update'),
+    path('tool/<int:pk>/delete/', views.tool_delete, name='tool_delete'),
     path('request-premium/', views.request_premium, name='request_premium'),
     path('premium-request-status/', views.premium_request_status, name='premium_request_status'),
     path('admin-dashboard/', views.admin_dashboard, name='admin_dashboard'),
