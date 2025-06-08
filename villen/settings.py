@@ -163,6 +163,8 @@ SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
 CORS_ALLOWED_ORIGINS = [
     "https://villen.me",
     "http://localhost:3000",
+    "http://localhost:8000",
+    "https://web-soz1.onrender.com",
 ]
 
 # Google reCAPTCHA keys for spam protection (replace with your keys)
