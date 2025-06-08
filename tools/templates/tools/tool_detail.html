@@ -1,68 +1,65 @@
 {% extends "core/base.html" %}
+{% load static %}
 {% block content %}
-<h1>{{ tool.title }}</h1>
-<img src="{{ tool.image.url }}" alt="{{ tool.title }}" style="max-width: 100%; height: auto; border-radius: 8px;" />
-<div class="tool-detail-content">
-    {{ tool.detailed_content|linebreaks }}
+
+<!-- Bootstrap 5 + Animate.css -->
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
+<link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&display=swap" rel="stylesheet">
+
+<style>
+    body {
+        background-color: #000;
+        color: #ccc;
+        font-family: 'Share Tech Mono', monospace;
+    }
+
+    h1, h2, h3 {
+        color: #00ff00; /* neon green */
+    }
+
+    .tool-detail-container {
+        max-width: 900px;
+        margin: 40px auto;
+        padding: 20px;
+        background: #111;
+        border-radius: 12px;
+        box-shadow: 0 0 20px rgba(0,255,0,0.1);
+    }
+
+    .tool-detail-container img {
+        max-width: 100%;
+        border-radius: 10px;
+        margin-bottom: 20px;
+    }
+
+    .tool-detail-content {
+        font-size: 1.1rem;
+        line-height: 1.8;
+    }
+
+    .btn-orange {
+        background-color: #ff4500;
+        color: white;
+        border: none;
+    }
+
+    .btn-orange:hover {
+        background-color: #ff3300;
+    }
+</style>
+
+<div class="container tool-detail-container animate__animated animate__fadeInUp">
+    <h1 class="mb-4">{{ tool.title }}</h1>
+    {% if tool.image %}
+        <img src="{{ tool.image.url }}" alt="{{ tool.title }}">
+    {% endif %}
+    <div class="tool-detail-content mb-4">
+        {{ tool.detailed_content|safe }}
+    </div>
+    <a href="{% url 'tools_list' %}" class="btn btn-orange">← Back to Tools</a>
 </div>
 
-<h2>Average Rating: {{ average_rating|floatformat:1 }} / 5</h2>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 
-<h3>Reviews:</h3>
-{% if reviews %}
-    <ul>
-    {% for review in reviews %}
-        <li>
-            <strong>{{ review.user.username }}</strong> rated {{ review.rating }} / 5<br/>
-            {{ review.review_text|linebreaks }}
-            <br/><small>on {{ review.created_at|date:"M d, Y" }}</small>
-        </li>
-    {% endfor %}
-    </ul>
-{% else %}
-    <p>No reviews yet.</p>
-{% endif %}
-
-{% if user.is_authenticated and user.profile.is_premium %}
-<h3>Submit Your Review:</h3>
-<form method="post">
-    {% csrf_token %}
-    {{ form.as_p }}
-    <button type="submit" class="btn btn-primary">Submit Review</button>
-</form>
-{% else %}
-<p><a href="{% url 'tools:request_premium' %}">Upgrade to premium</a> to submit reviews.</p>
-{% endif %}
-
-<a href="{% url 'tools:tools_list' %}" class="btn btn-secondary">Back to Tools List</a>
-<style>
-.tool-detail-content {
-    margin-top: 20px;
-    font-size: 1.1em;
-    line-height: 1.6;
-}
-.btn-secondary {
-    display: inline-block;
-    margin-top: 20px;
-    padding: 8px 12px;
-    background-color: #6c757d;
-    color: white;
-    text-decoration: none;
-    border-radius: 4px;
-}
-.btn-secondary:hover {
-    background-color: #5a6268;
-}
-.btn-primary {
-    background-color: #007bff;
-    color: white;
-    padding: 8px 12px;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-}
-.btn-primary:hover {
-    background-color: #0056b3;
-}
-</style>
 {% endblock %}

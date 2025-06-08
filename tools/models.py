@@ -6,7 +6,7 @@ from django.utils import timezone
 class Tool(models.Model):
     title = models.CharField(max_length=200)
     short_description = models.CharField(max_length=300)
-    image = models.ImageField(upload_to='tools_images/')
+    image_url = models.URLField(max_length=500, blank=True, null=True)
     detailed_content = models.TextField()
     category = models.CharField(max_length=100, default='General')
     created_at = models.DateTimeField(auto_now_add=True)

@@ -1,49 +1,17 @@
 {% extends "core/base.html" %}
 {% block content %}
-<h1>Tools Listing</h1>
-<div class="tools-grid">
+<h1 class="text-center text-light mt-4">Tools Listing</h1>
+
+<div class="tools-grid animate__animated animate__fadeIn">
     {% for tool in tools %}
     <div class="tool-card">
-        <img src="{{ tool.image.url }}" alt="{{ tool.title }}" class="tool-thumbnail" />
+        {% if tool.image_url %}
+        <img src="{{ tool.image_url }}" alt="Tool Image">
+        {% endif %}
         <h3>{{ tool.title }}</h3>
         <p>{{ tool.short_description }}</p>
-        <a href="{% url 'tools:tool_detail' tool.pk %}" class="btn btn-primary">Read More</a>
+        <a href="{{ tool.link }}" class="btn-read">Continue reading »</a>
     </div>
-    {% empty %}
-    <p>No tools available.</p>
     {% endfor %}
 </div>
-<style>
-.tools-grid {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 20px;
-}
-.tool-card {
-    border: 1px solid #ccc;
-    padding: 15px;
-    width: 250px;
-    box-shadow: 2px 2px 5px rgba(0,0,0,0.1);
-    border-radius: 8px;
-    text-align: center;
-}
-.tool-thumbnail {
-    max-width: 100%;
-    height: 150px;
-    object-fit: cover;
-    border-radius: 4px;
-}
-.btn {
-    display: inline-block;
-    margin-top: 10px;
-    padding: 8px 12px;
-    background-color: #007bff;
-    color: white;
-    text-decoration: none;
-    border-radius: 4px;
-}
-.btn:hover {
-    background-color: #0056b3;
-}
-</style>
 {% endblock %}
