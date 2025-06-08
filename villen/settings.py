@@ -128,6 +128,13 @@ MEDIA_ROOT = BASE_DIR / 'media'
 # Whitenoise for smooth static file serving (especially on platforms like Heroku)
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
+CACHES = {
+    'default': {
+        'BACKEND': 'django.core.cache.backends.locmem.LocMemCache',
+    }
+}
+
+
 # Email setup - for your contact forms and more
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'smtp.gmail.com'
