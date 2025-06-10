@@ -49,6 +49,7 @@ INSTALLED_APPS = [
     'allauth.socialaccount.providers.github',
 
     'tools',
+    'widget_tweaks',
 ]
 
 # Middleware stack - the guardians of your app’s request & response
