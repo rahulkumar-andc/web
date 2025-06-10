@@ -1,5 +1,4 @@
 {% extends 'core/base.html' %}
-{% load static %}
 {% load socialaccount %}
 
 {% block title %}Login - Villen{% endblock %}
@@ -11,7 +10,6 @@
     color: #ccc;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   }
-
   .login-container {
     max-width: 400px;
     margin: 80px auto;
@@ -19,79 +17,87 @@
     background-color: #121212;
     border-radius: 15px;
     box-shadow: 0 0 25px rgba(0, 150, 255, 0.6);
+    color: #ccc;
     animation: fadeInSlideDown 0.7s ease forwards;
   }
-
   h1 {
     text-align: center;
     margin-bottom: 25px;
     color: #00aaff;
     text-shadow: 0 0 10px #00aaff;
   }
-
-  form input {
+  form {
+    display: flex;
+    flex-direction: column;
+  }
+  form input, form select, form textarea {
     background-color: #222;
     border: 1px solid #00aaff;
     border-radius: 8px;
     color: #eee;
     padding: 10px 14px;
     margin-bottom: 18px;
-    font-size: 15px;
+    font-size: 1rem;
+    transition: border-color 0.3s ease;
   }
-
-  .btn-submit {
+  form input:focus {
+    outline: none;
+    border-color: #0099dd;
+    box-shadow: 0 0 8px #0099dd;
+  }
+  .btn-primary {
     background-color: #00aaff;
     border: none;
-    padding: 10px;
-    color: #000;
-    border-radius: 8px;
-    font-weight: bold;
-    transition: 0.3s;
+    padding: 12px;
+    font-weight: 700;
+    font-size: 1.1rem;
+    border-radius: 10px;
+    box-shadow: 0 0 20px #00aaff;
+    cursor: pointer;
+    transition: background-color 0.3s ease, box-shadow 0.3s ease;
   }
-
-  .btn-submit:hover {
+  .btn-primary:hover {
     background-color: #0077cc;
-    color: #fff;
+    box-shadow: 0 0 30px #0077cc;
   }
-
-  .social-login a {
-    display: block;
-    margin-top: 10px;
-    color: #00aaff;
+  p {
+    color: #888;
     text-align: center;
+    margin-top: 18px;
+  }
+  p a {
+    color: #00aaff;
     text-decoration: none;
-    border: 1px solid #00aaff;
-    border-radius: 8px;
-    padding: 10px;
-    transition: background 0.3s;
+    font-weight: 600;
+    transition: color 0.3s ease;
+  }
+  p a:hover {
+    color: #66cfff;
   }
 
-  .social-login a:hover {
-    background-color: #00aaff;
-    color: #000;
+  @keyframes fadeInSlideDown {
+    0% {
+      opacity: 0;
+      transform: translateY(-30px);
+    }
+    100% {
+      opacity: 1;
+      transform: translateY(0);
+    }
   }
 </style>
 
 <div class="login-container">
   <h1>Login</h1>
-  <form method="POST" action="{% url 'account_login' %}">
-    {% csrf_token %}
-    {{ form.non_field_errors }}
-
-    {{ form.login.label_tag }}
-    {{ form.login }}
-    {{ form.login.errors }}
-
-    {{ form.password.label_tag }}
-    {{ form.password }}
-    {{ form.password.errors }}
-
-    <input type="submit" class="btn-submit" value="Login">
+  <form method="post">
+      {% csrf_token %}
+      {{ form.as_p }}
+      <button type="submit" class="btn btn-primary">Login</button>
   </form>
+  <h3>Login with:</h3>
+      <a href="{% provider_login_url 'google' %}" class="btn btn-outline-danger">Login with Google</a>
+      <a href="{% provider_login_url 'github' %}" class="btn btn-outline-dark">Login with GitHub</a>
 
-  <div class="social-login">
-    <a href="{% provider_login_url 'google' %}">Login with Google</a>
-    <a href="{% provider_login_url 'github' %}">Login with GitHub</a>
-  </div>
+      <p>Don't have an account? <a href="{% url 'core:register' %}">Register here</a>.</p>
 </div>
 {% endblock %}
