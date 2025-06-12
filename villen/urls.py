@@ -26,6 +26,8 @@ urlpatterns = [
     path('accounts/', include('allauth.urls')),  # For Google and GitHub login
     path('tools/', include('tools.urls')),
     path("instagram/", RedirectView.as_view(url="https://www.instagram.com/_vilen_bhai_", permanent=True)),
+    path('ckeditor/', include('ckeditor_uploader.urls')),
+
 ]
 
 if settings.DEBUG:

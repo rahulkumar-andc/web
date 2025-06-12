@@ -25,15 +25,25 @@ class Service(models.Model):
     def __str__(self):
         return self.title
 
+# ⬇️ Import RichTextField from CKEditor
+from ckeditor.fields import RichTextField
+
+
 class BlogPost(models.Model):
     title = models.CharField(max_length=200)
     slug = models.SlugField(max_length=200, unique=True, blank=True)
-    content = models.TextField()
-    image_url = models.URLField(max_length=500, blank=True, null=True)  # <-- new field
-    author = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='blog_posts')
+
+    # ⬇️ Upgrade to RichTextField for full HTML, CSS, Code etc.
+    content = RichTextField(config_name='default')
+
+    image_url = models.URLField(max_length=500, blank=True, null=True)
+    author = models.ForeignKey(
+        settings.AUTH_USER_MODEL,
+        on_delete=models.CASCADE,
+        related_name='blog_posts'
+    )
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
-    
 
     def save(self, *args, **kwargs):
         if not self.slug:
@@ -45,6 +55,7 @@ class BlogPost(models.Model):
 
     def get_absolute_url(self):
         return reverse('core:blog_detail', kwargs={'slug': self.slug})
+
 
 from django.contrib.auth import get_user_model
 

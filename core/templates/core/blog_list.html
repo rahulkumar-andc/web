@@ -1,5 +1,4 @@
 {% extends 'core/base.html' %}
-
 {% block title %}All Blog Posts - Villen{% endblock %}
 {% load math_filters %}
 
@@ -67,9 +66,25 @@
     .blog-content-preview {
         flex-grow: 1;
         color: #ddd;
+        max-height: 180px;
         overflow: hidden;
-        text-overflow: ellipsis;
-        max-height: 6em;
+        position: relative;
+    }
+
+    .blog-content-preview::after {
+        content: '...';
+        position: absolute;
+        bottom: 0;
+        right: 0;
+        padding-left: 10px;
+        background: linear-gradient(to right, rgba(18, 18, 18, 0), #121212 80%);
+    }
+
+    .blog-content-preview img,
+    .blog-content-preview iframe {
+        max-width: 100%;
+        height: auto;
+        border-radius: 6px;
     }
 
     .btn-primary {
@@ -94,36 +109,19 @@
         animation: fadeIn 1s ease-in-out;
     }
 
-    /* Animations */
     @keyframes fadeInUp {
-        0% {
-            opacity: 0;
-            transform: translateY(30px);
-        }
-        100% {
-            opacity: 1;
-            transform: translateY(0);
-        }
+        0% { opacity: 0; transform: translateY(30px); }
+        100% { opacity: 1; transform: translateY(0); }
     }
 
     @keyframes slideDown {
-        0% {
-            transform: translateY(-40px);
-            opacity: 0;
-        }
-        100% {
-            transform: translateY(0);
-            opacity: 1;
-        }
+        0% { transform: translateY(-40px); opacity: 0; }
+        100% { transform: translateY(0); opacity: 1; }
     }
 
     @keyframes fadeIn {
-        from {
-            opacity: 0;
-        }
-        to {
-            opacity: 1;
-        }
+        from { opacity: 0; }
+        to { opacity: 1; }
     }
 </style>
 
@@ -133,13 +131,17 @@
     <div class="row">
         {% for post in posts %}
         <div class="col-md-4 d-flex align-items-stretch">
-            <div class="blog-card w-100" style="animation-delay: {{ forloop.counter0|add:1 }} s;">
+            <div class="blog-card w-100" style="animation-delay: {{ forloop.counter0|add:1 }}s;">
                 {% if post.image_url %}
                     <img src="{{ post.image_url }}" alt="Blog Image">
                 {% endif %}
                 <h3><a href="{% url 'core:blog_detail' slug=post.slug %}">{{ post.title }}</a></h3>
                 <p class="blog-meta">By {{ post.author.username }} on {{ post.created_at|date:"F j, Y" }}</p>
-                <p class="blog-content-preview">{{ post.content|truncatewords:30 }}</p>
+                
+                <div class="blog-content-preview">
+                    {{ post.content|safe }}
+                </div>
+
                 <a href="{% url 'core:blog_detail' slug=post.slug %}" class="btn btn-primary mt-3">Read More</a>
             </div>
         </div>

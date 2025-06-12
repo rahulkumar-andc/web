@@ -10,7 +10,7 @@
     }
 
     .form-container {
-        max-width: 600px;
+        max-width: 700px;
         margin: 40px auto;
         background-color: #1e1e1e;
         padding: 30px;
@@ -25,10 +25,11 @@
     }
 
     .form-control,
-    .form-select {
-        background-color: #2c2c2c;
-        color: #ffffff;
-        border: 1px solid #444;
+    .form-select,
+    .django-ckeditor-widget {
+        background-color: #2c2c2c !important;
+        color: #ffffff !important;
+        border: 1px solid #444 !important;
     }
 
     .form-control:focus {
@@ -42,6 +43,7 @@
         color: #000;
         font-weight: bold;
         border-radius: 8px;
+        padding: 8px 16px;
     }
 
     .btn-villen:hover {
@@ -70,22 +72,21 @@
 
 <div class="form-container">
     <h2 class="text-center mb-4">{{ title }}</h2>
-    
-    <form method="post" enctype="multipart/form-data">
+
+    <form method="post">
         {% csrf_token %}
         {{ form.as_p }}
+
         {% if form.image_url.value %}
             <div>
                 <label>Current Image:</label><br>
-                <img src="{{ form.image_url.value }}" alt="Image Preview" class="preview-img" style="max-width: 100%; height: auto;">
+                <img src="{{ form.image_url.value }}" alt="Image Preview" class="preview-img">
             </div>
         {% endif %}
 
-        
-
         <div class="mt-4 d-flex justify-content-between">
-            <button type="submit" class="btn btn-villen">Save</button>
-            <a href="{% url 'core:blog_list' %}" class="btn btn-secondary">Cancel</a>
+            <button type="submit" class="btn btn-villen">💾 Save</button>
+            <a href="{% url 'core:blog_list' %}" class="btn btn-secondary">❌ Cancel</a>
         </div>
     </form>
 </div>

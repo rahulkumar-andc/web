@@ -50,6 +50,9 @@ INSTALLED_APPS = [
 
     'tools',
     'widget_tweaks',
+    #for custom HTML and CSS tweaks
+    'ckeditor',
+    'ckeditor_uploader',
 ]
 
 # Middleware stack - the guardians of your app’s request & response
@@ -219,5 +222,24 @@ SOCIALACCOUNT_PROVIDERS = {
             'secret': 'd30185165685deba496eced7598255b291407bb8',
             'key': ''
         }
+    }
+}
+
+
+# CKEditor configuration
+
+CKEDITOR_UPLOAD_PATH = "uploads/"
+
+CKEDITOR_CONFIGS = {
+    'default': {
+        'toolbar': 'Full',
+        'height': 400,
+        'width': 'auto',
+        'tabSpaces': 4,
+        'extraPlugins': ','.join([
+            'codesnippet',  # code blocks
+            'autogrow',
+        ]),
+        'codeSnippet_theme': 'monokai_sublime',  # dark code theme
     }
 }

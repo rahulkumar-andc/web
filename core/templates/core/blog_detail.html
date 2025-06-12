@@ -1,5 +1,4 @@
 {% extends 'core/base.html' %}
-
 {% block title %}{{ post.title }} - Villen{% endblock %}
 
 {% block content %}
@@ -32,21 +31,59 @@
         margin-bottom: 20px;
     }
 
-    .blog-content {
-        line-height: 1.8;
-        color: #ddd;
-    }
-
-    .blog-content p {
-        margin-bottom: 15px;
-    }
-
     .blog-image {
         width: 100%;
         max-height: 450px;
         object-fit: cover;
         border-radius: 12px;
         margin-bottom: 25px;
+    }
+
+    .blog-content {
+        line-height: 1.8;
+        color: #ddd;
+    }
+
+    .blog-content h2,
+    .blog-content h3,
+    .blog-content h4 {
+        color: #00ff9d;
+        margin-top: 1.5em;
+    }
+
+    .blog-content a {
+        color: #1e90ff;
+        text-decoration: underline;
+    }
+
+    .blog-content pre {
+        background-color: #222;
+        padding: 10px;
+        border-radius: 6px;
+        overflow-x: auto;
+        margin: 15px 0;
+        color: #00ff9d;
+        font-family: 'Courier New', Courier, monospace;
+    }
+
+    .blog-content code {
+        background-color: #2c2c2c;
+        padding: 2px 6px;
+        border-radius: 4px;
+        color: #00ffa2;
+    }
+
+    .blog-content ul {
+        padding-left: 20px;
+        margin: 15px 0;
+    }
+
+    .blog-content blockquote {
+        border-left: 4px solid #00ff9d;
+        padding-left: 15px;
+        color: #ccc;
+        font-style: italic;
+        margin: 20px 0;
     }
 
     .back-btn {
@@ -87,10 +124,9 @@
     <p class="blog-meta">By {{ post.author.username }} on {{ post.created_at|date:"F j, Y" }}</p>
 
     <div class="blog-content">
-        {{ post.content|linebreaks }}
+        {{ post.content|safe }}
     </div>
 
     <a href="{% url 'core:blog_list' %}" class="back-btn">← Back to Blog List</a>
 </div>
-
 {% endblock %}
