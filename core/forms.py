@@ -3,7 +3,7 @@ from .models import UserProfile, ContactMessage
 from django.core.exceptions import ValidationError
 from .models import Service, BlogPost
 from django.utils.text import slugify
-
+from django_ckeditor_5.widgets import CKEditor5Widget
 ICON_CHOICES = [
     ('fas fa-code', 'Code'),
     ('fas fa-shield-alt', 'Shield'),
@@ -38,6 +38,7 @@ class BlogPostForm(forms.ModelForm):
         widgets = {
             'title': forms.TextInput(attrs={'class': 'form-control'}),
             'content': forms.Textarea(attrs={'class': 'form-control', 'rows': 6}),
+            'image_url': forms.ClearableFileInput(attrs={'class': 'form-control'}),
         }
 class UserProfileForm(forms.ModelForm):
     class Meta:

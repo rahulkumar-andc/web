@@ -228,7 +228,9 @@ SOCIALACCOUNT_PROVIDERS = {
 
 # CKEditor configuration
 
-CKEDITOR_UPLOAD_PATH = "uploads/"
+CKEDITOR_5_UPLOAD_PATH = "uploads/"
+
+
 CKEDITOR_5_CONFIGS = {
     'default': {
         'toolbar': [
