@@ -51,7 +51,8 @@ INSTALLED_APPS = [
     'tools',
     'widget_tweaks',
     #for custom HTML and CSS tweaks
-    'ckeditor5'
+    'django_ckeditor_5',
+
     ]
 
 # Middleware stack - the guardians of your app’s request & response
