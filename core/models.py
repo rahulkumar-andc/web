@@ -27,6 +27,7 @@ class Service(models.Model):
 
 # ⬇️ Import RichTextField from CKEditor
 from ckeditor.fields import RichTextField
+from ckeditor_uploader.fields import CKEditor5Field
 
 
 class BlogPost(models.Model):
@@ -34,7 +35,7 @@ class BlogPost(models.Model):
     slug = models.SlugField(max_length=200, unique=True, blank=True)
 
     # ⬇️ Upgrade to RichTextField for full HTML, CSS, Code etc.
-    content = RichTextField(config_name='default')
+    content = CKEditor5Field('Content', config_name='default')
 
     image_url = models.URLField(max_length=500, blank=True, null=True)
     author = models.ForeignKey(

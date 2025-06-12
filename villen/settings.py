@@ -51,9 +51,8 @@ INSTALLED_APPS = [
     'tools',
     'widget_tweaks',
     #for custom HTML and CSS tweaks
-    'ckeditor',
-    'ckeditor_uploader',
-]
+    'ckeditor5'
+    ]
 
 # Middleware stack - the guardians of your app’s request & response
 MIDDLEWARE = [
@@ -229,17 +228,16 @@ SOCIALACCOUNT_PROVIDERS = {
 # CKEditor configuration
 
 CKEDITOR_UPLOAD_PATH = "uploads/"
-
-CKEDITOR_CONFIGS = {
+CKEDITOR_5_CONFIGS = {
     'default': {
-        'toolbar': 'Full',
-        'height': 400,
-        'width': 'auto',
-        'tabSpaces': 4,
-        'extraPlugins': ','.join([
-            'codesnippet',  # code blocks
-            'autogrow',
-        ]),
-        'codeSnippet_theme': 'monokai_sublime',  # dark code theme
+        'toolbar': [
+            'heading', '|',
+            'bold', 'italic', 'link', 'codeBlock', '|',
+            'bulletedList', 'numberedList', '|',
+            'outdent', 'indent', '|',
+            'imageUpload', 'insertTable', 'blockQuote', 'undo', 'redo'
+        ],
+        'language': 'en',
     }
 }
+CKEDITOR_5_JQUERY_URL = 'https://code.jquery.com/jquery-3.6.0.min.js'
