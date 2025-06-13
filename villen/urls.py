@@ -25,7 +25,11 @@ urlpatterns = [
     path('', include('core.urls')),
     path('accounts/', include('allauth.urls')),  # For Google and GitHub login
     path('tools/', include('tools.urls')),
+    path('ckeditor5/', include('django_ckeditor_5.urls')),
+    # Redirects for social media links
     path("instagram/", RedirectView.as_view(url="https://www.instagram.com/_vilen_bhai_", permanent=True)),
+    path("github/", RedirectView.as_view(url="https://github.com/vilen-bhai", permanent=True)),
+    path("linkedin/", RedirectView.as_view(url="https://www.linkedin.com/in/vilen-bhai", permanent=True)),
 ]
 
 if settings.DEBUG:
