@@ -235,12 +235,26 @@ CKEDITOR_5_CONFIGS = {
     'default': {
         'toolbar': [
             'heading', '|',
-            'bold', 'italic', 'link', 'codeBlock', '|',
+            'bold', 'italic', 'link', 'codeBlock', 'htmlEmbed', '|',
             'bulletedList', 'numberedList', '|',
             'outdent', 'indent', '|',
             'imageUpload', 'insertTable', 'blockQuote', 'undo', 'redo'
         ],
         'language': 'en',
+        'htmlSupport': {
+            'allow': [
+                {
+                    'name': '/.*/',
+                    'attributes': True,
+                    'classes': True,
+                    'styles': True
+                }
+            ]
+        },
+        'htmlEmbed': {
+            'showPreviews': True
+        },
     }
 }
+
 CKEDITOR_5_JQUERY_URL = 'https://code.jquery.com/jquery-3.6.0.min.js'
