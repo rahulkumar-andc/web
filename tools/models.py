@@ -15,6 +15,7 @@ class Tool(models.Model):
     source_code_url = models.URLField(max_length=500, blank=True, null=True)
     detailed_content = CKEditor5Field('Content', config_name='default')
     category = models.CharField(max_length=100, default='General')
+    author = models.ForeignKey(User, on_delete=models.CASCADE, related_name='tool_posts')
     author = models.ForeignKey(
         settings.AUTH_USER_MODEL,
         on_delete=models.CASCADE,
