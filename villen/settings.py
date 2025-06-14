@@ -160,6 +160,10 @@ CSRF_TRUSTED_ORIGINS = [
     "https://www.villen.me",
 ]
 
+# Session timeout settings for admin logout after 5 minutes of inactivity
+SESSION_COOKIE_AGE = 300  # 5 minutes in seconds
+SESSION_SAVE_EVERY_REQUEST = True
+
 # Proxy SSL header - helpful when behind reverse proxy like nginx
 SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
 

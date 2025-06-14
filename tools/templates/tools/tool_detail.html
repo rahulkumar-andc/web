@@ -51,8 +51,8 @@
 
 <div class="container tool-detail-container animate__animated animate__fadeInUp">
     <h1 class="mb-4">{{ tool.title }}</h1>
-    {% if tool.image %}
-        <img src="{{ tool.image.url }}" alt="{{ tool.title }}">
+    {% if tool.image_url %}
+        <img src="{{ tool.image_url }}" alt="{{ tool.title }}">
     {% endif %}
     <div class="tool-detail-content mb-4">
         {{ tool.detailed_content|safe }}

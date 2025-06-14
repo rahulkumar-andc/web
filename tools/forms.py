@@ -14,7 +14,7 @@ class ToolReviewForm(forms.ModelForm):
 class ToolForm(forms.ModelForm):
     class Meta:
         model = Tool
-        fields = ['title', 'short_description', 'detailed_content', 'image_url']
+        fields = ['title', 'category', 'detailed_content', 'image_url', 'video_url', 'source_code_url']
         widgets = {
             'detailed_content': forms.Textarea(attrs={'rows': 6}),
         }
