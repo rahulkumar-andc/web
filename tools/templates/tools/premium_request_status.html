@@ -3,6 +3,10 @@
 <h2>Premium Request Status</h2>
 {% if status == 'pending' %}
     <p>Your premium request is currently pending approval. Please wait for an admin to review your request.</p>
+    <form method="post" action="{% url 'tools:cancel_premium_request' %}">
+        {% csrf_token %}
+        <button type="submit" class="btn btn-danger">Cancel Premium Request</button>
+    </form>
 {% elif status == 'approved' %}
     <p>Congratulations! Your premium request has been approved. You now have access to premium tools.</p>
 {% elif status == 'rejected' %}

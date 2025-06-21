@@ -116,6 +116,35 @@ def premium_request_status(request):
     return render(request, 'tools/premium_request_status.html', {'status': status})
 
 @login_required
+def cancel_premium_request(request):
+    user_profile = request.user.profile
+    if request.method == 'POST':
+        pending_request = PremiumRequest.objects.filter(user=request.user, status='pending').first()
+        if pending_request:
+            pending_request.status = 'cancelled'
+            pending_request.reviewed_at = timezone.now()
+            pending_request.save()
+            user_profile.premium_request_status = 'cancelled'
+            user_profile.save()
+            # Send email notification to admins about cancellation
+            admin_emails = [user.email for user in User.objects.filter(is_superuser=True) if user.email]
+            if admin_emails:
+                send_mail(
+                    'Premium Access Request Cancelled',
+                    f'User {request.user.username} has cancelled their premium access request.',
+                    settings.DEFAULT_FROM_EMAIL,
+                    admin_emails,
+                    fail_silently=True,
+                )
+            messages.success(request, 'Your premium request has been cancelled.')
+        else:
+            messages.info(request, 'No pending premium request found to cancel.')
+        return redirect('tools:premium_request_status')
+    else:
+        messages.error(request, 'Invalid request method.')
+        return redirect('tools:premium_request_status')
+
+@login_required
 @user_passes_test(lambda u: u.is_superuser)
 def admin_dashboard(request):
     from django.contrib.auth.models import User
