@@ -117,18 +117,31 @@
 
 {% block extra_js %}
 <script>
+  // 👉 Define globally accessible toggleHeader function
+  function toggleHeader() {
+    const header = document.getElementById('villen-header');
+    const showBtn = document.getElementById('show-header-btn');
+
+    if (header.style.display !== 'none') {
+      header.style.display = 'none';
+      showBtn.style.display = 'block';
+    } else {
+      header.style.display = 'block';
+      showBtn.style.display = 'none';
+    }
+  }
+
   document.addEventListener('DOMContentLoaded', function () {
     const toggleBtn = document.getElementById('toggle-btn');
     const title = document.getElementById('villen-title');
-    const header = document.getElementById('villen-header');
-    const showBtn = document.getElementById('show-header-btn');
     let hideTimeout;
 
-    // Show on hover or click
+    // Show toggle button on hover
     title.addEventListener('mouseenter', () => {
       toggleBtn.style.display = 'inline-block';
     });
 
+    // Show toggle button on click
     title.addEventListener('click', () => {
       toggleBtn.style.display = 'inline-block';
       clearTimeout(hideTimeout);
@@ -136,19 +149,10 @@
         toggleBtn.style.display = 'none';
       }, 3000);
     });
-
-    window.toggleHeader = function () {
-      if (header.style.display !== 'none') {
-        header.style.display = 'none';
-        showBtn.style.display = 'block';
-      } else {
-        header.style.display = 'block';
-        showBtn.style.display = 'none';
-      }
-    };
   });
 </script>
 {% endblock %}
+
 
 
 {% block extra_css %}
