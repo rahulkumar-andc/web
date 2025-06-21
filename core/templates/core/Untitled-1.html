@@ -1,0 +1,213 @@
+{% extends 'core/base.html' %}
+{% block title %}About Villen Bhai — The Mind Behind the Code{% endblock %}
+{% load static %}
+{% block custom_header %}
+
+
+
+{% endblock %}
+{% block content %}
+<!-- Video Background -->
+<div id="video-bg">
+  <video autoplay muted loop class="video-bg" style="position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; object-fit: cover; z-index: -1;">
+    <source src="{% static 'video/birds.mp4' %}" type="video/mp4">
+     Your browser does not support the video tag.
+  </video>
+</div>
+
+<!-- About Section (Already Present) -->
+<section id="about-villen" class="container rounded-4 p-5 my-5 text-center" 
+         style="background-color: rgba(15, 17, 18, 0.422); color: #222;">
+  <h2 class="display-4 mb-4 fw-bold" style="color: #00a2ff;">Villen Bhai</h2>
+  <p id="dynamic-about" class="fs-5"></p>
+</section>
+
+<!-- 🏆 Achievements -->
+<section class="container my-5 text-light text-center">
+  <h2 class="text-info mb-4">🏆 Achievements</h2>
+  <ul class="list-group list-group-flush bg-transparent">
+    <li class="list-group-item bg-transparent text-light">Built <strong>Jarvis_X</strong> — Voice + AI + Memory Assistant</li>
+    <li class="list-group-item bg-transparent text-light">Created <strong>VillenOSINT</strong> tool for IG profiling</li>
+    <li class="list-group-item bg-transparent text-light">Shared GATE prep to 500+ aspirants</li>
+    <li class="list-group-item bg-transparent text-light">Over 10K+ views on Instagram tech reels 🎥</li>
+  </ul>
+</section>
+
+<!-- 📚 Education -->
+<section class="container my-5 text-light text-center">
+  <h2 class="text-warning mb-4">🎓 Education</h2>
+  <div class="row justify-content-center">
+    <div class="col-md-6">
+      <h5>Delhi University</h5>
+      <p>BSc Physical Science with Electronics (2023–2026)</p>
+    </div>
+    <div class="col-md-6">
+      <h5>Intermediate - Science</h5>
+      <p>Village Dhira, Lakhisarai (2021–2023)</p>
+    </div>
+  </div>
+</section>
+
+<!-- 🛠️ Skills -->
+<section class="container my-5 text-center text-light">
+  <h2 class="text-success mb-4">🛠️ Tech Stack</h2>
+  <div class="d-flex flex-wrap justify-content-center gap-2">
+    <span class="badge bg-info fs-6">Python</span>
+    <span class="badge bg-dark fs-6">C++</span>
+    <span class="badge bg-danger fs-6">Django</span>
+    <span class="badge bg-primary fs-6">React.js</span>
+    <span class="badge bg-success fs-6">Kali Linux</span>
+    <span class="badge bg-warning text-dark fs-6">OSINT</span>
+    <span class="badge bg-secondary fs-6">GATE Prep</span>
+    <span class="badge bg-light text-dark fs-6">Cybersecurity</span>
+  </div>
+</section>
+
+<!-- 📸 Gallery -->
+<section class="container my-5 text-center">
+  <h2 class="text-light mb-4">📸 Gallery</h2>
+  <div class="row">
+    <div class="col-md-4 mb-3">
+      <img src="{% static 'images/showcase1.jpg' %}" class="img-fluid rounded shadow" alt="Project Work">
+    </div>
+    <div class="col-md-4 mb-3">
+      <img src="{% static 'images/showcase2.jpg' %}" class="img-fluid rounded shadow" alt="Coding">
+    </div>
+    <div class="col-md-4 mb-3">
+      <img src="{% static 'images/showcase3.jpg' %}" class="img-fluid rounded shadow" alt="Hack Setup">
+    </div>
+  </div>
+</section>
+
+<!-- 🌐 Social Links -->
+<section class="container my-5 text-center">
+  <h2 class="text-light mb-4">🌐 Let’s Connect</h2>
+  <div class="d-flex justify-content-center flex-wrap gap-3">
+    <a href="https://github.com/rahulkumar-andc" class="btn btn-outline-light rounded-pill">🐙 GitHub</a>
+    <a href="https://linkedin.com/in/villen-bhai" class="btn btn-outline-info rounded-pill">💼 LinkedIn</a>
+    <a href="https://instagram.com/villen.bhai" class="btn btn-outline-danger rounded-pill">📸 Instagram</a>
+    <a href="mailto:pk6299160241@gmail.com" class="btn btn-outline-warning rounded-pill">✉️ Email</a>
+  </div>
+</section>
+
+<!-- Script for Dynamic Content (Already Present) -->
+<script>
+  // ... same generateAboutText() as above
+</script>
+{% endblock %}
+
+
+
+{% block extra_css %}
+<style>
+  /* Video Background Styling */
+  #video-bg {
+    position: fixed;
+    top: 0; left: 0;
+    width: 100vw;
+    height: 100vh;
+    overflow: hidden;
+    z-index: -1;
+  }
+
+  #video-bg video {
+    position: absolute;
+    top: 50%; left: 50%;
+    min-width: 100%;
+    min-height: 100%;
+    width: auto;
+    height: auto;
+    transform: translate(-50%, -50%);
+    object-fit: cover;
+    pointer-events: none;
+  }
+
+  /* About Section Styling */
+  #about-villen {
+    max-width: 850px;
+    margin: 100px auto;
+    padding: 40px;
+    text-align: center;
+    color: #ffffff;
+    font-family: 'Segoe UI', sans-serif;
+    font-size: 1.2rem;
+    background-color: rgba(0, 0, 0, 0.4); /* Slight transparent black overlay */
+    border-radius: 10px;
+    backdrop-filter: blur(3px);
+  }
+
+  #about-villen h2 {
+    font-size: 2.5rem;
+    margin-bottom: 20px;
+    letter-spacing: 1px;
+  }
+
+  #about-villen em {
+    color: #00e5ff;
+    font-weight: 500;
+  }
+  .video-bg {
+  position: fixed;
+  right: 0;
+  bottom: 0;
+  min-width: 100%;
+  min-height: 100%;
+  z-index: -1;
+  filter: brightness(0.3);
+}
+
+.hero-content {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  color: #fff;
+  text-align: center;
+  padding: 0 20px;
+}
+
+.hero-content h1 {
+  font-size: 3.5rem;
+  font-weight: bold;
+  text-shadow: 0 0 15px #28cab7;
+  margin-bottom: 20px;
+}
+
+.hero-content p {
+  font-size: 1.5rem;
+  line-height: 1.6;
+  margin: 10px 0;
+}
+
+.hero-content blockquote {
+  font-size: 1.3rem;
+  margin-top: 20px;
+  font-style: italic;
+  color: #d3d3d3;
+}
+
+.villen {
+  color: #00ffdd;
+  text-shadow: 0 0 10px #00ffee;
+}
+
+.highlight {
+  color: #ff69b4;
+  font-weight: bold;
+  text-shadow: 0 0 5px #ff1493;
+}
+
+.glow {
+  color: #87cefa;
+  font-weight: bold;
+  text-shadow: 0 0 10px #00bfff;
+}
+
+.list-group-item {
+  background-color: transparent;
+  border: none;
+  font-size: 1.1rem;
+}
+</style>
+{% endblock %}

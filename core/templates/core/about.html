@@ -1,6 +1,27 @@
 {% extends 'core/base.html' %}
 {% block title %}About Villen Bhai — The Mind Behind the Code{% endblock %}
 {% load static %}
+
+
+{% block custom_header %}
+<!-- 🔥 Custom Header Only for About Page -->
+<header class="text-center p-4 bg-dark text-light border-bottom border-info">
+  <h1 class="display-4 fw-bold glow">🌟 Meet Villen Bhai</h1>
+  <p class="fs-5 text-secondary mb-4">Code. Hack. Inspire. Repeat.</p>
+
+  <!-- ✨ Section Buttons -->
+  <div class="d-flex justify-content-center flex-wrap gap-3">
+    <a href="#achievements" class="btn btn-outline-info rounded-pill">🏆 Achievements</a>
+    <a href="#education" class="btn btn-outline-warning rounded-pill">🎓 Education</a>
+    <a href="#skills" class="btn btn-outline-success rounded-pill">⚙️ Skills</a>
+    <a href="#gallery" class="btn btn-outline-light rounded-pill">📸 Gallery</a>
+    <a href="#social" class="btn btn-outline-danger rounded-pill">🌐 Connect</a>
+  </div>
+</header>
+{% endblock %}
+
+
+
 {% block content %}
 <!-- Video Background -->
 <div id="video-bg">
