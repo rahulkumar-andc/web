@@ -15,8 +15,11 @@ from django.http import HttpResponse
 
 logger = logging.getLogger(__name__)
 
+from tools.models import Tool
+
 def home(request):
-    return render(request, 'core/home.html')
+    tools = Tool.objects.all().order_by('-created_at')[:5]
+    return render(request, 'core/home.html', {'tools': tools})
 
 
 def about(request):

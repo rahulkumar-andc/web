@@ -84,6 +84,19 @@
     <p>You are not logged in. <a href="{% url 'core:login' %}" class="link-highlight">Login</a> or <a href="{% url 'core:register' %}" class="link-highlight">Register</a></p>
   {% endif %}
   
-  
+  <section class="tools-section" style="margin-top: 3rem; color: #00ffea;">
+    <h2>Latest Tools</h2>
+    <ul style="list-style: none; padding: 0;">
+      {% for tool in tools %}
+        <li style="margin-bottom: 1rem;">
+          <a href="{% url 'tools:tool_detail' tool.pk %}" style="color: #00ffea; text-decoration: underline;">
+            {{ tool.title }}
+          </a>
+        </li>
+      {% empty %}
+        <li>No tools available.</li>
+      {% endfor %}
+    </ul>
+  </section>
 </div>
 {% endblock %}
