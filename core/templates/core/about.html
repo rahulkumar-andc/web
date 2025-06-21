@@ -4,12 +4,21 @@
 
 
 {% block custom_header %}
-<!-- 🔥 Custom Header Only for About Page -->
-<header class="text-center p-4 bg-dark text-light border-bottom border-info">
-  <h1 class="display-4 fw-bold glow">🌟 Meet Villen Bhai</h1>
+
+
+<header id="villen-header" class="text-center p-4 bg-dark text-light border-bottom border-info position-relative">
+
+  <!-- 👇 Hidden Button -->
+  <button onclick="toggleHeader()" id="toggle-btn" class="btn btn-sm btn-outline-light position-absolute top-0 end-0 m-3" style="display: none;">
+    Hide ✖️
+  </button>
+
+  <h1 class="display-4 fw-bold glow" id="villen-title" style="cursor: pointer;">
+    🌟 Meet Villen Bhai
+  </h1>
+  
   <p class="fs-5 text-secondary mb-4">Code. Hack. Inspire. Repeat.</p>
 
-  <!-- ✨ Section Buttons -->
   <div class="d-flex justify-content-center flex-wrap gap-3">
     <a href="#achievements" class="btn btn-outline-info rounded-pill">🏆 Achievements</a>
     <a href="#education" class="btn btn-outline-warning rounded-pill">🎓 Education</a>
@@ -18,8 +27,15 @@
     <a href="#social" class="btn btn-outline-danger rounded-pill">🌐 Connect</a>
   </div>
 </header>
-{% endblock %}
 
+<!-- Show Header button after hidden -->
+<div id="show-header-btn" class="text-center my-3" style="display: none;">
+  <button onclick="toggleHeader()" class="btn btn-info rounded-pill">
+    Show Header 🌟
+  </button>
+</div>
+
+{% endblock %}
 
 
 {% block content %}
@@ -95,11 +111,45 @@
   `;
 }
 
-
-
   document.getElementById('dynamic-about').innerHTML = generateAboutText();
 </script>
 {% endblock %}
+
+{% block extra_js %}
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    const toggleBtn = document.getElementById('toggle-btn');
+    const title = document.getElementById('villen-title');
+    const header = document.getElementById('villen-header');
+    const showBtn = document.getElementById('show-header-btn');
+    let hideTimeout;
+
+    // Show on hover or click
+    title.addEventListener('mouseenter', () => {
+      toggleBtn.style.display = 'inline-block';
+    });
+
+    title.addEventListener('click', () => {
+      toggleBtn.style.display = 'inline-block';
+      clearTimeout(hideTimeout);
+      hideTimeout = setTimeout(() => {
+        toggleBtn.style.display = 'none';
+      }, 3000);
+    });
+
+    window.toggleHeader = function () {
+      if (header.style.display !== 'none') {
+        header.style.display = 'none';
+        showBtn.style.display = 'block';
+      } else {
+        header.style.display = 'block';
+        showBtn.style.display = 'none';
+      }
+    };
+  });
+</script>
+{% endblock %}
+
 
 {% block extra_css %}
 <style>
