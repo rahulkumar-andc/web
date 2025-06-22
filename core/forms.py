@@ -34,11 +34,12 @@ class ContactForm(forms.ModelForm):
 class BlogPostForm(forms.ModelForm):
     class Meta:
         model = BlogPost
-        fields = ['title', 'content', 'image_url']  # image field added
+        fields = ['title', 'content', 'image_url', 'is_private']  # Added is_private field
         widgets = {
             'title': forms.TextInput(attrs={'class': 'form-control'}),
             'content': forms.Textarea(attrs={'class': 'form-control', 'rows': 6}),
             'image_url': forms.ClearableFileInput(attrs={'class': 'form-control'}),
+            'is_private': forms.CheckboxInput(attrs={'class': 'form-check-input'}),
         }
 class UserProfileForm(forms.ModelForm):
     class Meta:

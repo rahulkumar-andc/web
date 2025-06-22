@@ -42,6 +42,7 @@ class BlogPost(models.Model):
         on_delete=models.CASCADE,
         related_name='blog_posts'
     )
+    is_private = models.BooleanField(default=False)  # Added field for public/private option
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 

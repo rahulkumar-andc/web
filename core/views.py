@@ -152,11 +152,16 @@ def services_view(request):
     return render(request, 'core/services.html', context)
 
 def blog_list(request):
-    posts = BlogPost.objects.all().order_by('-created_at')
+    if request.user.is_authenticated and request.user.is_superuser:
+        posts = BlogPost.objects.all().order_by('-created_at')
+    else:
+        posts = BlogPost.objects.filter(is_private=False).order_by('-created_at')
     return render(request, 'core/blog_list.html', {'posts': posts})
 
 def blog_detail(request, slug):
     post = get_object_or_404(BlogPost, slug=slug)
+    if post.is_private and (not request.user.is_authenticated or not request.user.is_superuser):
+        return HttpResponse("You do not have permission to view this private blog post.", status=403)
     return render(request, 'core/blog_detail.html', {'post': post})
 
 @login_required
