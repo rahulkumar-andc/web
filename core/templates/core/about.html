@@ -2,30 +2,25 @@
 {% block title %}About Villen Bhai — The Mind Behind the Code{% endblock %}
 {% load static %}
 
-
 {% block custom_header %}
-
-
 <header id="villen-header" class="text-center p-4 bg-dark text-light border-bottom border-info position-relative">
-
-  <!-- 👇 Hidden Button -->
-  <button onclick="toggleHeader()" id="toggle-btn" class="btn btn-sm btn-outline-light position-absolute top-0 end-0 m-3" style="display: none;">
-    Hide ✖️
-  </button>
-
   <h1 class="display-4 fw-bold glow" id="villen-title" style="cursor: pointer;">
     🌟 Meet Villen Bhai
   </h1>
-  
   <p class="fs-5 text-secondary mb-4">Code. Hack. Inspire. Repeat.</p>
 
-  <div class="d-flex justify-content-center flex-wrap gap-3">
+  <div id="header-buttons" class="d-flex justify-content-center flex-wrap gap-3" style="display: none; opacity: 0;">
     <a href="#achievements" class="btn btn-outline-info rounded-pill">🏆 Achievements</a>
     <a href="#education" class="btn btn-outline-warning rounded-pill">🎓 Education</a>
     <a href="#skills" class="btn btn-outline-success rounded-pill">⚙️ Skills</a>
     <a href="#gallery" class="btn btn-outline-light rounded-pill">📸 Gallery</a>
     <a href="#social" class="btn btn-outline-danger rounded-pill">🌐 Connect</a>
   </div>
+
+  <!-- 👇 Hidden Button -->
+  <button onclick="toggleHeader()" id="toggle-btn" class="btn btn-sm btn-outline-light position-absolute top-0 end-0 m-3" style="display: none;">
+    Hide ✖️
+  </button>
 </header>
 
 <!-- Show Header button after hidden -->
@@ -34,47 +29,28 @@
     Show Header 🌟
   </button>
 </div>
-
 {% endblock %}
-
 
 {% block content %}
 <!-- Video Background -->
 <div id="video-bg">
-  <video autoplay muted loop class="video-bg" style="position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; object-fit: cover; z-index: -1;">
+  <video autoplay muted loop class="video-bg">
     <source src="{% static 'video/birds.mp4' %}" type="video/mp4">
-     Your browser does not support the video tag.
-</video>
+    Your browser does not support the video tag.
+  </video>
 </div>
 
 <!-- Transparent About Section -->
-<section id="about-villen" class="container rounded-4 p-5 my-5 text-center" 
-         style="background-color: rgba(15, 17, 18, 0.422); color: #222;">
+<section id="about-villen" class="container rounded-4 p-5 my-5 text-center">
   <h2 class="display-4 mb-4 fw-bold" style="color: #00a2ff;">Villen Bhai</h2>
   <p id="dynamic-about" class="fs-5"></p>
 </section>
 
-
-
-<!-- Script for Dynamic Content -->
 <script>
-  const techSkills = [
-    'Python', 'C++', 'Java', 'Django', 'React.js',
-    'Kali Linux', 'Ethical Hacking', 'Cybersecurity',
-    'Network Security', 'Penetration Testing'
-  ];
-
-  const passions = [
-    'coding', 'ethical hacking', 'gaming (PUBG, Free Fire, GTA 5, Minecraft)',
-    'GATE exam prep', 'romantic shayari', 'life advice'
-  ];
-
-  const values = [
-    'relentless curiosity', 'unwavering dedication', 'a hunger for knowledge',
-    'passion for perfection', 'heart full of empathy', 'mind sharp like a blade',
-    'spirit that never settles'
-  ];
-
+document.addEventListener('DOMContentLoaded', function () {
+  const techSkills = ['Python', 'C++', 'Java', 'Django', 'React.js', 'Kali Linux', 'Ethical Hacking', 'Cybersecurity', 'Network Security', 'Penetration Testing'];
+  const passions = ['coding', 'ethical hacking', 'gaming (PUBG, Free Fire, GTA 5, Minecraft)', 'GATE exam prep', 'romantic shayari', 'life advice'];
+  const values = ['relentless curiosity', 'unwavering dedication', 'a hunger for knowledge', 'passion for perfection', 'heart full of empathy', 'mind sharp like a blade', 'spirit that never settles'];
   const lifeQuotes = [
     '“Life is a code — sometimes buggy, always beautiful.”',
     '“In every failure lies the seed of a stronger comeback.”',
@@ -83,114 +59,151 @@
     '“The greatest hack is to live authentically.”',
     '“From the darkest nights emerge the brightest stars.”',
   ];
+  const colors = ['#1E90FF', '#FF4500', '#32CD32', '#8A2BE2', '#FFD700', '#FF69B4', '#00CED1', '#FF8C00'];
 
   function getRandom(arr) {
     return arr[Math.floor(Math.random() * arr.length)];
   }
 
-  function generateAboutText() {
-  const colors = ['#1E90FF', '#FF4500', '#32CD32', '#8A2BE2', '#FFD700', '#FF69B4', '#00CED1', '#FF8C00'];
-
   function getRandomColor() {
-    return colors[Math.floor(Math.random() * colors.length)];
+    return getRandom(colors);
   }
 
-  return `
-    <p style="color:${getRandomColor()};">By day, I wield my skills in <span class="fw-bold">${getRandom(techSkills)}</span> and <span class="fw-bold">${getRandom(techSkills)}</span>, crafting solutions 
-    that bridge logic and creativity.</p>
-    
-    <p style="color:${getRandomColor()};">Driven by <span class="fw-semibold">${getRandom(values)}</span>, I dive deep into <span class="fw-semibold">${getRandom(passions)}</span>, 
-    whether it’s the thrill of ethical hacking or the poetry hidden in romantic shayari.</p>
-    
-    <p style="color:${getRandomColor()};">Every challenge I face, every bug I squash, is a step toward mastery — not just of code, but of life itself.</p>
-    
-    <p style="color:${getRandomColor()};">I am Villen Bhai — a seeker, a creator, a dreamer, and above all, a believer that the journey 
-    matters more than the destination.</p>
-    
-    <p style="color:${getRandomColor()};"><em class="fw-bold fst-italic">${getRandom(lifeQuotes)}</em></p>
-  `;
-}
+  function generateAboutText() {
+    return `
+      <p style="color:${getRandomColor()};">By day, I wield my skills in <span class="fw-bold">${getRandom(techSkills)}</span> and <span class="fw-bold">${getRandom(techSkills)}</span>, crafting solutions that bridge logic and creativity.</p>
+      <p style="color:${getRandomColor()};">Driven by <span class="fw-semibold">${getRandom(values)}</span>, I dive deep into <span class="fw-semibold">${getRandom(passions)}</span>, whether it’s the thrill of ethical hacking or the poetry hidden in romantic shayari.</p>
+      <p style="color:${getRandomColor()};">Every challenge I face, every bug I squash, is a step toward mastery — not just of code, but of life itself.</p>
+      <p style="color:${getRandomColor()};">I am Villen Bhai — a seeker, a creator, a dreamer, and above all, a believer that the journey matters more than the destination.</p>
+      <p style="color:${getRandomColor()};"><em class="fw-bold fst-italic">${getRandom(lifeQuotes)}</em></p>
+    `;
+  }
 
-  document.getElementById('dynamic-about').innerHTML = generateAboutText();
+  const dynamicAbout = document.getElementById('dynamic-about');
+  if (dynamicAbout) {
+    dynamicAbout.innerHTML = generateAboutText();
+  }
+});
 </script>
 {% endblock %}
 
 {% block extra_js %}
 <script>
-  // 👉 Define globally accessible toggleHeader function
-  function toggleHeader() {
-    const header = document.getElementById('villen-header');
-    const showBtn = document.getElementById('show-header-btn');
+function toggleHeader() {
+  const header = document.getElementById('villen-header');
+  const showBtn = document.getElementById('show-header-btn');
 
-    if (header.style.display !== 'none') {
-      header.style.display = 'none';
-      showBtn.style.display = 'block';
-    } else {
-      header.style.display = 'block';
-      showBtn.style.display = 'none';
-    }
+  if (header.style.display !== 'none') {
+    header.style.display = 'none';
+    showBtn.style.display = 'block';
+  } else {
+    header.style.display = 'block';
+    showBtn.style.display = 'none';
+  }
+}
+
+document.addEventListener('DOMContentLoaded', function () {
+  const toggleBtn = document.getElementById('toggle-btn');
+  const title = document.getElementById('villen-title');
+  let hideTimeout;
+
+  title.addEventListener('mouseenter', () => {
+    toggleBtn.style.display = 'inline-block';
+  });
+
+  title.addEventListener('click', () => {
+    toggleBtn.style.display = 'inline-block';
+    clearTimeout(hideTimeout);
+    hideTimeout = setTimeout(() => {
+      toggleBtn.style.display = 'none';
+    }, 3000);
+  });
+});
+document.addEventListener('DOMContentLoaded', function () {
+  const title = document.getElementById('villen-title');
+  const buttons = document.getElementById('header-buttons');
+  const toggleBtn = document.getElementById('toggle-btn');
+  let hideTimeout;
+
+  // Show buttons with fade
+  function showButtons() {
+    buttons.style.display = 'flex';
+    setTimeout(() => {
+      buttons.style.opacity = 1;
+    }, 50);
   }
 
-  document.addEventListener('DOMContentLoaded', function () {
-    const toggleBtn = document.getElementById('toggle-btn');
-    const title = document.getElementById('villen-title');
-    let hideTimeout;
+  // Hide buttons with fade
+  function hideButtons() {
+    buttons.style.opacity = 0;
+    setTimeout(() => {
+      buttons.style.display = 'none';
+    }, 300);
+  }
 
-    // Show toggle button on hover
-    title.addEventListener('mouseenter', () => {
-      toggleBtn.style.display = 'inline-block';
-    });
-
-    // Show toggle button on click
-    title.addEventListener('click', () => {
-      toggleBtn.style.display = 'inline-block';
-      clearTimeout(hideTimeout);
-      hideTimeout = setTimeout(() => {
-        toggleBtn.style.display = 'none';
-      }, 3000);
-    });
+  // Show on hover
+  title.addEventListener('mouseenter', () => {
+    showButtons();
+    clearTimeout(hideTimeout);
   });
+
+  // Show on click + optional auto-hide
+  title.addEventListener('click', () => {
+    showButtons();
+    clearTimeout(hideTimeout);
+    hideTimeout = setTimeout(() => {
+      hideButtons();
+    }, 5000); // hide after 5s
+  });
+
+  // Toggle button logic remains unchanged
+  title.addEventListener('mouseenter', () => {
+    toggleBtn.style.display = 'inline-block';
+  });
+
+  title.addEventListener('click', () => {
+    toggleBtn.style.display = 'inline-block';
+    clearTimeout(hideTimeout);
+    hideTimeout = setTimeout(() => {
+      toggleBtn.style.display = 'none';
+    }, 3000);
+  });
+});
+
 </script>
 {% endblock %}
 
-
-
 {% block extra_css %}
 <style>
-  /* Video Background Styling */
   #video-bg {
     position: fixed;
     top: 0; left: 0;
-    width: 100vw;
-    height: 100vh;
+    width: 100vw; height: 100vh;
     overflow: hidden;
     z-index: -1;
   }
 
-  #video-bg video {
+  .video-bg {
     position: absolute;
     top: 50%; left: 50%;
-    min-width: 100%;
-    min-height: 100%;
-    width: auto;
-    height: auto;
+    min-width: 100%; min-height: 100%;
     transform: translate(-50%, -50%);
     object-fit: cover;
     pointer-events: none;
+    filter: brightness(0.3);
   }
 
-  /* About Section Styling */
   #about-villen {
     max-width: 850px;
     margin: 100px auto;
     padding: 40px;
-    text-align: center;
     color: #ffffff;
     font-family: 'Segoe UI', sans-serif;
     font-size: 1.2rem;
-    background-color: rgba(0, 0, 0, 0.4); /* Slight transparent black overlay */
+    background-color: rgba(0, 0, 0, 0.4);
     border-radius: 10px;
     backdrop-filter: blur(3px);
+    text-align: center;
   }
 
   #about-villen h2 {
@@ -203,64 +216,15 @@
     color: #00e5ff;
     font-weight: 500;
   }
-  .video-bg {
-  position: fixed;
-  right: 0;
-  bottom: 0;
-  min-width: 100%;
-  min-height: 100%;
-  z-index: -1;
-  filter: brightness(0.3);
-}
 
-.hero-content {
-  height: 100vh;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  color: #fff;
-  text-align: center;
-  padding: 0 20px;
+  .glow {
+    color: #87cefa;
+    font-weight: bold;
+    text-shadow: 0 0 10px #00bfff;
+  }
+  #header-buttons {
+  transition: opacity 0.3s ease-in-out;
 }
-
-.hero-content h1 {
-  font-size: 3.5rem;
-  font-weight: bold;
-  text-shadow: 0 0 15px #28cab7;
-  margin-bottom: 20px;
-}
-
-.hero-content p {
-  font-size: 1.5rem;
-  line-height: 1.6;
-  margin: 10px 0;
-}
-
-.hero-content blockquote {
-  font-size: 1.3rem;
-  margin-top: 20px;
-  font-style: italic;
-  color: #d3d3d3;
-}
-
-.villen {
-  color: #00ffdd;
-  text-shadow: 0 0 10px #00ffee;
-}
-
-.highlight {
-  color: #ff69b4;
-  font-weight: bold;
-  text-shadow: 0 0 5px #ff1493;
-}
-
-.glow {
-  color: #87cefa;
-  font-weight: bold;
-  text-shadow: 0 0 10px #00bfff;
-}
-
 
 </style>
 {% endblock %}
