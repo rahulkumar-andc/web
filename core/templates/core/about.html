@@ -4,41 +4,44 @@
 
 {% block custom_header %}
 <header id="villen-header" class="text-center p-4 bg-dark text-light border-bottom border-info position-relative">
-  <h1 class="display-4 fw-bold glow" id="villen-title" style="cursor: pointer;" role="button" aria-label="Toggle header buttons" tabindex="0">
+  <h1 class="display-4 fw-bold glow" id="villen-title" style="cursor: pointer;">
     🌟 Meet Villen Bhai
   </h1>
   <p class="fs-5 text-secondary mb-4">Code. Hack. Inspire. Repeat.</p>
 
-  <div id="header-buttons" class="d-flex justify-content-center flex-wrap gap-3" style="display: none; opacity: 0;">
-    <a href="#achievements" class="btn btn-outline-info rounded-pill" role="button" aria-label="View Achievements">🏆 Achievements</a>
-    <a href="#education" class="btn btn-outline-warning rounded-pill" role="button" aria-label="View Education">🎓 Education</a>
-    <a href="#skills" class="btn btn-outline-success rounded-pill" role="button" aria-label="View Skills">⚙️ Skills</a>
-    <a href="#gallery" class="btn btn-outline-light rounded-pill" role="button" aria-label="View Gallery">📸 Gallery</a>
-    <a href="#social" class="btn btn-outline-danger rounded-pill" role="button" aria-label="Connect on Social Media">🌐 Connect</a>
+  <div id="header-buttons" class="d-flex justify-content-center flex-wrap gap-3">
+    <a href="#achievements" class="btn btn-outline-info rounded-pill">🏆 Achievements</a>
+    <a href="#education" class="btn btn-outline-warning rounded-pill">🎓 Education</a>
+    <a href="#skills" class="btn btn-outline-success rounded-pill">⚙️ Skills</a>
+    <a href="#gallery" class="btn btn-outline-light rounded-pill">📸 Gallery</a>
+    <a href="#social" class="btn btn-outline-danger rounded-pill">🌐 Connect</a>
   </div>
 
-  <button id="toggle-btn" class="btn btn-sm btn-outline-light position-absolute top-0 end-0 m-3" style="display: none;" aria-label="Hide header">
+  <button onclick="toggleHeader()" id="toggle-btn" class="btn btn-sm btn-outline-light position-absolute top-0 end-0 m-3" style="display: none;">
     Hide ✖️
   </button>
 </header>
 
 <div id="show-header-btn" class="text-center my-3" style="display: none;">
-  <button class="btn btn-info rounded-pill" aria-label="Show header">
+  <button onclick="toggleHeader()" class="btn btn-info rounded-pill">
     Show Header 🌟
   </button>
 </div>
 {% endblock %}
 
 {% block content %}
+<!-- 🌌 Video Background -->
 <div id="video-bg">
-  <video muted loop class="video-bg" preload="metadata" poster="{% static 'images/video-fallback.jpg' %}" loading="lazy" onerror="this.style.display='none'; document.getElementById('video-bg').style.backgroundImage='url({% static 'images/video-fallback.jpg' %})';">
-    <source src="{% static 'video/birds.webm' %}" type="video/webm">
+  <video autoplay muted loop playsinline class="video-bg" preload="metadata" poster="{% static 'images/video-fallback.jpg' %}">
     <source src="{% static 'video/birds.mp4' %}" type="video/mp4">
     Your browser does not support the video tag.
   </video>
-  <button id="video-toggle" class="btn btn-sm btn-outline-light position-fixed bottom-0 end-0 m-3" aria-label="Pause video">Pause ⏸️</button>
+  <button id="video-toggle" class="btn btn-sm btn-outline-light position-fixed bottom-0 end-0 m-3">
+    ⏸️ Pause
+  </button>
 </div>
 
+<!-- ✨ About Section -->
 <section id="about-villen" class="container rounded-4 p-5 my-5 text-center">
   <h2 class="display-4 mb-4 fw-bold" style="color: #00a2ff;">Villen Bhai</h2>
   <p id="dynamic-about" class="fs-5"></p>
@@ -47,8 +50,41 @@
 
 {% block extra_js %}
 <script>
-document.addEventListener('DOMContentLoaded', () => {
-  // Data arrays
+document.addEventListener('DOMContentLoaded', function () {
+  // ==== Toggle Header ====
+  function toggleHeader() {
+    const header = document.getElementById('villen-header');
+    const showBtn = document.getElementById('show-header-btn');
+
+    if (header.style.display !== 'none') {
+      header.style.display = 'none';
+      showBtn.style.display = 'block';
+    } else {
+      header.style.display = 'block';
+      showBtn.style.display = 'none';
+    }
+  }
+  window.toggleHeader = toggleHeader;
+
+  // ==== Video Controls ====
+  const video = document.querySelector('.video-bg');
+  const videoToggle = document.getElementById('video-toggle');
+
+  if (video && videoToggle) {
+    videoToggle.addEventListener('click', () => {
+      if (video.paused) {
+        video.play();
+        videoToggle.innerHTML = '⏸️ Pause';
+      } else {
+        video.pause();
+        videoToggle.innerHTML = '▶️ Play';
+      }
+    });
+
+    video.play().catch(() => console.warn("Autoplay blocked."));
+  }
+
+  // ==== Dynamic About Text ====
   const techSkills = ['Python', 'C++', 'Java', 'Django', 'React.js', 'Kali Linux', 'Ethical Hacking', 'Cybersecurity', 'Network Security', 'Penetration Testing'];
   const passions = ['coding', 'ethical hacking', 'gaming (PUBG, Free Fire, GTA 5, Minecraft)', 'GATE exam prep', 'romantic shayari', 'life advice'];
   const values = ['relentless curiosity', 'unwavering dedication', 'a hunger for knowledge', 'passion for perfection', 'heart full of empathy', 'mind sharp like a blade', 'spirit that never settles'];
@@ -60,190 +96,93 @@ document.addEventListener('DOMContentLoaded', () => {
     '“The greatest hack is to live authentically.”',
     '“From the darkest nights emerge the brightest stars.”',
   ];
+  const colors = ['#1E90FF', '#FF4500', '#32CD32', '#8A2BE2', '#FFD700', '#FF69B4', '#00CED1', '#FF8C00'];
 
-  // Utility functions
   const getRandom = arr => arr[Math.floor(Math.random() * arr.length)];
-  const getRandomUnique = (arr, exclude = []) => {
-    const available = arr.filter(item => !exclude.includes(item));
-    return available[Math.floor(Math.random() * available.length)];
-  };
 
-  // Generate dynamic about text
-  const generateAboutText = () => {
-    const skill1 = getRandom(techSkills);
-    const skill2 = getRandomUnique(techSkills, [skill1]);
+  function generateAboutText() {
     return `
-      <p style="color: var(--color${Math.floor(Math.random() * 8) + 1});">By day, I wield my skills in <span class="fw-bold">${skill1}</span> and <span class="fw-bold">${skill2}</span>, crafting solutions that bridge logic and creativity.</p>
-      <p style="color: var(--color${Math.floor(Math.random() * 8) + 1});">Driven by <span class="fw-semibold">${getRandom(values)}</span>, I dive deep into <span class="fw-semibold">${getRandom(passions)}</span>, whether it’s the thrill of ethical hacking or the poetry hidden in romantic shayari.</p>
-      <p style="color: var(--color${Math.floor(Math.random() * 8) + 1});">Every challenge I face, every bug I squash, is a step toward mastery — not just of code, but of life itself.</p>
-      <p style="color: var(--color${Math.floor(Math.random() * 8) + 1});">I am Villen Bhai — a seeker, a creator, a dreamer, and above all, a believer that the journey matters more than the destination.</p>
-      <p style="color: var(--color${Math.floor(Math.random() * 8) + 1});"><em class="fw-bold fst-italic">${getRandom(lifeQuotes)}</em></p>
+      <p style="color:${getRandom(colors)};">By day, I wield my skills in <span class="fw-bold">${getRandom(techSkills)}</span> and <span class="fw-bold">${getRandom(techSkills)}</span>, crafting solutions that bridge logic and creativity.</p>
+      <p style="color:${getRandom(colors)};">Driven by <span class="fw-semibold">${getRandom(values)}</span>, I dive deep into <span class="fw-semibold">${getRandom(passions)}</span>, whether it’s the thrill of ethical hacking or the poetry hidden in romantic shayari.</p>
+      <p style="color:${getRandom(colors)};">Every challenge I face, every bug I squash, is a step toward mastery — not just of code, but of life itself.</p>
+      <p style="color:${getRandom(colors)};">I am Villen Bhai — a seeker, a creator, a dreamer, and above all, a believer that the journey matters more than the destination.</p>
+      <p style="color:${getRandom(colors)};"><em class="fw-bold fst-italic">${getRandom(lifeQuotes)}</em></p>
     `;
-  };
+  }
 
-  // Header toggle functionality
-  const toggleHeader = () => {
-    const header = document.getElementById('villen-header');
-    const showBtn = document.getElementById('show-header-btn');
-    if (header.style.display !== 'none') {
-      header.style.display = 'none';
-      showBtn.style.display = 'block';
-    } else {
-      header.style.display = 'block';
-      showBtn.style.display = 'none';
-    }
-  };
-
-  // Button visibility management
-  const showButtons = (buttons) => {
-    buttons.style.display = 'flex';
-    setTimeout(() => buttons.style.opacity = 1, 50);
-  };
-
-  const hideButtons = (buttons) => {
-    buttons.style.opacity = 0;
-    setTimeout(() => buttons.style.display = 'none', 300);
-  };
-
-  // Initialize elements
   const dynamicAbout = document.getElementById('dynamic-about');
-  const title = document.getElementById('villen-title');
-  const buttons = document.getElementById('header-buttons');
-  const toggleBtn = document.getElementById('toggle-btn');
-  const video = document.querySelector('.video-bg');
-  const videoToggle = document.getElementById('video-toggle');
-  const aboutSection = document.getElementById('about-villen');
-
-  // Set dynamic about text
   if (dynamicAbout) {
     dynamicAbout.innerHTML = generateAboutText();
   }
 
-  // Header interactions
-  if (title && buttons && toggleBtn) {
-    let hideTimeout;
-    title.addEventListener('mouseenter', () => {
-      showButtons(buttons);
-      toggleBtn.style.display = 'inline-block';
-      clearTimeout(hideTimeout);
-    });
+  // ==== Header Buttons Toggle ====
+  const title = document.getElementById('villen-title');
+  const buttons = document.getElementById('header-buttons');
+  const toggleBtn = document.getElementById('toggle-btn');
+  let hideTimeout;
 
-    title.addEventListener('click', () => {
-      showButtons(buttons);
-      toggleBtn.style.display = 'inline-block';
-      clearTimeout(hideTimeout);
-      hideTimeout = setTimeout(() => {
-        hideButtons(buttons);
-        toggleBtn.style.display = 'none';
-      }, 5000);
-    });
-
-    title.addEventListener('keydown', (e) => {
-      if (e.key === 'Enter' || e.key === ' ') {
-        e.preventDefault();
-        title.click();
-      }
-    });
-
-    toggleBtn.addEventListener('click', toggleHeader);
-    document.querySelector('#show-header-btn button').addEventListener('click', toggleHeader);
+  function showButtons() {
+    buttons.style.display = 'flex';
+    setTimeout(() => buttons.style.opacity = 1, 50);
   }
 
-  // Video controls
-  if (video && videoToggle) {
-    videoToggle.addEventListener('click', () => {
-      if (video.paused) {
-        video.play();
-        videoToggle.textContent = 'Pause ⏸️';
-        videoToggle.setAttribute('aria-label', 'Pause video');
-      } else {
-        video.pause();
-        videoToggle.textContent = 'Play ▶️';
-        videoToggle.setAttribute('aria-label', 'Play video');
-      }
-    });
-
-    window.addEventListener('load', () => {
-      video.play().catch(() => console.log('Autoplay prevented by browser.'));
-    });
+  function hideButtons() {
+    buttons.style.opacity = 0;
+    setTimeout(() => buttons.style.display = 'none', 300);
   }
 
-  // About section animation
-  if (aboutSection) {
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add('visible');
-          observer.unobserve(entry.target);
-        }
-      });
-    }, { threshold: 0.2 });
-    observer.observe(aboutSection);
-  }
+  title.addEventListener('mouseenter', () => {
+    showButtons();
+    toggleBtn.style.display = 'inline-block';
+    clearTimeout(hideTimeout);
+  });
+
+  title.addEventListener('click', () => {
+    showButtons();
+    toggleBtn.style.display = 'inline-block';
+    clearTimeout(hideTimeout);
+    hideTimeout = setTimeout(() => {
+      hideButtons();
+      toggleBtn.style.display = 'none';
+    }, 5000);
+  });
 });
 </script>
 {% endblock %}
 
 {% block extra_css %}
 <style>
-  :root {
-    --color1: #1E90FF;
-    --color2: #FF4500;
-    --color3: #32CD32;
-    --color4: #8A2BE2;
-    --color5: #FFD700;
-    --color6: #C71585;
-    --color7: #00CED1;
-    --color8: #FF8C00;
-    --glow: #87cefa;
-    --glow-shadow: #00bfff;
-  }
-
+  /* 🌌 Video Background Styling */
   #video-bg {
     position: fixed;
-    top: 0;
-    left: 0;
-    width: 100vw;
-    height: 100vh;
+    top: 0; left: 0;
+    width: 100vw; height: 100vh;
     overflow: hidden;
     z-index: -1;
-    background-size: cover;
-    background-position: center;
   }
 
   .video-bg {
     position: absolute;
-    top: 50%;
-    left: 50%;
-    min-width: 100%;
-    min-height: 100%;
+    top: 50%; left: 50%;
+    min-width: 100%; min-height: 100%;
     transform: translate(-50%, -50%);
     object-fit: cover;
     pointer-events: none;
     filter: brightness(0.3);
-    width: 100%;
-    height: 100%;
   }
 
+  /* 🧠 About Section */
   #about-villen {
     max-width: 850px;
     margin: 100px auto;
-    padding: clamp(20px, 5vw, 30px);
+    padding: clamp(20px, 5vw, 40px);
     color: #ffffff;
     font-family: 'Segoe UI', sans-serif;
-    font-size: clamp(1rem, 2.5vw, 1.1rem);
+    font-size: clamp(1rem, 2.5vw, 1.2rem);
     background-color: rgba(0, 0, 0, 0.4);
     border-radius: 10px;
     backdrop-filter: blur(3px);
     text-align: center;
-    opacity: 0;
-    transform: translateY(20px);
-    transition: opacity 0.6s ease-out, transform 0.6s ease-out;
-  }
-
-  #about-villen.visible {
-    opacity: 1;
-    transform: translateY(0);
   }
 
   #about-villen h2 {
@@ -258,24 +197,20 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   .glow {
-    color: var(--glow);
+    color: #87cefa;
     font-weight: bold;
-    text-shadow: 0 0 10px var(--glow-shadow);
+    text-shadow: 0 0 10px #00bfff;
   }
 
   #header-buttons {
     transition: opacity 0.3s ease-in-out;
-  }
-
-  #villen-header h1 {
-    font-size: clamp(2rem, 5vw, 3.5rem);
+    opacity: 0;
+    display: none;
   }
 
   #header-buttons .btn {
     font-size: clamp(0.9rem, 2vw, 1rem);
     padding: 0.5rem 1.2rem;
-    min-width: 44px;
-    min-height: 44px;
   }
 </style>
 {% endblock %}
