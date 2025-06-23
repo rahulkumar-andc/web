@@ -20,13 +20,6 @@
 
 {% block content %}
 <!-- Video Background -->
-<div id="video-bg">
-  <video autoplay muted loop playsinline class="video-bg" id="video-bg-element" preload="metadata" loading="lazy">
-    <source src="{% static 'video/birds.webm' %}" type="video/webm">
-    promin<source src="{% static 'video/birds.mp4' %}" type="video/mp4">
-  </video>
-  <img src="{% static 'images/video-fallback.webp' %}" alt="Nature background fallback image" class="video-fallback" loading="lazy">
-</div>
 
 <!-- About Section -->
 <section id="about-villen" class="container bg-light text-dark rounded-4 p-5 my-5 shadow">
@@ -262,43 +255,6 @@
 
   .glow {
     text-shadow: 0 0 10px rgba(0, 255, 136, 0.5);
-  }
-
-  /* Video Background */
-  #video-bg {
-    position: fixed; /* Fix to viewport */
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    overflow: hidden;
-    z-index: -1; /* Behind all content */
-  }
-  .video-bg {
-    width: 100%;
-    height: 100%;
-    object-fit: cover; /* Cover entire viewport */
-    position: absolute;
-    top: 0;
-    left: 0;
-  }
-  .video-fallback {
-    display: none;
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    position: absolute;
-    top: 0;
-    left: 0;
-  }
-  video:not(:first-child) {
-    display: none;
-  }
-
-  /* Ensure sections overlap video */
-  section, header {
-    position: relative;
-    z-index: 2; /* Above video */
   }
 
   /* About Section */
