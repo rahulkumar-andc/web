@@ -29,4 +29,10 @@ urlpatterns = [
     path('contact/', views.contact, name='contact'),
     path('profile/', views.profile, name='profile'),
     path('about/', views.about, name='about'),
+    path('achievements/', views.achievements, name='achievements'),
+    path('education/', views.education, name='education'),
+    path('skills/', views.skills, name='skills'),
+    path('gallery/', views.gallery, name='gallery'),
+    path('social/', views.social, name='social'),
+
 ]

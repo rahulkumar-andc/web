@@ -9,25 +9,21 @@
   </h1>
   <p class="fs-5 text-secondary mb-4">Code. Hack. Inspire. Repeat.</p>
 
-  <div id="header-buttons" class="d-flex justify-content-center flex-wrap gap-3">
-    <a href="#about-villen" class="btn btn-outline-primary rounded-pill">👤 About Me</a>
-    <a href="#achievements" class="btn btn-outline-info rounded-pill">🏆 Achievements</a>
-    <a href="#education" class="btn btn-outline-warning rounded-pill">🎓 Education</a>
-    <a href="#skills" class="btn btn-outline-success rounded-pill">⚙️ Skills</a>
-    <a href="#gallery" class="btn btn-outline-light rounded-pill">📸 Gallery</a>
-    <a href="#social" class="btn btn-outline-danger rounded-pill">🌐 Connect</a>
-  </div>
+  <div class="d-flex justify-content-center flex-wrap gap-3">
+  <a href="#achievements" class="btn btn-outline-info rounded-pill">🏆 Achievements</a>
+  <a href="#education" class="btn btn-outline-warning rounded-pill">🎓 Education</a>
+  <a href="#skills" class="btn btn-outline-success rounded-pill">⚙️ Skills</a>
+  <a href="#gallery" class="btn btn-outline-light rounded-pill">📸 Gallery</a>
+  <a href="#social" class="btn btn-outline-danger rounded-pill">🌐 Connect</a>
 
-  <button onclick="toggleHeader()" id="toggle-btn" class="btn btn-sm btn-outline-light position-absolute top-0 end-0 m-3" style="display: none;">
-    Hide ✖️
-  </button>
-</header>
-
-<div id="show-header-btn" class="text-center my-3" style="display: none;">
-  <button onclick="toggleHeader()" class="btn btn-info rounded-pill">
-    Show Header 🌟
-  </button>
+  <!-- Separate Pages -->
+  <a href="{% url 'achievements' %}" class="btn btn-info rounded-pill">View Achievements</a>
+  <a href="{% url 'education' %}" class="btn btn-warning rounded-pill">Full Education</a>
+  <a href="{% url 'skills' %}" class="btn btn-success rounded-pill">Explore Skills</a>
+  <a href="{% url 'gallery' %}" class="btn btn-light rounded-pill">Open Gallery</a>
+  <a href="{% url 'social' %}" class="btn btn-danger rounded-pill">Connect With Me</a>
 </div>
+
 {% endblock %}
 
 {% block content %}
@@ -47,171 +43,4 @@
   <h2 class="display-4 mb-4 fw-bold" style="color: #00a2ff;">Villen Bhai</h2>
   <p id="dynamic-about" class="fs-5"></p>
 </section>
-{% endblock %}
-
-{% block extra_js %}
-<script>
-// ==== Toggle Header (Global Scope First) ====
-function toggleHeader() {
-  const header = document.getElementById('villen-header');
-  const showBtn = document.getElementById('show-header-btn');
-
-  if (header.style.display !== 'none') {
-    header.style.display = 'none';
-    showBtn.style.display = 'block';
-  } else {
-    header.style.display = 'block';
-    showBtn.style.display = 'none';
-  }
-}
-window.toggleHeader = toggleHeader;
-
-document.addEventListener('DOMContentLoaded', function () {
-  // ==== Video Controls ====
-  const video = document.querySelector('.video-bg');
-  const videoToggle = document.getElementById('video-toggle');
-
-  if (video && videoToggle) {
-    videoToggle.addEventListener('click', () => {
-      if (video.paused) {
-        video.play();
-        videoToggle.innerHTML = '⏸️ Pause';
-      } else {
-        video.pause();
-        videoToggle.innerHTML = '▶️ Play';
-      }
-    });
-
-    video.play().catch(() => console.warn("Autoplay blocked."));
-  }
-
-  // ==== Dynamic About Text ====
-  const techSkills = ['Python', 'C++', 'Java', 'Django', 'React.js', 'Kali Linux', 'Ethical Hacking', 'Cybersecurity', 'Network Security', 'Penetration Testing'];
-  const passions = ['coding', 'ethical hacking', 'gaming (PUBG, Free Fire, GTA 5, Minecraft)', 'GATE exam prep', 'romantic shayari', 'life advice'];
-  const values = ['relentless curiosity', 'unwavering dedication', 'a hunger for knowledge', 'passion for perfection', 'heart full of empathy', 'mind sharp like a blade', 'spirit that never settles'];
-  const lifeQuotes = [
-    '“Life is a code — sometimes buggy, always beautiful.”',
-    '“In every failure lies the seed of a stronger comeback.”',
-    '“Dream big, hustle hard, and code your destiny.”',
-    '“When passion leads, success follows.”',
-    '“The greatest hack is to live authentically.”',
-    '“From the darkest nights emerge the brightest stars.”',
-  ];
-  const colors = ['#1E90FF', '#FF4500', '#32CD32', '#8A2BE2', '#FFD700', '#FF69B4', '#00CED1', '#FF8C00'];
-
-  const getRandom = arr => arr[Math.floor(Math.random() * arr.length)];
-
-  function generateAboutText() {
-    return `
-      <p style="color:${getRandom(colors)};">By day, I wield my skills in <span class="fw-bold">${getRandom(techSkills)}</span> and <span class="fw-bold">${getRandom(techSkills)}</span>, bridging logic and creativity.</p>
-      <p style="color:${getRandom(colors)};">Driven by <span class="fw-semibold">${getRandom(values)}</span>, I dive deep into <span class="fw-semibold">${getRandom(passions)}</span>, whether it’s the thrill of hacking or the poetry in shayari.</p>
-      <p style="color:${getRandom(colors)};">Every challenge I face is a step toward mastery — of code, and life.</p>
-      <p style="color:${getRandom(colors)};">I am Villen Bhai — a seeker, a creator, a dreamer, and a believer in the journey.</p>
-      <p style="color:${getRandom(colors)};"><em class="fw-bold fst-italic">${getRandom(lifeQuotes)}</em></p>
-    `;
-  }
-
-  const dynamicAbout = document.getElementById('dynamic-about');
-  if (dynamicAbout) {
-    dynamicAbout.innerHTML = generateAboutText();
-  }
-
-  // ==== Header Buttons Toggle ====
-  const title = document.getElementById('villen-title');
-  const buttons = document.getElementById('header-buttons');
-  const toggleBtn = document.getElementById('toggle-btn');
-  let hideTimeout;
-
-  function showButtons() {
-    buttons.style.display = 'flex';
-    setTimeout(() => buttons.style.opacity = 1, 50);
-  }
-
-  function hideButtons() {
-    buttons.style.opacity = 0;
-    setTimeout(() => buttons.style.display = 'none', 300);
-  }
-
-  title.addEventListener('mouseenter', () => {
-    showButtons();
-    toggleBtn.style.display = 'inline-block';
-    clearTimeout(hideTimeout);
-  });
-
-  title.addEventListener('click', () => {
-    showButtons();
-    toggleBtn.style.display = 'inline-block';
-    clearTimeout(hideTimeout);
-    hideTimeout = setTimeout(() => {
-      hideButtons();
-      toggleBtn.style.display = 'none';
-    }, 5000);
-  });
-});
-</script>
-{% endblock %}
-
-{% block extra_css %}
-<style>
-  /* 🌌 Video Background Styling */
-  #video-bg {
-    position: fixed;
-    top: 0; left: 0;
-    width: 100vw; height: 100vh;
-    overflow: hidden;
-    z-index: -1;
-  }
-
-  .video-bg {
-    position: absolute;
-    top: 50%; left: 50%;
-    min-width: 100%; min-height: 100%;
-    transform: translate(-50%, -50%);
-    object-fit: cover;
-    pointer-events: none;
-    filter: brightness(0.3);
-  }
-
-  /* 🧠 About Section */
-  #about-villen {
-    max-width: 850px;
-    margin: 100px auto;
-    padding: clamp(20px, 5vw, 40px);
-    color: #ffffff;
-    font-family: 'Segoe UI', sans-serif;
-    font-size: clamp(1rem, 2.5vw, 1.2rem);
-    background-color: rgba(0, 0, 0, 0.4);
-    border-radius: 10px;
-    backdrop-filter: blur(3px);
-    text-align: center;
-  }
-
-  #about-villen h2 {
-    font-size: clamp(2rem, 5vw, 2.5rem);
-    margin-bottom: 20px;
-    letter-spacing: 1px;
-  }
-
-  #about-villen em {
-    color: #00e5ff;
-    font-weight: 500;
-  }
-
-  .glow {
-    color: #87cefa;
-    font-weight: bold;
-    text-shadow: 0 0 10px #00bfff;
-  }
-
-  #header-buttons {
-    transition: opacity 0.3s ease-in-out;
-    opacity: 0;
-    display: none;
-  }
-
-  #header-buttons .btn {
-    font-size: clamp(0.9rem, 2vw, 1rem);
-    padding: 0.5rem 1.2rem;
-  }
-</style>
 {% endblock %}

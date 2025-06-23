@@ -22,10 +22,6 @@ def home(request):
     return render(request, 'core/home.html', {'tools': tools})
 
 
-def about(request):
-    return render(request, 'core/about.html')
-
-
 from django.http import JsonResponse
 
 def contact(request):
@@ -184,3 +180,24 @@ def custom_404_view(request, exception):
 
 def custom_500_view(request):
     return render(request, 'core/500.html', status=500)
+
+
+def about(request):
+    return render(request, 'core/about.html')
+
+def achievements(request):
+    return render(request, 'core/achievements.html')
+
+def education(request):
+    return render(request, 'core/education.html')
+
+def skills(request):
+    return render(request, 'core/skills.html')
+
+def gallery(request):
+    return render(request, 'core/gallery.html')
+
+def social(request):
+    return render(request, 'core/social.html')
+
+from django.views.decorators.csrf import csrf_exempt
