@@ -1,64 +1,73 @@
 
-{% extends 'core/base.html' %}
 {% load static %}
+
+{% block meta %}
+<meta name="description" content="Learn about Villen Bhai, a coder, hacker, and student at Delhi University passionate about cybersecurity and web development.">
+<meta name="keywords" content="Villen Bhai, coder, hacker, cybersecurity, web development, Delhi University">
+<meta name="author" content="Villen Bhai">
+{% endblock %}
 
 {% block title %}About Villen Bhai — The Mind Behind the Code{% endblock %}
 
 {% block custom_header %}
-<header id="villen-header" class="text-center p-4 bg-dark text-light border-bottom border-info position-relative">
-  <h1 class="display-4 fw-bold glow">🌟 Meet Villen Bhai</h1>
-  <p class="fs-5 text-secondary mb-4">Code. Hack. Inspire. Repeat.</p>
+<header id="villen-header" class="text-center bg-dark text-light border-bottom position-relative">
+  <h1 class="display-4 fw-bold glow">🌌 Meet Villen Bhai</h1>
+  <p class="fs-5 text-secondary mb-4 hacker-tagline">Code. Hack. Conquer. Repeat.</p>
   <nav class="d-flex justify-content-center flex-wrap gap-3" aria-label="Section navigation">
-    <a href="#achievements" class="btn btn-outline-info rounded-pill">🏆 Achievements</a>
-    <a href="#education" class="btn btn-outline-warning rounded-pill">🎓 Education</a>
-    <a href="#skills" class="btn btn-outline-success rounded-pill">⚙️ Skills</a>
-    <a href="#gallery" class="btn btn-outline-light rounded-pill">📸 Gallery</a>
-    <a href="#social" class="btn btn-outline-danger rounded-pill">🌐 Connect</a>
+    <a href="#achievements" class="btn btn-outline-neon rounded-pill" aria-label="View Achievements">🏆 Achievements</a>
+    <a href="#education" class="btn btn-outline-neon rounded-pill" aria-label="View Education">🎓 Education</a>
+    <a href="#skills" class="btn btn-outline-neon rounded-pill" aria-label="View Skills">⚙️ Skills</a>
+    <a href="#gallery" class="btn btn-outline-neon rounded-pill" aria-label="View Gallery">📸 Gallery</a>
+    <a href="#social" class="btn btn-outline-neon rounded-pill" aria-label="Connect with Villen Bhai">🌐 Connect</a>
   </nav>
 </header>
 {% endblock %}
 
 {% block content %}
 <!-- Video Background -->
+<video id="video-bg-element" autoplay muted loop playsinline>
+  <source src="{% static 'videos/background.mp4' %}" type="video/mp4">
+</video>
+<img class="video-fallback" src="{% static 'images/fallback.jpg' %}" alt="Background fallback image" style="display: none;">
 
 <!-- About Section -->
-<section id="about-villen" class="container bg-light text-dark rounded-4 p-5 my-5 shadow">
-  <h2 class="display-5 fw-bold text-center text-primary">Who is Villen Bhai?</h2>
-  <p class="fs-5 text-center" id="dynamic-about">I'm not just a student — I'm a storyteller in binary, a defender of digital kingdoms, and a lover who writes code like Shayari. From the dusty classrooms of Bihar to the code labs of DU, I’m Villen Bhai — coding emotions, hacking logic, and building the future.</p>
+<section id="about-villen" class="container section-card p-5 my-5">
+  <h2 class="hacker-heading text-center">Who is Villen Bhai?</h2>
+  <p class="hacker-text text-center" id="dynamic-about" aria-live="polite">I'm not just a student — I'm a storyteller who writes code like a poet, a coder crafting digital dreams. From the vibrant streets of Bihar to the tech labs of DU, I’m Villen Bhai — coding emotions, building the future.</p>
 </section>
 
 <!-- Education Section -->
-<section id="education" class="container bg-light text-dark rounded-4 p-5 my-5 shadow">
-  <h2 class="text-center mb-4">My Education</h2>
-  <p class="tagline text-center mb-4">Learning, Growing, Conquering</p>
+<section id="education" class="container section-card p-5 my-5">
+  <h2 class="hacker-heading text-center">My Education</h2>
+  <p class="hacker-text text-center mb-4">Learning, Growing, Conquering</p>
   <div class="education-section">
-    <div class="education-card">
-      <h3>B.Sc. Physical Science (PME)</h3>
+    <div class="education-card hacker-card">
+      <h3 class="hacker-subheading">B.Sc. Physical Science (PME)</h3>
       <div class="institution">Delhi University</div>
-      <div class="duration">2024 – Present</div>
-      <div class="details">Major in Electronics and Minor in CS.<br>Cybersecurity + Coding hustle side-by-side.</div>
+      <div class="duration">2023</div>
+      <div class="details">Major in Electronics, Minor in CS.<br>Cybersecurity + Coding hustle side-by-side.</div>
     </div>
-    <div class="education-card">
-      <h3>Class 12th (Bihar Board)</h3>
+    <div class="education-card hacker-card">
+      <h3 class="hacker-subheading">Class 12th (Bihar Board)</h3>
       <div class="institution">Dhira High School</div>
-      <div class="duration">2022 – 2024</div>
+      <div class="duration">2022</div>
       <div class="details">322/500 marks in PCM.<br>Foundation of logical thinking and ambition.</div>
     </div>
-    <div class="education-card">
-      <h3>Class 10th (CBSE)</h3>
+    <div class="education-card hacker-card">
+      <h3 class="hacker-subheading">Class 10th (CBSE)</h3>
       <div class="institution">Tirthankar Mahaveer Vidya Mandir</div>
       <div class="duration">2020</div>
-      <div class="details">59.66% – humble beginning, fire in the heart.</div>
+      <div class="details">59.2% – Humble beginning, fire in the heart.</div>
     </div>
   </div>
 </section>
 
 <!-- Skills Section -->
-<section id="skills" class="container bg-dark text-light rounded-4 p-5 my-5 shadow">
-  <h2 class="text-center mb-4">My Skills</h2>
+<section id="skills" class="container section-card p-5 my-0">
+  <h2 class="hacker-heading text-center">My Skills</h2>
   <div class="skills-section">
-    <div class="skill-card">
-      <h3>Languages</h3>
+    <div class="skill-card hacker-card">
+      <h3 class="hacker-subheading">Programming Languages</h3>
       <ul>
         <li>Python</li>
         <li>C++</li>
@@ -67,8 +76,8 @@
         <li>JavaScript</li>
       </ul>
     </div>
-    <div class="skill-card">
-      <h3>Cybersecurity</h3>
+    <div class="skill-card hacker-card">
+      <h3 class="hacker-subheading">Cybersecurity Tools</h3>
       <ul>
         <li>Kali Linux</li>
         <li>Nmap</li>
@@ -78,8 +87,8 @@
         <li>Pentester</li>
       </ul>
     </div>
-    <div class="skill-card">
-      <h3>Web Development</h3>
+    <div class="skill-card hacker-card">
+      <h3 class="hacker-subheading">Web Development</h3>
       <ul>
         <li>Django</li>
         <li>Bootstrap</li>
@@ -90,33 +99,33 @@
 </section>
 
 <!-- Achievements Section -->
-<section id="achievements" class="container bg-dark text-light rounded-4 p-5 my-5 shadow">
-  <h2 class="text-center mb-2">Contributors</h2>
-  <p class="subheading text-center mb-4">— Amazing People —</p>
+<section id="achievements" class="container section-card p-5 my-5">
+  <h2 class="hacker-heading text-center">Contributors</h2>
+  <p class="hacker-text text-center mb-4">— Amazing People —</p>
   <div class="carousel-wrapper">
-    <button class="carousel-prev" aria-label="Previous slide">❮</button>
+    <button class="carousel-prev hacker-btn" aria-label="Previous slide">❮</button>
     <div class="carousel" id="carousel">
       <!-- Slide 1 -->
       <div class="slide">
-        <div class="card">
-          <img src="{% static 'images/shubh.webp' %}" class="avatar" alt="Shubh avatar" loading="lazy">
-          <h3>Shubh</h3>
+        <div class="card hacker-card">
+          <img src="{% static 'images/shubh.webp' %}" class="avatar" alt="Shubh, Founder and Developer" loading="lazy">
+          <h3 class="hacker-subheading">Shubh</h3>
           <div class="labels">
             <span class="label role">Founder</span>
             <span class="label dev">Developer</span>
           </div>
         </div>
-        <div class="card">
-          <img src="{% static 'images/whoami.webp' %}" class="avatar" alt="Sudo Whoami avatar" loading="lazy">
-          <h3>Sudo Whoami</h3>
+        <div class="card hacker-card">
+          <img src="{% static 'images/whoami.webp' %}" class="avatar" alt="Sudo Whoami, Supporter and Developer" loading="lazy">
+          <h3 class="hacker-subheading">Sudo Whoami</h3>
           <div class="labels">
             <span class="label supporter">Supporter</span>
             <span class="label dev">Developer</span>
           </div>
         </div>
-        <div class="card">
-          <img src="{% static 'images/flampt.webp' %}" class="avatar" alt="Flampt avatar" loading="lazy">
-          <h3>Flampt</h3>
+        <div class="card hacker-card">
+          <img src="{% static 'images/flampt.webp' %}" class="avatar" alt="Flampt, Contributor" loading="lazy">
+          <h3 class="hacker-subheading">Flampt</h3>
           <div class="labels">
             <span class="label contributor">Contributor</span>
           </div>
@@ -124,23 +133,23 @@
       </div>
       <!-- Slide 2 -->
       <div class="slide">
-        <div class="card">
-          <img src="{% static 'images/taj.webp' %}" class="avatar" alt="Taj avatar" loading="lazy">
-          <h3>Taj</h3>
+        <div class="card hacker-card">
+          <img src="{% static 'images/taj.webp' %}" class="avatar" alt="Taj, Contributor" loading="lazy">
+          <h3 class="hacker-subheading">Taj</h3>
           <div class="labels">
             <span class="label contributor">Contributor</span>
           </div>
         </div>
-        <div class="card">
-          <img src="{% static 'images/denzven.webp' %}" class="avatar" alt="Denzven avatar" loading="lazy">
-          <h3>Denzven</h3>
+        <div class="card hacker-card">
+          <img src="{% static 'images/denzven.webp' %}" class="avatar" alt="Denzven, Contributor" loading="lazy">
+          <h3 class="hacker-subheading">Denzven</h3>
           <div class="labels">
             <span class="label contributor">Contributor</span>
           </div>
         </div>
-        <div class="card">
-          <img src="{% static 'images/kueue.webp' %}" class="avatar" alt="Professor Kueue avatar" loading="lazy">
-          <h3>Professor Kueue</h3>
+        <div class="card hacker-card">
+          <img src="{% static 'images/kueue.webp' %}" class="avatar" alt="Professor Kueue, Contributor" loading="lazy">
+          <h3 class="hacker-subheading">Professor Kueue</h3>
           <div class="labels">
             <span class="label contributor">Contributor</span>
           </div>
@@ -148,31 +157,31 @@
       </div>
       <!-- Slide 3 -->
       <div class="slide">
-        <div class="card">
-          <img src="{% static 'images/khrys.webp' %}" class="avatar" alt="Khrys avatar" loading="lazy">
-          <h3>Khrys</h3>
+        <div class="card hacker-card">
+          <img src="{% static 'images/khrys.webp' %}" class="avatar" alt="Khrys, Staff" loading="lazy">
+          <h3 class="hacker-subheading">Khrys</h3>
           <div class="labels">
             <span class="label staff">Staff</span>
           </div>
         </div>
-        <div class="card">
-          <img src="{% static 'images/villen.webp' %}" class="avatar" alt="Villen Bhai avatar" loading="lazy">
-          <h3>Villen Bhai</h3>
+        <div class="card hacker-card">
+          <img src="{% static 'images/villen.webp' %}" class="avatar" alt="Villen Bhai, OSINT Lead and Developer" loading="lazy">
+          <h3 class="hacker-subheading">Villen Bhai</h3>
           <div class="labels">
             <span class="label role">OSINT Lead</span>
             <span class="label dev">Developer</span>
           </div>
         </div>
-        <div class="card">
-          <img src="{% static 'images/guest.webp' %}" class="avatar" alt="Guest contributor avatar" loading="lazy">
-          <h3>Guest</h3>
+        <div class="card hacker-card">
+          <img src="{% static 'images/guest.webp' %}" class="avatar" alt="Guest Contributor" loading="lazy">
+          <h3 class="hacker-subheading">Guest</h3>
           <div class="labels">
             <span class="label contributor">Contributor</span>
           </div>
         </div>
       </div>
     </div>
-    <button class="carousel-next" aria-label="Next slide">❯</button>
+    <button class="carousel-next hacker-btn" aria-label="Next slide">❯</button>
   </div>
   <div class="dots" role="tablist">
     <span class="dot active" role="tab" aria-label="Slide 1" aria-controls="carousel" tabindex="0"></span>
@@ -182,503 +191,699 @@
 </section>
 
 <!-- Gallery Section -->
-<section id="gallery" class="container bg-light text-dark rounded-4 p-5 my-5 shadow">
-  <h2 class="text-center mb-4">📸 Gallery</h2>
+<section id="gallery" class="container section-card p-5 my-5">
+  <h2 class="hacker-heading text-center">📸 Gallery</h2>
   <div class="row">
     <div class="col-md-4 mb-3">
       <picture>
         <source srcset="{% static 'images/pic1.webp' %}" type="image/webp">
-        <img src="{% static 'images/pic1.jpg' %}" class="img-fluid rounded" alt="Villen Bhai at a coding event" loading="lazy">
+        <img src="{% static 'images/pic1.jpg' %}" class="img-fluid hacker-img" alt="Villen Bhai speaking at a coding event" loading="lazy">
       </picture>
     </div>
     <div class="col-md-4 mb-3">
       <picture>
         <source srcset="{% static 'images/pic2.webp' %}" type="image/webp">
-        <img src="{% static 'images/pic2.jpg' %}" class="img-fluid rounded" alt="Villen Bhai presenting a project" loading="lazy">
+        <img src="{% static 'images/pic2.jpg' %}" class="img-fluid hacker-img" alt="Villen Bhai presenting a tech project" loading="lazy">
       </picture>
     </div>
     <div class="col-md-4 mb-3">
       <picture>
         <source srcset="{% static 'images/pic3.webp' %}" type="image/webp">
-        <img src="{% static 'images/pic3.jpg' %}" class="img-fluid rounded" alt="Villen Bhai at a hackathon" loading="lazy">
+        <img src="{% static 'images/pic3.jpg' %}" class="img-fluid hacker-img" alt="Villen Bhai competing in a hackathon" loading="lazy">
       </picture>
     </div>
   </div>
 </section>
 
 <!-- Social Section -->
-<section id="social" class="container bg-dark text-light rounded-4 p-5 my-5 shadow text-center">
-  <h2 class="text-danger mb-4">🌐 Connect With Me</h2>
-  <p>Let’s collaborate, chat, or vibe! 💬</p>
+<section id="social" class="container section-card p-5 my-5 text-center">
+  <h2 class="hacker-heading text-center">🌐 Connect With Me</h2>
+  <p class="hacker-text">Let’s collaborate, chat, or vibe! 💬</p>
   <div class="d-flex justify-content-center gap-3 flex-wrap mt-3">
-    <a href="https://instagram.com/yourhandle" target="_blank" rel="noopener noreferrer" class="btn btn-outline-danger">Instagram</a>
-    <a href="mailto:youremail@example.com" class="btn btn-outline-light">Email</a>
-    <a href="https://github.com/yourgithub" target="_blank" rel="noopener noreferrer" class="btn btn-outline-info">GitHub</a>
+    <a href="{{ social_links.instagram }}" target="_blank" rel="noopener noreferrer" class="btn btn-outline-neon" aria-label="Follow Villen Bhai on Instagram">Instagram</a>
+    <a href="mailto:{{ social_links.email }}" class="btn btn-outline-neon" aria-label="Email Villen Bhai">Email</a>
+    <a href="{{ social_links.github }}" target="_blank" rel="noopener noreferrer" class="btn btn-outline-neon" aria-label="View Villen Bhai's GitHub profile">GitHub</a>
   </div>
 </section>
 {% endblock %}
 
 {% block extra_css %}
 <style>
-  :root {
-    --primary-color: #00ff88;
-    --secondary-color: #ff3366;
-    --dark-bg: #1e1e1e;
-    --dark-bg-alt: #2c2c2c;
-    --light-bg: #ffffff;
-    --text-light: #ffffff;
-    --text-dark: #333333;
-    --shadow: 0 10px 20px rgba(0, 255, 136, 0.2);
-  }
+:root {
+  --primary-color: #00ff88; /* Neon Green */
+  --secondary-color: #ff3366; /* Neon Pink */
+  --neon-cyan: #00f7ff; /* Neon Cyan */
+  --neon-purple: #d500f9; /* Neon Purple */
+  --dark-bg: #0d0d0d; /* Deep Black */
+  --dark-bg-alt: #1a1a1a; /* Slightly Lighter Black */
+  --text-light: #e0e0e0; /* Light Gray for Text */
+  --text-dark: #333333; /* Dark Gray for Contrast */
+  --neon-glow: 0 0 8px var(--primary-color), 0 0 16px var(--neon-cyan);
+  --shadow: 0 8px 16px rgba(0, 255, 136, 0.3);
+}
 
-  * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  }
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Courier New', monospace;
+}
 
-  body {
-    background: linear-gradient(135deg, var(--dark-bg), var(--dark-bg-alt));
-    color: var(--text-light);
-    line-height: 1.6;
-    position: relative;
-  }
+html {
+  scroll-behavior: smooth;
+}
 
-  .container {
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 20px;
-    position: relative;
-    z-index: 2; /* Ensure content is above video */
-  }
+body {
+  background: linear-gradient(135deg, var(--dark-bg), var(--dark-bg-alt));
+  color: var(--text-light);
+  line-height: 1.6;
+  position: relative;
+  overflow-x: hidden;
+}
 
-  .glow {
-    text-shadow: 0 0 10px rgba(0, 255, 136, 0.5);
-  }
+/* Scanline Overlay */
+body::before {
+  content: '';
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: repeating-linear-gradient(
+    0deg,
+    transparent,
+    transparent 2px,
+    rgba(0, 255, 136, 0.05) 2px,
+    rgba(0, 255, 136, 0.05) 3px
+  );
+  z-index: -2;
+  animation: scanline 10s linear infinite;
+}
 
-  /* About Section */
-  #about-villen {
-    text-align: center; /* Center all content */
-    background: rgba(255, 255, 255, 0.9); /* Slight transparency for visibility */
-    padding: 40px 20px; /* Increased padding for better spacing */
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+  position: relative;
+  z-index: 2;
+}
+
+/* Animations */
+@keyframes glitch {
+  0% { text-shadow: 0.05em 0 0 var(--neon-cyan), -0.05em 0 0 var(--neon-purple); }
+  14% { text-shadow: 0.05em 0 0 var(--neon-cyan), -0.05em 0 0 var(--neon-purple); }
+  15% { text-shadow: -0.05em 0.025em 0 var(--neon-cyan), 0.025em -0.05em 0 var(--neon-purple); }
+  49% { text-shadow: -0.05em 0.025em 0 var(--neon-cyan), 0.025em -0.05em 0 var(--neon-purple); }
+  50% { text-shadow: 0.025em 0.05em 0 var(--neon-cyan), -0.05em 0 0 var(--neon-purple); }
+  99% { text-shadow: 0.025em 0.05em 0 var(--neon-cyan), -0.05em 0 0 var(--neon-purple); }
+  100% { text-shadow: -0.025em 0 0 var(--neon-cyan), -0.025em -0.025em 0 var(--neon-purple); }
+}
+
+@keyframes flicker {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.95; }
+}
+
+@keyframes scanline {
+  0% { transform: translateY(0); }
+  100% { transform: translateY(100px); }
+}
+
+/* Header */
+#villen-header {
+  background: linear-gradient(180deg, var(--dark-bg), var(--dark-bg-alt));
+  padding: 6rem 2rem;
+  border-bottom: 2px solid var(--neon-cyan);
+  box-shadow: var(--neon-glow);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 60vh;
+  animation: flicker 5s infinite;
+}
+
+#villen-header h1.glow {
+  font-size: 3.5rem;
+  color: var(--primary-color);
+  text-shadow: var(--neon-glow);
+  animation: glitch 2s infinite alternate;
+  letter-spacing: 0.1rem;
+  margin-bottom: 1.5rem;
+}
+
+.hacker-tagline {
+  font-size: 1.5rem;
+  color: var(--neon-purple);
+  text-shadow: 0 0 5px var(--neon-purple);
+  letter-spacing: 0.05rem;
+  margin-bottom: 2rem;
+}
+
+#villen-header nav {
+  display: flex;
+  gap: 1.5rem;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.btn-outline-neon {
+  color: var(--neon-cyan);
+  border: 2px solid var(--neon-cyan);
+  padding: 0.75rem 1.5rem;
+  font-size: 1rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1rem;
+  background: transparent;
+  transition: all 0.3s ease;
+  position: relative;
+  text-shadow: 0 0 5px var(--neon-cyan);
+}
+
+.btn-outline-neon:hover {
+  color: var(--dark-bg);
+  background: var(--neon-purple);
+  border-color: var(--neon-purple);
+  box-shadow: 0 0 10px var(--neon-purple), 0 0 20px var(--neon-purple);
+  transform: translateY(-2px);
+}
+
+.btn-outline-neon:focus {
+  outline: 2px solid var(--neon-purple);
+  outline-offset: 4px;
+  box-shadow: 0 0 10px var(--neon-purple);
+}
+
+.btn-outline-neon::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: var(--neon-cyan);
+  opacity: 0;
+  z-index: -1;
+  transition: opacity 0.3s ease;
+}
+
+.btn-outline-neon:hover::after {
+  opacity: 0.2;
+}
+
+/* Video Background */
+#video-bg-element {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  z-index: -3;
+  filter: brightness(0.5);
+}
+
+.video-fallback {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  z-index: -3;
+  filter: brightness(0.5);
+}
+
+/* General Section Styles */
+.section-card {
+  background: rgba(10, 10, 10, 0.8);
+  border: 2px solid var(--neon-cyan);
+  border-radius: 10px;
+  backdrop-filter: blur(5px);
+  box-shadow: var(--neon-glow);
+  animation: flicker 7s infinite;
+}
+
+.hacker-heading {
+  font-size: 2.5rem;
+  color: var(--primary-color);
+  text-shadow: var(--neon-glow);
+  letter-spacing: 0.1rem;
+  margin-bottom: 1rem;
+  animation: glitch 3s infinite alternate;
+}
+
+.hacker-subheading {
+  font-size: 1.8rem;
+  color: var(--neon-cyan);
+  text-shadow: 0 0 5px var(--neon-cyan);
+  letter-spacing: 0.05rem;
+  margin-bottom: 0.5rem;
+}
+
+.hacker-text {
+  font-size: 1.2rem;
+  color: var(--text-light);
+  text-shadow: 0 0 3px var(--neon-purple);
+  letter-spacing: 0.03rem;
+}
+
+/* About Section */
+#about-villen {
+  text-align: center;
+  padding: 4rem 2rem;
+}
+
+#about-villen p {
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+/* Education Section */
+#education {
+  text-align: center;
+  padding: 4rem 2rem;
+}
+
+.education-section {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 2rem;
+  padding-top: 1rem;
+}
+
+.education-card.hacker-card {
+  padding: 1.5rem;
+  border: 1px solid var(--neon-purple);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.education-card.hacker-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 0 15px var(--neon-purple);
+  animation: glitch 1s infinite alternate;
+}
+
+.education-card h3::before {
+  content: '>';
+  color: var(--primary-color);
+  margin-right: 0.5rem;
+}
+
+.institution {
+  font-size: 1.1rem;
+  color: var(--neon-cyan);
+}
+
+.duration {
+  font-size: 1rem;
+  color: var(--neon-purple);
+  margin-bottom: 0.5rem;
+}
+
+.details {
+  font-size: 1rem;
+  color: var(--text-light);
+}
+
+.details::before {
+  content: '$';
+  color: var(--primary-color);
+  margin-right: 0.5rem;
+}
+
+/* Skills Section */
+#skills {
+  text-align: center;
+  padding: 4rem 2rem;
+}
+
+.skills-section {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 2rem;
+  padding-top: 1rem;
+}
+
+.skill-card.hacker-card {
+  padding: 1.5rem;
+  border: 1px solid var(--neon-purple);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.skill-card.hacker-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 0 15px var(--neon-purple);
+  animation: glitch 1s infinite alternate;
+}
+
+.skill-card ul {
+  list-style: none;
+  text-align: left;
+}
+
+.skill-card li {
+  font-size: 1rem;
+  margin-bottom: 0.5rem;
+  position: relative;
+  padding-left: 1.5rem;
+}
+
+.skill-card li::before {
+  content: '#';
+  position: absolute;
+  left: 0;
+  color: var(--primary-color);
+}
+
+/* Achievements Section */
+#achievements {
+  text-align: center;
+  padding: 4rem 2rem;
+}
+
+.carousel-wrapper {
+  position: relative;
+  overflow: hidden;
+  max-width: 1000px;
+  margin: 0 auto;
+  display: flex;
+  justify-content: center;
+}
+
+.carousel {
+  display: flex;
+  transition: transform 0.5s ease;
+  width: 100%;
+}
+
+.slide {
+  display: flex;
+  justify-content: center;
+  gap: 1.5rem;
+  min-width: 100%;
+  flex-shrink: 0;
+}
+
+.card.hacker-card {
+  background: rgba(10, 10, 10, 0.9);
+  padding: 1.5rem;
+  border: 1px solid var(--neon-cyan);
+  border-radius: 8px;
+  width: 280px;
+  text-align: center;
+  box-shadow: var(--neon-glow);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.card.hacker-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 0 15px var(--neon-purple);
+  animation: glitch 1s infinite alternate;
+}
+
+.avatar {
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  border: 3px solid var(--neon-purple);
+  object-fit: cover;
+  margin-bottom: 1rem;
+  filter: brightness(0.8);
+  transition: filter 0.3s ease;
+}
+
+.avatar:hover {
+  filter: brightness(1);
+}
+
+.card h3 {
+  margin: 0.5rem 0;
+  font-size: 1.3rem;
+}
+
+.labels {
+  margin-top: 0.5rem;
+}
+
+.label {
+  display: inline-block;
+  padding: 0.3rem 0.6rem;
+  margin: 0.2rem;
+  border-radius: 5px;
+  font-size: 0.8rem;
+  color: var(--dark-bg);
+  text-shadow: none;
+}
+
+.role { background-color: var(--neon-purple); }
+.dev { background-color: var(--neon-cyan); }
+.supporter { background-color: var(--primary-color); }
+.contributor { background-color: var(--secondary-color); }
+.staff { background-color: #6c5ce7; }
+
+.dots {
+  margin-top: 1rem;
+  text-align: center;
+}
+
+.dot {
+  height: 10px;
+  width: 10px;
+  margin: 0 0.3rem;
+  background: var(--neon-purple);
+  border-radius: 50%;
+  display: inline-block;
+  cursor: pointer;
+  opacity: 0.4;
+  transition: opacity 0.3s ease, background 0.3s ease;
+}
+
+.dot.active, .dot:hover, .dot:focus {
+  opacity: 1;
+  background: var(--neon-cyan);
+}
+
+.hacker-btn {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background: rgba(0, 0, 0, 0.7);
+  color: var(--neon-cyan);
+  border: 1px solid var(--neon-cyan);
+  padding: 0.5rem;
+  cursor: pointer;
+  z-index: 10;
+  transition: all 0.3s ease;
+}
+
+.hacker-btn:hover {
+  background: var(--neon-purple);
+  color: var(--dark-bg);
+  border-color: var(--neon-purple);
+  box-shadow: 0 0 10px var(--neon-purple);
+}
+
+.hacker-btn:focus {
+  outline: 2px solid var(--neon-purple);
+  outline-offset: 2px;
+}
+
+.carousel-prev { left: 10px; }
+.carousel-next { right: 10px; }
+
+/* Gallery Section */
+#gallery {
+  text-align: center;
+  padding: 4rem 2rem;
+}
+
+#gallery .row {
+  padding-top: 1rem;
+}
+
+.hacker-img {
+  max-width: 100%;
+  height: auto;
+  border: 2px solid var(--neon-cyan);
+  border-radius: 5px;
+  transition: all 0.3s ease;
+}
+
+.hacker-img:hover {
+  border-color: var(--neon-purple);
+  box-shadow: 0 0 15px var(--neon-purple);
+  animation: glitch 1s infinite alternate;
+}
+
+/* Social Section */
+#social {
+  text-align: center;
+  padding: 4rem 2rem;
+}
+
+#social .d-flex {
+  padding-top: 1rem;
+}
+
+/* Responsive Design */
+@media (max-width: 767px) {
+  #villen-header {
+    padding: 4rem 1rem;
+    min-height: 50vh;
   }
-  #about-villen h2 {
-    display: block;
-    margin-left: auto;
-    margin-right: auto;
+  #villen-header h1.glow {
     font-size: 2.5rem;
-    padding-bottom: 10px; /* Add padding below heading */
+    margin-bottom: 1rem;
   }
-  #about-villen p {
-    display: block;
-    margin-left: auto;
-    margin-right: auto;
-    font-size: 1.3rem;
-    padding-top: 10px; /* Add padding above text */
-    padding-bottom: 20px; /* Add padding below text */
-    max-width: 800px; /* Restrict width for readability */
-  }
-
-  /* Education Section */
-  #education {
-    text-align: center; /* Center all content */
-    padding: 40px 20px; /* Increased padding for better spacing */
-  }
-  #education h2 {
-    display: block;
-    margin-left: auto;
-    margin-right: auto;
-    font-size: 2.5rem;
-    padding-bottom: 10px; /* Add padding below heading */
-  }
-  #education .tagline {
-    display: block;
-    margin-left: auto;
-    margin-right: auto;
-    font-size: 1.3rem;
-    padding-bottom: 20px; /* Add padding below tagline */
-  }
-  .education-section {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: 30px;
-    padding-top: 20px; /* Add padding above cards */
-  }
-  .education-card {
-    background: rgba(255, 255, 255, 0.1);
-    border-radius: 15px;
-    padding: 25px;
-    backdrop-filter: blur(10px);
-    border: 1px solid rgba(255, 255, 255, 0.2);
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-  }
-  .education-card:hover {
-    transform: translateY(-10px);
-    box-shadow: var(--shadow);
-  }
-  .education-card h3 {
-    font-size: 1.8rem;
-    color: var(--primary-color);
-    margin-bottom: 10px;
-    display: flex;
-    align-items: center;
-    padding-bottom: 5px; /* Add padding below card heading */
-  }
-  .education-card h3::before {
-    content: '🎓';
-    margin-right: 10px;
-  }
-  .institution {
+  .hacker-tagline {
     font-size: 1.2rem;
-    color: var(--text-light);
-    padding-bottom: 5px; /* Add padding */
+    margin-bottom: 1.5rem;
   }
-  .duration {
-    font-size: 1.1rem;
-    color: #aaaaaa;
-    margin-bottom: 15px;
-    padding-bottom: 5px; /* Add padding */
+  #villen-header nav {
+    gap: 1rem;
   }
-  .details {
-    font-size: 1.1rem;
-    color: #cccccc;
-    padding-top: 5px; /* Add padding */
+  .btn-outline-neon {
+    padding: 0.5rem 1rem;
+    font-size: 0.9rem;
   }
-  .details::before {
-    content: '▹';
-    color: var(--primary-color);
-    margin-right: 10px;
+  .section-card {
+    padding: 2rem 1rem;
   }
-
-  /* Skills Section */
-  #skills {
-    text-align: center; /* Center all content */
-    padding: 40px 20px; /* Increased padding for better spacing */
+  .hacker-heading {
+    font-size: 2rem;
   }
-  #skills h2 {
-    display: block;
-    margin-left: auto;
-    margin-right: auto;
-    font-size: 2.5rem;
-    padding-bottom: 10px; /* Add padding below heading */
+  .hacker-subheading {
+    font-size: 1.5rem;
   }
-  .skills-section {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: 30px;
-    padding-top: 20px; /* Add padding above cards */
-  }
-  .skill-card {
-    background: rgba(255, 255, 255, 0.1);
-    border-radius: 15px;
-    padding: 25px;
-    backdrop-filter: blur(10px);
-    border: 1px solid rgba(255, 255, 255, 0.2);
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-  }
-  .skill-card:hover {
-    transform: translateY(-10px);
-    box-shadow: var(--shadow);
-  }
-  .skill-card h3 {
-    font-size: 1.8rem;
-    color: var(--primary-color);
-    margin-bottom: 15px;
-    padding-bottom: 5px; /* Add padding below card heading */
-  }
-  .skill-card ul {
-    list-style: none;
-    text-align: left; /* Align list items to left for readability */
-  }
-  .skill-card li {
-    font-size: 1.1rem;
-    margin-bottom: 10px;
-    position: relative;
-    padding-left: 20px;
-    padding-bottom: 5px; /* Add padding below list items */
-  }
-  .skill-card li::before {
-    content: '▹';
-    position: absolute;
-    left: 0;
-    color: var(--primary-color);
-  }
-
-  /* Achievements Section */
-  #achievements {
-    text-align: center; /* Ensure all content is centered */
-    padding: 40px 20px; /* Increased padding for better spacing */
-  }
-  #achievements h2 {
-    display: block;
-    margin-left: auto;
-    margin-right: auto;
-    font-size: 2.5rem; /* Consistent font size */
-    padding-bottom: 10px; /* Add padding below heading */
-  }
-  #achievements .subheading {
-    display: block;
-    margin-left: auto;
-    margin-right: auto;
+  .hacker-text {
     font-size: 1rem;
-    line-height: 1.5;
-    padding-bottom: 20px; /* Add padding below subheading */
   }
-  .carousel-wrapper {
-    position: relative;
-    overflow: hidden;
-    max-width: 1000px;
-    margin: 0 auto;
-    display: flex;
-    justify-content: center;
-  }
-  .carousel {
-    display: flex;
-    transition: transform 0.5s ease;
-    width: 100%;
+  .education-card.hacker-card, .skill-card.hacker-card {
+    padding: 1rem;
   }
   .slide {
-    display: flex;
-    justify-content: center;
-    gap: 20px;
-    min-width: 100%;
-    flex-shrink: 0;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
   }
-  .card {
-    background: #111;
-    padding: 20px;
-    border-radius: 12px;
-    width: 280px;
-    text-align: center;
-    box-shadow: 0 0 10px rgba(255, 0, 100, 0.3);
-    transition: transform 0.3s ease;
+  .hacker-btn {
+    padding: 0.3rem;
   }
-  .card:hover {
-    transform: translateY(-8px);
-  }
-  .avatar {
-    width: 120px;
-    height: 120px;
-    border-radius: 50%;
-    border: 4px solid var(--secondary-color);
-    object-fit: cover;
-    margin-bottom: 15px;
-  }
-  .card h3 {
-    margin: 10px 0;
-    font-size: 1.3rem;
-  }
-  .labels {
-    margin-top: 10px;
-  }
-  .label {
-    display: inline-block;
-    padding: 5px 10px;
-    margin: 4px;
-    border-radius: 8px;
-    font-size: 0.8rem;
-    color: var(--text-light);
-  }
-  .role { background-color: var(--secondary-color); }
-  .dev { background-color: #f39c12; }
-  .supporter { background-color: #e91e63; }
-  .contributor { background-color: #6c5ce7; }
-  .staff { background-color: #3f51b5; }
-  .dots {
-    margin-top: 20px;
-    text-align: center;
-  }
-  .dot {
-    height: 10px;
-    width: 10px;
-    margin: 0 6px;
-    background: #880e4f;
-    border-radius: 50%;
-    display: inline-block;
-    cursor: pointer;
-    opacity: 0.4;
-  }
-  .dot.active, .dot:hover {
-    opacity: 1;
-    background: var(--secondary-color);
-  }
-  .carousel-prev, .carousel-next {
-    position: absolute;
-    top: 50%;
-    transform: translateY(-50%);
-    background: rgba(0, 0, 0, 0.5);
-    color: var(--text-light);
-    border: none;
-    padding: 10px;
-    cursor: pointer;
-    z-index: 10;
-  }
-  .carousel-prev { left: 10px; }
-  .carousel-next { right: 10px; }
-  .subheading {
-    color: var(--secondary-color);
-    font-weight: 500;
-    font-size: 1rem;
-  }
-
-  /* Gallery Section */
-  #gallery {
-    text-align: center; /* Center all content */
-    padding: 40px 20px; /* Increased padding for better spacing */
-  }
-  #gallery h2 {
-    display: block;
-    margin-left: auto;
-    margin-right: auto;
-    font-size: 2.5rem;
-    padding-bottom: 10px; /* Add padding below heading */
-  }
-  #gallery .row {
-    padding-top: 20px; /* Add padding above images */
-  }
-  #gallery img {
-    max-width: 100%;
-    height: auto;
-  }
-
-  /* Social Section */
-  #social {
-    text-align: center; /* Center all content */
-    padding: 40px 20px; /* Increased padding for better spacing */
-  }
-  #social h2 {
-    display: block;
-    margin-left: auto;
-    margin-right: auto;
-    font-size: 2.5rem;
-    padding-bottom: 10px; /* Add padding below heading */
-  }
-  #social p {
-    display: block;
-    margin-left: auto;
-    margin-right: auto;
-    font-size: 1.3rem;
-    padding-bottom: 20px; /* Add padding below text */
-  }
-  #social .d-flex {
-    padding-top: 10px; /* Add padding above buttons */
-  }
-  #social a {
-    transition: transform 0.2s ease;
-  }
-  #social a:hover {
-    transform: scale(1.1);
-  }
-
-  /* Responsive Design */
-  @media (max-width: 767px) {
-    h1 { font-size: 2.5rem; }
-    h2 { font-size: 2rem; }
-    .tagline, #about-villen p, #social p { font-size: 1.1rem; }
-    .education-card, .skill-card { padding: 20px; }
-    .education-card h3, .skill-card h3 { font-size: 1.5rem; }
-    .institution, .duration, .details, .skill-card li { font-size: 1rem; }
-    .slide { flex-direction: column; align-items: center; gap: 15px; }
-    .carousel-prev, .carousel-next { padding: 8px; }
-    #about-villen, #education, #skills, #achievements, #gallery, #social { padding: 30px 15px; } /* Adjust padding for mobile */
-  }
+}
 </style>
 {% endblock %}
 
 {% block extra_js %}
 <script>
-  (function () {
-    'use strict';
+(function () {
+  'use strict';
 
-    // Typewriter Effect
-    const aboutText = "I'm not just a student — I'm a storyteller in binary, a defender of digital kingdoms, and a lover who writes code like Shayari. From the dusty classrooms of Bihar to the code labs of DU, I’m Villen Bhai — coding emotions, hacking logic, building the future.";
-    const textElement = document.querySelector('#dynamic-about');
-    if (textElement) {
-      let index = 0;
-      function typewriter() {
-        if (index < aboutText.length) {
-          textElement.textContent = textElement.textContent.slice(0, -1) + aboutText.charAt(index) + '|';
-          index++;
-          setTimeout(typewriter, 40);
-        } else {
-          textElement.textContent = aboutText;
-        }
+  // Typewriter Effect
+  const aboutText = "I'm not just a student — I'm a storyteller who writes code like a poet, a coder crafting digital dreams. From the vibrant streets of Bihar to the tech labs of DU, I’m Villen Bhai — coding emotions, building the future.";
+  const textElement = document.querySelector('#dynamic-about');
+  if (textElement) {
+    let index = 0;
+    function typewriter() {
+      if (index < aboutText.length) {
+        textElement.textContent = aboutText.slice(0, index + 1) + '|';
+        index++;
+        setTimeout(typewriter, 20);
+      } else {
+        textElement.textContent = aboutText; // Remove cursor
       }
-      typewriter();
     }
+    typewriter();
+  } else {
+    console.warn('Dynamic about element not found');
+  }
 
-    // Video Fallback
-    const video = document.querySelector('#video-bg-element');
-    const fallbackImg = document.querySelector('.video-fallback');
-    if (video) {
-      video.play().catch((error) => {
-        console.log('Autoplay failed:', error);
-        fallbackImg.style.display = 'block';
-        video.style.display = 'none';
-        document.addEventListener('click', () => {
-          video.play().catch((err) => console.log('Manual play failed:', err));
-        }, { once: true });
-      });
+  // Video Fallback
+  const video = document.querySelector('#video-bg-element');
+  const fallbackImg = document.querySelector('.video-fallback');
+  if (video && fallbackImg) {
+    video.play().catch((error) => {
+      console.log('Autoplay failed:', error);
+      fallbackImg.style.display = 'block';
+      video.style.display = 'none';
+      document.addEventListener('click', () => {
+        video.play().catch((err) => console.log('Manual play failed:', err));
+      }, { once: true });
+    });
+    video.addEventListener('error', () => {
+      console.log('Video failed to load');
+      video.style.display = 'none';
+      fallbackImg.style.display = 'block';
+    });
+  } else {
+    console.warn('Video or fallback image not found');
+  }
 
-      video.addEventListener('error', () => {
-        video.style.display = 'none';
-        fallbackImg.style.display = 'block';
-      });
-    }
-
-    // Education Card Animation
-    const cards = document.querySelectorAll('.education-card');
+  // Education Card Animation
+  const cards = document.querySelectorAll('.education-card');
+  if (cards.length) {
     cards.forEach((card, index) => {
       card.style.opacity = '0';
-      card.style.transform = 'translateY(20px)';
+      card.style.transform = 'translateY(-20px)';
       setTimeout(() => {
         card.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
         card.style.opacity = '1';
         card.style.transform = 'translateY(0)';
-      }, index * 200);
+      }, index * 100);
+    });
+  } else {
+    console.warn('Education cards not found');
+  }
+
+  // Carousel
+  const carousel = document.querySelector('#carousel');
+  const dots = document.querySelectorAll('.dot');
+  const prevBtn = document.querySelector('.carousel-prev');
+  const nextBtn = document.querySelector('.carousel-next');
+  if (carousel && dots.length && prevBtn && nextBtn) {
+    let currentSlide = 0;
+    const totalSlides = document.querySelectorAll('.slide').length;
+
+    function moveToSlide(index) {
+      carousel.style.transform = `translateX(-${index * 100}%)`;
+      dots.forEach((dot, i) => {
+        dot.classList.toggle('active', i === index);
+        dot.setAttribute('aria-selected', i === index ? 'true' : 'false');
+      });
+      currentSlide = index;
+    }
+
+    dots.forEach((dot, i) => {
+      dot.addEventListener('click', () => moveToSlide(i));
+      dot.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault();
+          moveToSlide(i);
+        }
+      });
     });
 
-    // Carousel
-    const carousel = document.querySelector('#carousel');
-    const dots = document.querySelectorAll('.dot');
-    const prevBtn = document.querySelector('.carousel-prev');
-    const nextBtn = document.querySelector('.carousel-next');
-    if (carousel && dots.length && prevBtn && nextBtn) {
-      let currentSlide = 0;
-      const totalSlides = document.querySelectorAll('.slide').length;
+    prevBtn.addEventListener('click', () => moveToSlide((currentSlide - 1 + totalSlides) % totalSlides));
+    nextBtn.addEventListener('click', () => moveToSlide((currentSlide + 1) % totalSlides));
 
-      function moveToSlide(index) {
-        carousel.style.transform = `translateX(-${index * 100}%)`;
-        dots.forEach((dot, i) => {
-          dot.classList.toggle('active', i === index);
-          dot.setAttribute('aria-selected', i === index ? 'true' : 'false');
-        });
-        currentSlide = index;
-      }
-
-      dots.forEach((dot, i) => {
-        dot.addEventListener('click', () => moveToSlide(i));
-        dot.addEventListener('keydown', (e) => {
-          if (e.key === 'Enter' || e.key === ' ') {
-            e.preventDefault();
-            moveToSlide(i);
-          }
-        });
+    [prevBtn, nextBtn].forEach(btn => {
+      btn.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault();
+          btn.click();
+        }
       });
+    });
 
-      prevBtn.addEventListener('click', () => moveToSlide((currentSlide - 1 + totalSlides) % totalSlides));
-      nextBtn.addEventListener('click', () => moveToSlide((currentSlide + 1) % totalSlides));
-
-      [prevBtn, nextBtn].forEach(btn => {
-        btn.addEventListener('keydown', (e) => {
-          if (e.key === 'Enter' || e.key === ' ') {
-            e.preventDefault();
-            btn.click();
-          }
-        });
-      });
-    }
-  })();
+    // Autoplay
+    let autoplay = setInterval(() => moveToSlide((currentSlide + 1) % totalSlides), 5000);
+    carousel.parentElement.addEventListener('mouseenter', () => clearInterval(autoplay));
+    carousel.parentElement.addEventListener('mouseleave', () => {
+      autoplay = setInterval(() => moveToSlide((currentSlide + 1) % totalSlides), 5000);
+    });
+  } else {
+    console.warn('Carousel elements not found');
+  }
+})();
 </script>
 {% endblock %}
