@@ -1,3 +1,4 @@
+
 {% extends 'core/base.html' %}
 {% load static %}
 
@@ -20,12 +21,11 @@
 {% block content %}
 <!-- Video Background -->
 <div id="video-bg">
-  <video autoplay muted loop playsinline class="video-bg" preload="metadata" loading="lazy" poster="{% static 'images/video-fallback.webp' %}">
+  <video autoplay muted loop playsinline class="video-bg" id="video-bg-element" preload="metadata" loading="lazy">
     <source src="{% static 'video/birds.webm' %}" type="video/webm">
-    <source src="{% static 'video/birds.mp4' %}" type="video/mp4">
-    <img src="{% static 'images/video-fallback.webp' %}" alt="Nature background fallback image" loading="lazy">
+    promin<source src="{% static 'video/birds.mp4' %}" type="video/mp4">
   </video>
-  <button id="video-toggle" class="btn btn-sm btn-outline-light position-fixed bottom-0 end-0 m-3" aria-label="Toggle video playback">⏸️ Pause</button>
+  <img src="{% static 'images/video-fallback.webp' %}" alt="Nature background fallback image" class="video-fallback" loading="lazy">
 </div>
 
 <!-- About Section -->
@@ -106,7 +106,7 @@
       <!-- Slide 1 -->
       <div class="slide">
         <div class="card">
-          <img src="{% static 'images/shubh.webp' %}" class="avatar" alt="Shubh avatar">
+          <img src="{% static 'images/shubh.webp' %}" class="avatar" alt="Shubh avatar" loading="lazy">
           <h3>Shubh</h3>
           <div class="labels">
             <span class="label role">Founder</span>
@@ -114,7 +114,7 @@
           </div>
         </div>
         <div class="card">
-          <img src="{% static 'images/whoami.webp' %}" class="avatar" alt="Sudo Whoami avatar">
+          <img src="{% static 'images/whoami.webp' %}" class="avatar" alt="Sudo Whoami avatar" loading="lazy">
           <h3>Sudo Whoami</h3>
           <div class="labels">
             <span class="label supporter">Supporter</span>
@@ -122,7 +122,7 @@
           </div>
         </div>
         <div class="card">
-          <img src="{% static 'images/flampt.webp' %}" class="avatar" alt="Flampt avatar">
+          <img src="{% static 'images/flampt.webp' %}" class="avatar" alt="Flampt avatar" loading="lazy">
           <h3>Flampt</h3>
           <div class="labels">
             <span class="label contributor">Contributor</span>
@@ -132,21 +132,21 @@
       <!-- Slide 2 -->
       <div class="slide">
         <div class="card">
-          <img src="{% static 'images/taj.webp' %}" class="avatar" alt="Taj avatar">
+          <img src="{% static 'images/taj.webp' %}" class="avatar" alt="Taj avatar" loading="lazy">
           <h3>Taj</h3>
           <div class="labels">
             <span class="label contributor">Contributor</span>
           </div>
         </div>
         <div class="card">
-          <img src="{% static 'images/denzven.webp' %}" class="avatar" alt="Denzven avatar">
+          <img src="{% static 'images/denzven.webp' %}" class="avatar" alt="Denzven avatar" loading="lazy">
           <h3>Denzven</h3>
           <div class="labels">
             <span class="label contributor">Contributor</span>
           </div>
         </div>
         <div class="card">
-          <img src="{% static 'images/kueue.webp' %}" class="avatar" alt="Professor Kueue avatar">
+          <img src="{% static 'images/kueue.webp' %}" class="avatar" alt="Professor Kueue avatar" loading="lazy">
           <h3>Professor Kueue</h3>
           <div class="labels">
             <span class="label contributor">Contributor</span>
@@ -156,14 +156,14 @@
       <!-- Slide 3 -->
       <div class="slide">
         <div class="card">
-          <img src="{% static 'images/khrys.webp' %}" class="avatar" alt="Khrys avatar">
+          <img src="{% static 'images/khrys.webp' %}" class="avatar" alt="Khrys avatar" loading="lazy">
           <h3>Khrys</h3>
           <div class="labels">
             <span class="label staff">Staff</span>
           </div>
         </div>
         <div class="card">
-          <img src="{% static 'images/villen.webp' %}" class="avatar" alt="Villen Bhai avatar">
+          <img src="{% static 'images/villen.webp' %}" class="avatar" alt="Villen Bhai avatar" loading="lazy">
           <h3>Villen Bhai</h3>
           <div class="labels">
             <span class="label role">OSINT Lead</span>
@@ -171,7 +171,7 @@
           </div>
         </div>
         <div class="card">
-          <img src="{% static 'images/guest.webp' %}" class="avatar" alt="Guest contributor avatar">
+          <img src="{% static 'images/guest.webp' %}" class="avatar" alt="Guest contributor avatar" loading="lazy">
           <h3>Guest</h3>
           <div class="labels">
             <span class="label contributor">Contributor</span>
@@ -182,9 +182,9 @@
     <button class="carousel-next" aria-label="Next slide">❯</button>
   </div>
   <div class="dots" role="tablist">
-    <span class="dot active" role="tab" aria-label="Slide 1" tabindex="0"></span>
-    <span class="dot" role="tab" aria-label="Slide 2" tabindex="0"></span>
-    <span class="dot" role="tab" aria-label="Slide 3" tabindex="0"></span>
+    <span class="dot active" role="tab" aria-label="Slide 1" aria-controls="carousel" tabindex="0"></span>
+    <span class="dot" role="tab" aria-label="Slide 2" aria-controls="carousel" tabindex="0"></span>
+    <span class="dot" role="tab" aria-label="Slide 3" aria-controls="carousel" tabindex="0"></span>
   </div>
 </section>
 
@@ -194,19 +194,19 @@
   <div class="row">
     <div class="col-md-4 mb-3">
       <picture>
-        <source src="{% static 'images/pic1.webp' %}" type="image/webp">
+        <source srcset="{% static 'images/pic1.webp' %}" type="image/webp">
         <img src="{% static 'images/pic1.jpg' %}" class="img-fluid rounded" alt="Villen Bhai at a coding event" loading="lazy">
       </picture>
     </div>
     <div class="col-md-4 mb-3">
       <picture>
-        <source src="{% static 'images/pic2.webp' %}" type="image/webp">
+        <source srcset="{% static 'images/pic2.webp' %}" type="image/webp">
         <img src="{% static 'images/pic2.jpg' %}" class="img-fluid rounded" alt="Villen Bhai presenting a project" loading="lazy">
       </picture>
     </div>
     <div class="col-md-4 mb-3">
       <picture>
-        <source src="{% static 'images/pic3.webp' %}" type="image/webp">
+        <source srcset="{% static 'images/pic3.webp' %}" type="image/webp">
         <img src="{% static 'images/pic3.jpg' %}" class="img-fluid rounded" alt="Villen Bhai at a hackathon" loading="lazy">
       </picture>
     </div>
@@ -228,385 +228,501 @@
 {% block extra_css %}
 <style>
   :root {
-  --primary-color: #00ff88;
-  --secondary-color: #ff3366;
-  --dark-bg: #1e1e1e;
-  --dark-bg-alt: #2c2c2c;
-  --light-bg: #ffffff;
-  --text-light: #ffffff;
-  --text-dark: #333333;
-  --shadow: 0 10px 20px rgba(0, 255, 136, 0.2);
-}
+    --primary-color: #00ff88;
+    --secondary-color: #ff3366;
+    --dark-bg: #1e1e1e;
+    --dark-bg-alt: #2c2c2c;
+    --light-bg: #ffffff;
+    --text-light: #ffffff;
+    --text-dark: #333333;
+    --shadow: 0 10px 20px rgba(0, 255, 136, 0.2);
+  }
 
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-}
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  }
 
-body {
-  background: linear-gradient(135deg, var(--dark-bg), var(--dark-bg-alt));
-  color: var(--text-light);
-  line-height: 1.6;
-}
+  body {
+    background: linear-gradient(135deg, var(--dark-bg), var(--dark-bg-alt));
+    color: var(--text-light);
+    line-height: 1.6;
+    position: relative;
+  }
 
-.container {
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 20px;
-}
+  .container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+    position: relative;
+    z-index: 2; /* Ensure content is above video */
+  }
 
-.glow {
-  text-shadow: 0 0 10px rgba(0, 255, 136, 0.5);
-}
+  .glow {
+    text-shadow: 0 0 10px rgba(0, 255, 136, 0.5);
+  }
 
-/* Video Background */
-#video-bg {
-  position: relative;
-  width: 100%;
-  overflow: hidden;
-}
-.video-bg {
-  width: 100%;
-  height: 100vh;
-  object-fit: cover;
-  position: absolute;
-  top: 0;
-  left: 0;
-  z-index: -1;
-}
-#video-toggle {
-  z-index: 10;
-}
+  /* Video Background */
+  #video-bg {
+    position: fixed; /* Fix to viewport */
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    z-index: -1; /* Behind all content */
+  }
+  .video-bg {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* Cover entire viewport */
+    position: absolute;
+    top: 0;
+    left: 0;
+  }
+  .video-fallback {
+    display: none;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    position: absolute;
+    top: 0;
+    left: 0;
+  }
+  video:not(:first-child) {
+    display: none;
+  }
 
-/* About Section */
-#about-villen {
-  position: relative;
-  z-index: 1;
-}
+  /* Ensure sections overlap video */
+  section, header {
+    position: relative;
+    z-index: 2; /* Above video */
+  }
 
-/* Education Section */
-.education-section {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-  gap: 30px;
-}
-.education-card {
-  background: rgba(255, 255, 255, 0.1);
-  border-radius: 15px;
-  padding: 25px;
-  backdrop-filter: blur(10px);
-  border: 1px solid rgba(255, 255, 255, 0.2);
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
-}
-.education-card:hover {
-  transform: translateY(-10px);
-  box-shadow: var(--shadow);
-}
-.education-card h3 {
-  font-size: 1.8rem;
-  color: var(--primary-color);
-  margin-bottom: 10px;
-  display: flex;
-  align-items: center;
-}
-.education-card h3::before {
-  content: '🎓';
-  margin-right: 10px;
-}
-.institution {
-  font-size: 1.2rem;
-  color: var(--text-light);
-}
-.duration {
-  font-size: 1.1rem;
-  color: #aaaaaa;
-  margin-bottom: 15px;
-}
-.details {
-  font-size: 1.1rem;
-  color: #cccccc;
-}
-.details::before {
-  content: '▹';
-  color: var(--primary-color);
-  margin-right: 10px;
-}
-.tagline {
-  font-size: 1.3rem;
-  color: #cccccc;
-  font-style: italic;
-}
+  /* About Section */
+  #about-villen {
+    text-align: center; /* Center all content */
+    background: rgba(255, 255, 255, 0.9); /* Slight transparency for visibility */
+    padding: 40px 20px; /* Increased padding for better spacing */
+  }
+  #about-villen h2 {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    font-size: 2.5rem;
+    padding-bottom: 10px; /* Add padding below heading */
+  }
+  #about-villen p {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    font-size: 1.3rem;
+    padding-top: 10px; /* Add padding above text */
+    padding-bottom: 20px; /* Add padding below text */
+    max-width: 800px; /* Restrict width for readability */
+  }
 
-/* Skills Section */
-.skills-section {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-  gap: 30px;
-}
-.skill-card {
-  background: rgba(255, 255, 255, 0.1);
-  border-radius: 15px;
-  padding: 25px;
-  backdrop-filter: blur(10px);
-  border: 1px solid rgba(255, 255, 255, 0.2);
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
-}
-.skill-card:hover {
-  transform: translateY(-10px);
-  box-shadow: var(--shadow);
-}
-.skill-card h3 {
-  font-size: 1.8rem;
-  color: var(--primary-color);
-  margin-bottom: 15px;
-}
-.skill-card ul {
-  list-style: none;
-}
-.skill-card li {
-  font-size: 1.1rem;
-  margin-bottom: 10px;
-  position: relative;
-  padding-left: 20px;
-}
-.skill-card li::before {
-  content: '▹';
-  position: absolute;
-  left: 0;
-  color: var(--primary-color);
-}
+  /* Education Section */
+  #education {
+    text-align: center; /* Center all content */
+    padding: 40px 20px; /* Increased padding for better spacing */
+  }
+  #education h2 {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    font-size: 2.5rem;
+    padding-bottom: 10px; /* Add padding below heading */
+  }
+  #education .tagline {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    font-size: 1.3rem;
+    padding-bottom: 20px; /* Add padding below tagline */
+  }
+  .education-section {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 30px;
+    padding-top: 20px; /* Add padding above cards */
+  }
+  .education-card {
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 15px;
+    padding: 25px;
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+  .education-card:hover {
+    transform: translateY(-10px);
+    box-shadow: var(--shadow);
+  }
+  .education-card h3 {
+    font-size: 1.8rem;
+    color: var(--primary-color);
+    margin-bottom: 10px;
+    display: flex;
+    align-items: center;
+    padding-bottom: 5px; /* Add padding below card heading */
+  }
+  .education-card h3::before {
+    content: '🎓';
+    margin-right: 10px;
+  }
+  .institution {
+    font-size: 1.2rem;
+    color: var(--text-light);
+    padding-bottom: 5px; /* Add padding */
+  }
+  .duration {
+    font-size: 1.1rem;
+    color: #aaaaaa;
+    margin-bottom: 15px;
+    padding-bottom: 5px; /* Add padding */
+  }
+  .details {
+    font-size: 1.1rem;
+    color: #cccccc;
+    padding-top: 5px; /* Add padding */
+  }
+  .details::before {
+    content: '▹';
+    color: var(--primary-color);
+    margin-right: 10px;
+  }
 
-/* Achievements Section */
-.carousel-wrapper {
-  position: relative;
-  overflow: hidden;
-  max-width: 1000px;
-  margin: 0 auto;
-}
-.carousel {
-  display: flex;
-  transition: transform 0.5s ease;
-}
-.slide {
-  display: flex;
-  justify-content: center;
-  gap: 20px;
-  min-width: 100%;
-  flex-shrink: 0;
-}
-.card {
-  background: #111;
-  padding: 20px;
-  border-radius: 12px;
-  width: 280px;
-  text-align: center;
-  box-shadow: 0 0 10px rgba(255, 0, 100, 0.3);
-  transition: transform 0.3s ease;
-}
-.card:hover {
-  transform: translateY(-8px);
-}
-.avatar {
-  width: 120px;
-  height: 120px;
-  border-radius: 50%;
-  border: 4px solid var(--secondary-color);
-  object-fit: cover;
-  margin-bottom: 15px;
-}
-.card h3 {
-  margin: 10px 0;
-  font-size: 1.3rem;
-}
-.labels {
-  margin-top: 10px;
-}
-.label {
-  display: inline-block;
-  padding: 5px 10px;
-  margin: 4px;
-  border-radius: 8px;
-  font-size: 0.8rem;
-  color: var(--text-light);
-}
-.role { background-color: var(--secondary-color); }
-.dev { background-color: #f39c12; }
-.supporter { background-color: #e91e63; }
-.contributor { background-color: #6c5ce7; }
-.staff { background-color: #3f51b5; }
-.dots {
-  margin-top: 20px;
-  text-align: center;
-}
-.dot {
-  height: 10px;
-  width: 10px;
-  margin: 0 6px;
-  background: #880e4f;
-  border-radius: 50%;
-  display: inline-block;
-  cursor: pointer;
-  opacity: 0.4;
-}
-.dot.active, .dot:hover {
-  opacity: 1;
-  background: var(--secondary-color);
-}
-.carousel-prev, .carousel-next {
-  position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
-  background: rgba(0, 0, 0, 0.5);
-  color: var(--text-light);
-  border: none;
-  padding: 10px;
-  cursor: pointer;
-  z-index: 10;
-}
-.carousel-prev { left: 10px; }
-.carousel-next { right: 10px; }
-.subheading {
-  color: var(--secondary-color);
-  font-weight: 500;
-  font-size: 1rem;
-}
+  /* Skills Section */
+  #skills {
+    text-align: center; /* Center all content */
+    padding: 40px 20px; /* Increased padding for better spacing */
+  }
+  #skills h2 {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    font-size: 2.5rem;
+    padding-bottom: 10px; /* Add padding below heading */
+  }
+  .skills-section {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 30px;
+    padding-top: 20px; /* Add padding above cards */
+  }
+  .skill-card {
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 15px;
+    padding: 25px;
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+  .skill-card:hover {
+    transform: translateY(-10px);
+    box-shadow: var(--shadow);
+  }
+  .skill-card h3 {
+    font-size: 1.8rem;
+    color: var(--primary-color);
+    margin-bottom: 15px;
+    padding-bottom: 5px; /* Add padding below card heading */
+  }
+  .skill-card ul {
+    list-style: none;
+    text-align: left; /* Align list items to left for readability */
+  }
+  .skill-card li {
+    font-size: 1.1rem;
+    margin-bottom: 10px;
+    position: relative;
+    padding-left: 20px;
+    padding-bottom: 5px; /* Add padding below list items */
+  }
+  .skill-card li::before {
+    content: '▹';
+    position: absolute;
+    left: 0;
+    color: var(--primary-color);
+  }
 
-/* Gallery Section */
-#gallery img {
-  max-width: 100%;
-  height: auto;
-}
+  /* Achievements Section */
+  #achievements {
+    text-align: center; /* Ensure all content is centered */
+    padding: 40px 20px; /* Increased padding for better spacing */
+  }
+  #achievements h2 {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    font-size: 2.5rem; /* Consistent font size */
+    padding-bottom: 10px; /* Add padding below heading */
+  }
+  #achievements .subheading {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    font-size: 1rem;
+    line-height: 1.5;
+    padding-bottom: 20px; /* Add padding below subheading */
+  }
+  .carousel-wrapper {
+    position: relative;
+    overflow: hidden;
+    max-width: 1000px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: center;
+  }
+  .carousel {
+    display: flex;
+    transition: transform 0.5s ease;
+    width: 100%;
+  }
+  .slide {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    min-width: 100%;
+    flex-shrink: 0;
+  }
+  .card {
+    background: #111;
+    padding: 20px;
+    border-radius: 12px;
+    width: 280px;
+    text-align: center;
+    box-shadow: 0 0 10px rgba(255, 0, 100, 0.3);
+    transition: transform 0.3s ease;
+  }
+  .card:hover {
+    transform: translateY(-8px);
+  }
+  .avatar {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    border: 4px solid var(--secondary-color);
+    object-fit: cover;
+    margin-bottom: 15px;
+  }
+  .card h3 {
+    margin: 10px 0;
+    font-size: 1.3rem;
+  }
+  .labels {
+    margin-top: 10px;
+  }
+  .label {
+    display: inline-block;
+    padding: 5px 10px;
+    margin: 4px;
+    border-radius: 8px;
+    font-size: 0.8rem;
+    color: var(--text-light);
+  }
+  .role { background-color: var(--secondary-color); }
+  .dev { background-color: #f39c12; }
+  .supporter { background-color: #e91e63; }
+  .contributor { background-color: #6c5ce7; }
+  .staff { background-color: #3f51b5; }
+  .dots {
+    margin-top: 20px;
+    text-align: center;
+  }
+  .dot {
+    height: 10px;
+    width: 10px;
+    margin: 0 6px;
+    background: #880e4f;
+    border-radius: 50%;
+    display: inline-block;
+    cursor: pointer;
+    opacity: 0.4;
+  }
+  .dot.active, .dot:hover {
+    opacity: 1;
+    background: var(--secondary-color);
+  }
+  .carousel-prev, .carousel-next {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background: rgba(0, 0, 0, 0.5);
+    color: var(--text-light);
+    border: none;
+    padding: 10px;
+    cursor: pointer;
+    z-index: 10;
+  }
+  .carousel-prev { left: 10px; }
+  .carousel-next { right: 10px; }
+  .subheading {
+    color: var(--secondary-color);
+    font-weight: 500;
+    font-size: 1rem;
+  }
 
-/* Social Section */
-#social a {
-  transition: transform 0.2s ease;
-}
-#social a:hover {
-  transform: scale(1.1);
-}
+  /* Gallery Section */
+  #gallery {
+    text-align: center; /* Center all content */
+    padding: 40px 20px; /* Increased padding for better spacing */
+  }
+  #gallery h2 {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    font-size: 2.5rem;
+    padding-bottom: 10px; /* Add padding below heading */
+  }
+  #gallery .row {
+    padding-top: 20px; /* Add padding above images */
+  }
+  #gallery img {
+    max-width: 100%;
+    height: auto;
+  }
 
-/* Responsive Design */
-@media (max-width: 767px) {
-  h1 { font-size: 2.5rem; }
-  h2 { font-size: 2rem; }
-  .tagline { font-size: 1.1rem; }
-  .education-card, .skill-card { padding: 20px; }
-  .education-card h3, .skill-card h3 { font-size: 1.5rem; }
-  .institution, .duration, .details, .skill-card li { font-size: 1rem; }
-  .slide { flex-direction: column; align-items: center; gap: 15px; }
-  .carousel-prev, .carousel-next { padding: 8px; }
-}
+  /* Social Section */
+  #social {
+    text-align: center; /* Center all content */
+    padding: 40px 20px; /* Increased padding for better spacing */
+  }
+  #social h2 {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    font-size: 2.5rem;
+    padding-bottom: 10px; /* Add padding below heading */
+  }
+  #social p {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    font-size: 1.3rem;
+    padding-bottom: 20px; /* Add padding below text */
+  }
+  #social .d-flex {
+    padding-top: 10px; /* Add padding above buttons */
+  }
+  #social a {
+    transition: transform 0.2s ease;
+  }
+  #social a:hover {
+    transform: scale(1.1);
+  }
+
+  /* Responsive Design */
+  @media (max-width: 767px) {
+    h1 { font-size: 2.5rem; }
+    h2 { font-size: 2rem; }
+    .tagline, #about-villen p, #social p { font-size: 1.1rem; }
+    .education-card, .skill-card { padding: 20px; }
+    .education-card h3, .skill-card h3 { font-size: 1.5rem; }
+    .institution, .duration, .details, .skill-card li { font-size: 1rem; }
+    .slide { flex-direction: column; align-items: center; gap: 15px; }
+    .carousel-prev, .carousel-next { padding: 8px; }
+    #about-villen, #education, #skills, #achievements, #gallery, #social { padding: 30px 15px; } /* Adjust padding for mobile */
+  }
 </style>
 {% endblock %}
 
-
 {% block extra_js %}
+<script>
   (function () {
-  'use strict';
+    'use strict';
 
-  // Typewriter Effect
-  const aboutText = "I'm not just a student — I'm a storyteller in binary, a defender of code, and a lover who writes code like Shayari. From the dusty classrooms of Bihar to the code labs of DU, I’m Villen Bhai — coding emotions, building the future.";
-  const textElement = document.querySelector('#dynamic-about-text');
-  if (textElement) {
-    let index = 0;
-    function typewriter() {
-      if (index < aboutText.length) {
-        textElement.textContent = textElement.textContent.slice(0, -1) + aboutText.charAt(index) + '|';
-        index++;
-        setTimeout(typewriter, 40);
-      } else {
-        textElement.textContent = aboutText;
+    // Typewriter Effect
+    const aboutText = "I'm not just a student — I'm a storyteller in binary, a defender of digital kingdoms, and a lover who writes code like Shayari. From the dusty classrooms of Bihar to the code labs of DU, I’m Villen Bhai — coding emotions, hacking logic, building the future.";
+    const textElement = document.querySelector('#dynamic-about');
+    if (textElement) {
+      let index = 0;
+      function typewriter() {
+        if (index < aboutText.length) {
+          textElement.textContent = textElement.textContent.slice(0, -1) + aboutText.charAt(index) + '|';
+          index++;
+          setTimeout(typewriter, 40);
+        } else {
+          textElement.textContent = aboutText;
+        }
       }
+      typewriter();
     }
-    typewriter();
-  }
 
-  // Video Toggle
-  const video = document.querySelector('.video-bg');
-  const toggleBtn = document.querySelector('#video-toggle');
-  if (video && toggleBtn) {
-    let paused = false;
-    video.play().catch((error) => {
-      console.log('Autoplay failed:', error);
-      document.addEventListener('click', () => {
-        if (!paused) video.play().catch((err) => console.log('Manual play failed:', err));
-      }, { once: true });
+    // Video Fallback
+    const video = document.querySelector('#video-bg-element');
+    const fallbackImg = document.querySelector('.video-fallback');
+    if (video) {
+      video.play().catch((error) => {
+        console.log('Autoplay failed:', error);
+        fallbackImg.style.display = 'block';
+        video.style.display = 'none';
+        document.addEventListener('click', () => {
+          video.play().catch((err) => console.log('Manual play failed:', err));
+        }, { once: true });
+      });
+
+      video.addEventListener('error', () => {
+        video.style.display = 'none';
+        fallbackImg.style.display = 'block';
+      });
+    }
+
+    // Education Card Animation
+    const cards = document.querySelectorAll('.education-card');
+    cards.forEach((card, index) => {
+      card.style.opacity = '0';
+      card.style.transform = 'translateY(20px)';
+      setTimeout(() => {
+        card.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
+        card.style.opacity = '1';
+        card.style.transform = 'translateY(0)';
+      }, index * 200);
     });
 
-    toggleBtn.addEventListener('click', () => {
-      if (paused) {
-        video.play().catch((err) => console.log('Play failed:', err));
-        toggleBtn.innerHTML = '⏸️ Pause';
-        toggleBtn.setAttribute('aria-label', 'Pause video playback');
-      } else {
-        video.pause();
-        toggleBtn.innerHTML = '▶️ Play';
-        toggleBtn.setAttribute('aria-label', 'Play video playback');
+    // Carousel
+    const carousel = document.querySelector('#carousel');
+    const dots = document.querySelectorAll('.dot');
+    const prevBtn = document.querySelector('.carousel-prev');
+    const nextBtn = document.querySelector('.carousel-next');
+    if (carousel && dots.length && prevBtn && nextBtn) {
+      let currentSlide = 0;
+      const totalSlides = document.querySelectorAll('.slide').length;
+
+      function moveToSlide(index) {
+        carousel.style.transform = `translateX(-${index * 100}%)`;
+        dots.forEach((dot, i) => {
+          dot.classList.toggle('active', i === index);
+          dot.setAttribute('aria-selected', i === index ? 'true' : 'false');
+        });
+        currentSlide = index;
       }
-      paused = !paused;
-    });
 
-    toggleBtn.addEventListener('keydown', (e) => {
-      if (e.key === 'Enter' || e.key === ' ') {
-        e.preventDefault();
-        toggleBtn.click();
-      }
-    });
-  }
-
-  // Education Card Animation
-  const cards = document.querySelectorAll('.education-card');
-  cards.forEach((card, index) => {
-    card.style.opacity = '0';
-    card.style.transform = 'translateY(20px)';
-    setTimeout(() => {
-      card.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
-      card.style.opacity = '1';
-      card.style.transform = 'translateY(0)';
-    }, index * 200);
-  });
-
-  // Carousel
-  const carousel = document.querySelector('#carousel');
-  const dots = document.querySelectorAll('.dot');
-  const prevBtn = document.querySelector('.carousel-prev');
-  const nextBtn = document.querySelector('.carousel-next');
-  if (carousel && dots.length && prevBtn && nextBtn) {
-    let currentSlide = 0;
-    const totalSlides = document.querySelectorAll('.slide').length;
-
-    function moveToSlide(index) {
-      carousel.style.transform = `translateX(-${index * 100}%)`;
       dots.forEach((dot, i) => {
-        dot.classList.toggle('active', i === index);
-        dot.setAttribute('aria-selected', i === index ? 'true' : 'false');
+        dot.addEventListener('click', () => moveToSlide(i));
+        dot.addEventListener('keydown', (e) => {
+          if (e.key === 'Enter' || e.key === ' ') {
+            e.preventDefault();
+            moveToSlide(i);
+          }
+        });
       });
-      currentSlide = index;
+
+      prevBtn.addEventListener('click', () => moveToSlide((currentSlide - 1 + totalSlides) % totalSlides));
+      nextBtn.addEventListener('click', () => moveToSlide((currentSlide + 1) % totalSlides));
+
+      [prevBtn, nextBtn].forEach(btn => {
+        btn.addEventListener('keydown', (e) => {
+          if (e.key === 'Enter' || e.key === ' ') {
+            e.preventDefault();
+            btn.click();
+          }
+        });
+      });
     }
-
-    dots.forEach((dot, i) => {
-      dot.addEventListener('click', () => moveToSlide(i));
-      dot.addEventListener('keydown', (e) => {
-        if (e.key === 'Enter' || e.key === ' ') {
-          e.preventDefault();
-          moveToSlide(i);
-        }
-      });
-    });
-
-    prevBtn.addEventListener('click', () => moveToSlide((currentSlide - 1 + totalSlides) % totalSlides));
-    nextBtn.addEventListener('click', () => moveToSlide((currentSlide + 1) % totalSlides));
-
-    [prevBtn, nextBtn].forEach(btn => {
-      btn.addEventListener('keydown', (e) => {
-        if (e.key === 'Enter' || e.key === ' ') {
-          e.preventDefault();
-          btn.click();
-        }
-      });
-    });
-  }
-})();
+  })();
+</script>
 {% endblock %}
