@@ -1,370 +1,234 @@
 {% extends 'core/base.html' %}
-{% block title %}About Villen Bhai — The Mind Behind the Code{% endblock %}
 {% load static %}
+
+{% block title %}About Villen Bhai — The Mind Behind the Code{% endblock %}
+
+{% block extra_css %}
+  <link rel="stylesheet" href="{% static 'css/about.css' %}">
+{% endblock %}
 
 {% block custom_header %}
 <header id="villen-header" class="text-center p-4 bg-dark text-light border-bottom border-info position-relative">
   <h1 class="display-4 fw-bold glow">🌟 Meet Villen Bhai</h1>
   <p class="fs-5 text-secondary mb-4">Code. Hack. Inspire. Repeat.</p>
-
-  <!-- Button Navigation -->
-  <div class="d-flex justify-content-center flex-wrap gap-3">
+  <nav class="d-flex justify-content-center flex-wrap gap-3" aria-label="Section navigation">
     <a href="#achievements" class="btn btn-outline-info rounded-pill">🏆 Achievements</a>
     <a href="#education" class="btn btn-outline-warning rounded-pill">🎓 Education</a>
     <a href="#skills" class="btn btn-outline-success rounded-pill">⚙️ Skills</a>
     <a href="#gallery" class="btn btn-outline-light rounded-pill">📸 Gallery</a>
     <a href="#social" class="btn btn-outline-danger rounded-pill">🌐 Connect</a>
-  </div>
+  </nav>
 </header>
 {% endblock %}
 
 {% block content %}
-
-<style>
-  #video-bg {
-    position: relative;
-    height: 300px;
-    overflow: hidden;
-  }
-  .video-bg {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-  }
-  #video-toggle {
-    position: fixed;
-    bottom: 1rem;
-    right: 1rem;
-    z-index: 10;
-  }
-  #about-villen {
-    background-color: #f8f9fa;
-    color: #212529;
-    border-radius: 1rem;
-    padding: 2rem;
-    margin: 3rem auto;
-    max-width: 900px;
-    text-align: center;
-  }
-  #education, #skills, #achievements, #gallery, #social {
-    max-width: 900px;
-    margin: 3rem auto;
-    padding: 2rem;
-    border-radius: 1rem;
-  }
-  #education, #gallery {
-    background-color: #f8f9fa;
-    color: #212529;
-  }
-  #skills, #achievements, #social {
-    background-color: #212529;
-    color: #f8f9fa;
-  }
-  h1, h2, h3 {
-    margin-bottom: 1rem;
-  }
-  ul {
-    list-style-type: none;
-    padding-left: 0;
-  }
-  ul li::before {
-    content: "▹";
-    color: #00ff88;
-    margin-right: 0.5rem;
-  }
-  .carousel-wrapper {
-    overflow: hidden;
-  }
-  .carousel {
-    display: flex;
-    transition: transform 0.5s ease;
-  }
-  .slide {
-    display: flex;
-    justify-content: center;
-    gap: 1rem;
-    min-width: 100%;
-  }
-  .card {
-    background: rgba(255, 255, 255, 0.1);
-    border-radius: 1rem;
-    padding: 1rem;
-    width: 280px;
-    text-align: center;
-    box-shadow: 0 0 10px rgba(0, 255, 136, 0.3);
-    transition: transform 0.3s ease;
-  }
-  .card:hover {
-    transform: translateY(-8px);
-  }
-  .avatar {
-    width: 120px;
-    height: 120px;
-    border-radius: 50%;
-    border: 4px solid #00ff88;
-    object-fit: cover;
-    margin-bottom: 1rem;
-  }
-  .badge {
-    font-size: 0.8rem;
-    padding: 0.3rem 0.6rem;
-    border-radius: 0.5rem;
-  }
-  .bg-danger { background-color: #dc3545 !important; }
-  .bg-warning { background-color: #ffc107 !important; color: #212529 !important; }
-  .bg-info { background-color: #0dcaf0 !important; }
-  .bg-primary { background-color: #0d6efd !important; }
-  .bg-secondary { background-color: #6c757d !important; }
-  .text-dark { color: #212529 !important; }
-  .text-success { color: #198754 !important; }
-  .text-secondary { color: #6c757d !important; }
-  .text-danger { color: #dc3545 !important; }
-  .text-light { color: #f8f9fa !important; }
-  .text-center { text-align: center !important; }
-  .mb-1 { margin-bottom: 0.25rem !important; }
-  .mb-3 { margin-bottom: 1rem !important; }
-  .mb-4 { margin-bottom: 1.5rem !important; }
-  .mb-5 { margin-bottom: 3rem !important; }
-  .p-3 { padding: 1rem !important; }
-  .p-4 { padding: 1.5rem !important; }
-  .rounded-3 { border-radius: 1rem !important; }
-  .rounded-4 { border-radius: 1.5rem !important; }
-  .shadow-sm { box-shadow: 0 .125rem .25rem rgba(0,0,0,.075) !important; }
-  .shadow { box-shadow: 0 .5rem 1rem rgba(0,0,0,.15) !important; }
-  .container {
-    padding-left: 1rem;
-    padding-right: 1rem;
-  }
-  .row {
-    display: flex;
-    flex-wrap: wrap;
-    margin-left: -0.5rem;
-    margin-right: -0.5rem;
-  }
-  .col-md-4 {
-    flex: 0 0 33.333333%;
-    max-width: 33.333333%;
-    padding-left: 0.5rem;
-    padding-right: 0.5rem;
-  }
-  @media (max-width: 768px) {
-    .col-md-4 {
-      flex: 0 0 100%;
-      max-width: 100%;
-    }
-  }
-</style>
-
 <!-- Video Background -->
 <div id="video-bg">
-  <video autoplay muted loop playsinline class="video-bg" preload="metadata" poster="{% static 'images/video-fallback.jpg' %}">
+  <video autoplay muted loop playsinline class="video-bg" preload="metadata" loading="lazy" poster="{% static 'images/video-fallback.webp' %}">
+    <source src="{% static 'video/birds.webm' %}" type="video/webm">
     <source src="{% static 'video/birds.mp4' %}" type="video/mp4">
+    <img src="{% static 'images/video-fallback.webp' %}" alt="Nature background fallback image" loading="lazy">
   </video>
-  <button id="video-toggle" class="btn btn-sm btn-outline-light position-fixed bottom-0 end-0 m-3">⏸️ Pause</button>
+  <button id="video-toggle" class="btn btn-sm btn-outline-light position-fixed bottom-0 end-0 m-3" aria-label="Toggle video playback">⏸️ Pause</button>
 </div>
 
 <!-- About Section -->
-<section id="about-villen" class="container rounded-4 p-5 my-5 shadow text-center">
-  <h2 class="display-5 fw-bold text-primary">Who is Villen Bhai?</h2>
-  <p class="fs-5" id="dynamic-about"></p>
+<section id="about-villen" class="container bg-light text-dark rounded-4 p-5 my-5 shadow">
+  <h2 class="display-5 fw-bold text-center text-primary">Who is Villen Bhai?</h2>
+  <p class="fs-5 text-center" id="dynamic-about">I'm not just a student — I'm a storyteller in binary, a defender of digital kingdoms, and a lover who writes code like Shayari. From the dusty classrooms of Bihar to the code labs of DU, I’m Villen Bhai — coding emotions, hacking logic, and building the future.</p>
 </section>
 
 <!-- Education Section -->
-<section id="education" class="container rounded-4 p-5 my-5 shadow bg-light text-dark">
-  <h1 class="text-success mb-4 text-center">My Education</h1>
-  <p class="fst-italic text-secondary mb-5 text-center">Learning, Growing, Conquering</p>
-  <div class="row g-4">
-    <div class="col-md-4">
-      <div class="p-4 bg-secondary bg-opacity-10 rounded-3 shadow-sm h-100">
-        <h3>🎓 B.Sc. Physical Science (PME)</h3>
-        <p class="mb-1"><strong>Delhi University</strong></p>
-        <p class="mb-1 text-muted">2024 – Present</p>
-        <p>Major in Electronics and Minor in CS. Cybersecurity + Coding hustle side-by-side.</p>
-      </div>
+<section id="education" class="container bg-light text-dark rounded-4 p-5 my-5 shadow">
+  <h2 class="text-center mb-4">My Education</h2>
+  <p class="tagline text-center mb-4">Learning, Growing, Conquering</p>
+  <div class="education-section">
+    <div class="education-card">
+      <h3>B.Sc. Physical Science (PME)</h3>
+      <div class="institution">Delhi University</div>
+      <div class="duration">2024 – Present</div>
+      <div class="details">Major in Electronics and Minor in CS.<br>Cybersecurity + Coding hustle side-by-side.</div>
     </div>
-    <div class="col-md-4">
-      <div class="p-4 bg-secondary bg-opacity-10 rounded-3 shadow-sm h-100">
-        <h3>🎓 Class 12th (Bihar Board)</h3>
-        <p class="mb-1"><strong>Dhira High School</strong></p>
-        <p class="mb-1 text-muted">2022 – 2024</p>
-        <p>322/500 marks in PCM. Foundation of logical thinking and ambition.</p>
-      </div>
+    <div class="education-card">
+      <h3>Class 12th (Bihar Board)</h3>
+      <div class="institution">Dhira High School</div>
+      <div class="duration">2022 – 2024</div>
+      <div class="details">322/500 marks in PCM.<br>Foundation of logical thinking and ambition.</div>
     </div>
-    <div class="col-md-4">
-      <div class="p-4 bg-secondary bg-opacity-10 rounded-3 shadow-sm h-100">
-        <h3>🎓 Class 10th (CBSE)</h3>
-        <p class="mb-1"><strong>Tirthankar Mahaveer Vidya Mandir</strong></p>
-        <p class="mb-1 text-muted">2020</p>
-        <p>59.66% – humble beginning, fire in the heart.</p>
-      </div>
+    <div class="education-card">
+      <h3>Class 10th (CBSE)</h3>
+      <div class="institution">Tirthankar Mahaveer Vidya Mandir</div>
+      <div class="duration">2020</div>
+      <div class="details">59.66% – humble beginning, fire in the heart.</div>
     </div>
   </div>
 </section>
 
 <!-- Skills Section -->
-<section id="skills" class="container rounded-4 p-5 my-5 shadow bg-dark text-light">
-  <h1 class="text-success mb-4 text-center">My Skills</h1>
-  <div class="row g-4">
-    <div class="col-md-4">
-      <div class="p-4 bg-secondary bg-opacity-10 rounded-3 shadow-sm h-100">
-        <h3>Languages</h3>
-        <ul>
-          <li>Python</li>
-          <li>C++</li>
-          <li>Java</li>
-          <li>HTML/CSS</li>
-          <li>JavaScript</li>
-        </ul>
-      </div>
+<section id="skills" class="container bg-dark text-light rounded-4 p-5 my-5 shadow">
+  <h2 class="text-center mb-4">My Skills</h2>
+  <div class="skills-section">
+    <div class="skill-card">
+      <h3>Languages</h3>
+      <ul>
+        <li>Python</li>
+        <li>C++</li>
+        <li>Java</li>
+        <li>HTML/CSS</li>
+        <li>JavaScript</li>
+      </ul>
     </div>
-    <div class="col-md-4">
-      <div class="p-4 bg-secondary bg-opacity-10 rounded-3 shadow-sm h-100">
-        <h3>Cybersecurity</h3>
-        <ul>
-          <li>Kali Linux</li>
-          <li>Nmap</li>
-          <li>Nuclei</li>
-          <li>OSINT</li>
-          <li>Subdomain Takeover</li>
-          <li>Pentester</li>
-        </ul>
-      </div>
+    <div class="skill-card">
+      <h3>Cybersecurity</h3>
+      <ul>
+        <li>Kali Linux</li>
+        <li>Nmap</li>
+        <li>Nuclei</li>
+        <li>OSINT</li>
+        <li>Subdomain Takeover</li>
+        <li>Pentester</li>
+      </ul>
     </div>
-    <div class="col-md-4">
-      <div class="p-4 bg-secondary bg-opacity-10 rounded-3 shadow-sm h-100">
-        <h3>Web Development</h3>
-        <ul>
-          <li>Django</li>
-          <li>Bootstrap</li>
-          <li>LangChain</li>
-        </ul>
-      </div>
+    <div class="skill-card">
+      <h3>Web Development</h3>
+      <ul>
+        <li>Django</li>
+        <li>Bootstrap</li>
+        <li>LangChain</li>
+      </ul>
     </div>
   </div>
 </section>
 
 <!-- Achievements Section -->
-<section id="achievements" class="container rounded-4 p-5 my-5 shadow bg-dark text-light">
-  <h1 class="text-success mb-4 text-center">Contributors</h1>
-  <p class="fst-italic text-secondary mb-5 text-center">— amazing people —</p>
-  <div class="carousel-wrapper overflow-hidden">
-    <div class="carousel d-flex transition" id="carousel">
-      <div class="slide d-flex justify-content-center gap-4 min-w-100">
-        <div class="card bg-secondary bg-opacity-10 rounded-3 shadow-sm text-center p-3" style="width: 280px;">
-          <img src="https://i.ibb.co/3ykHJWJ/shubh.png" class="avatar rounded-circle mb-3" alt="Shubh">
+<section id="achievements" class="container bg-dark text-light rounded-4 p-5 my-5 shadow">
+  <h2 class="text-center mb-2">Contributors</h2>
+  <p class="subheading text-center mb-4">— Amazing People —</p>
+  <div class="carousel-wrapper">
+    <button class="carousel-prev" aria-label="Previous slide">❮</button>
+    <div class="carousel" id="carousel">
+      <!-- Slide 1 -->
+      <div class="slide">
+        <div class="card">
+          <img src="{% static 'images/shubh.webp' %}" class="avatar" alt="Shubh avatar">
           <h3>Shubh</h3>
-          <div>
-            <span class="badge bg-danger me-1">Founder</span>
-            <span class="badge bg-warning text-dark">Developer</span>
+          <div class="labels">
+            <span class="label role">Founder</span>
+            <span class="label dev">Developer</span>
           </div>
         </div>
-        <div class="card bg-secondary bg-opacity-10 rounded-3 shadow-sm text-center p-3" style="width: 280px;">
-          <img src="https://i.ibb.co/SrnYbDY/whoami.png" class="avatar rounded-circle mb-3" alt="Sudo Whoami">
+        <div class="card">
+          <img src="{% static 'images/whoami.webp' %}" class="avatar" alt="Sudo Whoami avatar">
           <h3>Sudo Whoami</h3>
-          <div>
-            <span class="badge bg-info me-1">Supporter</span>
-            <span class="badge bg-warning text-dark">Developer</span>
+          <div class="labels">
+            <span class="label supporter">Supporter</span>
+            <span class="label dev">Developer</span>
           </div>
         </div>
-        <div class="card bg-secondary bg-opacity-10 rounded-3 shadow-sm text-center p-3" style="width: 280px;">
-          <img src="https://i.ibb.co/q0NjQTw/flampt.png" class="avatar rounded-circle mb-3" alt="Flampt">
+        <div class="card">
+          <img src="{% static 'images/flampt.webp' %}" class="avatar" alt="Flampt avatar">
           <h3>Flampt</h3>
-          <div>
-            <span class="badge bg-primary">Contributor</span>
+          <div class="labels">
+            <span class="label contributor">Contributor</span>
           </div>
         </div>
       </div>
-      <div class="slide d-flex justify-content-center gap-4 min-w-100">
-        <div class="card bg-secondary bg-opacity-10 rounded-3 shadow-sm text-center p-3" style="width: 280px;">
-          <img src="https://i.ibb.co/pWmM9Td/taj.png" class="avatar rounded-circle mb-3" alt="Taj">
+      <!-- Slide 2 -->
+      <div class="slide">
+        <div class="card">
+          <img src="{% static 'images/taj.webp' %}" class="avatar" alt="Taj avatar">
           <h3>Taj</h3>
-          <div>
-            <span class="badge bg-primary">Contributor</span>
+          <div class="labels">
+            <span class="label contributor">Contributor</span>
           </div>
         </div>
-        <div class="card bg-secondary bg-opacity-10 rounded-3 shadow-sm text-center p-3" style="width: 280px;">
-          <img src="https://i.ibb.co/YdWk3Yf/denzven.png" class="avatar rounded-circle mb-3" alt="Denzven">
+        <div class="card">
+          <img src="{% static 'images/denzven.webp' %}" class="avatar" alt="Denzven avatar">
           <h3>Denzven</h3>
-          <div>
-            <span class="badge bg-primary">Contributor</span>
+          <div class="labels">
+            <span class="label contributor">Contributor</span>
           </div>
         </div>
-        <div class="card bg-secondary bg-opacity-10 rounded-3 shadow-sm text-center p-3" style="width: 280px;">
-          <img src="https://i.ibb.co/1r1vQ0M/kueue.png" class="avatar rounded-circle mb-3" alt="Professor Kueue">
+        <div class="card">
+          <img src="{% static 'images/kueue.webp' %}" class="avatar" alt="Professor Kueue avatar">
           <h3>Professor Kueue</h3>
-          <div>
-            <span class="badge bg-primary">Contributor</span>
+          <div class="labels">
+            <span class="label contributor">Contributor</span>
           </div>
         </div>
       </div>
-      <div class="slide d-flex justify-content-center gap-4 min-w-100">
-        <div class="card bg-secondary bg-opacity-10 rounded-3 shadow-sm text-center p-3" style="width: 280px;">
-          <img src="https://i.ibb.co/xYddQ3Z/khrys.jpg" class="avatar rounded-circle mb-3" alt="Khrys">
+      <!-- Slide 3 -->
+      <div class="slide">
+        <div class="card">
+          <img src="{% static 'images/khrys.webp' %}" class="avatar" alt="Khrys avatar">
           <h3>Khrys</h3>
-          <div>
-            <span class="badge bg-secondary">Staff</span>
+          <div class="labels">
+            <span class="label staff">Staff</span>
           </div>
         </div>
-        <div class="card bg-secondary bg-opacity-10 rounded-3 shadow-sm text-center p-3" style="width: 280px;">
-          <img src="https://avatars.githubusercontent.com/u/137586547?v=4" class="avatar rounded-circle mb-3" alt="Villen Bhai">
+        <div class="card">
+          <img src="{% static 'images/villen.webp' %}" class="avatar" alt="Villen Bhai avatar">
           <h3>Villen Bhai</h3>
-          <div>
-            <span class="badge bg-danger me-1">OSINT Lead</span>
-            <span class="badge bg-warning text-dark">Developer</span>
+          <div class="labels">
+            <span class="label role">OSINT Lead</span>
+            <span class="label dev">Developer</span>
+          </div>
+        </div>
+        <div class="card">
+          <img src="{% static 'images/guest.webp' %}" class="avatar" alt="Guest contributor avatar">
+          <h3>Guest</h3>
+          <div class="labels">
+            <span class="label contributor">Contributor</span>
           </div>
         </div>
       </div>
     </div>
+    <button class="carousel-next" aria-label="Next slide">❯</button>
   </div>
-  <div class="dots">
-    <span class="dot active" onclick="moveToSlide(0)"></span>
-    <span class="dot" onclick="moveToSlide(1)"></span>
-    <span class="dot" onclick="moveToSlide(2)"></span>
+  <div class="dots" role="tablist">
+    <span class="dot active" role="tab" aria-label="Slide 1" tabindex="0"></span>
+    <span class="dot" role="tab" aria-label="Slide 2" tabindex="0"></span>
+    <span class="dot" role="tab" aria-label="Slide 3" tabindex="0"></span>
   </div>
 </section>
 
-<script>
-  const carousel = document.getElementById('carousel');
-  const dots = document.querySelectorAll('.dot');
-  function moveToSlide(index) {
-    carousel.style.transform = `translateX(-${index * 100}%)`;
-    dots.forEach((dot, i) => {
-      dot.classList.toggle('active', i === index);
-    });
-  }
-</script>
+<!-- Gallery Section -->
+<section id="gallery" class="container bg-light text-dark rounded-4 p-5 my-5 shadow">
+  <h2 class="text-center mb-4">📸 Gallery</h2>
+  <div class="row">
+    <div class="col-md-4 mb-3">
+      <picture>
+        <source src="{% static 'images/pic1.webp' %}" type="image/webp">
+        <img src="{% static 'images/pic1.jpg' %}" class="img-fluid rounded" alt="Villen Bhai at a coding event" loading="lazy">
+      </picture>
+    </div>
+    <div class="col-md-4 mb-3">
+      <picture>
+        <source src="{% static 'images/pic2.webp' %}" type="image/webp">
+        <img src="{% static 'images/pic2.jpg' %}" class="img-fluid rounded" alt="Villen Bhai presenting a project" loading="lazy">
+      </picture>
+    </div>
+    <div class="col-md-4 mb-3">
+      <picture>
+        <source src="{% static 'images/pic3.webp' %}" type="image/webp">
+        <img src="{% static 'images/pic3.jpg' %}" class="img-fluid rounded" alt="Villen Bhai at a hackathon" loading="lazy">
+      </picture>
+    </div>
+  </div>
+</section>
 
+<!-- Social Section -->
+<section id="social" class="container bg-dark text-light rounded-4 p-5 my-5 shadow text-center">
+  <h2 class="text-danger mb-4">🌐 Connect With Me</h2>
+  <p>Let’s collaborate, chat, or vibe! 💬</p>
+  <div class="d-flex justify-content-center gap-3 flex-wrap mt-3">
+    <a href="https://instagram.com/yourhandle" target="_blank" rel="noopener noreferrer" class="btn btn-outline-danger">Instagram</a>
+    <a href="mailto:youremail@example.com" class="btn btn-outline-light">Email</a>
+    <a href="https://github.com/yourgithub" target="_blank" rel="noopener noreferrer" class="btn btn-outline-info">GitHub</a>
+  </div>
+</section>
 {% endblock %}
 
 {% block extra_js %}
-<script>
-  // Typewriter effect
-  const aboutText = `I'm not just a student — I'm a storyteller in binary, a defender of digital kingdoms, and a lover who writes code like Shayari. From the dusty classrooms of Bihar to the code labs of DU, I’m Villen Bhai — coding emotions, hacking logic, and building the future.`;
-  const textElement = document.getElementById('dynamic-about');
-  let index = 0;
-
-  function typeWriter() {
-    if (index < aboutText.length) {
-      textElement.innerHTML += aboutText.charAt(index);
-      index++;
-      setTimeout(typeWriter, 40);
-    }
-  }
-  window.onload = typeWriter;
-
-  // Video toggle
-  const video = document.querySelector('.video-bg');
-  const toggleBtn = document.getElementById('video-toggle');
-  let paused = false;
-  toggleBtn.addEventListener('click', () => {
-    if (paused) {
-      video.play();
-      toggleBtn.innerHTML = '⏸️ Pause';
-    } else {
-      video.pause();
-      toggleBtn.innerHTML = '▶️ Play';
-    }
-    paused = !paused;
-  });
-</script>
+  <script src="{% static 'js/about.js' %}"></script>
 {% endblock %}
