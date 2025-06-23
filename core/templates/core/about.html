@@ -4,43 +4,653 @@
 
 {% block custom_header %}
 <header id="villen-header" class="text-center p-4 bg-dark text-light border-bottom border-info position-relative">
-  <h1 class="display-4 fw-bold glow" id="villen-title" style="cursor: pointer;">
-    🌟 Meet Villen Bhai
-  </h1>
+  <h1 class="display-4 fw-bold glow">🌟 Meet Villen Bhai</h1>
   <p class="fs-5 text-secondary mb-4">Code. Hack. Inspire. Repeat.</p>
 
+  <!-- Button Navigation -->
   <div class="d-flex justify-content-center flex-wrap gap-3">
-  <a href="#achievements" class="btn btn-outline-info rounded-pill">🏆 Achievements</a>
-  <a href="#education" class="btn btn-outline-warning rounded-pill">🎓 Education</a>
-  <a href="#skills" class="btn btn-outline-success rounded-pill">⚙️ Skills</a>
-  <a href="#gallery" class="btn btn-outline-light rounded-pill">📸 Gallery</a>
-  <a href="#social" class="btn btn-outline-danger rounded-pill">🌐 Connect</a>
-
-  <!-- Separate Pages -->
-  <a href="{% url 'achievements' %}" class="btn btn-info rounded-pill">View Achievements</a>
-  <a href="{% url 'education' %}" class="btn btn-warning rounded-pill">Full Education</a>
-  <a href="{% url 'skills' %}" class="btn btn-success rounded-pill">Explore Skills</a>
-  <a href="{% url 'gallery' %}" class="btn btn-light rounded-pill">Open Gallery</a>
-  <a href="{% url 'social' %}" class="btn btn-danger rounded-pill">Connect With Me</a>
-</div>
-
+    <a href="#achievements" class="btn btn-outline-info rounded-pill">🏆 Achievements</a>
+    <a href="#education" class="btn btn-outline-warning rounded-pill">🎓 Education</a>
+    <a href="#skills" class="btn btn-outline-success rounded-pill">⚙️ Skills</a>
+    <a href="#gallery" class="btn btn-outline-light rounded-pill">📸 Gallery</a>
+    <a href="#social" class="btn btn-outline-danger rounded-pill">🌐 Connect</a>
+    <!-- Separate Pages -->
+   
+  </div>
+</header>
 {% endblock %}
 
 {% block content %}
+
 <!-- 🌌 Video Background -->
 <div id="video-bg">
   <video autoplay muted loop playsinline class="video-bg" preload="metadata" poster="{% static 'images/video-fallback.jpg' %}">
     <source src="{% static 'video/birds.mp4' %}" type="video/mp4">
-    Your browser does not support the video tag.
   </video>
-  <button id="video-toggle" class="btn btn-sm btn-outline-light position-fixed bottom-0 end-0 m-3">
-    ⏸️ Pause
-  </button>
+  <button id="video-toggle" class="btn btn-sm btn-outline-light position-fixed bottom-0 end-0 m-3">⏸️ Pause</button>
 </div>
 
 <!-- ✨ About Section -->
-<section id="about-villen" class="container rounded-4 p-5 my-5 text-center">
-  <h2 class="display-4 mb-4 fw-bold" style="color: #00a2ff;">Villen Bhai</h2>
-  <p id="dynamic-about" class="fs-5"></p>
+<section id="about-villen" class="container bg-light text-dark rounded-4 p-5 my-5 shadow">
+  <h2 class="display-5 fw-bold text-center text-primary">Who is Villen Bhai?</h2>
+  <p class="fs-5 text-center" id="dynamic-about"></p>
 </section>
+
+
+<!-- 🎓 Education Section -->
+<section id="education" class="container bg-light text-dark rounded-4 p-5 my-5 shadow">
+
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Education Showcase</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background: linear-gradient(135deg, #1e1e1e, #2c2c2c);
+            color: #ffffff;
+            line-height: 1.6;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+
+        h1 {
+            text-align: center;
+            font-size: 3rem;
+            margin-bottom: 20px;
+            color: #00ff88;
+            text-shadow: 0 0 10px rgba(0, 255, 136, 0.5);
+        }
+
+        .tagline {
+            text-align: center;
+            font-size: 1.3rem;
+            color: #cccccc;
+            margin-bottom: 40px;
+            font-style: italic;
+        }
+
+        .education-section {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-top: 20px;
+        }
+
+        .education-card {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 15px;
+            padding: 25px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            text-align: left;
+        }
+
+        .education-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 10px 20px rgba(0, 255, 136, 0.2);
+        }
+
+        .education-card h2 {
+            font-size: 1.8rem;
+            color: #00ff88;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+        }
+
+        .education-card h2::before {
+            content: '🎓';
+            margin-right: 10px;
+        }
+
+        .education-card .institution {
+            font-size: 1.2rem;
+            color: #ffffff;
+            margin-bottom: 5px;
+        }
+
+        .education-card .duration {
+            font-size: 1.1rem;
+            color: #aaaaaa;
+            margin-bottom: 15px;
+        }
+
+        .education-card .details {
+            font-size: 1.1rem;
+            color: #cccccc;
+            line-height: 1.5;
+        }
+
+        .education-card .details::before {
+            content: '▹';
+            color: #00ff88;
+            margin-right: 10px;
+        }
+
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2.5rem;
+            }
+
+            .tagline {
+                font-size: 1.1rem;
+            }
+
+            .education-card {
+                padding: 20px;
+            }
+
+            .education-card h2 {
+                font-size: 1.5rem;
+            }
+
+            .education-card .institution,
+            .education-card .duration,
+            .education-card .details {
+                font-size: 1rem;
+            }
+        }
+    </style>
+ </head>
+<body>
+    <div class="container">
+        <h1>My Education</h1>
+        <p class="tagline">Learning, Growing, Conquering</p>
+        <div class="education-section">
+            <div class="education-card">
+                <h2>B.Sc. Physical Science (PME)</h2>
+                <div class="institution">Delhi University</div>
+                <div class="duration">2024 – Present</div>
+                <div class="details">
+                    Major in Electronics and Minor in CS.<br>
+                    Cybersecurity + Coding hustle side-by-side.
+                </div>
+            </div>
+            <div class="education-card">
+                <h2>Class 12th (Bihar Board)</h2>
+                <div class="institution">Dhira High School</div>
+                <div class="duration">2022 – 2024</div>
+                <div class="details">
+                    322/500 marks in PCM.<br>
+                    Foundation of logical thinking and ambition.
+                </div>
+            </div>
+            <div class="education-card">
+                <h2>Class 10th (CBSE)</h2>
+                <div class="institution">Tirthankar Mahaveer Vidya Mandir</div>
+                <div class="duration">2020</div>
+                <div class="details">
+                    59.66% – humble beginning, fire in the heart.
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+        // Add subtle animation on page load
+        document.addEventListener('DOMContentLoaded', () => {
+            const cards = document.querySelectorAll('.education-card');
+            cards.forEach((card, index) => {
+                card.style.opacity = '0';
+                card.style.transform = 'translateY(20px)';
+                setTimeout(() => {
+                    card.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
+                    card.style.opacity = '1';
+                    card.style.transform = 'translateY(0)';
+                }, index * 200);
+            });
+        });
+    </script>
+</body>
+
+</section>
+
+<!-- ⚙️ Skills Section -->
+<section id="skills" class="container bg-dark text-light rounded-4 p-5 my-5 shadow">
+
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Skills Showcase</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background: linear-gradient(135deg, #1e1e1e, #2c2c2c);
+            color: #ffffff;
+            line-height: 1.6;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+
+        h1 {
+            text-align: center;
+            font-size: 3rem;
+            margin-bottom: 40px;
+            color: #00ff88;
+            text-shadow: 0 0 10px rgba(0, 255, 136, 0.5);
+        }
+
+        .skills-section {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-top: 20px;
+        }
+
+        .skill-card {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 15px;
+            padding: 25px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .skill-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 10px 20px rgba(0, 255, 136, 0.2);
+        }
+
+        .skill-card h2 {
+            font-size: 1.8rem;
+            color: #00ff88;
+            margin-bottom: 15px;
+        }
+
+        .skill-card ul {
+            list-style: none;
+        }
+
+        .skill-card li {
+            font-size: 1.1rem;
+            margin-bottom: 10px;
+            position: relative;
+            padding-left: 20px;
+        }
+
+        .skill-card li::before {
+            content: '▹';
+            position: absolute;
+            left: 0;
+            color: #00ff88;
+        }
+
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2.5rem;
+            }
+
+            .skill-card {
+                padding: 20px;
+            }
+
+            .skill-card h2 {
+                font-size: 1.5rem;
+            }
+
+            .skill-card li {
+                font-size: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>My Skills</h1>
+        <div class="skills-section">
+            <div class="skill-card">
+                <h2>Languages</h2>
+                <ul>
+                    <li>Python</li>
+                    <li>C++</li>
+                    <li>Java</li>
+                    <li>HTML/CSS</li>
+                    <li>JavaScript</li>
+                </ul>
+            </div>
+            <div class="skill-card">
+                <h2>Cybersecurity</h2>
+                <ul>
+                    <li>Kali Linux</li>
+                    <li>Nmap</li>
+                    <li>Nuclei</li>
+                    <li>OSINT</li>
+                    <li>Subdomain Takeover</li>
+                    <li>Pentester</li>
+                </ul>
+            </div>
+            <div class="skill-card">
+                <h2>Web Development</h2>
+                <ul>
+                    <li>Django</li>
+                    <li>Bootstrap</li>
+                    <li>LangChain</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</body>
+
+
+
+
+  
+</section>
+
+<!-- 🏆 Achievements Section -->
+<section id="achievements" class="container bg-dark text-light rounded-4 p-5 my-5 shadow">
+  <head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Contributors — Villen Bhai</title>
+  <style>
+    body {
+      margin: 0;
+      background: #0d0d0d;
+      color: white;
+      font-family: 'Segoe UI', sans-serif;
+    }
+
+    section#contributors {
+      text-align: center;
+      padding: 60px 20px;
+    }
+
+    #contributors h2 {
+      font-size: 2.8rem;
+      margin-bottom: 10px;
+    }
+
+    .subheading {
+      color: #ff3366;
+      font-weight: 500;
+      font-size: 1rem;
+      margin-bottom: 40px;
+    }
+
+    .carousel-wrapper {
+      overflow: hidden;
+      max-width: 1000px;
+      margin: 0 auto;
+    }
+
+    .carousel {
+      display: flex;
+      transition: transform 0.5s ease;
+    }
+
+    .slide {
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+      min-width: 100%;
+      flex-shrink: 0;
+    }
+
+    .card {
+      background: #111;
+      padding: 20px;
+      border-radius: 12px;
+      width: 280px;
+      text-align: center;
+      box-shadow: 0 0 10px rgba(255, 0, 100, 0.3);
+      transition: transform 0.3s ease;
+    }
+
+    .card:hover {
+      transform: translateY(-8px);
+    }
+
+    .avatar {
+      width: 120px;
+      height: 120px;
+      border-radius: 50%;
+      border: 4px solid #ff3366;
+      object-fit: cover;
+      margin-bottom: 15px;
+    }
+
+    .card h3 {
+      margin: 10px 0;
+      font-size: 1.3rem;
+    }
+
+    .labels {
+      margin-top: 10px;
+    }
+
+    .label {
+      display: inline-block;
+      padding: 5px 10px;
+      margin: 4px;
+      border-radius: 8px;
+      font-size: 0.8rem;
+      color: white;
+    }
+
+    .role { background-color: #ff3366; }
+    .dev { background-color: #f39c12; }
+    .supporter { background-color: #e91e63; }
+    .contributor { background-color: #6c5ce7; }
+    .staff { background-color: #3f51b5; }
+
+    .dots {
+      margin-top: 20px;
+    }
+
+    .dot {
+      height: 10px;
+      width: 10px;
+      margin: 0 6px;
+      background: #880e4f;
+      border-radius: 50%;
+      display: inline-block;
+      cursor: pointer;
+      opacity: 0.4;
+    }
+
+    .dot.active, .dot:hover {
+      opacity: 1;
+      background: #ff3366;
+    }
+
+    @media (max-width: 768px) {
+      .slide {
+        flex-direction: column;
+        align-items: center;
+      }
+    }
+  </style>
+  </head>
+  <body>
+  <section id="contributors">
+    <h2>Contributors</h2>
+    <p class="subheading">— amazing people —</p>
+
+    <div class="carousel-wrapper">
+      <div class="carousel" id="carousel">
+        <!-- Slide 1 -->
+        <div class="slide">
+          <div class="card">
+            <img src="https://i.ibb.co/3ykHJWJ/shubh.png" class="avatar">
+            <h3>Shubh</h3>
+            <div class="labels">
+              <span class="label role">Founder</span>
+              <span class="label dev">Developer</span>
+            </div>
+          </div>
+
+          <div class="card">
+            <img src="https://i.ibb.co/SrnYbDY/whoami.png" class="avatar">
+            <h3>Sudo Whoami</h3>
+            <div class="labels">
+              <span class="label supporter">Supporter</span>
+              <span class="label dev">Developer</span>
+            </div>
+          </div>
+
+          <div class="card">
+            <img src="https://i.ibb.co/q0NjQTw/flampt.png" class="avatar">
+            <h3>Flampt</h3>
+            <div class="labels">
+              <span class="label contributor">Contributor</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Slide 2 -->
+        <div class="slide">
+          <div class="card">
+            <img src="https://i.ibb.co/pWmM9Td/taj.png" class="avatar">
+            <h3>Taj</h3>
+            <div class="labels">
+              <span class="label contributor">Contributor</span>
+            </div>
+          </div>
+
+          <div class="card">
+            <img src="https://i.ibb.co/YdWk3Yf/denzven.png" class="avatar">
+            <h3>Denzven</h3>
+            <div class="labels">
+              <span class="label contributor">Contributor</span>
+            </div>
+          </div>
+
+          <div class="card">
+            <img src="https://i.ibb.co/1r1vQ0M/kueue.png" class="avatar">
+            <h3>Professor Kueue</h3>
+            <div class="labels">
+              <span class="label contributor">Contributor</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Slide 3 -->
+        <div class="slide">
+          <div class="card">
+            <img src="https://i.ibb.co/xYddQ3Z/khrys.jpg" class="avatar">
+            <h3>Khrys</h3>
+            <div class="labels">
+              <span class="label staff">Staff</span>
+            </div>
+          </div>
+
+          <div class="card">
+            <img src="https://avatars.githubusercontent.com/u/137586547?v=4" class="avatar">
+            <h3>Villen Bhai</h3>
+            <div class="labels">
+              <span class="label role">OSINT Lead</span>
+              <span class="label dev">Developer</span>
+            </div>
+          </div>
+
+          <div class="card">
+            <img src="https://i.ibb.co/3ykHJWJ/shubh.png" class="avatar">
+            <h3>Shubh</h3>
+            <div class="labels">
+              <span class="label role">Founder</span>
+              <span class="label dev">Developer</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="dots">
+      <span class="dot active" onclick="moveToSlide(0)"></span>
+      <span class="dot" onclick="moveToSlide(1)"></span>
+      <span class="dot" onclick="moveToSlide(2)"></span>
+    </div>
+  </section>
+
+  <script>
+    const carousel = document.getElementById('carousel');
+    const dots = document.querySelectorAll('.dot');
+    function moveToSlide(index) {
+      carousel.style.transform = `translateX(-${index * 100}%)`;
+      dots.forEach((dot, i) => {
+        dot.classList.toggle('active', i === index);
+      });
+    }
+  </script>
+  </body>
+
+</section>
+<!-- 📸 Gallery Section -->
+<section id="gallery" class="container bg-light text-dark rounded-4 p-5 my-5 shadow">
+  <h2 class="text-center mb-4">📸 Gallery</h2>
+  <div class="row">
+    <div class="col-md-4 mb-3"><img src="{% static 'images/pic1.jpg' %}" class="img-fluid rounded" alt=""></div>
+    <div class="col-md-4 mb-3"><img src="{% static 'images/pic2.jpg' %}" class="img-fluid rounded" alt=""></div>
+    <div class="col-md-4 mb-3"><img src="{% static 'images/pic3.jpg' %}" class="img-fluid rounded" alt=""></div>
+  </div>
+</section>
+
+<!-- 🌐 Social Section -->
+<section id="social" class="container bg-dark text-light rounded-4 p-5 my-5 shadow text-center">
+  <h2 class="text-danger mb-4">🌐 Connect With Me</h2>
+  <p>Let’s collaborate, chat, or vibe! 💬</p>
+  <div class="d-flex justify-content-center gap-3 flex-wrap mt-3">
+    <a href="https://instagram.com/yourhandle" target="_blank" class="btn btn-outline-danger">Instagram</a>
+    <a href="mailto:youremail@example.com" class="btn btn-outline-light">Email</a>
+    <a href="https://github.com/yourgithub" target="_blank" class="btn btn-outline-info">GitHub</a>
+  </div>
+</section>
+
+{% endblock %}
+
+{% block extra_js %}
+<script>
+  // Typewriter effect
+  const aboutText = `I'm not just a student — I'm a storyteller in binary, a defender of digital kingdoms, and a lover who writes code like Shayari. From the dusty classrooms of Bihar to the code labs of DU, I’m Villen Bhai — coding emotions, hacking logic, and building the future.`;
+  const textElement = document.getElementById('dynamic-about');
+  let index = 0;
+
+  function typeWriter() {
+    if (index < aboutText.length) {
+      textElement.innerHTML += aboutText.charAt(index);
+      index++;
+      setTimeout(typeWriter, 40);
+    }
+  }
+  window.onload = typeWriter;
+
+  // Video toggle
+  const video = document.querySelector('.video-bg');
+  const toggleBtn = document.getElementById('video-toggle');
+  let paused = false;
+  toggleBtn.addEventListener('click', () => {
+    if (paused) {
+      video.play();
+      toggleBtn.innerHTML = '⏸️ Pause';
+    } else {
+      video.pause();
+      toggleBtn.innerHTML = '▶️ Play';
+    }
+    paused = !paused;
+  });
+</script>
 {% endblock %}
