@@ -12,11 +12,11 @@
 {% block custom_header %}
 <header id="villen-header" class="text-center bg-dark text-light border-bottom position-relative">
   <h1 class="display-4 fw-bold glow">🌌 Meet Villen Bhai</h1>
-  <p class="fs-5 text-secondary mb-4 hacker-tagline">Code. Hack. Conquer. Repeat.</p>
+  <p class="fs-5 hacker-text mb-4">Code. Hack. Conquer. Repeat.</p>
   <nav class="d-flex justify-content-center flex-wrap gap-3" aria-label="Section navigation">
-    <a href="#achievements" class="btn btn-outline-neon rounded-pill" aria-label="View Achievements">🏆 Achievements</a>
     <a href="#education" class="btn btn-outline-neon rounded-pill" aria-label="View Education">🎓 Education</a>
     <a href="#skills" class="btn btn-outline-neon rounded-pill" aria-label="View Skills">⚙️ Skills</a>
+    <a href="#achievements" class="btn btn-outline-neon rounded-pill" aria-label="View Achievements">🏆 Achievements</a>
     <a href="#gallery" class="btn btn-outline-neon rounded-pill" aria-label="View Gallery">📸 Gallery</a>
     <a href="#social" class="btn btn-outline-neon rounded-pill" aria-label="Connect with Villen Bhai">🌐 Connect</a>
   </nav>
@@ -25,204 +25,217 @@
 
 {% block content %}
 <!-- Video Background -->
-<video id="video-bg-element" autoplay muted loop playsinline>
+<video id="video-bg-element" autoplay muted loop playsinline loading="lazy">
   <source src="{% static 'videos/background.mp4' %}" type="video/mp4">
+  <source src="{% static 'videos/background.webm' %}" type="video/webm">
 </video>
-<img class="video-fallback" src="{% static 'images/fallback.jpg' %}" alt="Background fallback image" style="display: none;">
+<img class="video-fallback" src="{% static 'images/fallback.jpg' %}" alt="Background fallback image" style="display: none;" loading="lazy">
 
 <!-- About Section -->
-<section id="about-villen" class="container bg-light text-dark rounded-4 p-5 my-5 shadow">
-  <h2 class="display-5 fw-bold text-center text-primary">Who is Villen Bhai?</h2>
-  <p class="fs-5 text-center" id="dynamic-about" aria-live="polite">I'm not just a student — I'm a storyteller who writes code like a poet, a coder crafting digital dreams. From the vibrant streets of Bihar to the tech labs of DU, I’m Villen Bhai — coding emotions, building the future.</p>
+<section id="about-villen" class="container bg-dark text-light rounded-4 p-5 shadow full-page">
+  <div class="section-content">
+    <h2 class="hacker-heading text-center">Who is Villen Bhai?</h2>
+    <p class="hacker-text text-center" id="dynamic-about" aria-live="polite">I'm not just a student — coder, hacker, dreamer. From Delhi’s streets to DU’s tech labs, I’m Villen Bhai — crafting digital futures.</p>
+  </div>
 </section>
 
 <!-- Education Section -->
-<section id="education" class="container bg-light text-dark rounded-4 p-5 my-5 shadow">
-  <h2 class="text-center mb-4">My Education</h2>
-  <p class="tagline text-center mb-4">Learning, Growing, Conquering</p>
-  <div class="education-section">
-    <div class="education-card">
-      <h3>B.Sc. Physical Science (PME)</h3>
-      <div class="institution">Delhi University</div>
-      <div class="duration">2023</div>
-      <div class="details">Major in Electronics, Minor in CS.<br>Cybersecurity + Coding hustle side-by-side.</div>
-    </div>
-    <div class="education-card">
-      <h3>Class 12th (Bihar Board)</h3>
-      <div class="institution">Dhira High School</div>
-      <div class="duration">2022</div>
-      <div class="details">322/500 marks in PCM.<br>Foundation of logical thinking and ambition.</div>
-    </div>
-    <div class="education-card">
-      <h3>Class 10th (CBSE)</h3>
-      <div class="institution">Tirthankar Mahaveer Vidya Mandir</div>
-      <div class="duration">2020</div>
-      <div class="details">59.2% – Humble beginning, fire in the heart.</div>
+<section id="education" class="container bg-dark text-light rounded-4 p-5 shadow full-page">
+  <div class="section-content">
+    <h2 class="hacker-heading text-center">My Education</h2>
+    <p class="hacker-text text-center">Learning, Growing, Conquering</p>
+    <div class="education-section">
+      <div class="education-card">
+        <h3 class="hacker-subheading">B.Sc. Physical Science (PME)</h3>
+        <div class="institution">Delhi University</div>
+        <div class="duration">2023</div>
+        <div class="details">Major in Electronics, Minor in CS.<br>Cybersecurity + Coding hustle side-by-side.</div>
+      </div>
+      <div class="education-card">
+        <h3 class="hacker-subheading">Class 12th (Bihar Board)</h3>
+        <div class="institution">Dhira High School</div>
+        <div class="duration">2022</div>
+        <div class="details">322/500 marks in PCM.<br>Foundation of logical thinking and ambition.</div>
+      </div>
+      <div class="education-card">
+        <h3 class="hacker-subheading">Class 10th (CBSE)</h3>
+        <div class="institution">Tirthankar Mahaveer Vidya Mandir</div>
+        <div class="duration">2020</div>
+        <div class="details">59.2% – Humble beginning, fire in the heart.</div>
+      </div>
     </div>
   </div>
 </section>
 
 <!-- Skills Section -->
-<section id="skills" class="container bg-dark text-light rounded-4 p-5 my-0 shadow">
-  <h2 class="text-center mb-4">My Skills</h2>
-  <div class="skills-section">
-    <div class="skill-card">
-      <h3>Programming Languages</h3>
-      <ul>
-        <li>Python</li>
-        <li>C++</li>
-        <li>Java</li>
-        <li>HTML/CSS</li>
-        <li>JavaScript</li>
-      </ul>
-    </div>
-    <div class="skill-card">
-      <h3>Cybersecurity Tools</h3>
-      <ul>
-        <li>Kali Linux</li>
-        <li>Nmap</li>
-        <li>Nuclei</li>
-        <li>OSINT</li>
-        <li>Subdomain Takeover</li>
-        <li>Pentester</li>
-      </ul>
-    </div>
-    <div class="skill-card">
-      <h3>Web Development</h3>
-      <ul>
-        <li>Django</li>
-        <li>Bootstrap</li>
-        <li>LangChain</li>
-      </ul>
+<section id="skills" class="container bg-dark text-light rounded-4 p-5 shadow full-page">
+  <div class="section-content">
+    <h2 class="hacker-heading text-center">My Skills</h2>
+    <div class="skills-section">
+      <div class="skill-card">
+        <h3 class="hacker-subheading">Programming Languages</h3>
+        <ul>
+          <li>Python</li>
+          <li>C++</li>
+          <li>Java</li>
+          <li>HTML/CSS</li>
+          <li>JavaScript</li>
+        </ul>
+      </div>
+      <div class="skill-card">
+        <h3 class="hacker-subheading">Cybersecurity Tools</h3>
+        <ul>
+          <li>Kali Linux</li>
+          <li>Nmap</li>
+          <li>Nuclei</li>
+          <li>OSINT</li>
+          <li>Subdomain Takeover</li>
+          <li>Pentester</li>
+        </ul>
+      </div>
+      <div class="skill-card">
+        <h3 class="hacker-subheading">Web Development</h3>
+        <ul>
+          <li>Django</li>
+          <li>Bootstrap</li>
+          <li>LangChain</li>
+        </ul>
+      </div>
     </div>
   </div>
 </section>
 
 <!-- Achievements Section -->
-<section id="achievements" class="container bg-dark text-light rounded-4 p-5 my-5 shadow">
-  <h2 class="text-center mb-2">Contributors</h2>
-  <p class="subheading text-center mb-4">— Amazing People —</p>
-  <div class="carousel-wrapper">
-    <button class="carousel-prev" aria-label="Previous slide">❮</button>
-    <div class="carousel" id="carousel">
-      <!-- Slide 1 -->
-      <div class="slide">
-        <div class="card">
-          <img src="{% static 'images/shubh.webp' %}" class="avatar" alt="Shubh, Founder and Developer" loading="lazy">
-          <h3>Shubh</h3>
-          <div class="labels">
-            <span class="label role">Founder</span>
-            <span class="label dev">Developer</span>
+<section id="achievements" class="container bg-dark text-light rounded-4 p-5 shadow full-page">
+  <div class="section-content">
+    <h2 class="hacker-heading text-center">Contributors</h2>
+    <p class="hacker-text text-center">— Amazing People —</p>
+    <div class="carousel-wrapper">
+      <button class="carousel-prev btn-outline-neon" aria-label="Previous slide">❮</button>
+      <div class="carousel" id="carousel">
+        <!-- Slide 1 -->
+        <div class="slide">
+          <div class="card">
+            <img src="{% static 'images/shubh.webp' %}" class="avatar" alt="Shubh, Founder and Developer" loading="lazy">
+            <h3 class="hacker-subheading">Shubh</h3>
+            <div class="labels">
+              <span class="label role">Founder</span>
+              <span class="label dev">Developer</span>
+            </div>
+          </div>
+          <div class="card">
+            <img src="{% static 'images/whoami.webp' %}" class="avatar" alt="Sudo Whoami, Supporter and Developer" loading="lazy">
+            <h3 class="hacker-subheading">Sudo Whoami</h3>
+            <div class="labels">
+              <span class="label supporter">Supporter</span>
+              <span class="label dev">Developer</span>
+            </div>
+          </div>
+          <div class="card">
+            <img src="{% static 'images/flampt.webp' %}" class="avatar" alt="Flampt, Contributor" loading="lazy">
+            <h3 class="hacker-subheading">Flampt</h3>
+            <div class="labels">
+              <span class="label contributor">Contributor</span>
+            </div>
           </div>
         </div>
-        <div class="card">
-          <img src="{% static 'images/whoami.webp' %}" class="avatar" alt="Sudo Whoami, Supporter and Developer" loading="lazy">
-          <h3>Sudo Whoami</h3>
-          <div class="labels">
-            <span class="label supporter">Supporter</span>
-            <span class="label dev">Developer</span>
+        <!-- Slide 2 -->
+        <div class="slide">
+          <div class="card">
+            <img src="{% static 'images/taj.webp' %}" class="avatar" alt="Taj, Contributor" loading="lazy">
+            <h3 class="hacker-subheading">Taj</h3>
+            <div class="labels">
+              <span class="label contributor">Contributor</span>
+            </div>
+          </div>
+          <div class="card">
+            <img src="{% static 'images/denzven.webp' %}" class="avatar" alt="Denzven, Contributor" loading="lazy">
+            <h3 class="hacker-subheading">Denzven</h3>
+            <div class="labels">
+              <span class="label contributor">Contributor</span>
+            </div>
+          </div>
+          <div class="card">
+            <img src="{% static 'images/kueue.webp' %}" class="avatar" alt="Professor Kueue, Contributor" loading="lazy">
+            <h3 class="hacker-subheading">Professor Kueue</h3>
+            <div class="labels">
+              <span class="label contributor">Contributor</span>
+            </div>
           </div>
         </div>
-        <div class="card">
-          <img src="{% static 'images/flampt.webp' %}" class="avatar" alt="Flampt, Contributor" loading="lazy">
-          <h3>Flampt</h3>
-          <div class="labels">
-            <span class="label contributor">Contributor</span>
+        <!-- Slide 3 -->
+        <div class="slide">
+          <div class="card">
+            <img src="{% static 'images/khrys.webp' %}" class="avatar" alt="Khrys, Staff" loading="lazy">
+            <h3 class="hacker-subheading">Khrys</h3>
+            <div class="labels">
+              <span class="label staff">Staff</span>
+            </div>
+          </div>
+          <div class="card">
+            <img src="{% static 'images/villen.webp' %}" class="avatar" alt="Villen Bhai, OSINT Lead and Developer" loading="lazy">
+            <h3 class="hacker-subheading">Villen Bhai</h3>
+            <div class="labels">
+              <span class="label role">OSINT Lead</span>
+              <span class="label dev">Developer</span>
+            </div>
+          </div>
+          <div class="card">
+            <!img src="{% static 'images/guest.webp' %}" class="avatar" alt="Guest Contributor" loading="lazy">
+            <h3 class="hacker-subheading">Guest</h3>
+            <div class="labels">
+              <span class="label contributor">Contributor</span>
+            </div>
           </div>
         </div>
       </div>
-      <!-- Slide 2 -->
-      <div class="slide">
-        <div class="card">
-          <img src="{% static 'images/taj.webp' %}" class="avatar" alt="Taj, Contributor" loading="lazy">
-          <h3>Taj</h3>
-          <div class="labels">
-            <span class="label contributor">Contributor</span>
-          </div>
-        </div>
-        <div class="card">
-          <img src="{% static 'images/denzven.webp' %}" class="avatar" alt="Denzven, Contributor" loading="lazy">
-          <h3>Denzven</h3>
-          <div class="labels">
-            <span class="label contributor">Contributor</span>
-          </div>
-        </div>
-        <div class="card">
-          <img src="{% static 'images/kueue.webp' %}" class="avatar" alt="Professor Kueue, Contributor" loading="lazy">
-          <h3>Professor Kueue</h3>
-          <div class="labels">
-            <span class="label contributor">Contributor</span>
-          </div>
-        </div>
-      </div>
-      <!-- Slide 3 -->
-      <div class="slide">
-        <div class="card">
-          <img src="{% static 'images/khrys.webp' %}" class="avatar" alt="Khrys, Staff" loading="lazy">
-          <h3>Khrys</h3>
-          <div class="labels">
-            <span class="label staff">Staff</span>
-          </div>
-        </div>
-        <div class="card">
-          <img src="{% static 'images/villen.webp' %}" class="avatar" alt="Villen Bhai, OSINT Lead and Developer" loading="lazy">
-          <h3>Villen Bhai</h3>
-          <div class="labels">
-            <span class="label role">OSINT Lead</span>
-            <span class="label dev">Developer</span>
-          </div>
-        </div>
-        <div class="card">
-          <img src="{% static 'images/guest.webp' %}" class="avatar" alt="Guest Contributor" loading="lazy">
-          <h3>Guest</h3>
-          <div class="labels">
-            <span class="label contributor">Contributor</span>
-          </div>
-        </div>
-      </div>
+      <button class="carousel-next btn-outline-neon" aria-label="Next slide">❯</button>
     </div>
-    <button class="carousel-next" aria-label="Next slide">❯</button>
-  </div>
-  <div class="dots" role="tablist">
-    <span class="dot active" role="tab" aria-label="Slide 1" aria-controls="carousel" tabindex="0"></span>
-    <span class="dot" role="tab" aria-label="Slide 2" aria-controls="carousel" tabindex="0"></span>
-    <span class="dot" role="tab" aria-label="Slide 3" aria-controls="carousel" tabindex="0"></span>
+    <div class="dots" role="tablist">
+      <span class="dot active" role="tab" aria-label="Slide 1" aria-controls="carousel" tabindex="0"></span>
+      <span class="dot" role="tab" aria-label="Slide 2" aria-controls="carousel" tabindex="0"></span>
+      <span class="dot" role="tab" aria-label="Slide 3" aria-controls="carousel" tabindex="0"></span>
+    </div>
   </div>
 </section>
 
 <!-- Gallery Section -->
-<section id="gallery" class="container bg-light text-dark rounded-4 p-5 my-5 shadow">
-  <h2 class="text-center mb-4">📸 Gallery</h2>
-  <div class="row">
-    <div class="col-md-4 mb-3">
-      <picture>
-        <source srcset="{% static 'images/pic1.webp' %}" type="image/webp">
-        <img src="{% static 'images/pic1.jpg' %}" class="img-fluid rounded" alt="Villen Bhai speaking at a coding event" loading="lazy">
-      </picture>
-    </div>
-    <div class="col-md-4 mb-3">
-      <picture>
-        <source srcset="{% static 'images/pic2.webp' %}" type="image/webp">
-        <img src="{% static 'images/pic2.jpg' %}" class="img-fluid rounded" alt="Villen Bhai presenting a tech project" loading="lazy">
-      </picture>
-    </div>
-    <div class="col-md-4 mb-3">
-      <picture>
-        <source srcset="{% static 'images/pic3.webp' %}" type="image/webp">
-        <img src="{% static 'images/pic3.jpg' %}" class="img-fluid rounded" alt="Villen Bhai competing in a hackathon" loading="lazy">
-      </picture>
+<section id="gallery" class="container bg-dark text-light rounded-4 p-5 shadow full-page">
+  <div class="section-content">
+    <h2 class="hacker-heading text-center mb-4">📸 Gallery</h2>
+    <div class="row">
+      <div class="col-md-4 mb-3">
+        <picture>
+          <source srcset="{% static 'images/pic1.webp' %}" type="image/webp">
+          <img src="{% static 'images/pic1.jpg' %}" class="img-fluid hacker-img" alt="Villen Bhai speaking at a coding event" loading="lazy">
+        </picture>
+      </div>
+      <div class="col-md-4 mb-3">
+        <picture>
+          <source srcset="{% static 'images/pic2.webp' %}" type="image/webp">
+          <img src="{% static 'images/pic2.jpg' %}" class="img-fluid hacker-img" alt="Villen Bhai presenting a tech project" loading="lazy">
+        </picture>
+      </div>
+      <div class="col-md-4 mb-3">
+        <picture>
+          <source srcset="{% static 'images/pic3.webp' %}" type="image/webp">
+          <img src="{% static 'images/pic3.jpg' %}" class="img-fluid hacker-img" alt="Villen Bhai competing in a hackathon" loading="lazy">
+        </picture>
+      </div>
     </div>
   </div>
 </section>
 
 <!-- Social Section -->
-<section id="social" class="container bg-dark text-light rounded-4 p-5 my-5 shadow text-center">
-  <h2 class="text-danger mb-4">🌐 Connect With Me</h2>
-  <p>Let’s collaborate, chat, or vibe! 💬</p>
-  <div class="d-flex justify-content-center gap-3 flex-wrap mt-3">
-    <a href="{{ social_links.instagram }}" target="_blank" rel="noopener noreferrer" class="btn btn-outline-danger" aria-label="Follow Villen Bhai on Instagram">Instagram</a>
-    <a href="mailto:{{ social_links.email }}" class="btn btn-outline-light" aria-label="Email Villen Bhai">Email</a>
-    <a href="{{ social_links.github }}" target="_blank" rel="noopener noreferrer" class="btn btn-outline-info" aria-label="View Villen Bhai's GitHub profile">GitHub</a>
+<section id="social" class="container bg-dark text-light rounded-4 p-5 shadow full-page">
+  <div class="section-content">
+    <h2 class="hacker-heading text-center mb-4">🌐 Connect With Me</h2>
+    <p class="hacker-text text-center">Let’s collaborate, connect, or hack together! 💬</p>
+    <div class="d-flex justify-content-center gap-3 flex-wrap mt-3">
+      <a href="{{ social_links.instagram }}" target="_blank" rel="noopener noreferrer" class="btn btn-outline-neon" aria-label="Follow Villen Bhai on Instagram">Instagram</a>
+      <a href="mailto:{{ social_links.email }}" class="btn btn-outline-neon" aria-label="Email Villen Bhai">Email</a>
+      <a href="{{ social_links.github }}" target="_blank" rel="noopener noreferrer" class="btn btn-outline-neon" aria-label="View Villen Bhai's GitHub profile">GitHub</a>
+    </div>
   </div>
 </section>
 {% endblock %}
@@ -230,28 +243,28 @@
 {% block extra_css %}
 <style>
 :root {
-  --primary-color: #00ff88;
-  --secondary-color: #ff3366;
-  --neon-cyan: #00f7ff;
-  --neon-purple: #d500f9;
-  --dark-bg: #0d0d0d;
-  --dark-bg-alt: #1a1a1a;
-  --light-bg: #ffffff;
-  --text-light: #e0e0e0;
-  --text-dark: #333333;
-  --shadow: 0 8px 16px rgba(0, 255, 136, 0.3);
-  --neon-glow: 0 0 8px var(--primary-color), 0 0 16px var(--neon-cyan);
+  --primary-color: #00ff88; /* Neon Green */
+  --secondary-color: #ff3366; /* Neon Pink */
+  --neon-cyan: #00f7ff; /* Neon Cyan */
+  --neon-purple: #d500cc; /* Neon Purple */
+  --dark-bg: #0d0d0d; /* Deep Black */
+  --dark-bg-alt: #1a1a1a; /* Slightly Lighter Black */
+  --text-light: #e0e0e0; /* Light Gray */
+  --text-dark: #333333; /* Dark Gray */
+  --shadow: 0 8px 15px rgba(0, 255, 136, 0.3);
+  --neon-glow: 0 0 5px var(--primary-color), 0 0 15px var(--neon-cyan);
 }
 
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  font-family: 'Courier New', monospace, sans-serif;
+  font-family: 'Courier New', monospace;
 }
 
 html {
   scroll-behavior: smooth;
+  scroll-snap-type: y mandatory;
 }
 
 body {
@@ -259,46 +272,79 @@ body {
   color: var(--text-light);
   line-height: 1.6;
   position: relative;
+  overflow-y: scroll;
 }
 
+/* Animations */
+@keyframes glitch {
+  0%, 14% { text-shadow: 0.05em 0 0 var(--neon-cyan), -0.05em 0 0 var(--neon-purple); }
+  15%, 49% { text-shadow: -0.05em 0.025em 0 var(--neon-cyan), 0.05em -0.05em 0 var(--neon-purple); }
+  50%, 99% { text-shadow: 0.025em 0.05em 0 var(--neon-cyan), -0.05em 0 0 var(--neon-purple); }
+  100% { text-shadow: -0.05em 0 0 var(--neon-cyan), -0.025em -0.025em 0 var(--neon-purple); }
+}
+
+@keyframes flicker {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.95; }
+}
+
+/* General Styles */
 .container {
   max-width: 1200px;
   margin: 0 auto;
-  padding: 20px;
+  padding: 40px 20px;
   position: relative;
   z-index: 2;
 }
 
+.full-page {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  scroll-snap-align: start;
+}
+
+.section-content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
 /* Header Styles */
 #villen-header {
-  background: linear-gradient(180deg, var(--dark-bg), var(--dark-bg-alt));
   padding: 6rem 2rem;
   border-bottom: 2px solid var(--neon-cyan);
   box-shadow: var(--neon-glow);
+  min-height: 100vh;
   display: flex;
   flex-direction: column;
-  align-items: center;
   justify-content: center;
-  min-height: 60vh;
+  align-items: center;
+  scroll-snap-align: start;
 }
 
 #villen-header h1.glow {
   font-size: 3.5rem;
   color: var(--primary-color);
   text-shadow: var(--neon-glow);
-  position: relative;
   animation: glitch 2s infinite alternate;
   letter-spacing: 0.1rem;
   margin-bottom: 1.5rem;
 }
 
-.hacker-tagline {
+.hacker-text {
   font-size: 1.5rem;
   color: var(--neon-purple);
   text-shadow: 0 0 5px var(--neon-purple);
-  font-weight: 400;
   letter-spacing: 0.05rem;
-  margin-bottom: 2rem;
+  text-align: center;
+  padding: 10px 0;
+}
+
+#achievements .hacker-text {
+  padding: 20px 0;
 }
 
 #villen-header nav {
@@ -351,36 +397,6 @@ body {
   opacity: 0.2;
 }
 
-/* Glitch Animation */
-@keyframes glitch {
-  0% {
-    text-shadow: 0.05em 0 0 var(--neon-cyan), -0.05em 0 0 var(--neon-purple);
-  }
-  14% {
-    text-shadow: 0.05em 0 0 var(--neon-cyan), -0.05em 0 0 var(--neon-purple);
-  }
-  15% {
-    text-shadow: -0.05em 0.025em 0 var(--neon-cyan), 0.025em -0.05em 0 var(--neon-purple);
-  }
-  49% {
-    text-shadow: -0.05em 0.025em 0 var(--neon-cyan), 0.025em -0.05em 0 var(--neon-purple);
-  }
-  50% {
-    text-shadow: 0.025em 0.05em 0 var(--neon-cyan), -0.05em 0 0 var(--neon-purple);
-  }
-  99% {
-    text-shadow: 0.025em 0.05em 0 var(--neon-cyan), -0.05em 0 0 var(--neon-purple);
-  }
-  100% {
-    text-shadow: -0.025em 0 0 var(--neon-cyan), -0.025em -0.025em 0 var(--neon-purple);
-  }
-}
-
-/* Rest of the Original CSS (Unchanged) */
-.glow {
-  text-shadow: 0 0 10px rgba(0, 255, 136, 0.5);
-}
-
 /* Video Background */
 #video-bg-element {
   position: fixed;
@@ -390,7 +406,9 @@ body {
   height: 100%;
   object-fit: cover;
   z-index: -1;
+  filter: brightness(0.5);
 }
+
 .video-fallback {
   position: fixed;
   top: 0;
@@ -399,155 +417,134 @@ body {
   height: 100%;
   object-fit: cover;
   z-index: -1;
+  filter: brightness(0.5);
+}
+
+/* Section Styles */
+section {
+  background: rgba(10, 10, 10, 0.9);
+  border-radius: 15px;
+}
+
+.hacker-heading {
+  font-size: 2.5rem;
+  color: var(--primary-color);
+  text-shadow: 0 0 5px var(--primary-color);
+  animation: flicker 5s infinite;
+  letter-spacing: 0.05rem;
+  text-align: center;
+  padding-bottom: 20px;
+}
+
+.hacker-subheading {
+  font-size: 1.8rem;
+  color: var(--neon-cyan);
+  text-shadow: 0 0 5px var(--neon-cyan);
+  margin-bottom: 10px;
 }
 
 /* About Section */
 #about-villen {
   text-align: center;
-  background: rgba(255, 255, 255, 0.9);
-  padding: 40px 20px;
 }
-#about-villen h2 {
-  font-size: 2.5rem;
-  padding-bottom: 10px;
-}
+
 #about-villen p {
-  font-size: 1.3rem;
-  padding-top: 10px;
-  padding-bottom: 20px;
   max-width: 800px;
   margin: 0 auto;
 }
 
 /* Education Section */
-#education {
-  text-align: center;
-  padding: 40px 20px;
-}
-#education h2 {
-  font-size: 2.5rem;
-  padding-bottom: 10px;
-}
-#education .tagline {
-  font-size: 1.3rem;
-  padding-bottom: 20px;
-}
 .education-section {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
   gap: 30px;
   padding-top: 20px;
 }
+
 .education-card {
   background: rgba(255, 255, 255, 0.1);
   border-radius: 15px;
   padding: 25px;
   backdrop-filter: blur(10px);
-  border: 1px solid rgba(255, 255, 255, 0.2);
+  border: 1px solid var(--neon-cyan);
   transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
+
 .education-card:hover {
   transform: translateY(-10px);
-  box-shadow: var(--shadow);
+  box-shadow: 0 0 10px var(--neon-cyan);
 }
-.education-card h3 {
-  font-size: 1.8rem;
-  color: var(--primary-color);
-  margin-bottom: 10px;
-  padding-bottom: 5px;
-}
+
 .education-card h3::before {
-  content: '🎓';
+  content: '>';
+  color: var(--primary-color);
   margin-right: 10px;
 }
+
 .institution {
   font-size: 1.2rem;
   color: var(--text-light);
-  padding-bottom: 5px;
 }
+
 .duration {
   font-size: 1.1rem;
-  color: #aaaaaa;
+  color: var(--neon-purple);
   margin-bottom: 15px;
-  padding-bottom: 5px;
 }
+
 .details {
   font-size: 1.1rem;
-  color: #cccccc;
-  padding-top: 5px;
+  color: var(--text-light);
 }
+
 .details::before {
-  content: '▹';
+  content: '$';
   color: var(--primary-color);
   margin-right: 10px;
 }
 
 /* Skills Section */
-#skills {
-  text-align: center;
-  padding: 40px 20px;
-}
-#skills h2 {
-  font-size: 2.5rem;
-  padding-bottom: 10px;
-}
 .skills-section {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
   gap: 30px;
   padding-top: 20px;
 }
+
 .skill-card {
   background: rgba(255, 255, 255, 0.1);
   border-radius: 15px;
   padding: 25px;
   backdrop-filter: blur(10px);
-  border: 1px solid rgba(255, 255, 255, 0.2);
+  border: 1px solid var(--neon-cyan);
   transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
+
 .skill-card:hover {
   transform: translateY(-10px);
-  box-shadow: var(--shadow);
+  box-shadow: 0 0 10px var(--neon-cyan);
 }
-.skill-card h3 {
-  font-size: 1.8rem;
-  color: var(--primary-color);
-  margin-bottom: 15px;
-  padding-bottom: 5px;
-}
+
 .skill-card ul {
   list-style: none;
   text-align: left;
 }
+
 .skill-card li {
   font-size: 1.1rem;
   margin-bottom: 10px;
-  position: relative;
   padding-left: 20px;
-  padding-bottom: 5px;
+  position: relative;
 }
+
 .skill-card li::before {
-  content: '▹';
+  content: '#';
   position: absolute;
   left: 0;
   color: var(--primary-color);
 }
 
 /* Achievements Section */
-#achievements {
-  text-align: center;
-  padding: 40px 20px;
-}
-#achievements h2 {
-  font-size: 2.5rem;
-  padding-bottom: 10px;
-}
-#achievements .subheading {
-  font-size: 1rem;
-  line-height: 1.5;
-  padding-bottom: 20px;
-  color: var(--secondary-color);
-}
 .carousel-wrapper {
   position: relative;
   overflow: hidden;
@@ -556,11 +553,13 @@ body {
   display: flex;
   justify-content: center;
 }
+
 .carousel {
   display: flex;
   transition: transform 0.5s ease;
   width: 100%;
 }
+
 .slide {
   display: flex;
   justify-content: center;
@@ -568,139 +567,113 @@ body {
   min-width: 100%;
   flex-shrink: 0;
 }
+
 .card {
-  background: #111;
-  padding: 20px;
+  background: rgba(255, 255, 255, 0.1);
+  padding: 25px;
   border-radius: 12px;
+  border: 1px solid var(--neon-cyan);
   width: 280px;
   text-align: center;
-  box-shadow: 0 0 10px rgba(255, 0, 100, 0.3);
-  transition: transform 0.3s ease;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
+
 .card:hover {
   transform: translateY(-8px);
+  box-shadow: 0 0 10px var(--neon-cyan);
 }
+
 .avatar {
   width: 120px;
   height: 120px;
   border-radius: 50%;
-  border: 4px solid var(--secondary-color);
+  border: 4px solid var(--neon-purple);
   object-fit: cover;
   margin-bottom: 15px;
 }
-.card h3 {
-  margin: 10px 0;
-  font-size: 1.3rem;
-}
+
 .labels {
   margin-top: 10px;
 }
+
 .label {
   display: inline-block;
   padding: 5px 10px;
   margin: 4px;
   border-radius: 8px;
   font-size: 0.8rem;
-  color: var(--text-light);
+  color: var(--dark-bg);
 }
-.role { background-color: var(--secondary-color); }
-.dev { background-color: #f39c12; }
-.supporter { background-color: #e91e63; }
-.contributor { background-color: #6c5ce7; }
-.staff { background-color: #3f51b5; }
+
+.role { background-color: var(--neon-purple); }
+.dev { background-color: var(--neon-cyan); }
+.supporter { background-color: var(--primary-color); }
+.contributor { background-color: var(--secondary-color); }
+.staff { background-color: #6c5ce7; }
+
 .dots {
   margin-top: 20px;
   text-align: center;
 }
+
 .dot {
   height: 10px;
   width: 10px;
   margin: 0 6px;
-  background: #880e4f;
+  background: var(--neon-purple);
   border-radius: 50%;
   display: inline-block;
   cursor: pointer;
   opacity: 0.4;
+  transition: opacity 0.3s ease, background 0.3s ease;
 }
+
 .dot.active, .dot:hover, .dot:focus {
   opacity: 1;
-  background: var(--secondary-color);
-}
-.carousel-prev, .carousel-next {
-  position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
-  background: rgba(0, 0, 0, 0.5);
-  color: var(--text-light);
-  border: none;
-  padding: 10px;
-  cursor: pointer;
-  z-index: 10;
-}
-.carousel-prev { left: 10px; }
-.carousel-next { right: 10px; }
-.carousel-prev:focus, .carousel-next:focus {
-  outline: 2px solid var(--primary-color);
-  outline-offset: 2px;
+  background: var(--neon-cyan);
 }
 
 /* Gallery Section */
-#gallery {
-  text-align: center;
-  padding: 40px 20px;
-}
-#gallery h2 {
-  font-size: 2.5rem;
-  padding-bottom: 10px;
-}
-#gallery .row {
-  padding-top: 20px;
-}
-#gallery img {
+.hacker-img {
   max-width: 100%;
   height: auto;
+  border: 2px solid transparent;
+  border-radius: 8px;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+  margin-bottom: 10px;
+}
+
+.hacker-img:hover {
+  border-color: var(--neon-cyan);
+  box-shadow: 0 0 10px var(--neon-cyan);
 }
 
 /* Social Section */
-#social {
-  text-align: center;
-  padding: 40px 20px;
-}
-#social h2 {
-  font-size: 2.5rem;
-  padding-bottom: 10px;
-}
-#social p {
-  font-size: 1.3rem;
-  padding-bottom: 20px;
-}
 #social .d-flex {
-  padding-top: 10px;
+  padding-top: 20px;
 }
-#social a {
-  transition: transform 0.2s ease;
-}
-#social a:hover, #social a:focus {
-  transform: scale(1.1);
-}
-#social a:focus {
-  outline: 2px solid var(--primary-color);
-  outline-offset: 2px;
+
+/* Accessibility */
+@media (prefers-reduced-motion: reduce) {
+  * { animation: none !important; transition: none !important; }
 }
 
 /* Responsive Design */
 @media (max-width: 767px) {
   #villen-header {
     padding: 4rem 1rem;
-    min-height: 50vh;
   }
   #villen-header h1.glow {
     font-size: 2.5rem;
     margin-bottom: 1rem;
   }
-  .hacker-tagline {
+  .hacker-text {
     font-size: 1.2rem;
     margin-bottom: 1.5rem;
+    padding: 8px 0;
+  }
+  #achievements .hacker-text {
+    padding: 15px 0;
   }
   #villen-header nav {
     gap: 1rem;
@@ -709,26 +682,39 @@ body {
     padding: 0.5rem 1rem;
     font-size: 0.9rem;
   }
-  h1 { font-size: 2.5rem; }
-  h2 { font-size: 2rem; }
-  .tagline, #about-villen p, #social p { font-size: 1.1rem; }
-  .education-card, .skill-card { padding: 20px; }
-  .education-card h3, .skill-card h3 { font-size: 1.5rem; }
-  .institution, .duration, .details, .skill-card li { font-size: 1rem; }
-  .slide { flex-direction: column; align-items: center; gap: 15px; }
-  .carousel-prev, .carousel-next { padding: 8px; }
-  #about-villen, #education, #skills, #achievements, #gallery, #social { padding: 30px 15px; }
+  .hacker-heading {
+    font-size: 2rem;
+    padding-bottom: 15px;
+  }
+  .hacker-subheading {
+    font-size: 1.5rem;
+  }
+  .container {
+    padding: 20px 15px;
+  }
+  .education-card, .skill-card, .card {
+    padding: 20px;
+  }
+  .slide {
+    flex-direction: column;
+    align-items: center;
+    gap: 15px;
+  }
+  .full-page {
+    min-height: auto;
+    padding: 20px 0;
+  }
 }
 </style>
 {% endblock %}
 
 {% block extra_js %}
 <script>
-(function () {
+(function() {
   'use strict';
 
   // Typewriter Effect
-  const aboutText = "I'm not just a student — I'm a storyteller who writes code like a poet, a coder crafting digital dreams. From the vibrant streets of Bihar to the tech labs of DU, I’m Villen Bhai — coding emotions, building the future.";
+  const aboutText = "I'm not just a student — coder, hacker, dreamer. From Delhi’s streets to DU’s tech labs, I’m Villen Bhai — crafting digital futures.";
   const textElement = document.querySelector('#dynamic-about');
   if (textElement) {
     let index = 0;
@@ -738,7 +724,7 @@ body {
         index++;
         setTimeout(typewriter, 20);
       } else {
-        textElement.textContent = aboutText; // Remove cursor
+        textElement.textContent = aboutText;
       }
     }
     typewriter();
@@ -746,27 +732,32 @@ body {
     console.warn('Dynamic about element not found');
   }
 
-  // Video Fallback
-  const video = document.querySelector('#video-bg');
+  // Video Fallback with Lazy Loading
+  const video = document.querySelector('#video-bg-element');
   const fallbackImg = document.querySelector('.video-fallback');
-  if (!video || !fallbackImg) {
+  if (video && fallbackImg) {
+    const observer = new IntersectionObserver((entries) => {
+      if (entries[0].isIntersecting) {
+        video.play().catch((error) => {
+          console.log('Autoplay failed:', error);
+          fallbackImg.style.display = 'block';
+          video.style.display = 'none';
+          document.addEventListener('click', () => {
+            video.play().catch((err) => console.log('Manual play failed:', err));
+          }, { once: true });
+        });
+        observer.unobserve(video);
+      }
+    });
+    observer.observe(video);
+    video.addEventListener('error', () => {
+      console.log('Video failed to load');
+      video.style.display = 'none';
+      fallbackImg.style.display = 'block';
+    });
+  } else {
     console.warn('Video or fallback image not found');
-    return;
   }
-  video.play().catch((error) => {
-    console.log('Autoplay failed:', error);
-    fallbackImg.style.display = 'block';
-    video.style.display = 'none';
-    document.addEventListener('click', () => {
-      video.play().catch((err) => console.log('Manual play failed:', err));
-    }, { once: true });
-  });
-
-  video.addEventListener('error', () => {
-    console.log('Video failed to load');
-    video.style.display = 'none';
-    fallbackImg.style.display = 'block';
-  });
 
   // Education Card Animation
   const cards = document.querySelectorAll('.education-card');
