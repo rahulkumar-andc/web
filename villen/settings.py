@@ -25,7 +25,7 @@ SECRET_KEY = os.getenv('SECRET_KEY', 'django-insecure-no29r7e23af(enta!e0-4r)duh
 DEBUG = True
 
 # Allowed hosts for local & dev testing
-ALLOWED_HOSTS = ['localhost', '127.0.0.1', 'web-soz1.onrender.com', 'villen.me', 'www.villen.me', '.villen.me']
+ALLOWED_HOSTS = ['20.235.35.154', 'localhost', '127.0.0.1', 'web-soz1.onrender.com', 'villen.me', 'www.villen.me', '.villen.me']
 
 # Application stack - the soul of your app
 INSTALLED_APPS = [
