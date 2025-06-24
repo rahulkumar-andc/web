@@ -1,14 +1,12 @@
-
+{% extends "core/base.html" %}
 {% load static %}
-
+{% block head %}
 {% block meta %}
 <meta name="description" content="Learn about Villen Bhai, a coder, hacker, and student at Delhi University passionate about cybersecurity and web development.">
 <meta name="keywords" content="Villen Bhai, coder, hacker, cybersecurity, web development, Delhi University">
 <meta name="author" content="Villen Bhai">
 {% endblock %}
-
 {% block title %}About Villen Bhai — The Mind Behind the Code{% endblock %}
-
 {% block custom_header %}
 <header id="villen-header" class="text-center bg-dark text-light border-bottom position-relative">
   <h1 class="display-4 fw-bold glow">🌌 Meet Villen Bhai</h1>
@@ -22,25 +20,17 @@
   </nav>
 </header>
 {% endblock %}
-
 {% block content %}
-<!-- Video Background -->
-<video id="video-bg-element" autoplay muted loop playsinline loading="lazy">
-  <source src="{% static 'videos/background.mp4' %}" type="video/mp4">
-  <source src="{% static 'videos/background.webm' %}" type="video/webm">
-</video>
 <img class="video-fallback" src="{% static 'images/fallback.jpg' %}" alt="Background fallback image" style="display: none;" loading="lazy">
-
 <!-- About Section -->
-<section id="about-villen" class="container bg-dark text-light rounded-4 p-5 shadow full-page">
+<section id="about-villen" class="bg-dark text-light rounded-4 p-5 shadow full-page">
   <div class="section-content">
     <h2 class="hacker-heading text-center">Who is Villen Bhai?</h2>
     <p class="hacker-text text-center" id="dynamic-about" aria-live="polite">I'm not just a student — coder, hacker, dreamer. From Delhi’s streets to DU’s tech labs, I’m Villen Bhai — crafting digital futures.</p>
   </div>
 </section>
-
 <!-- Education Section -->
-<section id="education" class="container bg-dark text-light rounded-4 p-5 shadow full-page">
+<section id="education" class="bg-dark text-light rounded-4 p-5 shadow full-page">
   <div class="section-content">
     <h2 class="hacker-heading text-center">My Education</h2>
     <p class="hacker-text text-center">Learning, Growing, Conquering</p>
@@ -66,9 +56,8 @@
     </div>
   </div>
 </section>
-
 <!-- Skills Section -->
-<section id="skills" class="container bg-dark text-light rounded-4 p-5 shadow full-page">
+<section id="skills" class="bg-dark text-light rounded-4 p-5 shadow full-page">
   <div class="section-content">
     <h2 class="hacker-heading text-center">My Skills</h2>
     <div class="skills-section">
@@ -104,9 +93,8 @@
     </div>
   </div>
 </section>
-
 <!-- Achievements Section -->
-<section id="achievements" class="container bg-dark text-light rounded-4 p-5 shadow full-page">
+<section id="achievements" class="w-100 bg-dark text-light rounded-4 p-5 shadow full-page">
   <div class="section-content">
     <h2 class="hacker-heading text-center">Contributors</h2>
     <p class="hacker-text text-center">— Amazing People —</p>
@@ -115,12 +103,12 @@
       <div class="carousel" id="carousel">
         <!-- Slide 1 -->
         <div class="slide">
-          <div class="card">
+          <div class="card">          
             <img src="{% static 'images/shubh.webp' %}" class="avatar" alt="Shubh, Founder and Developer" loading="lazy">
-            <h3 class="hacker-subheading">Shubh</h3>
+            <h3 class="hacker-subheading">Vilen Bhai</h3>
             <div class="labels">
               <span class="label role">Founder</span>
-              <span class="label dev">Developer</span>
+              <span class="label dev">Developer</span>          
             </div>
           </div>
           <div class="card">
@@ -181,7 +169,7 @@
             </div>
           </div>
           <div class="card">
-            <!img src="{% static 'images/guest.webp' %}" class="avatar" alt="Guest Contributor" loading="lazy">
+            <img src="{% static 'images/guest.webp' %}" class="avatar" alt="Guest Contributor" loading="lazy">
             <h3 class="hacker-subheading">Guest</h3>
             <div class="labels">
               <span class="label contributor">Contributor</span>
@@ -198,9 +186,8 @@
     </div>
   </div>
 </section>
-
 <!-- Gallery Section -->
-<section id="gallery" class="container bg-dark text-light rounded-4 p-5 shadow full-page">
+<section id="gallery" class="bg-dark text-light rounded-4 p-5 shadow full-page">
   <div class="section-content">
     <h2 class="hacker-heading text-center mb-4">📸 Gallery</h2>
     <div class="row">
@@ -225,9 +212,8 @@
     </div>
   </div>
 </section>
-
 <!-- Social Section -->
-<section id="social" class="container bg-dark text-light rounded-4 p-5 shadow full-page">
+<section id="social" class="bg-dark text-light rounded-4 p-5 shadow full-page">
   <div class="section-content">
     <h2 class="hacker-heading text-center mb-4">🌐 Connect With Me</h2>
     <p class="hacker-text text-center">Let’s collaborate, connect, or hack together! 💬</p>
@@ -239,7 +225,6 @@
   </div>
 </section>
 {% endblock %}
-
 {% block extra_css %}
 <style>
 :root {
@@ -343,8 +328,14 @@ body {
   padding: 10px 0;
 }
 
+#achievements {
+  width: 100vw;
+  padding: 60px 20px;
+  overflow-x: hidden;
+}
+
 #achievements .hacker-text {
-  padding: 20px 0;
+  padding: 50px 0;
 }
 
 #villen-header nav {
@@ -357,7 +348,7 @@ body {
 .btn-outline-neon {
   color: var(--neon-cyan);
   border: 2px solid var(--neon-cyan);
-  padding: 0.75rem 1.5rem;
+  padding: 0.55rem 1.5rem;
   font-size: 1rem;
   text-transform: uppercase;
   letter-spacing: 0.1rem;
@@ -397,29 +388,6 @@ body {
   opacity: 0.2;
 }
 
-/* Video Background */
-#video-bg-element {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  z-index: -1;
-  filter: brightness(0.5);
-}
-
-.video-fallback {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  z-index: -1;
-  filter: brightness(0.5);
-}
-
 /* Section Styles */
 section {
   background: rgba(10, 10, 10, 0.9);
@@ -446,6 +414,11 @@ section {
 /* About Section */
 #about-villen {
   text-align: center;
+  width: 100vw;
+  min-height: 100vh;
+  padding: 60px 30px;
+  overflow-x: hidden;
+  background-color: #000;
 }
 
 #about-villen p {
@@ -454,11 +427,23 @@ section {
 }
 
 /* Education Section */
+#education {
+  width: 100vw;
+  padding: 60px 30px;
+  background-color: #000;
+  overflow-x: hidden;
+  border-radius: 20px;
+}
+
 .education-section {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-  gap: 30px;
-  padding-top: 20px;
+  justify-content: center;
+  padding-top: 15px;
+  gap: 60px;
+  padding: 60px 30px;
+  max-width: 1200px;
+  margin: 0 auto;
 }
 
 .education-card {
@@ -471,7 +456,7 @@ section {
 }
 
 .education-card:hover {
-  transform: translateY(-10px);
+  transform: scale(1.03);
   box-shadow: 0 0 10px var(--neon-cyan);
 }
 
@@ -504,24 +489,34 @@ section {
 }
 
 /* Skills Section */
+
+#skills {
+  width: 100vw;
+  padding: 60px 20px;
+  overflow-x: hidden;
+}
+
 .skills-section {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-  gap: 30px;
-  padding-top: 20px;
+  gap: 60px;
+  padding: 60px 30px;
+  max-width: 1200px;
+  margin: 0 auto;
 }
+
 
 .skill-card {
   background: rgba(255, 255, 255, 0.1);
   border-radius: 15px;
-  padding: 25px;
+  padding: 30px 25px;
   backdrop-filter: blur(10px);
   border: 1px solid var(--neon-cyan);
   transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
 .skill-card:hover {
-  transform: translateY(-10px);
+  transform: scale(1.03);
   box-shadow: 0 0 10px var(--neon-cyan);
 }
 
@@ -548,7 +543,7 @@ section {
 .carousel-wrapper {
   position: relative;
   overflow: hidden;
-  max-width: 1000px;
+  max-width: 1025px;
   margin: 0 auto;
   display: flex;
   justify-content: center;
@@ -563,23 +558,23 @@ section {
 .slide {
   display: flex;
   justify-content: center;
-  gap: 20px;
+  gap: 30px;
   min-width: 100%;
   flex-shrink: 0;
 }
 
 .card {
-  background: rgba(255, 255, 255, 0.1);
+  background: rgba(61, 64, 64, 0.422);
   padding: 25px;
   border-radius: 12px;
   border: 1px solid var(--neon-cyan);
-  width: 280px;
+  width: 320px;
   text-align: center;
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
 .card:hover {
-  transform: translateY(-8px);
+  background: linear-gradient(135deg, #c13215 0%, #001eff 100%);
+  transform: scale(1.03);
   box-shadow: 0 0 10px var(--neon-cyan);
 }
 
@@ -587,6 +582,7 @@ section {
   width: 120px;
   height: 120px;
   border-radius: 50%;
+  
   border: 4px solid var(--neon-purple);
   object-fit: cover;
   margin-bottom: 15px;
@@ -707,7 +703,6 @@ section {
 }
 </style>
 {% endblock %}
-
 {% block extra_js %}
 <script>
 (function() {
