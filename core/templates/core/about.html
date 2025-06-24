@@ -654,6 +654,43 @@ section {
 @media (prefers-reduced-motion: reduce) {
   * { animation: none !important; transition: none !important; }
 }
+/* lines no 657 to 692 are for preventing horizontal scroll and fixing carousel overflow issues */
+/* These styles ensure the carousel and its slides do not exceed the viewport width, preventing horizontal scroll 
+/* 1. Prevent horizontal scroll */
+html, body {
+  overflow-x: hidden !important;
+  width: 100%;
+  max-width: 100vw;
+}
+
+/* 2. Fix carousel container overflow */
+.carousel-wrapper {
+  overflow: hidden;
+  width: 100%;
+  max-width: 100vw;
+  position: relative;
+}
+
+/* 3. Ensure carousel doesn't exceed screen */
+.carousel {
+  display: flex;
+  flex-wrap: nowrap;
+  gap: 30px;
+  transition: transform 0.5s ease;
+  max-width: 100vw;
+}
+
+/* 4. Slide/card should not expand full width */
+.slide {
+  flex: 0 0 auto;
+  max-width: 90vw;
+  box-sizing: border-box;
+}
+
+/* 5. Optional: Hide annoying scrollbars */
+body::-webkit-scrollbar {
+  display: none;
+}
 
 /* Responsive Design */
 @media (max-width: 767px) {
@@ -701,6 +738,7 @@ section {
     min-height: auto;
     padding: 20px 0;
   }
+
 }
 </style>
 {% endblock %}
