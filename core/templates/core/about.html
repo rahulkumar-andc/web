@@ -1,826 +1,1013 @@
 {% extends "core/base.html" %}
-{% load static %}
+{% load static cache %}
+
 {% block head %}
-{% block meta %}
-<meta name="description" content="Learn about Villen Bhai, a coder, hacker, and student at Delhi University passionate about cybersecurity and web development.">
-<meta name="keywords" content="Villen Bhai, coder, hacker, cybersecurity, web development, Delhi University">
-<meta name="author" content="Villen Bhai">
+    <meta name="description" content="Learn about Villen Bhai, a coder, hacker, and student at Delhi University passionate about cybersecurity and web development.">
+    <meta name="keywords" content="Villen Bhai, coder, hacker, cybersecurity, web development, Delhi University">
+    <meta name="author" content="Villen Bhai">
+    <link rel="preload" href="{% static 'images/shubh.webp' %}" as="image">
+    <link rel="preload" href="{% static 'images/pic1.webp' %}" as="image">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap" rel="stylesheet">
 {% endblock %}
-{% endblock %}
+
 {% block title %}About Villen Bhai — The Mind Behind the Code{% endblock %}
+
 {% block custom_header %}
-<header id="villen-header" class="text-center bg-dark text-light border-bottom position-relative">
-  <h1 class="display-4 fw-bold glow">🌌 Meet Villen Bhai</h1>
-  <p class="fs-5 hacker-text mb-4">Code. Hack. Conquer. Repeat.</p>
-  <nav class="d-flex justify-content-center flex-wrap gap-3" aria-label="Section navigation">
-    <a href="#education" class="btn btn-outline-neon rounded-pill" aria-label="View Education">🎓 Education</a>
-    <a href="#skills" class="btn btn-outline-neon rounded-pill" aria-label="View Skills">⚙️ Skills</a>
-    <a href="#achievements" class="btn btn-outline-neon rounded-pill" aria-label="View Achievements">🏆 Achievements</a>
-    <a href="#gallery" class="btn btn-outline-neon rounded-pill" aria-label="View Gallery">📸 Gallery</a>
-    <a href="#social" class="btn btn-outline-neon rounded-pill" aria-label="Connect with Villen Bhai">🌐 Connect</a>
-  </nav>
-</header>
+    <header id="villen-header" class="text-center text-light border-bottom position-relative">
+        <h1 class="display-4 fw-bold glow">🌌 Meet Villen Bhai</h1>
+        <p class="fs-5 hacker-text mb-4">Code. Hack. Conquer. Repeat.</p>
+        <nav class="d-flex justify-content-center flex-wrap gap-3" aria-label="Section navigation">
+            <a href="#education" class="btn neon-btn rounded-pill" aria-label="View Education">🎓 Education</a>
+            <a href="#skills" class="btn neon-btn rounded-pill" aria-label="View Skills">⚙️ Skills</a>
+            <a href="#achievements" class="btn neon-btn rounded-pill" aria-label="View Achievements">🏆 Achievements</a>
+            <a href="#gallery" class="btn neon-btn rounded-pill" aria-label="View Gallery">📸 Gallery</a>
+            <a href="#social" class="btn neon-btn rounded-pill" aria-label="Connect with Villen Bhai">🌐 Connect</a>
+        </nav>
+    </header>
 {% endblock %}
+
+{% cache 500 about_page request.user.username %}
 {% block content %}
-<img class="video-fallback" src="{% static 'images/fallback.jpg' %}" alt="Background fallback image" style="display: none;" loading="lazy">
-<!-- About Section -->
-<section id="about-villen" class="bg-dark text-light rounded-4 p-5 shadow full-page">
-  <div class="section-content">
-    <h2 class="hacker-heading text-center">Who is Villen Bhai?</h2>
-    <p class="hacker-text text-center" id="dynamic-about" aria-live="polite">I'm not just a student — coder, hacker, dreamer. From Delhi’s streets to DU’s tech labs, I’m Villen Bhai — crafting digital futures.</p>
-  </div>
-</section>
-<!-- Education Section -->
-<section id="education" class="bg-dark text-light rounded-4 p-5 shadow full-page">
-  <div class="section-content">
-    <h2 class="hacker-heading text-center">My Education</h2>
-    <p class="hacker-text text-center">Learning, Growing, Conquering</p>
-    <div class="education-section">
-      <div class="education-card">
-        <h3 class="hacker-subheading">B.Sc. Physical Science (PME)</h3>
-        <div class="institution">Delhi University</div>
-        <div class="duration">2023</div>
-        <div class="details">Major in Electronics, Minor in CS.<br>Cybersecurity + Coding hustle side-by-side.</div>
-      </div>
-      <div class="education-card">
-        <h3 class="hacker-subheading">Class 12th (Bihar Board)</h3>
-        <div class="institution">Dhira High School</div>
-        <div class="duration">2022</div>
-        <div class="details">322/500 marks in PCM.<br>Foundation of logical thinking and ambition.</div>
-      </div>
-      <div class="education-card">
-        <h3 class="hacker-subheading">Class 10th (CBSE)</h3>
-        <div class="institution">Tirthankar Mahaveer Vidya Mandir</div>
-        <div class="duration">2020</div>
-        <div class="details">59.2% – Humble beginning, fire in the heart.</div>
-      </div>
-    </div>
-  </div>
-</section>
-<!-- Skills Section -->
-<section id="skills" class="bg-dark text-light rounded-4 p-5 shadow full-page">
-  <div class="section-content">
-    <h2 class="hacker-heading text-center">My Skills</h2>
-    <div class="skills-section">
-      <div class="skill-card">
-        <h3 class="hacker-subheading">Programming Languages</h3>
-        <ul>
-          <li>Python</li>
-          <li>C++</li>
-          <li>Java</li>
-          <li>HTML/CSS</li>
-          <li>JavaScript</li>
-        </ul>
-      </div>
-      <div class="skill-card">
-        <h3 class="hacker-subheading">Cybersecurity Tools</h3>
-        <ul>
-          <li>Kali Linux</li>
-          <li>Nmap</li>
-          <li>Nuclei</li>
-          <li>OSINT</li>
-          <li>Subdomain Takeover</li>
-          <li>Pentester</li>
-        </ul>
-      </div>
-      <div class="skill-card">
-        <h3 class="hacker-subheading">Web Development</h3>
-        <ul>
-          <li>Django</li>
-          <li>Bootstrap</li>
-          <li>LangChain</li>
-        </ul>
-      </div>
-    </div>
-  </div>
-</section>
-<!-- Achievements Section -->
-<section id="achievements" class="bg-dark text-light rounded-4 p-5 shadow full-page">
-  <div class="section-content">
-    <h2 class="hacker-heading text-center">Contributors</h2>
-    <p class="hacker-text text-center">— Amazing People —</p>
-    <div class="carousel-wrapper">
-      <button class="carousel-prev btn-outline-neon" aria-label="Previous slide">❮</button>
-      <div class="carousel" id="carousel">
-        <!-- Slide 1 -->
-        <div class="slide">
-          <div class="card">          
-            <img src="{% static 'images/shubh.webp' %}" class="avatar" alt="Shubh, Founder and Developer" loading="lazy">
-            <h3 class="hacker-subheading">Vilen Bhai</h3>
-            <div class="labels">
-              <span class="label role">Founder</span>
-              <span class="label dev">Developer</span>          
-            </div>
-          </div>
-          <div class="card">
-            <img src="{% static 'images/whoami.webp' %}" class="avatar" alt="Sudo Whoami, Supporter and Developer" loading="lazy">
-            <h3 class="hacker-subheading">Sudo Whoami</h3>
-            <div class="labels">
-              <span class="label supporter">Supporter</span>
-              <span class="label dev">Developer</span>
-            </div>
-          </div>
-          <div class="card">
-            <img src="{% static 'images/flampt.webp' %}" class="avatar" alt="Flampt, Contributor" loading="lazy">
-            <h3 class="hacker-subheading">Flampt</h3>
-            <div class="labels">
-              <span class="label contributor">Contributor</span>
-            </div>
-          </div>
+    <!-- About Section -->
+    <section id="about-villen" class="text-light rounded-4 p-5 shadow full-page matrix-bg">
+        <div class="section-content">
+            <h2 class="hacker-heading text-center">Who is Villen Bhai?</h2>
+            <p class="hacker-text text-center" id="dynamic-about" aria-live="polite">I'm not just a student — coder, hacker, dreamer. From Delhi’s streets to DU’s tech labs, I’m Villen Bhai — crafting digital futures.</p>
         </div>
-        <!-- Slide 2 -->
-        <div class="slide">
-          <div class="card">
-            <img src="{% static 'images/taj.webp' %}" class="avatar" alt="Taj, Contributor" loading="lazy">
-            <h3 class="hacker-subheading">Taj</h3>
-            <div class="labels">
-              <span class="label contributor">Contributor</span>
+    </section>
+    <!-- Education Section -->
+    <section id="education" class="text-light rounded-4 p-5 shadow full-page matrix-bg">
+        <div class="section-content">
+            <h2 class="hacker-heading text-center">My Education</h2>
+            <p class="hacker-text text-center">Learning, Growing, Conquering</p>
+            <div class="education-section">
+                <article class="card-base education-card">
+                    <h3 class="hacker-subheading">B.Sc. Physical Science (PME)</h3>
+                    <div class="institution">Delhi University</div>
+                    <div class="duration">2023</div>
+                    <div class="details">Major in Electronics, Minor in CS.<br>Cybersecurity + Coding hustle side-by-side.</div>
+                </article>
+                <article class="card-base education-card">
+                    <h3 class="hacker-subheading">Class 12th (Bihar Board)</h3>
+                    <div class="institution">Dhira High School</div>
+                    <div class="duration">2022</div>
+                    <div class="details">322/500 marks in PCM.<br>Foundation of logical thinking and ambition.</div>
+                </article>
+                <article class="card-base education-card">
+                    <h3 class="hacker-subheading">Class 10th (CBSE)</h3>
+                    <div class="institution">Tirthankar Mahaveer Vidya Mandir</div>
+                    <div class="duration">2020</div>
+                    <div class="details">59.2% – Humble beginning, fire in the heart.</div>
+                </article>
             </div>
-          </div>
-          <div class="card">
-            <img src="{% static 'images/denzven.webp' %}" class="avatar" alt="Denzven, Contributor" loading="lazy">
-            <h3 class="hacker-subheading">Denzven</h3>
-            <div class="labels">
-              <span class="label contributor">Contributor</span>
-            </div>
-          </div>
-          <div class="card">
-            <img src="{% static 'images/kueue.webp' %}" class="avatar" alt="Professor Kueue, Contributor" loading="lazy">
-            <h3 class="hacker-subheading">Professor Kueue</h3>
-            <div class="labels">
-              <span class="label contributor">Contributor</span>
-            </div>
-          </div>
         </div>
-        <!-- Slide 3 -->
-        <div class="slide">
-          <div class="card">
-            <img src="{% static 'images/khrys.webp' %}" class="avatar" alt="Khrys, Staff" loading="lazy">
-            <h3 class="hacker-subheading">Khrys</h3>
-            <div class="labels">
-              <span class="label staff">Staff</span>
+    </section>
+    <!-- Skills Section -->
+    <section id="skills" class="text-light rounded-4 p-5 shadow full-page matrix-bg">
+        <div class="section-content">
+            <h2 class="hacker-heading text-center">My Skills</h2>
+            <div class="skills-section">
+                <article class="card-base skill-card">
+                    <h3 class="hacker-subheading">Programming Languages</h3>
+                    <ul>
+                        <li>Python</li>
+                        <li>C++</li>
+                        <li>Java</li>
+                        <li>HTML/CSS</li>
+                        <li>JavaScript</li>
+                    </ul>
+                </article>
+                <article class="card-base skill-card">
+                    <h3 class="hacker-subheading">Cybersecurity Tools</h3>
+                    <ul>
+                        <li>Kali Linux</li>
+                        <li>Nmap</li>
+                        <li>Nuclei</li>
+                        <li>OSINT</li>
+                        <li>Subdomain Takeover</li>
+                        <li>Pentester</li>
+                    </ul>
+                </article>
+                <article class="card-base skill-card">
+                    <h3 class="hacker-subheading">Web Development</h3>
+                    <ul>
+                        <li>Django</li>
+                        <li>Bootstrap</li>
+                        <li>LangChain</li>
+                    </ul>
+                </article>
             </div>
-          </div>
-          <div class="card">
-            <img src="{% static 'images/villen.webp' %}" class="avatar" alt="Villen Bhai, OSINT Lead and Developer" loading="lazy">
-            <h3 class="hacker-subheading">Villen Bhai</h3>
-            <div class="labels">
-              <span class="label role">OSINT Lead</span>
-              <span class="label dev">Developer</span>
-            </div>
-          </div>
-          <div class="card">
-            <img src="{% static 'images/guest.webp' %}" class="avatar" alt="Guest Contributor" loading="lazy">
-            <h3 class="hacker-subheading">Guest</h3>
-            <div class="labels">
-              <span class="label contributor">Contributor</span>
-            </div>
-          </div>
         </div>
-      </div>
-      <button class="carousel-next btn-outline-neon" aria-label="Next slide">❯</button>
-    </div>
-    <div class="dots" role="tablist">
-      <span class="dot active" role="tab" aria-label="Slide 1" aria-controls="carousel" tabindex="0"></span>
-      <span class="dot" role="tab" aria-label="Slide 2" aria-controls="carousel" tabindex="0"></span>
-      <span class="dot" role="tab" aria-label="Slide 3" aria-controls="carousel" tabindex="0"></span>
-    </div>
-  </div>
-</section>
-<!-- Gallery Section -->
-<section id="gallery" class="bg-dark text-light rounded-4 p-5 shadow full-page">
-  <div class="section-content">
-    <h2 class="hacker-heading text-center mb-4">📸 Gallery</h2>
-    <div class="row">
-      <div class="col-md-4 mb-3">
-        <picture>
-          <source srcset="{% static 'images/pic1.webp' %}" type="image/webp">
-          <img src="{% static 'images/pic1.jpg' %}" class="img-fluid hacker-img" alt="Villen Bhai speaking at a coding event" loading="lazy">
-        </picture>
-      </div>
-      <div class="col-md-4 mb-3">
-        <picture>
-          <source srcset="{% static 'images/pic2.webp' %}" type="image/webp">
-          <img src="{% static 'images/pic2.jpg' %}" class="img-fluid hacker-img" alt="Villen Bhai presenting a tech project" loading="lazy">
-        </picture>
-      </div>
-      <div class="col-md-4 mb-3">
-        <picture>
-          <source srcset="{% static 'images/pic3.webp' %}" type="image/webp">
-          <img src="{% static 'images/pic3.jpg' %}" class="img-fluid hacker-img" alt="Villen Bhai competing in a hackathon" loading="lazy">
-        </picture>
-      </div>
-    </div>
-  </div>
-</section>
-<!-- Social Section -->
-<section id="social" class="bg-dark text-light rounded-4 p-5 shadow full-page">
-  <div class="section-content">
-    <h2 class="hacker-heading text-center mb-4">🌐 Connect With Me</h2>
-    <p class="hacker-text text-center">Let’s collaborate, connect, or hack together! 💬</p>
-    <div class="d-flex justify-content-center gap-3 flex-wrap mt-3">
-      <a href="{{ social_links.instagram }}" target="_blank" rel="noopener noreferrer" class="btn btn-outline-neon" aria-label="Follow Villen Bhai on Instagram">Instagram</a>
-      <a href="mailto:{{ social_links.email }}" class="btn btn-outline-neon" aria-label="Email Villen Bhai">Email</a>
-      <a href="{{ social_links.github }}" target="_blank" rel="noopener noreferrer" class="btn btn-outline-neon" aria-label="View Villen Bhai's GitHub profile">GitHub</a>
-    </div>
-  </div>
-</section>
+    </section>
+    <!-- Achievements Section -->
+    <section id="achievements" class="text-light rounded-4 p-5 shadow full-page matrix-bg">
+        <div class="section-content">
+            <h2 class="hacker-heading text-center">Contributors</h2>
+            <p class="hacker-text text-center">— Amazing People —</p>
+            <div class="carousel-wrapper" role="region" aria-label="Contributors carousel">
+                <button class="carousel-prev neon-btn" aria-label="Previous slide">❮</button>
+                <div class="carousel" id="carousel" aria-live="polite">
+                    <!-- Slide 1 -->
+                    <div class="slide">
+                        <article class="card-base card">
+                            <img src="{% static 'images/shubh.webp' %}" class="neon-avatar" alt="Shubh, Founder and Developer" width="140" height="140" loading="lazy">
+                            <h3 class="hacker-subheading">Vilen Bhai</h3>
+                            <div class="labels">
+                                <span class="label role">Founder</span>
+                                <span class="label dev">Developer</span>
+                            </div>
+                        </article>
+                        <article class="card-base card">
+                            <img src="{% static 'images/whoami.webp' %}" class="neon-avatar" alt="Sudo Whoami, Supporter and Developer" width="140" height="140" loading="lazy">
+                            <h3 class="hacker-subheading">Sudo Whoami</h3>
+                            <div class="labels">
+                                <span class="label supporter">Supporter</span>
+                                <span class="label dev">Developer</span>
+                            </div>
+                        </article>
+                        <article class="card-base card">
+                            <img src="{% static 'images/flampt.webp' %}" class="neon-avatar" alt="Flampt, Contributor" width="140" height="140" loading="lazy">
+                            <h3 class="hacker-subheading">Flampt</h3>
+                            <div class="labels">
+                                <span class="label contributor">Contributor</span>
+                            </div>
+                        </article>
+                    </div>
+                    <!-- Slide 2 -->
+                    <div class="slide">
+                        <article class="card-base card">
+                            <img src="{% static 'images/taj.webp' %}" class="neon-avatar" alt="Taj, Contributor" width="140" height="140" loading="lazy">
+                            <h3 class="hacker-subheading">Taj</h3>
+                            <div class="labels">
+                                <span class="label contributor">Contributor</span>
+                            </div>
+                        </article>
+                        <article class="card-base card">
+                            <img src="{% static 'images/denzven.webp' %}" class="neon-avatar" alt="Denzven, Contributor" width="140" height="140" loading="lazy">
+                            <h3 class="hacker-subheading">Denzven</h3>
+                            <div class="labels">
+                                <span class="label contributor">Contributor</span>
+                            </div>
+                        </article>
+                        <article class="card-base card">
+                            <img src="{% static 'images/kueue.webp' %}" class="neon-avatar" alt="Professor Kueue, Contributor" width="140" height="140" loading="lazy">
+                            <h3 class="hacker-subheading">Professor Kueue</h3>
+                            <div class="labels">
+                                <span class="label contributor">Contributor</span>
+                            </div>
+                        </article>
+                    </div>
+                    <!-- Slide 3 -->
+                    <div class="slide">
+                        <article class="card-base card">
+                            <img src="{% static 'images/khrys.webp' %}" class="neon-avatar" alt="Khrys, Staff" width="140" height="140" loading="lazy">
+                            <h3 class="hacker-subheading">Khrys</h3>
+                            <div class="labels">
+                                <span class="label staff">Staff</span>
+                            </div>
+                        </article>
+                        <article class="card-base card">
+                            <img src="{% static 'images/villen.webp' %}" class="neon-avatar" alt="Villen Bhai, OSINT Lead and Developer" width="140" height="140" loading="lazy">
+                            <h3 class="hacker-subheading">Villen Bhai</h3>
+                            <div class="labels">
+                                <span class="label role">OSINT Lead</span>
+                                <span class="label dev">Developer</span>
+                            </div>
+                        </article>
+                        <article class="card-base card">
+                            <img src="{% static 'images/guest.webp' %}" class="neon-avatar" alt="Guest Contributor" width="140" height="140" loading="lazy">
+                            <h3 class="hacker-subheading">Guest</h3>
+                            <div class="labels">
+                                <span class="label contributor">Contributor</span>
+                            </div>
+                        </article>
+                    </div>
+                </div>
+                <button class="carousel-next neon-btn" aria-label="Next slide">❯</button>
+            </div>
+            <div class="dots" role="tablist" aria-label="Carousel navigation dots">
+                <span class="dot active" role="tab" aria-label="Go to slide 1" aria-controls="carousel" aria-current="step" tabindex="0"></span>
+                <span class="dot" role="tab" aria-label="Go to slide 2" aria-controls="carousel" tabindex="0"></span>
+                <span class="dot" role="tab" aria-label="Go to slide 3" aria-controls="carousel" tabindex="0"></span>
+            </div>
+        </div>
+    </section>
+    <!-- Gallery Section -->
+    <section id="gallery" class="text-light rounded-4 p-5 shadow full-page matrix-bg">
+        <div class="section-content">
+            <h2 class="hacker-heading text-center mb-4">📸 Gallery</h2>
+            <div class="row">
+                <div class="col-md-4 mb-3">
+                    <picture>
+                        <source srcset="{% static 'images/pic1.webp' %}" type="image/webp">
+                        <img src="{% static 'images/pic1.jpg' %}" class="img-fluid hacker-img" alt="Villen Bhai speaking at a coding event" width="400" height="400" loading="lazy">
+                    </picture>
+                </div>
+                <div class="col-md-4 mb-3">
+                    <picture>
+                        <source srcset="{% static 'images/pic2.webp' %}" type="image/webp">
+                        <img src="{% static 'images/pic2.jpg' %}" class="img-fluid hacker-img" alt="Villen Bhai presenting a tech project" width="400" height="400" loading="lazy">
+                    </picture>
+                </div>
+                <div class="col-md-4 mb-3">
+                    <picture>
+                        <source srcset="{% static 'images/pic3.webp' %}" type="image/webp">
+                        <img src="{% static 'images/pic3.jpg' %}" class="img-fluid hacker-img" alt="Villen Bhai competing in a hackathon" width="400" height="400" loading="lazy">
+                    </picture>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- Social Section -->
+    <section id="social" class="text-light rounded-4 p-5 shadow full-page matrix-bg">
+        <div class="section-content">
+            <h2 class="hacker-heading text-center mb-4">🌐 Connect With Me</h2>
+            <p class="hacker-text text-center">Let’s collaborate, connect, or hack together! 💬</p>
+            <div class="d-flex justify-content-center gap-3 flex-wrap mt-3">
+                <a href="{% if social_links.instagram %}{{ social_links.instagram }}{% else %}#{% endif %}" target="_blank" rel="noopener noreferrer" class="btn neon-btn" aria-label="Follow Villen Bhai on Instagram">Instagram</a>
+                <a href="{% if social_links.email %}mailto:{{ social_links.email }}{% else %}#{% endif %}" class="btn neon-btn" aria-label="Email Villen Bhai">Email</a>
+                <a href="{% if social_links.github %}{{ social_links.github }}{% else %}#{% endif %}" target="_blank" rel="noopener noreferrer" class="btn neon-btn" aria-label="View Villen Bhai's GitHub profile">GitHub</a>
+            </div>
+        </div>
+    </section>
 {% endblock %}
+{% endcache %}
+
 {% block extra_css %}
 <style>
-:root {
-  --primary-color: #00ff88; /* Neon Green */
-  --secondary-color: #ff3366; /* Neon Pink */
-  --neon-cyan: #00f7ff; /* Neon Cyan */
-  --neon-purple: #d500cc; /* Neon Purple */
-  --dark-bg: #0d0d0d; /* Deep Black */
-  --dark-bg-alt: #1a1a1a; /* Slightly Lighter Black */
-  --text-light: #e0e0e0; /* Light Gray */
-  --text-dark: #333333; /* Dark Gray */
-  --shadow: 0 8px 15px rgba(0, 255, 136, 0.3);
-  --neon-glow: 0 0 5px var(--primary-color), 0 0 15px var(--neon-cyan);
-}
+    /* === Custom CSS Variables === */
+    :root {
+        --primary-color: #00ff88; /* Neon Green */
+        --secondary-color: #ff3366; /* Neon Pink */
+        --neon-cyan: #00f7ff; /* Neon Cyan */
+        --neon-purple: #d500cc; /* Neon Purple */
+        --dark-bg: #0a0d0d; /* Deep Black */
+        --dark-bg-alt: #1a1a1d; /* Slightly Lighter Black */
+        --text-light: #e0e6e0; /* Light Gray for contrast */
+        --shadow: 0 8px 24px rgba(0, 255, 136, 0.2);
+        --neon-glow: 0 0 12px var(--neon-cyan), 0 0 6px var(--primary-color);
+        --gradient-border: linear-gradient(45deg, var(--neon-cyan), var(--neon-purple));
+        --avatar-ring: conic-gradient(var(--neon-cyan), var(--neon-purple), var(--neon-cyan));
+    }
 
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-  font-family: 'Courier New', monospace;
-}
+    /* === Global Reset and Base Styles === */
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: 'Orbitron', 'Courier New', 'Consolas', monospace;
+    }
 
-html {
-  scroll-behavior: smooth;
-  scroll-snap-type: y mandatory;
-}
+    html {
+        scroll-behavior: smooth;
+        scroll-snap-type: y mandatory;
+    }
 
-body {
-  background: linear-gradient(135deg, var(--dark-bg), var(--dark-bg-alt));
-  color: var(--text-light);
-  line-height: 1.6;
-  position: relative;
-  overflow-y: scroll;
-  overflow-x: hidden;
-}
+    body {
+        background: var(--dark-bg);
+        color: var(--text-light);
+        line-height: 1.6;
+        overflow-x: hidden;
+        cursor: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4" fill="%2300ff88" fill-opacity="0.5" stroke="%2300f7ff" stroke-width="2"/></svg>'), auto;
+    }
 
-/* Animations */
-@keyframes glitch {
-  0%, 14% { text-shadow: 0.05em 0 0 var(--neon-cyan), -0.05em 0 0 var(--neon-purple); }
-  15%, 49% { text-shadow: -0.05em 0.025em 0 var(--neon-cyan), 0.05em -0.05em 0 var(--neon-purple); }
-  50%, 99% { text-shadow: 0.025em 0.05em 0 var(--neon-cyan), -0.05em 0 0 var(--neon-purple); }
-  100% { text-shadow: -0.05em 0 0 var(--neon-cyan), -0.025em -0.025em 0 var(--neon-purple); }
-}
+    /* Custom Scrollbar */
+    ::-webkit-scrollbar {
+        width: 8px;
+    }
 
-@keyframes flicker {
-  0%, 100% { opacity: 1; }
-  50% { opacity: 0.95; }
-}
+    ::-webkit-scrollbar-track {
+        background: var(--dark-bg);
+    }
 
-/* General Styles */
-.container {
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 40px 20px;
-  position: relative;
-  z-index: 2;
-}
+    ::-webkit-scrollbar-thumb {
+        background: var(--neon-cyan);
+        border-radius: 4px;
+    }
 
-.full-page {
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  scroll-snap-align: start;
-}
+    ::-webkit-scrollbar-thumb:hover {
+        background: var(--primary-color);
+    }
 
-.section-content {
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-}
+    /* === Utility Classes === */
+    .neon-glow {
+        text-shadow: var(--neon-glow);
+        box-shadow: var(--neon-glow);
+    }
 
-/* Header Styles */
-#villen-header {
-  padding: 6rem 2rem;
-  border-bottom: 2px solid var(--neon-cyan);
-  box-shadow: var(--neon-glow);
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  scroll-snap-align: start;
-}
+    .gradient-border {
+        position: relative;
+        border: none;
+    }
 
-#villen-header h1.glow {
-  font-size: 3.5rem;
-  color: var(--primary-color);
-  text-shadow: var(--neon-glow);
-  animation: glitch 2s infinite alternate;
-  letter-spacing: 0.1rem;
-  margin-bottom: 1.5rem;
-}
+    .gradient-border::before {
+        content: '';
+        position: absolute;
+        inset: -2px;
+        background: var(--gradient-border);
+        border-radius: inherit;
+        z-index: -1;
+    }
 
-.hacker-text {
-  font-size: 1.5rem;
-  color: var(--neon-purple);
-  text-shadow: 0 0 5px var(--neon-purple);
-  letter-spacing: 0.05rem;
-  text-align: center;
-  padding: 10px 0;
-}
+    .transition-in {
+        opacity: 0;
+        transform: translateY(20px);
+        transition: opacity 0.5s ease, transform 0.5s ease;
+        will-change: opacity, transform;
+    }
 
-#achievements {
-  width: 100vw;
-  padding: 60px 20px;
-  overflow-x: hidden;
-}
+    .transition-in.visible {
+        opacity: 1;
+        transform: translateY(0);
+    }
 
-#achievements .hacker-text {
-  padding: 50px 0;
-}
+    /* === Animations === */
+    @keyframes glitch {
+        0% { text-shadow: 0.03em 0 0 var(--neon-cyan), -0.03em 0 0 var(--neon-purple); }
+        50% { text-shadow: -0.03em 0.02em 0 var(--neon-cyan), 0.03em 0 0 var(--neon-purple); }
+        100% { text-shadow: 0.03em 0 0 var(--neon-cyan), -0.03em 0 0 var(--neon-purple); }
+    }
 
-#villen-header nav {
-  display: flex;
-  gap: 1.5rem;
-  flex-wrap: wrap;
-  justify-content: center;
-}
+    @keyframes matrix-rain {
+        0% { transform: translateY(0); }
+        100% { transform: translateY(100%); }
+    }
 
-.btn-outline-neon {
-  color: var(--neon-cyan);
-  border: 2px solid var(--neon-cyan);
-  padding: 0.55rem 1.5rem;
-  font-size: 1rem;
-  text-transform: uppercase;
-  letter-spacing: 0.1rem;
-  background: transparent;
-  transition: all 0.3s ease;
-  position: relative;
-  text-shadow: 0 0 5px var(--neon-cyan);
-}
+    @keyframes rotate-ring {
+        0% { transform: rotate(0deg); }
+        100% { transform: rotate(360deg); }
+    }
 
-.btn-outline-neon:hover {
-  color: var(--dark-bg);
-  background: var(--neon-cyan);
-  box-shadow: 0 0 10px var(--neon-cyan), 0 0 20px var(--neon-cyan);
-  transform: translateY(-2px);
-}
+    @keyframes label-glitch {
+        0%, 100% { transform: translate(0); opacity: 1; }
+        50% { transform: translate(2px, 2px); opacity: 0.8; }
+    }
 
-.btn-outline-neon:focus {
-  outline: 2px solid var(--neon-purple);
-  outline-offset: 4px;
-  box-shadow: 0 0 10px var(--neon-purple);
-}
+    /* Matrix Background Effect with Parallax */
+    .matrix-bg {
+        position: relative;
+        background: linear-gradient(180deg, var(--dark-bg), var(--dark-bg-alt));
+    }
 
-.btn-outline-neon::after {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: var(--neon-cyan);
-  opacity: 0;
-  z-index: -1;
-  transition: opacity 0.3s ease;
-}
+    .matrix-bg::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100"><text x="0" y="20" font-family="monospace" font-size="14" fill="%2300ff88" fill-opacity="0.1">101010</text><text x="0" y="40" font-family="monospace" font-size="14" fill="%2300ff88" fill-opacity="0.1">010101</text><text x="0" y="60" font-family="monospace" font-size="14" fill="%2300ff88" fill-opacity="0.1">110011</text><text x="0" y="80" font-family="monospace" font-size="14" fill="%2300ff88" fill-opacity="0.1">001100</text></svg>') repeat;
+        animation: matrix-rain 20s linear infinite;
+        z-index: -1;
+        opacity: 0.3;
+        will-change: transform;
+    }
 
-.btn-outline-neon:hover::after {
-  opacity: 0.2;
-}
+    /* === Container Styles === */
+    .container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 2.5rem 1.25rem;
+    }
 
-/* Section Styles */
-section {
-  background: rgba(10, 10, 10, 0.9);
-  border-radius: 15px;
-}
+    /* === Full Page Sections === */
+    .full-page {
+        min-height: 100vh;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        scroll-snap-align: start;
+    }
 
-.hacker-heading {
-  font-size: 2.5rem;
-  color: var(--primary-color);
-  text-shadow: 0 0 5px var(--primary-color);
-  animation: flicker 5s infinite;
-  letter-spacing: 0.05rem;
-  text-align: center;
-  padding-bottom: 20px;
-}
+    .section-content {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+    }
 
-.hacker-subheading {
-  font-size: 1.8rem;
-  color: var(--neon-cyan);
-  text-shadow: 0 0 5px var(--neon-cyan);
-  margin-bottom: 10px;
-}
+    /* === Header Styles === */
+    #villen-header {
+        padding: 5rem 1.5rem;
+        border-bottom: none;
+        background: linear-gradient(180deg, var(--dark-bg), var(--dark-bg-alt));
+    }
 
-/* About Section */
-#about-villen {
-  text-align: center;
-  width: 100%;
-  min-height: 100vh;
-  padding: 60px 30px;
-  overflow-x: hidden;
-  background-color: #000;
-}
+    .glow {
+        font-size: clamp(2.5rem, 8vw, 3.5rem);
+        color: var(--primary-color);
+        animation: glitch 4s infinite alternate;
+        letter-spacing: 0.08em;
+        margin-bottom: 1.5rem;
+    }
 
-#about-villen p {
-  max-width: 800px;
-  margin: 0 auto;
-}
+    .hacker-text {
+        font-size: clamp(1.2rem, 4vw, 1.5rem);
+        color: var(--neon-purple);
+        text-shadow: 0 0 6px var(--neon-purple);
+        letter-spacing: 0.05em;
+        text-align: center;
+        padding: 0.5rem 0;
+    }
 
-/* Education Section */
-#education {
-  width: 100%;
-  padding: 60px 30px;
-  background-color: #000;
-  overflow-x: hidden;
-  border-radius: 20px;
-}
+    #villen-header nav {
+        gap: 1.25rem;
+    }
 
-.education-section {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-  justify-content: center;
-  padding-top: 15px;
-  gap: 60px;
-  padding: 60px 30px;
-  max-width: 1200px;
-  margin: 0 auto;
-}
+    /* === Button Styles === */
+    .neon-btn {
+        color: var(--neon-cyan);
+        padding: 0.75rem 1.75rem;
+        font-size: 1rem;
+        text-transform: uppercase;
+        letter-spacing: 0.08em;
+        background: transparent;
+        border-radius: 50px;
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+        will-change: transform, box-shadow;
+    }
 
-.education-card {
-  background: rgba(255, 255, 255, 0.1);
-  border-radius: 15px;
-  padding: 25px;
-  backdrop-filter: blur(10px);
-  border: 1px solid var(--neon-cyan);
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
-}
+    .neon-btn:hover {
+        transform: scale(1.05) perspective(500px) rotateX(5deg);
+        box-shadow: 0 0 15px var(--neon-cyan), 0 0 25px var(--neon-cyan);
+        background: rgba(0, 247, 255, 0.1);
+    }
 
-.education-card:hover {
-  transform: scale(1.03);
-  box-shadow: 0 0 10px var(--neon-cyan);
-}
+    .neon-btn:focus {
+        outline: none;
+        box-shadow: 0 0 10px var(--neon-purple), 0 0 0 3px var(--neon-purple);
+        animation: glitch 0.3s linear 2;
+    }
 
-.education-card h3::before {
-  content: '>';
-  color: var(--primary-color);
-  margin-right: 10px;
-}
+    /* === Section Styles === */
+    section {
+        position: relative;
+        border-radius: 1rem;
+    }
 
-.institution {
-  font-size: 1.2rem;
-  color: var(--text-light);
-}
+    /* === Headings === */
+    .hacker-heading {
+        font-size: clamp(2rem, 6vw, 2.5rem);
+        color: var(--primary-color);
+        text-shadow: 0 0 6px var(--primary-color);
+        letter-spacing: 0.05em;
+        text-align: center;
+        padding-bottom: 1.25rem;
+    }
 
-.duration {
-  font-size: 1.1rem;
-  color: var(--neon-purple);
-  margin-bottom: 15px;
-}
+    .hacker-subheading {
+        font-size: clamp(1.5rem, 4vw, 1.8rem);
+        color: var(--neon-cyan);
+        text-shadow: 0 0 6px var(--neon-cyan);
+        margin-bottom: 0.75rem;
+    }
 
-.details {
-  font-size: 1.1rem;
-  color: var(--text-light);
-}
+    /* === Card Base Styles === */
+    .card-base {
+        padding: 1.5rem;
+        backdrop-filter: blur(8px);
+        background: rgba(255, 255, 255, 0.05);
+        border-radius: 1rem;
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+        will-change: transform, box-shadow;
+    }
 
-.details::before {
-  content: '$';
-  color: var(--primary-color);
-  margin-right: 10px;
-}
+    .card-base:hover {
+        transform: scale(1.03) rotate(1deg);
+        box-shadow: 0 0 20px var(--neon-cyan);
+    }
 
-/* Skills Section */
+    /* === About Section === */
+    #about-villen {
+        text-align: center;
+        padding: 3.75rem 1.875rem;
+    }
 
-#skills {
-  width: 100%;
-  padding: 60px 20px;
-  overflow-x: hidden;
-}
+    #about-villen p {
+        max-width: 50rem;
+        margin: 0 auto;
+        font-size: 1.1rem;
+    }
 
-.skills-section {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-  gap: 60px;
-  padding: 60px 30px;
-  max-width: 1200px;
-  margin: 0 auto;
-}
+    /* === Education Section === */
+    #education {
+        padding: 3.75rem 1.875rem;
+    }
 
+    .education-section {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(18rem, 1fr));
+        gap: 3rem;
+        padding: 3rem 1rem;
+        max-width: 75rem;
+        margin: 0 auto;
+    }
 
-.skill-card {
-  background: rgba(255, 255, 255, 0.1);
-  border-radius: 15px;
-  padding: 30px 25px;
-  backdrop-filter: blur(10px);
-  border: 1px solid var(--neon-cyan);
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
-}
+    .education-card h3::before {
+        content: '>';
+        color: var(--primary-color);
+        margin-right: 0.5rem;
+    }
 
-.skill-card:hover {
-  transform: scale(1.03);
-  box-shadow: 0 0 10px var(--neon-cyan);
-}
+    .institution {
+        font-size: 1.2rem;
+    }
 
-.skill-card ul {
-  list-style: none;
-  text-align: left;
-}
+    .duration {
+        font-size: 1.1rem;
+        color: var(--neon-purple);
+        margin-bottom: 0.75rem;
+    }
 
-.skill-card li {
-  font-size: 1.1rem;
-  margin-bottom: 10px;
-  padding-left: 20px;
-  position: relative;
-}
+    .details {
+        font-size: 1.1rem;
+    }
 
-.skill-card li::before {
-  content: '#';
-  position: absolute;
-  left: 0;
-  color: var(--primary-color);
-}
+    .details::before {
+        content: '$';
+        color: var(--primary-color);
+        margin-right: 0.5rem;
+    }
 
-/* Achievements Section */
-.carousel-wrapper {
-  position: relative;
-  overflow: hidden;
-  max-width: 1025px;
-  margin: 0 auto;
-  display: flex;
-  justify-content: center;
-}
+    /* === Skills Section === */
+    #skills {
+        padding: 3.75rem 1.25rem;
+    }
 
-.carousel {
-  display: flex;
-  transition: transform 0.5s ease;
-  width: 100%;
-}
+    .skills-section {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(18rem, 1fr));
+        gap: 3rem;
+        padding: 3rem 1rem;
+        max-width: 75rem;
+        margin: 0 auto;
+    }
 
-.slide {
-  display: flex;
-  justify-content: center;
-  gap: 30px;
-  min-width: 100%;
-  flex-shrink: 0;
-}
+    .skill-card ul {
+        list-style: none;
+        text-align: left;
+    }
 
-.card {
-  background: rgba(61, 64, 64, 0.422);
-  padding: 25px;
-  border-radius: 12px;
-  border: 1px solid var(--neon-cyan);
-  width: 320px;
-  text-align: center;
-}
+    .skill-card li {
+        font-size: 1.1rem;
+        margin-bottom: 0.5rem;
+        padding-left: 1.25rem;
+        position: relative;
+    }
 
-.card:hover {
-  background: linear-gradient(135deg, #c13215 0%, #001eff 100%);
-  transform: scale(1.03);
-  box-shadow: 0 0 10px var(--neon-cyan);
-}
+    .skill-card li::before {
+        content: '#';
+        position: absolute;
+        left: 0;
+        color: var(--primary-color);
+    }
 
-.avatar {
-  width: 120px;
-  height: 120px;
-  border-radius: 50%;
-  
-  border: 4px solid var(--neon-purple);
-  object-fit: cover;
-  margin-bottom: 15px;
-}
+    /* === Achievements Section === */
+    #achievements {
+        padding: 3.75rem 1.25rem;
+    }
 
-.labels {
-  margin-top: 10px;
-}
+    .carousel-wrapper {
+        max-width: 64rem;
+        margin: 0 auto;
+        position: relative;
+    }
 
-.label {
-  display: inline-block;
-  padding: 5px 10px;
-  margin: 4px;
-  border-radius: 8px;
-  font-size: 0.8rem;
-  color: var(--dark-bg);
-}
+    .carousel {
+        display: flex;
+        transition: transform 0.5s ease;
+        will-change: transform;
+    }
 
-.role { background-color: var(--neon-purple); }
-.dev { background-color: var(--neon-cyan); }
-.supporter { background-color: var(--primary-color); }
-.contributor { background-color: var(--secondary-color); }
-.staff { background-color: #6c5ce7; }
+    .slide {
+        display: flex;
+        justify-content: center;
+        gap: 2rem;
+        min-width: 100%;
+        flex-shrink: 0;
+        padding: 1rem;
+    }
 
-.dots {
-  margin-top: 20px;
-  text-align: center;
-}
+    .card {
+        width: 18rem;
+        text-align: center;
+    }
 
-.dot {
-  height: 10px;
-  width: 10px;
-  margin: 0 6px;
-  background: var(--neon-purple);
-  border-radius: 50%;
-  display: inline-block;
-  cursor: pointer;
-  opacity: 0.4;
-  transition: opacity 0.3s ease, background 0.3s ease;
-}
+    .neon-avatar {
+        width: 140px;
+        height: 140px;
+        border-radius: 50%;
+        aspect-ratio: 1 / 1;
+        object-fit: cover;
+        margin-bottom: 1rem;
+        position: relative;
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+        will-change: transform, box-shadow;
+    }
 
-.dot.active, .dot:hover, .dot:focus {
-  opacity: 1;
-  background: var(--neon-cyan);
-}
+    .neon-avatar::before {
+        content: '';
+        position: absolute;
+        inset: -4px;
+        border-radius: 50%;
+        background: var(--avatar-ring);
+        animation: rotate-ring 6s linear infinite;
+        z-index: -1;
+        opacity: 0.8;
+    }
 
-/* Gallery Section */
-.hacker-img {
-  max-width: 100%;
-  height: auto;
-  border: 2px solid transparent;
-  border-radius: 8px;
-  transition: border-color 0.3s ease, box-shadow 0.3s ease;
-  margin-bottom: 10px;
-}
+    .neon-avatar:hover {
+        transform: scale(1.1);
+        box-shadow: 0 0 20px var(--neon-cyan), 0 0 30px var(--neon-cyan);
+    }
 
-.hacker-img:hover {
-  border-color: var(--neon-cyan);
-  box-shadow: 0 0 10px var(--neon-cyan);
-}
+    .labels {
+        margin-top: 0.75rem;
+    }
 
-/* Social Section */
-#social .d-flex {
-  padding-top: 20px;
-}
+    .label {
+        display: inline-block;
+        padding: 0.4rem 1rem;
+        margin: 0.3rem;
+        border-radius: 0.5rem;
+        font-size: clamp(0.85rem, 2vw, 0.9rem);
+        color: var(--text-light);
+        background: rgba(0, 0, 0, 0.5);
+        text-shadow: 0 0 4px var(--neon-cyan);
+        transition: transform 0.2s ease, background 0.2s ease;
+    }
 
-/* Accessibility */
-@media (prefers-reduced-motion: reduce) {
-  * { animation: none !important; transition: none !important; }
-}
-/* Responsive Design */
-@media (max-width: 767px) {
-  #villen-header {
-    padding: 4rem 1rem;
-  }
-  #villen-header h1.glow {
-    font-size: 2.5rem;
-    margin-bottom: 1rem;
-  }
-  .hacker-text {
-    font-size: 1.2rem;
-    margin-bottom: 1.5rem;
-    padding: 8px 0;
-  }
-  #achievements .hacker-text {
-    padding: 15px 0;
-  }
-  #villen-header nav {
-    gap: 1rem;
-  }
-  .btn-outline-neon {
-    padding: 0.5rem 1rem;
-    font-size: 0.9rem;
-  }
-  .hacker-heading {
-    font-size: 2rem;
-    padding-bottom: 15px;
-  }
-  .hacker-subheading {
-    font-size: 1.5rem;
-  }
-  .container {
-    padding: 20px 15px;
-  }
-  .education-card, .skill-card, .card {
-    padding: 20px;
-  }
-  .slide {
-    flex-direction: column;
-    align-items: center;
-    gap: 15px;
-  }
-  .full-page {
-    min-height: auto;
-    padding: 20px 0;
-  }
+    .label:hover {
+        background: rgba(0, 247, 255, 0.2);
+        animation: label-glitch 0.3s linear 2;
+    }
 
-}
+    .role { border: 1px solid var(--neon-purple); }
+    .dev { border: 1px solid var(--neon-cyan); }
+    .supporter { border: 1px solid var(--primary-color); }
+    .contributor { border: 1px solid var(--secondary-color); }
+    .staff { border: 1px solid #6c5ce7; }
+
+    .carousel-prev,
+    .carousel-next {
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        padding: 0.5rem 1rem;
+        font-size: 1.5rem;
+        z-index: 10;
+    }
+
+    .carousel-prev { left: -3rem; }
+    .carousel-next { right: -3rem; }
+
+    .dots {
+        margin-top: 1.5rem;
+        text-align: center;
+    }
+
+    .dot {
+        width: 0.75rem;
+        height: 0.75rem;
+        margin: 0 0.5rem;
+        background: var(--neon-purple);
+        border-radius: 50%;
+        display: inline-block;
+        cursor: pointer;
+        opacity: 0.6;
+        transition: opacity 0.3s ease, background 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .dot.active,
+    .dot:hover,
+    .dot:focus {
+        opacity: 1;
+        background: var(--neon-cyan);
+        box-shadow: 0 0 8px var(--neon-cyan);
+    }
+
+    .dot:focus {
+        outline: none;
+        box-shadow: 0 0 0 3px var(--neon-purple);
+    }
+
+    /* === Gallery Section === */
+    .hacker-img {
+        max-width: 100%;
+        height: auto;
+        border-radius: 50%;
+        aspect-ratio: 1 / 1;
+        object-fit: cover;
+        transition: box-shadow 0.3s ease, transform 0.3s ease;
+        margin-bottom: 0.625rem;
+    }
+
+    .hacker-img:hover {
+        box-shadow: 0 0 15px var(--neon-cyan);
+        transform: scale(1.05);
+    }
+
+    /* === Social Section === */
+    #social .d-flex {
+        padding-top: 1.25rem;
+    }
+
+    /* === Accessibility === */
+    @media (prefers-reduced-motion: reduce) {
+        *,
+        *::before,
+        *::after {
+            animation: none !important;
+            transition: none !important;
+        }
+    }
+
+    /* === Responsive Design === */
+    @media (max-width: 768px) {
+        #villen-header {
+            padding: 3rem 1rem;
+        }
+
+        .glow {
+            font-size: clamp(2rem, 6vw, 2.5rem);
+        }
+
+        .hacker-text {
+            font-size: 1.1rem;
+            padding: 0.5rem 0;
+        }
+
+        #achievements .hacker-text {
+            padding: 0.5rem;
+        }
+
+        .neon-btn {
+            padding: 0.5rem 1rem;
+            font-size: 0.9rem;
+        }
+
+        .hacker-heading {
+            font-size: clamp(1.8rem, 5vw, 2rem);
+        }
+
+        .hacker-subheading {
+            font-size: clamp(1.2rem, 3.5vw, 1.5rem);
+        }
+
+        .card-base {
+            padding: 1rem;
+        }
+
+        .slide {
+            flex-direction: column;
+            align-items: center;
+            gap: 1.5rem;
+        }
+
+        .card {
+            width: 15rem;
+        }
+
+        .neon-avatar {
+            width: 120px;
+            height: 120px;
+        }
+
+        .carousel-prev { left: -2rem; }
+        .carousel-next { right: -2rem; }
+
+        .full-page {
+            min-height: auto;
+            padding: 1.5rem 0;
+        }
+
+        .hacker-img {
+            width: 200px;
+            height: 200px;
+        }
+    }
 </style>
 {% endblock %}
+
 {% block extra_js %}
-<script>
-(function() {
-  'use strict';
+    <script>
+        // Utility functions
+        const throttle = (func, wait) => {
+            let timeout;
+            return (...args) => {
+                if (!timeout) {
+                    timeout = setTimeout(() => {
+                        timeout = null;
+                        func(...args);
+                    }, wait);
+                }
+            };
+        };
 
-  // Typewriter Effect
-  const aboutText = "I'm not just a student — coder, hacker, dreamer. From Delhi’s streets to DU’s tech labs, I’m Villen Bhai — crafting digital futures.";
-  const textElement = document.querySelector('#dynamic-about');
-  if (textElement) {
-    let index = 0;
-    function typewriter() {
-      if (index < aboutText.length) {
-        textElement.textContent = aboutText.slice(0, index + 1);
-        index++;
-        setTimeout(typewriter, 20);
-      } else {
-        textElement.textContent = aboutText;
-      }
-    }
-    typewriter();
-  } else {
-    console.warn('Dynamic about element not found');
-  }
+        const debounce = (func, wait) => {
+            let timeout;
+            return (...args) => {
+                clearTimeout(timeout);
+                timeout = setTimeout(() => func(...args), wait);
+            };
+        };
 
-  // Video Fallback with Lazy Loading
-  const video = document.querySelector('#video-bg-element');
-  const fallbackImg = document.querySelector('.video-fallback');
-  if (video && fallbackImg) {
-    const observer = new IntersectionObserver((entries) => {
-      if (entries[0].isIntersecting) {
-        video.play().catch((error) => {
-          console.log('Autoplay failed:', error);
-          fallbackImg.style.display = 'block';
-          video.style.display = 'none';
-          document.addEventListener('click', () => {
-            video.play().catch((err) => console.log('Manual play failed:', err));
-          }, { once: true });
+        // Main DOM loaded event
+        document.addEventListener('DOMContentLoaded', () => {
+            // Typewriter Effect for About Section
+            const typewriter = () => {
+                const textElement = document.querySelector('#dynamic-about');
+                if (!textElement) return;
+                
+                const aboutText = textElement.textContent;
+                textElement.textContent = '';
+                const observer = new IntersectionObserver((entries) => {
+                    if (entries[0].isIntersecting) {
+                        let index = 0;
+                        const type = () => {
+                            if (index < aboutText.length) {
+                                textElement.textContent += aboutText[index++];
+                                setTimeout(type, 20);
+                            }
+                        };
+                        type();
+                        observer.unobserve(textElement);
+                    }
+                }, { threshold: 0.1 });
+                observer.observe(textElement);
+            };
+
+            // Card Animation for Education and Skills
+            const animateCards = (selector) => {
+                const cards = document.querySelectorAll(selector);
+                if (!cards.length) return;
+
+                const observer = new IntersectionObserver((entries) => {
+                    entries.forEach((entry, i) => {
+                        if (entry.isIntersecting) {
+                            setTimeout(() => {
+                                entry.target.classList.add('visible');
+                            }, i * 200);
+                            observer.unobserve(entry.target);
+                        }
+                    });
+                }, { threshold: 0.1 });
+
+                cards.forEach(card => observer.observe(card));
+            };
+
+            // Section Fade-In Animation
+            const animateSections = () => {
+                const sections = document.querySelectorAll('section');
+                if (!sections.length) return;
+
+                const observer = new IntersectionObserver((entries) => {
+                    entries.forEach(entry => {
+                        if (entry.isIntersecting) {
+                            entry.target.classList.add('visible');
+                            observer.unobserve(entry.target);
+                        }
+                    });
+                }, { threshold: 0.1 });
+
+                sections.forEach(section => observer.observe(section));
+            };
+
+            // Carousel Functionality
+            const initCarousel = () => {
+                const carousel = document.querySelector('#carousel');
+                const dotsContainer = document.querySelector('.dots');
+                const prevBtn = document.querySelector('.carousel-prev');
+                const nextBtn = document.querySelector('.carousel-next');
+                const liveRegion = document.querySelector('.carousel');
+
+                if (!carousel || !dotsContainer || !prevBtn || !nextBtn || !liveRegion) {
+                    console.warn('Carousel elements missing');
+                    return;
+                }
+
+                let currentSlide = 0;
+                const slides = carousel.querySelectorAll('.slide');
+                const totalSlides = slides.length;
+                let autoplay;
+                let isTransitioning = false;
+
+                // Update ARIA and visual state
+                const updateSlideState = (index) => {
+                    const dots = dotsContainer.querySelectorAll('.dot');
+                    dots.forEach((dot, i) => {
+                        dot.classList.toggle('active', i === index);
+                        dot.setAttribute('aria-current', i === index ? 'step' : 'false');
+                    });
+                    liveRegion.textContent = `Slide ${index + 1} of ${totalSlides}`;
+                };
+
+                // Move to a specific slide
+                const moveToSlide = (index) => {
+                    if (isTransitioning || index < 0 || index >= totalSlides) return;
+                    isTransitioning = true;
+                    carousel.style.transform = `translateX(-${index * 100}%)`;
+                    currentSlide = index;
+                    updateSlideState(index);
+                    setTimeout(() => { isTransitioning = false; }, 500);
+                };
+
+                // Autoplay control
+                const startAutoplay = () => {
+                    autoplay = setInterval(() => moveToSlide((currentSlide + 1) % totalSlides), 5000);
+                };
+
+                const stopAutoplay = () => clearInterval(autoplay);
+
+                // Event delegation for dots
+                dotsContainer.addEventListener('click', (e) => {
+                    const dot = e.target.closest('.dot');
+                    if (dot) {
+                        const index = Array.from(dotsContainer.querySelectorAll('.dot')).indexOf(dot);
+                        moveToSlide(index);
+                    }
+                });
+
+                // Keyboard navigation for dots
+                dotsContainer.addEventListener('keydown', (e) => {
+                    const dot = e.target.closest('.dot');
+                    if (!dot) return;
+                    const dots = Array.from(dotsContainer.querySelectorAll('.dot'));
+                    const index = dots.indexOf(dot);
+
+                    if (e.key === 'Enter' || e.key === ' ') {
+                        e.preventDefault();
+                        moveToSlide(index);
+                    } else if (e.key === 'ArrowLeft' && index > 0) {
+                        dots[index - 1].focus();
+                        moveToSlide(index - 1);
+                    } else if (e.key === 'ArrowRight' && index < dots.length - 1) {
+                        dots[index + 1].focus();
+                        moveToSlide(index + 1);
+                    }
+                });
+
+                // Button navigation
+                prevBtn.addEventListener('click', () => moveToSlide((currentSlide - 1 + totalSlides) % totalSlides));
+                nextBtn.addEventListener('click', () => moveToSlide((currentSlide + 1) % totalSlides));
+
+                // Keyboard support for buttons
+                [prevBtn, nextBtn].forEach(btn => {
+                    btn.addEventListener('keydown', (e) => {
+                        if (e.key === 'Enter' || e.key === ' ') {
+                            e.preventDefault();
+                            btn.click();
+                        }
+                    });
+                });
+
+                // Touch swipe support
+                let touchStartX = 0;
+                let touchEndX = 0;
+
+                carousel.addEventListener('touchstart', (e) => {
+                    touchStartX = e.changedTouches[0].screenX;
+                });
+
+                carousel.addEventListener('touchend', (e) => {
+                    touchEndX = e.changedTouches[0].screenX;
+                    const deltaX = touchEndX - touchStartX;
+                    if (deltaX > 50) {
+                        moveToSlide((currentSlide - 1 + totalSlides) % totalSlides);
+                    } else if (deltaX < -50) {
+                        moveToSlide((currentSlide + 1) % totalSlides);
+                    }
+                });
+
+                // Autoplay pause on interaction
+                carousel.parentElement.addEventListener('mouseenter', stopAutoplay);
+                carousel.parentElement.addEventListener('mouseleave', startAutoplay);
+                carousel.parentElement.addEventListener('focusin', stopAutoplay);
+                carousel.parentElement.addEventListener('focusout', startAutoplay);
+
+                // Initialize
+                startAutoplay();
+                updateSlideState(0);
+            };
+
+            // Parallax Effect for Matrix Background
+            const parallax = throttle(() => {
+                const matrixBgs = document.querySelectorAll('.matrix-bg');
+                const scrollY = window.scrollY;
+                matrixBgs.forEach(bg => {
+                    bg.style.setProperty('--parallax-offset', scrollY * 0.05);
+                });
+            }, 16);
+
+            // Initialize
+            typewriter();
+            animateCards('.education-card');
+            animateCards('.skill-card');
+            animateSections();
+            initCarousel();
+            if (window.matchMedia('(prefers-reduced-motion: no-preference)').matches) {
+                window.addEventListener('scroll', parallax);
+            }
         });
-        observer.unobserve(video);
-      }
-    });
-    observer.observe(video);
-    video.addEventListener('error', () => {
-      console.log('Video failed to load');
-      video.style.display = 'none';
-      fallbackImg.style.display = 'block';
-    });
-  } else {
-    console.warn('Video or fallback image not found');
-  }
-
-  // Education Card Animation
-  const cards = document.querySelectorAll('.education-card');
-  if (cards.length) {
-    cards.forEach((card, index) => {
-      card.style.opacity = '0';
-      card.style.transform = 'translateY(20px)';
-      setTimeout(() => {
-        card.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
-        card.style.opacity = '1';
-        card.style.transform = 'translateY(0)';
-      }, index * 200);
-    });
-  } else {
-    console.warn('Education cards not found');
-  }
-
-  // Carousel
-  const carousel = document.querySelector('#carousel');
-  const dots = document.querySelectorAll('.dot');
-  const prevBtn = document.querySelector('.carousel-prev');
-  const nextBtn = document.querySelector('.carousel-next');
-  if (carousel && dots.length && prevBtn && nextBtn) {
-    let currentSlide = 0;
-    const totalSlides = document.querySelectorAll('.slide').length;
-
-    function moveToSlide(index) {
-      carousel.style.transform = `translateX(-${index * 100}%)`;
-      dots.forEach((dot, i) => {
-        dot.classList.toggle('active', i === index);
-        dot.setAttribute('aria-selected', i === index ? 'true' : 'false');
-      });
-      currentSlide = index;
-    }
-
-    dots.forEach((dot, i) => {
-      dot.addEventListener('click', () => moveToSlide(i));
-      dot.addEventListener('keydown', (e) => {
-        if (e.key === 'Enter' || e.key === ' ') {
-          e.preventDefault();
-          moveToSlide(i);
-        }
-      });
-    });
-
-    prevBtn.addEventListener('click', () => moveToSlide((currentSlide - 1 + totalSlides) % totalSlides));
-    nextBtn.addEventListener('click', () => moveToSlide((currentSlide + 1) % totalSlides));
-
-    [prevBtn, nextBtn].forEach(btn => {
-      btn.addEventListener('keydown', (e) => {
-        if (e.key === 'Enter' || e.key === ' ') {
-          e.preventDefault();
-          btn.click();
-        }
-      });
-    });
-
-    // Autoplay
-    let autoplay = setInterval(() => moveToSlide((currentSlide + 1) % totalSlides), 5000);
-    carousel.parentElement.addEventListener('mouseenter', () => clearInterval(autoplay));
-    carousel.parentElement.addEventListener('mouseleave', () => {
-      autoplay = setInterval(() => moveToSlide((currentSlide + 1) % totalSlides), 5000);
-    });
-  } else {
-    console.warn('Carousel elements not found');
-  }
-})();
-</script>
+    </script>
 {% endblock %}
