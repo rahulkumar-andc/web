@@ -17,11 +17,11 @@
         <h1 class="display-4 fw-bold glow">🌌 Meet Villen Bhai</h1>
         <p class="fs-5 hacker-text mb-4">Code. Hack. Conquer. Repeat.</p>
         <nav class="d-flex justify-content-center flex-wrap gap-3" aria-label="Section navigation">
-            <a href="#education" class="btn neon-btn rounded-pill" aria-label="View Education">🎓 Education</a>
-            <a href="#skills" class="btn neon-btn rounded-pill" aria-label="View Skills">⚙️ Skills</a>
-            <a href="#achievements" class="btn neon-btn rounded-pill" aria-label="View Achievements">🏆 Achievements</a>
-            <a href="#gallery" class="btn neon-btn rounded-pill" aria-label="View Gallery">📸 Gallery</a>
-            <a href="#social" class="btn neon-btn rounded-pill" aria-label="Connect with Villen Bhai">🌐 Connect</a>
+            <a href="#education" class="btn btn-neon rounded-pill" aria-label="View Education">🎓 Education</a>
+            <a href="#skills" class="btn btn-neon rounded-pill" aria-label="View Skills">⚙️ Skills</a>
+            <a href="#achievements" class="btn btn-neon rounded-pill" aria-label="View Achievements">🏆 Achievements</a>
+            <a href="#gallery" class="btn btn-neon rounded-pill" aria-label="View Gallery">📸 Gallery</a>
+            <a href="#social" class="btn btn-neon rounded-pill" aria-label="Connect with Villen Bhai">🌐 Connect</a>
         </nav>
     </header>
 {% endblock %}
@@ -104,13 +104,13 @@
         <div class="section-content">
             <h2 class="hacker-heading text-center">Contributors</h2>
             <p class="hacker-text text-center">— Amazing People —</p>
-            <div class="carousel-wrapper" role="region" aria-label="Contributors carousel">
-                <button class="carousel-prev neon-btn" aria-label="Previous slide">❮</button>
-                <div class="carousel" id="carousel" aria-live="polite">
+            <div class="carousel-wrapper">
+                <button class="carousel-prev btn-neon" aria-label="Previous slide">❮</button>
+                <div class="carousel" id="carousel">
                     <!-- Slide 1 -->
                     <div class="slide">
                         <article class="card-base card">
-                            <img src="{% static 'images/shubh.webp' %}" class="neon-avatar" alt="Shubh, Founder and Developer" width="140" height="140" loading="lazy">
+                            <img src="{% static 'images/shubh.webp' %}" class="avatar" alt="Shubh, Founder and Developer" width="140" height="140" loading="lazy">
                             <h3 class="hacker-subheading">Vilen Bhai</h3>
                             <div class="labels">
                                 <span class="label role">Founder</span>
@@ -118,7 +118,7 @@
                             </div>
                         </article>
                         <article class="card-base card">
-                            <img src="{% static 'images/whoami.webp' %}" class="neon-avatar" alt="Sudo Whoami, Supporter and Developer" width="140" height="140" loading="lazy">
+                            <img src="{% static 'images/whoami.webp' %}" class="avatar" alt="Sudo Whoami, Supporter and Developer" width="140" height="140" loading="lazy">
                             <h3 class="hacker-subheading">Sudo Whoami</h3>
                             <div class="labels">
                                 <span class="label supporter">Supporter</span>
@@ -126,7 +126,7 @@
                             </div>
                         </article>
                         <article class="card-base card">
-                            <img src="{% static 'images/flampt.webp' %}" class="neon-avatar" alt="Flampt, Contributor" width="140" height="140" loading="lazy">
+                            <img src="{% static 'images/flampt.webp' %}" class="avatar" alt="Flampt, Contributor" width="140" height="140" loading="lazy">
                             <h3 class="hacker-subheading">Flampt</h3>
                             <div class="labels">
                                 <span class="label contributor">Contributor</span>
@@ -136,21 +136,21 @@
                     <!-- Slide 2 -->
                     <div class="slide">
                         <article class="card-base card">
-                            <img src="{% static 'images/taj.webp' %}" class="neon-avatar" alt="Taj, Contributor" width="140" height="140" loading="lazy">
+                            <img src="{% static 'images/taj.webp' %}" class="avatar" alt="Taj, Contributor" width="140" height="140" loading="lazy">
                             <h3 class="hacker-subheading">Taj</h3>
                             <div class="labels">
                                 <span class="label contributor">Contributor</span>
                             </div>
                         </article>
                         <article class="card-base card">
-                            <img src="{% static 'images/denzven.webp' %}" class="neon-avatar" alt="Denzven, Contributor" width="140" height="140" loading="lazy">
+                            <img src="{% static 'images/denzven.webp' %}" class="avatar" alt="Denzven, Contributor" width="140" height="140" loading="lazy">
                             <h3 class="hacker-subheading">Denzven</h3>
                             <div class="labels">
                                 <span class="label contributor">Contributor</span>
                             </div>
                         </article>
                         <article class="card-base card">
-                            <img src="{% static 'images/kueue.webp' %}" class="neon-avatar" alt="Professor Kueue, Contributor" width="140" height="140" loading="lazy">
+                            <img src="{% static 'images/kueue.webp' %}" class="avatar" alt="Professor Kueue, Contributor" width="140" height="140" loading="lazy">
                             <h3 class="hacker-subheading">Professor Kueue</h3>
                             <div class="labels">
                                 <span class="label contributor">Contributor</span>
@@ -160,14 +160,14 @@
                     <!-- Slide 3 -->
                     <div class="slide">
                         <article class="card-base card">
-                            <img src="{% static 'images/khrys.webp' %}" class="neon-avatar" alt="Khrys, Staff" width="140" height="140" loading="lazy">
+                            <img src="{% static 'images/khrys.webp' %}" class="avatar" alt="Khrys, Staff" width="140" height="140" loading="lazy">
                             <h3 class="hacker-subheading">Khrys</h3>
                             <div class="labels">
                                 <span class="label staff">Staff</span>
                             </div>
                         </article>
                         <article class="card-base card">
-                            <img src="{% static 'images/villen.webp' %}" class="neon-avatar" alt="Villen Bhai, OSINT Lead and Developer" width="140" height="140" loading="lazy">
+                            <img src="{% static 'images/villen.webp' %}" class="avatar" alt="Villen Bhai, OSINT Lead and Developer" width="140" height="140" loading="lazy">
                             <h3 class="hacker-subheading">Villen Bhai</h3>
                             <div class="labels">
                                 <span class="label role">OSINT Lead</span>
@@ -175,7 +175,7 @@
                             </div>
                         </article>
                         <article class="card-base card">
-                            <img src="{% static 'images/guest.webp' %}" class="neon-avatar" alt="Guest Contributor" width="140" height="140" loading="lazy">
+                            <img src="{% static 'images/guest.webp' %}" class="avatar" alt="Guest Contributor" width="140" height="140" loading="lazy">
                             <h3 class="hacker-subheading">Guest</h3>
                             <div class="labels">
                                 <span class="label contributor">Contributor</span>
@@ -183,10 +183,10 @@
                         </article>
                     </div>
                 </div>
-                <button class="carousel-next neon-btn" aria-label="Next slide">❯</button>
+                <button class="carousel-next btn-neon" aria-label="Next slide">❯</button>
             </div>
-            <div class="dots" role="tablist" aria-label="Carousel navigation dots">
-                <span class="dot active" role="tab" aria-label="Go to slide 1" aria-controls="carousel" aria-current="step" tabindex="0"></span>
+            <div class="dots" role="tablist">
+                <span class="dot active" role="tab" aria-label="Go to slide 1" aria-controls="carousel" tabindex="0"></span>
                 <span class="dot" role="tab" aria-label="Go to slide 2" aria-controls="carousel" tabindex="0"></span>
                 <span class="dot" role="tab" aria-label="Go to slide 3" aria-controls="carousel" tabindex="0"></span>
             </div>
@@ -224,9 +224,9 @@
             <h2 class="hacker-heading text-center mb-4">🌐 Connect With Me</h2>
             <p class="hacker-text text-center">Let’s collaborate, connect, or hack together! 💬</p>
             <div class="d-flex justify-content-center gap-3 flex-wrap mt-3">
-                <a href="{% if social_links.instagram %}{{ social_links.instagram }}{% else %}#{% endif %}" target="_blank" rel="noopener noreferrer" class="btn neon-btn" aria-label="Follow Villen Bhai on Instagram">Instagram</a>
-                <a href="{% if social_links.email %}mailto:{{ social_links.email }}{% else %}#{% endif %}" class="btn neon-btn" aria-label="Email Villen Bhai">Email</a>
-                <a href="{% if social_links.github %}{{ social_links.github }}{% else %}#{% endif %}" target="_blank" rel="noopener noreferrer" class="btn neon-btn" aria-label="View Villen Bhai's GitHub profile">GitHub</a>
+                <a href="{% if social_links.instagram %}{{ social_links.instagram }}{% else %}#{% endif %}" target="_blank" rel="noopener noreferrer" class="btn btn-neon" aria-label="Follow Villen Bhai on Instagram">Instagram</a>
+                <a href="{% if social_links.email %}mailto:{{ social_links.email }}{% else %}#{% endif %}" class="btn btn-neon" aria-label="Email Villen Bhai">Email</a>
+                <a href="{% if social_links.github %}{{ social_links.github }}{% else %}#{% endif %}" target="_blank" rel="noopener noreferrer" class="btn btn-neon" aria-label="View Villen Bhai's GitHub profile">GitHub</a>
             </div>
         </div>
     </section>
@@ -247,7 +247,6 @@
         --shadow: 0 8px 24px rgba(0, 255, 136, 0.2);
         --neon-glow: 0 0 12px var(--neon-cyan), 0 0 6px var(--primary-color);
         --gradient-border: linear-gradient(45deg, var(--neon-cyan), var(--neon-purple));
-        --avatar-ring: conic-gradient(var(--neon-cyan), var(--neon-purple), var(--neon-cyan));
     }
 
     /* === Global Reset and Base Styles === */
@@ -329,21 +328,17 @@
     }
 
     @keyframes matrix-rain {
-        0% { transform: translateY(0); }
-        100% { transform: translateY(100%); }
+        0% { background-position: 0 0; }
+        100% { background-position: 0 100%; }
     }
 
-    @keyframes rotate-ring {
-        0% { transform: rotate(0deg); }
-        100% { transform: rotate(360deg); }
+    @keyframes pulse-glow {
+        0% { box-shadow: 0 0 5px var(--neon-cyan), 0 0 10px var(--neon-cyan); }
+        50% { box-shadow: 0 0 10px var(--neon-cyan), 0 0 20px var(--neon-cyan); }
+        100% { box-shadow: 0 0 5px var(--neon-cyan), 0 0 10px var(--neon-cyan); }
     }
 
-    @keyframes label-glitch {
-        0%, 100% { transform: translate(0); opacity: 1; }
-        50% { transform: translate(2px, 2px); opacity: 0.8; }
-    }
-
-    /* Matrix Background Effect with Parallax */
+    /* Matrix Background Effect */
     .matrix-bg {
         position: relative;
         background: linear-gradient(180deg, var(--dark-bg), var(--dark-bg-alt));
@@ -360,7 +355,6 @@
         animation: matrix-rain 20s linear infinite;
         z-index: -1;
         opacity: 0.3;
-        will-change: transform;
     }
 
     /* === Container Styles === */
@@ -415,7 +409,7 @@
     }
 
     /* === Button Styles === */
-    .neon-btn {
+    .btn-neon {
         color: var(--neon-cyan);
         padding: 0.75rem 1.75rem;
         font-size: 1rem;
@@ -427,16 +421,15 @@
         will-change: transform, box-shadow;
     }
 
-    .neon-btn:hover {
-        transform: scale(1.05) perspective(500px) rotateX(5deg);
+    .btn-neon:hover {
+        transform: scale(1.05) rotate(2deg);
         box-shadow: 0 0 15px var(--neon-cyan), 0 0 25px var(--neon-cyan);
         background: rgba(0, 247, 255, 0.1);
     }
 
-    .neon-btn:focus {
+    .btn-neon:focus {
         outline: none;
         box-shadow: 0 0 10px var(--neon-purple), 0 0 0 3px var(--neon-purple);
-        animation: glitch 0.3s linear 2;
     }
 
     /* === Section Styles === */
@@ -466,8 +459,6 @@
     .card-base {
         padding: 1.5rem;
         backdrop-filter: blur(8px);
-        background: rgba(255, 255, 255, 0.05);
-        border-radius: 1rem;
         transition: transform 0.3s ease, box-shadow 0.3s ease;
         will-change: transform, box-shadow;
     }
@@ -576,49 +567,40 @@
     .carousel {
         display: flex;
         transition: transform 0.5s ease;
-        will-change: transform;
     }
 
     .slide {
         display: flex;
         justify-content: center;
-        gap: 2rem;
+        gap: 2rem; /* Increased gap for better spacing */
         min-width: 100%;
         flex-shrink: 0;
         padding: 1rem;
     }
 
     .card {
-        width: 18rem;
+        width: 18rem; /* Slightly smaller for better fit */
         text-align: center;
+        background: rgba(255, 255, 255, 0.05);
+        border-radius: 1rem;
     }
 
-    .neon-avatar {
+    .avatar {
         width: 140px;
         height: 140px;
         border-radius: 50%;
         aspect-ratio: 1 / 1;
         object-fit: cover;
         margin-bottom: 1rem;
-        position: relative;
+        animation: pulse-glow 2s infinite ease-in-out;
         transition: transform 0.3s ease, box-shadow 0.3s ease;
         will-change: transform, box-shadow;
     }
 
-    .neon-avatar::before {
-        content: '';
-        position: absolute;
-        inset: -4px;
-        border-radius: 50%;
-        background: var(--avatar-ring);
-        animation: rotate-ring 6s linear infinite;
-        z-index: -1;
-        opacity: 0.8;
-    }
-
-    .neon-avatar:hover {
+    .avatar:hover {
         transform: scale(1.1);
         box-shadow: 0 0 20px var(--neon-cyan), 0 0 30px var(--neon-cyan);
+        animation: none; /* Pause pulse on hover */
     }
 
     .labels {
@@ -630,16 +612,15 @@
         padding: 0.4rem 1rem;
         margin: 0.3rem;
         border-radius: 0.5rem;
-        font-size: clamp(0.85rem, 2vw, 0.9rem);
+        font-size: 0.9rem;
         color: var(--text-light);
         background: rgba(0, 0, 0, 0.5);
         text-shadow: 0 0 4px var(--neon-cyan);
-        transition: transform 0.2s ease, background 0.2s ease;
+        transition: background 0.3s ease;
     }
 
     .label:hover {
         background: rgba(0, 247, 255, 0.2);
-        animation: label-glitch 0.3s linear 2;
     }
 
     .role { border: 1px solid var(--neon-purple); }
@@ -686,11 +667,6 @@
         box-shadow: 0 0 8px var(--neon-cyan);
     }
 
-    .dot:focus {
-        outline: none;
-        box-shadow: 0 0 0 3px var(--neon-purple);
-    }
-
     /* === Gallery Section === */
     .hacker-img {
         max-width: 100%;
@@ -719,11 +695,12 @@
         *::after {
             animation: none !important;
             transition: none !important;
+            scroll-behavior: auto !important;
         }
     }
 
     /* === Responsive Design === */
-    @media (max-width: 768px) {
+    @media (max-width: 767px) {
         #villen-header {
             padding: 3rem 1rem;
         }
@@ -738,10 +715,10 @@
         }
 
         #achievements .hacker-text {
-            padding: 0.5rem;
+            padding: 1rem 0;
         }
 
-        .neon-btn {
+        .btn-neon {
             padding: 0.5rem 1rem;
             font-size: 0.9rem;
         }
@@ -751,11 +728,11 @@
         }
 
         .hacker-subheading {
-            font-size: clamp(1.2rem, 3.5vw, 1.5rem);
+            font-size: clamp(1.3rem, 4vw, 1.5rem);
         }
 
         .card-base {
-            padding: 1rem;
+            padding: 1.25rem;
         }
 
         .slide {
@@ -765,10 +742,10 @@
         }
 
         .card {
-            width: 15rem;
+            width: 16rem;
         }
 
-        .neon-avatar {
+        .avatar {
             width: 120px;
             height: 120px;
         }
@@ -791,167 +768,117 @@
 
 {% block extra_js %}
     <script>
-        // Utility functions
-        const throttle = (func, wait) => {
-            let timeout;
-            return (...args) => {
-                if (!timeout) {
-                    timeout = setTimeout(() => {
-                        timeout = null;
-                        func(...args);
-                    }, wait);
-                }
-            };
-        };
-
-        const debounce = (func, wait) => {
-            let timeout;
-            return (...args) => {
-                clearTimeout(timeout);
-                timeout = setTimeout(() => func(...args), wait);
-            };
-        };
-
-        // Main DOM loaded event
+        // Wait for DOM to be fully loaded
         document.addEventListener('DOMContentLoaded', () => {
             // Typewriter Effect for About Section
-            const typewriter = () => {
-                const textElement = document.querySelector('#dynamic-about');
-                if (!textElement) return;
-                
-                const aboutText = textElement.textContent;
-                textElement.textContent = '';
+            const aboutText = "I'm not just a student — coder, hacker, dreamer. From Delhi’s streets to DU’s tech labs, I’m Villen Bhai — crafting digital futures.";
+            const textElement = document.querySelector('#dynamic-about');
+            if (textElement) {
                 const observer = new IntersectionObserver((entries) => {
                     if (entries[0].isIntersecting) {
                         let index = 0;
-                        const type = () => {
+                        function typewriter() {
                             if (index < aboutText.length) {
-                                textElement.textContent += aboutText[index++];
-                                setTimeout(type, 20);
+                                textElement.textContent = aboutText.slice(0, index + 1);
+                                index++;
+                                setTimeout(typewriter, 20);
                             }
-                        };
-                        type();
+                        }
+                        typewriter();
                         observer.unobserve(textElement);
                     }
                 }, { threshold: 0.1 });
                 observer.observe(textElement);
-            };
+            }
 
-            // Card Animation for Education and Skills
-            const animateCards = (selector) => {
+            // Animation for Cards (Education and Skills)
+            function animateCards(selector) {
                 const cards = document.querySelectorAll(selector);
-                if (!cards.length) return;
-
-                const observer = new IntersectionObserver((entries) => {
-                    entries.forEach((entry, i) => {
-                        if (entry.isIntersecting) {
-                            setTimeout(() => {
-                                entry.target.classList.add('visible');
-                            }, i * 200);
-                            observer.unobserve(entry.target);
-                        }
+                if (cards.length) {
+                    const observer = new IntersectionObserver((entries) => {
+                        entries.forEach((entry, index) => {
+                            if (entry.isIntersecting) {
+                                setTimeout(() => {
+                                    entry.target.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
+                                    entry.target.style.opacity = '1';
+                                    entry.target.style.transform = 'translateY(0)';
+                                }, index * 200);
+                                observer.unobserve(entry.target);
+                            }
+                        });
+                    }, { threshold: 0.1 });
+                    cards.forEach(card => {
+                        card.style.opacity = '0';
+                        card.style.transform = 'translateY(20px)';
+                        observer.observe(card);
                     });
-                }, { threshold: 0.1 });
+                }
+            }
 
-                cards.forEach(card => observer.observe(card));
-            };
+            animateCards('.education-card');
+            animateCards('.skill-card');
 
             // Section Fade-In Animation
-            const animateSections = () => {
-                const sections = document.querySelectorAll('section');
-                if (!sections.length) return;
-
-                const observer = new IntersectionObserver((entries) => {
-                    entries.forEach(entry => {
-                        if (entry.isIntersecting) {
-                            entry.target.classList.add('visible');
-                            observer.unobserve(entry.target);
-                        }
-                    });
-                }, { threshold: 0.1 });
-
-                sections.forEach(section => observer.observe(section));
-            };
+            const sections = document.querySelectorAll('section');
+            const sectionObserver = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                        sectionObserver.unobserve(entry.target);
+                    }
+                });
+            }, { threshold: 0.1 });
+            sections.forEach(section => sectionObserver.observe(section));
 
             // Carousel Functionality
-            const initCarousel = () => {
-                const carousel = document.querySelector('#carousel');
-                const dotsContainer = document.querySelector('.dots');
-                const prevBtn = document.querySelector('.carousel-prev');
-                const nextBtn = document.querySelector('.carousel-next');
-                const liveRegion = document.querySelector('.carousel');
-
-                if (!carousel || !dotsContainer || !prevBtn || !nextBtn || !liveRegion) {
-                    console.warn('Carousel elements missing');
-                    return;
-                }
-
+            const carousel = document.querySelector('#carousel');
+            const dots = document.querySelectorAll('.dot');
+            const prevBtn = document.querySelector('.carousel-prev');
+            const nextBtn = document.querySelector('.carousel-next');
+            if (carousel && dots.length && prevBtn && nextBtn) {
                 let currentSlide = 0;
-                const slides = carousel.querySelectorAll('.slide');
-                const totalSlides = slides.length;
+                const totalSlides = document.querySelectorAll('.slide').length || 1;
                 let autoplay;
-                let isTransitioning = false;
-
-                // Update ARIA and visual state
-                const updateSlideState = (index) => {
-                    const dots = dotsContainer.querySelectorAll('.dot');
-                    dots.forEach((dot, i) => {
-                        dot.classList.toggle('active', i === index);
-                        dot.setAttribute('aria-current', i === index ? 'step' : 'false');
-                    });
-                    liveRegion.textContent = `Slide ${index + 1} of ${totalSlides}`;
-                };
 
                 // Move to a specific slide
-                const moveToSlide = (index) => {
-                    if (isTransitioning || index < 0 || index >= totalSlides) return;
-                    isTransitioning = true;
+                function moveToSlide(index) {
                     carousel.style.transform = `translateX(-${index * 100}%)`;
+                    dots.forEach((dot, i) => {
+                        dot.classList.toggle('active', i === index);
+                        dot.setAttribute('aria-selected', i === index ? 'true' : 'false');
+                    });
                     currentSlide = index;
-                    updateSlideState(index);
-                    setTimeout(() => { isTransitioning = false; }, 500);
-                };
+                }
 
-                // Autoplay control
-                const startAutoplay = () => {
-                    autoplay = setInterval(() => moveToSlide((currentSlide + 1) % totalSlides), 5000);
-                };
+                // Debounce function for mouse events
+                function debounce(func, wait) {
+                    let timeout;
+                    return function executedFunction(...args) {
+                        const later = () => {
+                            clearTimeout(timeout);
+                            func(...args);
+                        };
+                        clearTimeout(timeout);
+                        timeout = setTimeout(later, wait);
+                    };
+                }
 
-                const stopAutoplay = () => clearInterval(autoplay);
-
-                // Event delegation for dots
-                dotsContainer.addEventListener('click', (e) => {
-                    const dot = e.target.closest('.dot');
-                    if (dot) {
-                        const index = Array.from(dotsContainer.querySelectorAll('.dot')).indexOf(dot);
-                        moveToSlide(index);
-                    }
+                // Dot navigation
+                dots.forEach((dot, i) => {
+                    dot.addEventListener('click', () => moveToSlide(i));
+                    dot.addEventListener('keydown', (e) => {
+                        if (e.key === 'Enter' || e.key === ' ') {
+                            e.preventDefault();
+                            moveToSlide(i);
+                        }
+                    });
                 });
 
-                // Keyboard navigation for dots
-                dotsContainer.addEventListener('keydown', (e) => {
-                    const dot = e.target.closest('.dot');
-                    if (!dot) return;
-                    const dots = Array.from(dotsContainer.querySelectorAll('.dot'));
-                    const index = dots.indexOf(dot);
-
-                    if (e.key === 'Enter' || e.key === ' ') {
-                        e.preventDefault();
-                        moveToSlide(index);
-                    } else if (e.key === 'ArrowLeft' && index > 0) {
-                        dots[index - 1].focus();
-                        moveToSlide(index - 1);
-                    } else if (e.key === 'ArrowRight' && index < dots.length - 1) {
-                        dots[index + 1].focus();
-                        moveToSlide(index + 1);
-                    }
-                });
-
-                // Button navigation
+                // Previous and Next buttons
                 prevBtn.addEventListener('click', () => moveToSlide((currentSlide - 1 + totalSlides) % totalSlides));
                 nextBtn.addEventListener('click', () => moveToSlide((currentSlide + 1) % totalSlides));
 
-                // Keyboard support for buttons
+                // Keyboard accessibility for buttons
                 [prevBtn, nextBtn].forEach(btn => {
                     btn.addEventListener('keydown', (e) => {
                         if (e.key === 'Enter' || e.key === ' ') {
@@ -961,52 +888,16 @@
                     });
                 });
 
-                // Touch swipe support
-                let touchStartX = 0;
-                let touchEndX = 0;
+                // Autoplay with debounce on hover
+                const startAutoplay = () => {
+                    autoplay = setInterval(() => moveToSlide((currentSlide + 1) % totalSlides), 5000);
+                };
+                const stopAutoplay = () => clearInterval(autoplay);
 
-                carousel.addEventListener('touchstart', (e) => {
-                    touchStartX = e.changedTouches[0].screenX;
-                });
+                carousel.parentElement.addEventListener('mouseenter', debounce(stopAutoplay, 200));
+                carousel.parentElement.addEventListener('mouseleave', debounce(startAutoplay, 200));
 
-                carousel.addEventListener('touchend', (e) => {
-                    touchEndX = e.changedTouches[0].screenX;
-                    const deltaX = touchEndX - touchStartX;
-                    if (deltaX > 50) {
-                        moveToSlide((currentSlide - 1 + totalSlides) % totalSlides);
-                    } else if (deltaX < -50) {
-                        moveToSlide((currentSlide + 1) % totalSlides);
-                    }
-                });
-
-                // Autoplay pause on interaction
-                carousel.parentElement.addEventListener('mouseenter', stopAutoplay);
-                carousel.parentElement.addEventListener('mouseleave', startAutoplay);
-                carousel.parentElement.addEventListener('focusin', stopAutoplay);
-                carousel.parentElement.addEventListener('focusout', startAutoplay);
-
-                // Initialize
                 startAutoplay();
-                updateSlideState(0);
-            };
-
-            // Parallax Effect for Matrix Background
-            const parallax = throttle(() => {
-                const matrixBgs = document.querySelectorAll('.matrix-bg');
-                const scrollY = window.scrollY;
-                matrixBgs.forEach(bg => {
-                    bg.style.setProperty('--parallax-offset', scrollY * 0.05);
-                });
-            }, 16);
-
-            // Initialize
-            typewriter();
-            animateCards('.education-card');
-            animateCards('.skill-card');
-            animateSections();
-            initCarousel();
-            if (window.matchMedia('(prefers-reduced-motion: no-preference)').matches) {
-                window.addEventListener('scroll', parallax);
             }
         });
     </script>
