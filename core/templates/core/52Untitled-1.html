@@ -9,9 +9,7 @@
     <link rel="preload" href="{% static 'images/pic1.webp' %}" as="image">
     <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap" rel="stylesheet">
 {% endblock %}
-
 {% block title %}About Villen Bhai — The Mind Behind the Code{% endblock %}
-
 {% block custom_header %}
     <header id="villen-header" class="text-center text-light border-bottom position-relative">
         <h1 class="display-4 fw-bold glow">🌌 Meet Villen Bhai</h1>
@@ -232,564 +230,264 @@
     </section>
 {% endblock %}
 {% endcache %}
-
 {% block extra_css %}
 <style>
-    /* === Custom CSS Variables === */
-    :root {
-        --primary-color: #00ff88; /* Neon Green */
-        --secondary-color: #ff3366; /* Neon Pink */
-        --neon-cyan: #00f7ff; /* Neon Cyan */
-        --neon-purple: #d500cc; /* Neon Purple */
-        --dark-bg: #0a0d0d; /* Deep Black */
-        --dark-bg-alt: #1a1a1d; /* Slightly Lighter Black */
-        --text-light: #e0e6e0; /* Light Gray for contrast */
-        --shadow: 0 8px 24px rgba(0, 255, 136, 0.2);
-        --neon-glow: 0 0 12px var(--neon-cyan), 0 0 6px var(--primary-color);
-        --gradient-border: linear-gradient(45deg, var(--neon-cyan), var(--neon-purple));
-    }
 
-    /* === Global Reset and Base Styles === */
-    * {
-        margin: 0;
-        padding: 0;
-        box-sizing: border-box;
-        font-family: 'Orbitron', 'Courier New', 'Consolas', monospace;
-    }
-
-    html {
-        scroll-behavior: smooth;
-        scroll-snap-type: y mandatory;
-    }
-
-    body {
-        background: var(--dark-bg);
-        color: var(--text-light);
-        line-height: 1.6;
-        overflow-x: hidden;
-        cursor: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4" fill="%2300ff88" fill-opacity="0.5" stroke="%2300f7ff" stroke-width="2"/></svg>'), auto;
-    }
-
-    /* Custom Scrollbar */
-    ::-webkit-scrollbar {
-        width: 8px;
-    }
-
-    ::-webkit-scrollbar-track {
-        background: var(--dark-bg);
-    }
-
-    ::-webkit-scrollbar-thumb {
-        background: var(--neon-cyan);
-        border-radius: 4px;
-    }
-
-    ::-webkit-scrollbar-thumb:hover {
-        background: var(--primary-color);
-    }
-
-    /* === Utility Classes === */
-    .neon-glow {
-        text-shadow: var(--neon-glow);
-        box-shadow: var(--neon-glow);
-    }
-
-    .gradient-border {
-        position: relative;
-        border: none;
-    }
-
-    .gradient-border::before {
-        content: '';
-        position: absolute;
-        inset: -2px;
-        background: var(--gradient-border);
-        border-radius: inherit;
-        z-index: -1;
-    }
-
-    .transition-in {
-        opacity: 0;
-        transform: translateY(20px);
-        transition: opacity 0.5s ease, transform 0.5s ease;
-        will-change: opacity, transform;
-    }
-
-    .transition-in.visible {
-        opacity: 1;
-        transform: translateY(0);
-    }
-
-    /* === Animations === */
-    @keyframes glitch {
-        0% { text-shadow: 0.03em 0 0 var(--neon-cyan), -0.03em 0 0 var(--neon-purple); }
-        50% { text-shadow: -0.03em 0.02em 0 var(--neon-cyan), 0.03em 0 0 var(--neon-purple); }
-        100% { text-shadow: 0.03em 0 0 var(--neon-cyan), -0.03em 0 0 var(--neon-purple); }
-    }
-
-    @keyframes matrix-rain {
-        0% { background-position: 0 0; }
-        100% { background-position: 0 100%; }
-    }
-
-    @keyframes pulse-glow {
-        0% { box-shadow: 0 0 5px var(--neon-cyan), 0 0 10px var(--neon-cyan); }
-        50% { box-shadow: 0 0 10px var(--neon-cyan), 0 0 20px var(--neon-cyan); }
-        100% { box-shadow: 0 0 5px var(--neon-cyan), 0 0 10px var(--neon-cyan); }
-    }
-
-    /* Matrix Background Effect */
-    .matrix-bg {
-        position: relative;
-        background: linear-gradient(180deg, var(--dark-bg), var(--dark-bg-alt));
-    }
-
-    .matrix-bg::before {
-        content: '';
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100"><text x="0" y="20" font-family="monospace" font-size="14" fill="%2300ff88" fill-opacity="0.1">101010</text><text x="0" y="40" font-family="monospace" font-size="14" fill="%2300ff88" fill-opacity="0.1">010101</text><text x="0" y="60" font-family="monospace" font-size="14" fill="%2300ff88" fill-opacity="0.1">110011</text><text x="0" y="80" font-family="monospace" font-size="14" fill="%2300ff88" fill-opacity="0.1">001100</text></svg>') repeat;
-        animation: matrix-rain 20s linear infinite;
-        z-index: -1;
-        opacity: 0.3;
-    }
-
-    /* === Container Styles === */
-    .container {
-        max-width: 1200px;
-        margin: 0 auto;
-        padding: 2.5rem 1.25rem;
-        width: 100%;
-        box-sizing: border-box;
-    }
-
-    /* === Full Page Sections === */
-    .full-page {
-        min-height: 100vh;
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        scroll-snap-align: start;
-        scroll-snap-stop: always;
-        box-sizing: border-box;
-        overflow: hidden;
-    }
-
-    .section-content {
-        flex: 1;
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center; /* Optional: center horizontally too */
-        padding: 2rem;
-        box-sizing: border-box;
-        width: 100%;
-    }
-    html {
-    scroll-behavior: smooth;
-    scroll-snap-type: y mandatory;
+/* ==== Global Reset & Base Styling ==== */
+html, body {
+    margin: 0;
+    padding: 0;
+    width: 100%;
     overflow-x: hidden;
-    }
-
-    /* === Header Styles === */
-    #villen-header {
-        padding: 5rem 1.5rem;
-        border-bottom: none;
-        background: linear-gradient(180deg, var(--dark-bg), var(--dark-bg-alt));
-    }
-
-    .glow {
-        font-size: clamp(2.5rem, 8vw, 3.5rem);
-        color: var(--primary-color);
-        animation: glitch 4s infinite alternate;
-        letter-spacing: 0.08em;
-        margin-bottom: 1.5rem;
-    }
-
-    .hacker-text {
-        font-size: clamp(1.2rem, 4vw, 1.5rem);
-        color: var(--neon-purple);
-        text-shadow: 0 0 6px var(--neon-purple);
-        letter-spacing: 0.05em;
-        text-align: center;
-        padding: 0.5rem 0;
-    }
-
-    #villen-header nav {
-        gap: 1.25rem;
-    }
-
-    /* === Button Styles === */
-    .btn-neon {
-        color: var(--neon-cyan);
-        padding: 0.75rem 1.75rem;
-        font-size: 1rem;
-        text-transform: uppercase;
-        letter-spacing: 0.08em;
-        background: transparent;
-        border-radius: 50px;
-        transition: transform 0.3s ease, box-shadow 0.3s ease;
-        will-change: transform, box-shadow;
-    }
-
-    .btn-neon:hover {
-        transform: scale(1.05) rotate(2deg);
-        box-shadow: 0 0 15px var(--neon-cyan), 0 0 25px var(--neon-cyan);
-        background: rgba(0, 247, 255, 0.1);
-    }
-
-    .btn-neon:focus {
-        outline: none;
-        box-shadow: 0 0 10px var(--neon-purple), 0 0 0 3px var(--neon-purple);
-    }
-
-    /* === Section Styles === */
-    section {
-        position: relative;
-        border-radius: 1rem;
-    }
-
-    /* === Headings === */
-    .hacker-heading {
-        font-size: clamp(2rem, 6vw, 2.5rem);
-        color: var(--primary-color);
-        text-shadow: 0 0 6px var(--primary-color);
-        letter-spacing: 0.05em;
-        text-align: center;
-        padding-bottom: 1.25rem;
-    }
-
-    .hacker-subheading {
-        font-size: clamp(1.5rem, 4vw, 1.8rem);
-        color: var(--neon-cyan);
-        text-shadow: 0 0 6px var(--neon-cyan);
-        margin-bottom: 0.75rem;
-    }
-
-    /* === Card Base Styles === */
-    .card-base {
-        padding: 1.5rem;
-        backdrop-filter: blur(8px);
-        transition: transform 0.3s ease, box-shadow 0.3s ease;
-        will-change: transform, box-shadow;
-    }
-
-    .card-base:hover {
-        transform: scale(1.03) rotate(1deg);
-        box-shadow: 0 0 20px var(--neon-cyan);
-    }
-
-    /* === About Section === */
-    #about-villen {
-        text-align: center;
-        padding: 3.75rem 1.875rem;
-    }
-
-    #about-villen p {
-        max-width: 50rem;
-        margin: 0 auto;
-        font-size: 1.1rem;
-    }
-
-    /* === Education Section === */
-    #education {
-        padding: 3.75rem 1.875rem;
-    }
-
-    .education-section {
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(18rem, 1fr));
-        gap: 3rem;
-        padding: 3rem 1rem;
-        max-width: 75rem;
-        margin: 0 auto;
-    }
-
-    .education-card h3::before {
-        content: '>';
-        color: var(--primary-color);
-        margin-right: 0.5rem;
-    }
-
-    .institution {
-        font-size: 1.2rem;
-    }
-
-    .duration {
-        font-size: 1.1rem;
-        color: var(--neon-purple);
-        margin-bottom: 0.75rem;
-    }
-
-    .details {
-        font-size: 1.1rem;
-    }
-
-    .details::before {
-        content: '$';
-        color: var(--primary-color);
-        margin-right: 0.5rem;
-    }
-
-    /* === Skills Section === */
-    #skills {
-        padding: 3.75rem 1.25rem;
-    }
-
-    .skills-section {
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(18rem, 1fr));
-        gap: 3rem;
-        padding: 3rem 1rem;
-        max-width: 75rem;
-        margin: 0 auto;
-    }
-
-    .skill-card ul {
-        list-style: none;
-        text-align: left;
-    }
-
-    .skill-card li {
-        font-size: 1.1rem;
-        margin-bottom: 0.5rem;
-        padding-left: 1.25rem;
-        position: relative;
-    }
-
-    .skill-card li::before {
-        content: '#';
-        position: absolute;
-        left: 0;
-        color: var(--primary-color);
-    }
-
-    /* === Achievements Section === */
-    #achievements {
-        padding: 3.75rem 1.25rem;
-    }
-
-    .carousel-wrapper {
-        max-width: 64rem;
-        margin: 0 auto;
-        position: relative;
-    }
-
-    .carousel {
-        display: flex;
-        transition: transform 0.5s ease;
-    }
-
-    .slide {
-        display: flex;
-        justify-content: center;
-        gap: 2rem; /* Increased gap for better spacing */
-        min-width: 100%;
-        flex-shrink: 0;
-        padding: 1rem;
-    }
-
-    .card {
-        width: 18rem; /* Slightly smaller for better fit */
-        text-align: center;
-        background: rgba(255, 255, 255, 0.05);
-        border-radius: 1rem;
-    }
-
-    .avatar {
-        width: 140px;
-        height: 140px;
-        border-radius: 50%;
-        aspect-ratio: 1 / 1;
-        object-fit: cover;
-        margin-bottom: 1rem;
-        animation: pulse-glow 2s infinite ease-in-out;
-        transition: transform 0.3s ease, box-shadow 0.3s ease;
-        will-change: transform, box-shadow;
-    }
-
-    .avatar:hover {
-        transform: scale(1.1);
-        box-shadow: 0 0 20px var(--neon-cyan), 0 0 30px var(--neon-cyan);
-        animation: none; /* Pause pulse on hover */
-    }
-
-    .labels {
-        margin-top: 0.75rem;
-    }
-
-    .label {
-        display: inline-block;
-        padding: 0.4rem 1rem;
-        margin: 0.3rem;
-        border-radius: 0.5rem;
-        font-size: 0.9rem;
-        color: var(--text-light);
-        background: rgba(0, 0, 0, 0.5);
-        text-shadow: 0 0 4px var(--neon-cyan);
-        transition: background 0.3s ease;
-    }
-
-    .label:hover {
-        background: rgba(0, 247, 255, 0.2);
-    }
-
-    .role { border: 1px solid var(--neon-purple); }
-    .dev { border: 1px solid var(--neon-cyan); }
-    .supporter { border: 1px solid var(--primary-color); }
-    .contributor { border: 1px solid var(--secondary-color); }
-    .staff { border: 1px solid #6c5ce7; }
-
-    .carousel-prev,
-    .carousel-next {
-        position: absolute;
-        top: 50%;
-        transform: translateY(-50%);
-        padding: 0.5rem 1rem;
-        font-size: 1.5rem;
-        z-index: 10;
-    }
-
-    .carousel-prev { left: -3rem; }
-    .carousel-next { right: -3rem; }
-
-    .dots {
-        margin-top: 1.5rem;
-        text-align: center;
-    }
-
-    .dot {
-        width: 0.75rem;
-        height: 0.75rem;
-        margin: 0 0.5rem;
-        background: var(--neon-purple);
-        border-radius: 50%;
-        display: inline-block;
-        cursor: pointer;
-        opacity: 0.6;
-        transition: opacity 0.3s ease, background 0.3s ease, box-shadow 0.3s ease;
-    }
-
-    .dot.active,
-    .dot:hover,
-    .dot:focus {
-        opacity: 1;
-        background: var(--neon-cyan);
-        box-shadow: 0 0 8px var(--neon-cyan);
-    }
-
-    #achievements::before {
-    content: "";
-    position: absolute;
-    top: 0; left: 0;
-    width: 100%; height: 100%;
-    background: radial-gradient(circle, var(--neon-cyan) 0%, transparent 80%);
-    opacity: 0.05;
-    z-index: 0;
-    pointer-events: none;
+    background-color: #000;
+    font-family: 'Courier New', monospace;
+    color: #fff;
 }
 
-    /* === Gallery Section === */
-    .hacker-img {
-        max-width: 100%;
-        height: auto;
-        border-radius: 50%;
-        aspect-ratio: 1 / 1;
-        object-fit: cover;
-        transition: box-shadow 0.3s ease, transform 0.3s ease;
-        margin-bottom: 0.625rem;
-    }
+/* ==== Reusable Section Styling ==== */
+section.full-page {
+    width: 100vw;
+    margin: 0;
+    padding: 4rem 2rem;
+    box-sizing: border-box;
+    border-radius: 0 !important;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    position: relative;
+    z-index: 1;
+}
 
-    .hacker-img:hover {
-        box-shadow: 0 0 15px var(--neon-cyan);
-        transform: scale(1.05);
-    }
+.matrix-bg {
+    background: radial-gradient(circle at center, #0f0 1%, #000 100%);
+}
 
-    /* === Social Section === */
-    #social .d-flex {
-        padding-top: 1.25rem;
-    }
+.section-content {
+    max-width: 960px;
+    margin: 0 auto;
+    text-align: center;
+}
 
-    /* === Accessibility === */
-    @media (prefers-reduced-motion: reduce) {
-        *,
-        *::before,
-        *::after {
-            animation: none !important;
-            transition: none !important;
-            scroll-behavior: auto !important;
-        }
-    }
+/* ==== Header Styling ==== */
+#villen-header {
+    padding: 2rem 1rem;
+    background: #000;
+    border-bottom: 1px solid #0ff;
+}
 
-    /* === Responsive Design === */
-    @media (max-width: 767px) {
-        #villen-header {
-            padding: 3rem 1rem;
-        }
+.glow {
+    color: #00ffcc;
+    text-shadow: 0 0 10px #00ffcc, 0 0 20px #00ffaa;
+}
 
-        .glow {
-            font-size: clamp(2rem, 6vw, 2.5rem);
-        }
+/* ==== Navigation Buttons ==== */
+.btn-neon {
+    background: transparent;
+    color: #00ffee;
+    border: 1px solid #00ffee;
+    text-shadow: 0 0 5px #00ffee;
+    box-shadow: 0 0 8px #00ffee inset;
+    transition: all 0.3s ease;
+}
 
-        .hacker-text {
-            font-size: 1.1rem;
-            padding: 0.5rem 0;
-        }
+.btn-neon:hover {
+    background: #00ffee;
+    color: #000;
+    text-shadow: none;
+    box-shadow: 0 0 12px #00ffee;
+}
 
-        #achievements .hacker-text {
-            padding: 1rem 0;
-        }
+/* ==== Headings ==== */
+.hacker-heading {
+    font-size: 2.5rem;
+    color: #00ffcc;
+    text-shadow: 0 0 10px #00ffcc, 0 0 20px #00ffaa;
+    margin-bottom: 1.25rem;
+}
 
-        .btn-neon {
-            padding: 0.5rem 1rem;
-            font-size: 0.9rem;
-        }
+.hacker-subheading {
+    font-size: 1.25rem;
+    color: #00ffaa;
+    margin-bottom: 0.5rem;
+    text-shadow: 0 0 5px #00ffaa;
+}
 
-        .hacker-heading {
-            font-size: clamp(1.8rem, 5vw, 2rem);
-        }
+/* ==== Text ==== */
+.hacker-text {
+    font-size: 1.1rem;
+    color: #ff00ff;
+    text-shadow: 0 0 4px #ff00ff;
+    margin-bottom: 2rem;
+    line-height: 1.8;
+}
 
-        .hacker-subheading {
-            font-size: clamp(1.3rem, 4vw, 1.5rem);
-        }
+/* ==== Cards ==== */
+.card-base {
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 1rem;
+    padding: 1.5rem;
+    margin: 1rem;
+    box-shadow: 0 0 8px rgba(0, 255, 255, 0.2);
+}
 
-        .card-base {
-            padding: 1.25rem;
-        }
+.education-section, .skills-section {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 2rem;
+}
 
-        .slide {
-            flex-direction: column;
-            align-items: center;
-            gap: 1.5rem;
-        }
+.education-card, .skill-card {
+    width: 280px;
+    text-align: left;
+}
 
-        .card {
-            width: 16rem;
-        }
+.skill-card ul {
+    padding-left: 1.2rem;
+}
 
-        .avatar {
-            width: 120px;
-            height: 120px;
-        }
+/* ==== Carousel ==== */
+.carousel-wrapper {
+    max-width: 64rem;
+    margin: 0 auto;
+    position: relative;
+    overflow: hidden;
+}
 
-        .carousel-prev { left: -2rem; }
-        .carousel-next { right: -2rem; }
+.carousel {
+    display: flex;
+    transition: transform 0.5s ease;
+}
 
-        .full-page {
-            min-height: auto;
-            padding: 1.5rem 0;
-        }
+.slide {
+    display: flex;
+    justify-content: center;
+    gap: 2rem;
+    min-width: 100%;
+    flex-shrink: 0;
+    padding: 1rem;
+}
 
-        .hacker-img {
-            width: 200px;
-            height: 200px;
-        }
-    }
+.card {
+    width: 18rem;
+    text-align: center;
+}
+
+.avatar {
+    width: 140px;
+    height: 140px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-bottom: 1rem;
+    animation: pulse-glow 2s infinite ease-in-out;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.avatar:hover {
+    transform: scale(1.1);
+    box-shadow: 0 0 20px var(--neon-cyan), 0 0 30px var(--neon-cyan);
+    animation: none;
+}
+
+.labels {
+    margin-top: 0.75rem;
+}
+
+.label {
+    display: inline-block;
+    padding: 0.4rem 1rem;
+    margin: 0.3rem;
+    border-radius: 0.5rem;
+    font-size: 0.9rem;
+    color: var(--text-light, #fff);
+    background: rgba(0, 0, 0, 0.5);
+    text-shadow: 0 0 4px var(--neon-cyan);
+}
+
+.role { border: 1px solid var(--neon-purple); }
+.dev { border: 1px solid var(--neon-cyan); }
+.supporter { border: 1px solid var(--primary-color); }
+.contributor { border: 1px solid var(--secondary-color); }
+.staff { border: 1px solid #6c5ce7; }
+
+.carousel-prev,
+.carousel-next {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    padding: 0.5rem 1rem;
+    font-size: 1.5rem;
+    z-index: 10;
+    cursor: pointer;
+}
+
+.carousel-prev { left: -3rem; }
+.carousel-next { right: -3rem; }
+
+.dots {
+    margin-top: 1.5rem;
+    text-align: center;
+}
+
+.dot {
+    width: 0.75rem;
+    height: 0.75rem;
+    margin: 0 0.5rem;
+    background: var(--neon-purple);
+    border-radius: 50%;
+    display: inline-block;
+    cursor: pointer;
+    opacity: 0.6;
+    transition: all 0.3s ease;
+}
+
+.dot.active,
+.dot:hover,
+.dot:focus {
+    opacity: 1;
+    background: var(--neon-cyan);
+    box-shadow: 0 0 8px var(--neon-cyan);
+}
+
+/* ==== Gallery Images ==== */
+.hacker-img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 50%;
+    aspect-ratio: 1 / 1;
+    object-fit: cover;
+    transition: box-shadow 0.3s ease, transform 0.3s ease;
+    margin-bottom: 0.625rem;
+}
+
+.hacker-img:hover {
+    box-shadow: 0 0 15px var(--neon-cyan);
+    transform: scale(1.05);
+}
+
+/* ==== Social Section ==== */
+#social .d-flex {
+    padding-top: 1.25rem;
+    flex-wrap: wrap;
+    gap: 1rem;
+    justify-content: center;
+}
+
+/* ==== Animations ==== */
+@keyframes pulse-glow {
+    0% { box-shadow: 0 0 5px var(--neon-cyan); }
+    50% { box-shadow: 0 0 20px var(--neon-cyan), 0 0 40px var(--neon-cyan); }
+    100% { box-shadow: 0 0 5px var(--neon-cyan); }
+}
+
+@keyframes blink {
+    0%, 50%, 100% { opacity: 1; }
+    25%, 75% { opacity: 0; }
+}
+
 </style>
 {% endblock %}
+
 
 {% block extra_js %}
     <script>
