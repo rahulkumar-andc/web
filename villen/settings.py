@@ -10,6 +10,7 @@ https://docs.djangoproject.com/en/5.2/topics/settings/
 from pathlib import Path
 import os
 from dotenv import load_dotenv
+from decouple import config
 import dj_database_url
 
 # Base directory magic — where the heart of your project beats
@@ -90,7 +91,7 @@ TEMPLATES = [
 WSGI_APPLICATION = 'villen.wsgi.application'
 
 # Database configuration - environment friendly
-DATABASE_URL = os.getenv('DATABASE_URL')
+DATABASE_URL = config('DATABASE_URL')
 
 if DATABASE_URL:
     # Agar DATABASE_URL mil gaya toh use kar PostgreSQL ya koi external DB
