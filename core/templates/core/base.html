@@ -1,0 +1,174 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en" class="dark-theme">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>{% block title %}{% if user.is_authenticated %}{{ user.username }} | VillenSec{% else %}Villen | SpyBoy Style{% endif %}{% endblock %}</title>
+  <link rel="icon" href="{% static 'images/favicon.png' %}" />
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <link rel="stylesheet" href="{% static 'css/style.css' %}" />
+  <link href="https://fonts.googleapis.com/css2?family=Source+Code+Pro&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="{% static 'css/animations.css' %}" />
+  <link rel="stylesheet" href="{% static 'css/cyberpunk.css' %}" />
+  {% block extra_css %}{% endblock %}
+  <style>
+    #loading {
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      z-index: 1050;
+      background: transparent;
+    }
+  </style>
+</head>
+
+<body class="cyberpunk-theme">
+  <!-- Loading Spinner -->
+  <div id="loading" class="loader" role="status" aria-label="Loading..."></div>
+
+  <!-- Navigation -->
+  <nav class="navbar navbar-expand-lg navbar-cwh navbar-dark fixed-top" role="navigation" aria-label="Main navigation">
+    <div class="container-fluid px-4">
+      <a class="navbar-brand" href="{% url 'core:home' %}">&lt;/&gt; VillenSec</a>
+
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+        aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon" style="filter: invert(1);"></span>
+      </button>
+
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+          <li class="nav-item">
+            <a class="nav-link {% if request.resolver_match.url_name == 'home' %}active{% endif %}"
+              href="{% url 'core:home' %}">Home</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link {% if request.resolver_match.url_name == 'about' %}active{% endif %}"
+              href="{% url 'core:about' %}">About</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link {% if 'tutorials' in request.path %}active{% endif %}" href="#">Tutorials</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link {% if request.resolver_match.url_name == 'blog_list' %}active{% endif %}"
+              href="{% url 'core:blog_list' %}">Blog</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link {% if 'notes' in request.path %}active{% endif %}"
+              href="{% url 'core:notes_list' %}">Notes</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link {% if request.resolver_match.url_name == 'contact' %}active{% endif %}"
+              href="{% url 'core:contact' %}">Contact</a>
+          </li>
+        </ul>
+
+        <div class="d-flex align-items-center">
+          <!-- Search Bar -->
+          <form class="cwh-search-form d-none d-lg-block" action="#" method="get">
+            <i class="fas fa-search cwh-search-icon"></i>
+            <input class="cwh-search-input" type="search" placeholder="Search..." aria-label="Search">
+          </form>
+
+          <!-- User Actions -->
+          <div class="cwh-user-actions d-flex align-items-center">
+            {% if user.is_authenticated %}
+            <div class="dropdown">
+              <a class="nav-link dropdown-toggle d-flex align-items-center" href="#" id="userDropdown" role="button"
+                data-bs-toggle="dropdown" aria-expanded="false">
+                {% if user.profile_picture %}
+                <img src="{{ user.profile_picture.url }}" alt="{{ user.username }}" class="rounded-circle"
+                  style="width: 32px; height: 32px; object-fit: cover; border: 1px solid #374151;">
+                {% else %}
+                <div class="rounded-circle d-flex align-items-center justify-content-center"
+                  style="width: 32px; height: 32px; background: #374151; color: #fff; font-size: 0.8rem;">
+                  {{ user.username|slice:":1"|upper }}
+                </div>
+                {% endif %}
+              </a>
+              <ul class="dropdown-menu dropdown-menu-end dropdown-menu-dark" aria-labelledby="userDropdown"
+                style="background-color: #1f2937; border-color: #374151;">
+                <li><a class="dropdown-item" href="{% url 'core:profile' %}">My Account</a></li>
+                {% if user.is_staff %}
+                <li><a class="dropdown-item" href="{% url 'custom_admin:dashboard' %}">Dashboard</a></li>
+                {% endif %}
+                <li>
+                  <hr class="dropdown-divider" style="border-color: #374151;">
+                </li>
+                <li>
+                  <form method="post" action="{% url 'core:logout' %}">
+                    {% csrf_token %}
+                    <button type="submit" class="dropdown-item text-danger">Sign out</button>
+                  </form>
+                </li>
+              </ul>
+            </div>
+            {% else %}
+            <a href="{% url 'core:login' %}" class="btn btn-cwh-login me-2">Login</a>
+            <a href="{% url 'core:register' %}" class="btn btn-cwh-signup">Signup</a>
+            {% endif %}
+          </div>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Page Content -->
+  <main class="{% block main_class %}container-wide mt-5 pt-5{% endblock %}" role="main">
+    {% block custom_header %}{% endblock %}
+    {% block content %}{% endblock %}
+  </main>
+
+  <!-- Footer -->
+  <footer class="footer neon-footer text-light text-center py-4 mt-auto" role="contentinfo">
+    <div class="container">
+      <div class="row">
+        <div class="col-12">
+          <h5
+            style="color: #00ff41; font-family: 'Courier New', monospace; text-transform: uppercase; letter-spacing: 2px;">
+            VillenSec</h5>
+          <small id="footer-text" style="color: #aaa; font-family: 'Courier New', monospace;">Loading Villen
+            Vibes...</small>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Footer Quotes -->
+  <script>
+    const footerTexts = [
+      "© 2025 VillenSec • Crafted with ❤️ and Logic",
+      "Developed in Midnight Silence by VillenSec 🌙",
+      "Rooted in Reality, Coded in Dreams — VillenSec",
+      "Security is not a product, it’s a mindset — VillenSec",
+      "Just a boy with a code and a queen in his heart 💖",
+      "Code. Break. Secure. Repeat. — VillenSec 2025",
+      "No AI, No Life. No Rani, No Vibes. — Villen Bhai",
+      "Hack the World. Heal the Heart. — With ❤️ by VillenSec",
+      "Made with 🤖 + ☕ in Delhi by VillenSec"
+    ];
+
+    const randomIndex = Math.floor(Math.random() * footerTexts.length);
+    document.getElementById("footer-text").textContent = footerTexts[randomIndex];
+  </script>
+
+  <!-- JS Scripts -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="{% static 'js/main.js' %}"></script>
+  <script src="https://www.google.com/recaptcha/api.js" async defer></script>
+  {% block extra_js %}{% endblock %}
+  <script>
+    window.addEventListener('load', () => {
+      const loader = document.getElementById('loading');
+      if (loader) {
+        loader.style.opacity = '0';
+        setTimeout(() => loader.style.display = 'none', 500);
+      }
+    });
+  </script>
+</body>
+
+</html>

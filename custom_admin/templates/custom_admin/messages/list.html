@@ -1,0 +1,78 @@
+{% extends "custom_admin/base.html" %}
+{% block title %}Contact Messages{% endblock %}
+
+{% block content %}
+<div class="mb-8">
+    <h1 class="text-3xl font-bold text-gray-900 dark:text-white">Contact Messages</h1>
+    <p class="text-gray-600 dark:text-gray-400 mt-1">View messages from users</p>
+</div>
+
+<div class="bg-white dark:bg-gray-800 rounded-xl shadow-sm border dark:border-gray-700 mb-6">
+    <div class="p-4 border-b dark:border-gray-700">
+        <form method="get" class="flex gap-4">
+            <div class="flex-1">
+                <input type="text" name="search" value="{{ search }}" placeholder="Search messages..." 
+                    class="w-full px-4 py-2 rounded-lg border dark:border-gray-600 dark:bg-gray-700 dark:text-white">
+            </div>
+            <button type="submit" class="px-6 py-2 bg-primary text-white rounded-lg hover:bg-secondary transition">
+                <i class="fas fa-search mr-2"></i>Search
+            </button>
+        </form>
+    </div>
+    
+    <div class="overflow-x-auto">
+        <table class="w-full">
+            <thead class="bg-gray-50 dark:bg-gray-700">
+                <tr class="text-left text-gray-500 dark:text-gray-400 text-sm">
+                    <th class="px-6 py-4 font-medium">From</th>
+                    <th class="px-6 py-4 font-medium">Subject</th>
+                    <th class="px-6 py-4 font-medium">Date</th>
+                    <th class="px-6 py-4 font-medium">Actions</th>
+                </tr>
+            </thead>
+            <tbody class="divide-y dark:divide-gray-700">
+                {% for msg in messages_list %}
+                <tr class="hover:bg-gray-50 dark:hover:bg-gray-700">
+                    <td class="px-6 py-4">
+                        <div>
+                            <p class="font-medium text-gray-900 dark:text-white">{{ msg.name }}</p>
+                            <p class="text-sm text-gray-500">{{ msg.email }}</p>
+                        </div>
+                    </td>
+                    <td class="px-6 py-4 text-gray-700 dark:text-gray-300">{{ msg.subject|truncatechars:50 }}</td>
+                    <td class="px-6 py-4 text-gray-500">{{ msg.created_at|date:"M d, Y" }}</td>
+                    <td class="px-6 py-4">
+                        <div class="flex items-center space-x-2">
+                            <a href="{% url 'custom_admin:message_detail' msg.id %}" class="p-2 text-blue-600 hover:bg-blue-100 rounded-lg transition" title="View">
+                                <i class="fas fa-eye"></i>
+                            </a>
+                            <a href="{% url 'custom_admin:message_delete' msg.id %}" class="p-2 text-red-600 hover:bg-red-100 rounded-lg transition" title="Delete">
+                                <i class="fas fa-trash"></i>
+                            </a>
+                        </div>
+                    </td>
+                </tr>
+                {% empty %}
+                <tr>
+                    <td colspan="4" class="px-6 py-8 text-center text-gray-500">No messages found</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    
+    {% if messages_list.has_other_pages %}
+    <div class="p-4 border-t dark:border-gray-700 flex items-center justify-between">
+        <p class="text-sm text-gray-500">Showing {{ messages_list.start_index }}-{{ messages_list.end_index }} of {{ messages_list.paginator.count }}</p>
+        <div class="flex space-x-2">
+            {% if messages_list.has_previous %}
+            <a href="?page={{ messages_list.previous_page_number }}&search={{ search }}" class="px-4 py-2 border rounded-lg hover:bg-gray-100">Previous</a>
+            {% endif %}
+            {% if messages_list.has_next %}
+            <a href="?page={{ messages_list.next_page_number }}&search={{ search }}" class="px-4 py-2 bg-primary text-white rounded-lg hover:bg-secondary">Next</a>
+            {% endif %}
+        </div>
+    </div>
+    {% endif %}
+</div>
+{% endblock %}

@@ -1,0 +1,334 @@
+{% extends "core/base.html" %}
+
+{% block title %}About — VillenSec{% endblock %}
+
+{% block content %}
+<style>
+    body {
+        margin: 0;
+        padding: 0;
+        background: linear-gradient(135deg, #09090f, #0c0f26, #111325);
+        background-size: 400% 400%;
+        animation: bgMove 12s ease infinite;
+        color: #fff;
+        font-family: 'Poppins', sans-serif;
+    }
+
+    @keyframes bgMove {
+        0% { background-position: 0% 50%; }
+        50% { background-position: 100% 50%; }
+        100% { background-position: 0% 50%; }
+    }
+
+    /* Scrolling intro */
+    .scroll-intro {
+        width: 100%;
+        overflow: hidden;
+        white-space: nowrap;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        margin-top: 20px;
+        margin-bottom: 30px;
+    }
+
+    .scroll-intro span {
+        display: inline-block;
+        padding-left: 100%;
+        animation: scrollText 18s linear infinite;
+        color: #00ffc6;
+        font-size: 1.1rem;
+        letter-spacing: 2px;
+        text-shadow: 0 0 10px rgba(0, 255, 198, 0.4);
+    }
+
+    @keyframes scrollText {
+        0% { transform: translateX(0); }
+        100% { transform: translateX(-100%); }
+    }
+
+    .about-wrapper {
+        min-height: auto;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        padding: 40px 20px;
+    }
+
+    /* About Card */
+    .about-card {
+        width: 100%;
+        max-width: 850px;
+        background: rgba(255, 255, 255, 0.06);
+        border-radius: 22px;
+        padding: 45px 40px;
+        text-align: center;
+        backdrop-filter: blur(22px);
+        border: 1px solid rgba(255, 255, 255, 0.12);
+        box-shadow: 0 0 50px rgba(0, 255, 198, 0.08);
+        animation: floatCard 4s ease-in-out infinite;
+    }
+
+    @keyframes floatCard {
+        0% { transform: translateY(0px); }
+        50% { transform: translateY(-10px); }
+        100% { transform: translateY(0px); }
+    }
+
+    .about-card h1 {
+        font-size: 3.2rem;
+        margin-bottom: 15px;
+        font-weight: 700;
+        background: linear-gradient(135deg, #00ffc6, #00b4ff);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+    }
+
+    .tagline {
+        font-size: 1.2rem;
+        color: #b4eaff;
+        margin-bottom: 25px;
+        text-shadow: 0 0 12px rgba(0, 200, 255, 0.4);
+    }
+
+    .about-card p {
+        font-size: 1.1rem;
+        line-height: 1.8;
+        margin-bottom: 18px;
+        color: #e8e8e8;
+    }
+
+    .highlight { color: #00ffc6; font-weight: 600; }
+    .heart { color: #ff4c29; }
+
+    /* Stats */
+    .stats-container {
+        max-width: 900px;
+        width: 100%;
+        margin-top: 40px;
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(200px,1fr));
+        gap: 25px;
+    }
+
+    .stat-box {
+        background: rgba(255,255,255,0.07);
+        padding: 25px;
+        border-radius: 18px;
+        text-align: center;
+        backdrop-filter: blur(14px);
+        border: 1px solid rgba(255,255,255,0.14);
+        transition: .3s;
+    }
+    .stat-box:hover {
+        transform: translateY(-8px);
+        box-shadow: 0 0 25px rgba(0,255,198,0.3);
+    }
+
+    .stat-number { font-size:2.2rem;color:#00ffc6;font-weight:700; }
+
+    /* TABS UI FIXED */
+    .tabs-wrapper {
+        max-width:950px;
+        width:100%;
+        margin-top:60px;
+        background:rgba(255,255,255,0.06);
+        padding:25px;
+        border-radius:20px;
+        border:1px solid rgba(255,255,255,0.15);
+        backdrop-filter:blur(12px);
+    }
+
+    .tab-header {
+        text-align:center;
+        margin-bottom:25px;
+        font-size:2rem;
+        font-weight:700;
+        background:linear-gradient(135deg,#00ffc6,#00b4ff);
+        -webkit-background-clip:text;
+        -webkit-text-fill-color:transparent;
+        letter-spacing:1px;
+    }
+
+    .tab-buttons {
+        display:flex;
+        flex-wrap:wrap;
+        gap:12px;
+        justify-content:center;
+        margin-bottom:20px;
+    }
+
+    .tab-btn {
+        padding:10px 22px;
+        background:rgba(255,255,255,0.08);
+        border:1px solid rgba(0,255,198,0.2);
+        border-radius:30px;
+        color:#00ffc6;
+        cursor:pointer;
+        font-weight:600;
+        transition:.3s;
+        backdrop-filter:blur(8px);
+    }
+
+    .tab-btn:hover { background:#00ffc6;color:#000; }
+    .tab-btn.active { background:#00ffc6;color:#000; }
+
+    .tab-content {
+        display:none;
+        background:rgba(255,255,255,0.07);
+        padding:25px;
+        border-radius:15px;
+        border:1px solid rgba(255,255,255,0.15);
+        animation:fade .4s ease;
+    }
+
+    @keyframes fade {
+        from { opacity:0; transform:translateY(10px); }
+        to { opacity:1; transform:translateY(0); }
+    }
+
+    .tab-title {
+        font-size:1.7rem;
+        margin-bottom:10px;
+        color:#00ffc6;
+        font-weight:600;
+    }
+</style>
+
+<div class="about-wrapper">
+
+    <!-- Running intro text -->
+    <div class="scroll-intro">
+        <span>Welcome to VillenSec • Cybersecurity • Ethical Hacking • OSINT • AI Engineering • Building Jarvis_X & BlackOPS • Dream. Build. Hack. Repeat •</span>
+    </div>
+
+    <!-- ABOUT CARD -->
+    <div class="about-card">
+        <h1>VillenSec</h1>
+        <div class="tagline">Cybersecurity • Ethical Hacking • OSINT • AI Engineering</div>
+
+        <p>I'm <span class="highlight">VILLEN</span> — the guy who breaks firewalls but melts at soft words.</p>
+        <p>Builder of <span class="highlight">BlackOPS</span> & <span class="highlight">Jarvis_X</span>,  
+        where code meets emotions and AI learns to breathe.</p>
+
+        <p>From the dusty lanes of <span class="highlight">Bihar</span>  
+        to the neon nights of <span class="highlight">Delhi</span> —  
+        I chase dreams wrapped in code.</p>
+
+        <p>And somewhere in that journey lives  
+        <span class="heart">Rani ❤️</span> — my Queen, my reason, my calm.</p>
+    </div>
+
+    <!-- STATISTICS -->
+    <div class="stats-container">
+        <div class="stat-box"><div class="stat-number">4+</div><div class="stat-label">Years Coding</div></div>
+        <div class="stat-box"><div class="stat-number">25+</div><div class="stat-label">Tools Built</div></div>
+        <div class="stat-box"><div class="stat-number">120+</div><div class="stat-label">Projects Done</div></div>
+        <div class="stat-box"><div class="stat-number">∞</div><div class="stat-label">Dreams Loading</div></div>
+    </div>
+
+    <!-- ✨ TABS SECTION FIXED -->
+    <div class="tabs-wrapper">
+
+        <!-- Subtitle -->
+        <div id="tabHeader" class="tab-header">More About Villen</div>
+
+        <!-- Buttons -->
+        <div class="tab-buttons">
+            <div class="tab-btn active" onclick="openTab('aboutTab','More About Villen')">More About Villen</div>
+            <div class="tab-btn" onclick="openTab('education','Education')">Education</div>
+            <div class="tab-btn" onclick="openTab('skills','Skills')">Skills</div>
+            <div class="tab-btn" onclick="openTab('achievements','Achievements')">Achievements</div>
+            <div class="tab-btn" onclick="openTab('gallery','Gallery')">Gallery</div>
+            <div class="tab-btn" onclick="openTab('team','Team')">Team</div>
+            <div class="tab-btn" onclick="openTab('social','Social Media')">Social Media</div>
+        </div>
+
+        <!-- CONTENT -->
+        <div id="aboutTab" class="tab-content" style="display:block;">
+            <div class="tab-title">Who is Villen?</div>
+            <p>A cybersecurity researcher from Bihar, hustling in Delhi.</p>
+            <p>Dreamer • Coder • Researcher • Creator of AI systems.</p>
+        </div>
+
+        <div id="education" class="tab-content">
+            <div class="tab-title">Education</div>
+            <p>B.Sc CS — Delhi University.</p>
+            <p>Self-taught hacker & AI builder.</p>
+        </div>
+
+        <div id="skills" class="tab-content">
+            <div class="tab-title">Skills</div>
+            <ul>
+                <li>Cybersecurity • OSINT • Pentesting</li>
+                <li>Python • Java • C++ • Django</li>
+                <li>Kali Linux • Automation • Recon</li>
+                <li>AI Voice Assistants</li>
+            </ul>
+        </div>
+
+        <div id="achievements" class="tab-content">
+            <div class="tab-title">Achievements</div>
+            <ul>
+                <li>Built Jarvis_X AI Assistant</li>
+                <li>Created BlackOPS OSINT Engine</li>
+                <li>25+ tools developed</li>
+                <li>Youngest cyber researcher</li>
+            </ul>
+        </div>
+
+        <div id="gallery" class="tab-content">
+            <div class="tab-title">Gallery</div>
+            <div class="gallery-grid">
+                <img src="https://via.placeholder.com/200">
+                <img src="https://via.placeholder.com/200">
+                <img src="https://via.placeholder.com/200">
+                <img src="https://via.placeholder.com/200">
+            </div>
+        </div>
+
+        <div id="team" class="tab-content">
+            <div class="tab-title">Team</div>
+            <div class="team-grid">
+                <div class="team-card">
+                    <img src="https://via.placeholder.com/100">
+                    <h4>Villen</h4>
+                    <p>Founder • Lead Developer</p>
+                </div>
+                <div class="team-card">
+                    <img src="https://via.placeholder.com/100">
+                    <h4>BlackOPS Engine</h4>
+                    <p>AI Recon</p>
+                </div>
+            </div>
+        </div>
+
+        <div id="social" class="tab-content">
+            <div class="tab-title">Social Media</div>
+            <div class="social-links">
+                <a href="#">Instagram</a>
+                <a href="#">GitHub</a>
+                <a href="#">LinkedIn</a>
+                <a href="#">YouTube</a>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<script>
+function openTab(tabId, label) {
+    let contents = document.querySelectorAll(".tab-content");
+    let buttons = document.querySelectorAll(".tab-btn");
+    let header = document.getElementById("tabHeader");
+
+    contents.forEach(c => c.style.display = "none");
+    buttons.forEach(b => b.classList.remove("active"));
+
+    document.getElementById(tabId).style.display = "block";
+    event.target.classList.add("active");
+
+    // update subtitle
+    header.textContent = label;
+}
+</script>
+
+{% endblock %}

@@ -1,0 +1,36 @@
+{% extends "core/base.html" %}
+{% block content %}
+<h1>Manage Tools</h1>
+<table border="1" cellpadding="5" cellspacing="0">
+    <thead>
+        <tr>
+            <th>Title</th>
+            <th>Category</th>
+            <th>Author</th>
+            <th>Created At</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for tool in tools %}
+        <tr>
+            <td>{{ tool.title }}</td>
+            <td>{{ tool.category }}</td>
+            <td>{{ tool.author }}</td>
+            <td>{{ tool.created_at }}</td>
+            <td>
+                <a href="{% url 'tools:tool_detail' tool.pk %}">View</a> |
+                <a href="{% url 'tools:tool_update' tool.pk %}">Edit</a> |
+                <form action="{% url 'tools:tool_delete' tool.pk %}" method="post" style="display:inline;">
+                    {% csrf_token %}
+                    <button type="submit" onclick="return confirm('Are you sure you want to delete this tool?');">Delete</button>
+                </form>
+            </td>
+        </tr>
+        {% empty %}
+        <tr><td colspan="5">No tools found.</td></tr>
+        {% endfor %}
+    </tbody>
+</table>
+<a href="{% url 'tools:custom_admin_dashboard' %}">Back to Dashboard</a>
+{% endblock %}

@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="en" class="h-full">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Admin Panel{% endblock %} - VillenSec</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#6366f1',
+                        secondary: '#8b5cf6',
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        .sidebar-link.active {
+            background: linear-gradient(90deg, #6366f1 0%, #8b5cf6 100%);
+            color: white;
+        }
+
+        .sidebar-link:hover:not(.active) {
+            background: rgba(99, 102, 241, 0.1);
+        }
+
+        .stat-card {
+            transition: all 0.3s ease;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+        }
+
+        .glass {
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(10px);
+        }
+
+        .dark .glass {
+            background: rgba(30, 41, 59, 0.7);
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(-10px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .animate-fadeIn {
+            animation: fadeIn 0.3s ease forwards;
+        }
+    </style>
+    {% block extra_head %}{% endblock %}
+</head>
+
+<body class="h-full bg-gray-50 dark:bg-gray-900">
+    <div class="flex h-full">
+        <aside id="sidebar"
+            class="fixed inset-y-0 left-0 z-50 w-64 bg-white dark:bg-gray-800 shadow-xl transform transition-transform duration-300 lg:translate-x-0 -translate-x-full">
+            <div class="flex items-center justify-between h-16 px-6 border-b dark:border-gray-700">
+                <a href="{% url 'custom_admin:dashboard' %}" class="flex items-center space-x-2">
+                    <div
+                        class="w-8 h-8 bg-gradient-to-br from-primary to-secondary rounded-lg flex items-center justify-center">
+                        <i class="fas fa-shield-alt text-white text-sm"></i>
+                    </div>
+                    <span
+                        class="text-xl font-bold bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">VillenSec</span>
+                </a>
+                <button id="closeSidebar" class="lg:hidden text-gray-500 hover:text-gray-700">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+
+            <nav class="p-4 space-y-1 overflow-y-auto h-[calc(100%-4rem)]">
+                <a href="{% url 'custom_admin:dashboard' %}"
+                    class="sidebar-link flex items-center px-4 py-3 rounded-lg text-gray-700 dark:text-gray-200 {% if request.resolver_match.url_name == 'dashboard' %}active{% endif %}">
+                    <i class="fas fa-home w-5 mr-3"></i> Dashboard
+                </a>
+
+                <div class="pt-4 pb-2">
+                    <p class="px-4 text-xs font-semibold text-gray-400 uppercase tracking-wider">User Management</p>
+                </div>
+                <a href="{% url 'custom_admin:user_list' %}"
+                    class="sidebar-link flex items-center px-4 py-3 rounded-lg text-gray-700 dark:text-gray-200 {% if 'user' in request.resolver_match.url_name %}active{% endif %}">
+                    <i class="fas fa-users w-5 mr-3"></i> All Users
+                </a>
+
+                <div class="pt-4 pb-2">
+                    <p class="px-4 text-xs font-semibold text-gray-400 uppercase tracking-wider">Premium</p>
+                </div>
+                <a href="{% url 'custom_admin:premium_dashboard' %}"
+                    class="sidebar-link flex items-center px-4 py-3 rounded-lg text-gray-700 dark:text-gray-200 {% if request.resolver_match.url_name == 'premium_dashboard' %}active{% endif %}">
+                    <i class="fas fa-crown w-5 mr-3"></i> Overview
+                </a>
+                <a href="{% url 'custom_admin:premium_requests' %}"
+                    class="sidebar-link flex items-center px-4 py-3 rounded-lg text-gray-700 dark:text-gray-200 {% if request.resolver_match.url_name == 'premium_requests' %}active{% endif %}">
+                    <i class="fas fa-clock w-5 mr-3"></i> Requests
+                </a>
+                <a href="{% url 'custom_admin:premium_users' %}"
+                    class="sidebar-link flex items-center px-4 py-3 rounded-lg text-gray-700 dark:text-gray-200 {% if request.resolver_match.url_name == 'premium_users' %}active{% endif %}">
+                    <i class="fas fa-star w-5 mr-3"></i> Premium Users
+                </a>
+
+                <div class="pt-4 pb-2">
+                    <p class="px-4 text-xs font-semibold text-gray-400 uppercase tracking-wider">Content</p>
+                </div>
+                <a href="{% url 'custom_admin:tools_list' %}"
+                    class="sidebar-link flex items-center px-4 py-3 rounded-lg text-gray-700 dark:text-gray-200 {% if 'tool' in request.resolver_match.url_name %}active{% endif %}">
+                    <i class="fas fa-tools w-5 mr-3"></i> Tools
+                </a>
+                <a href="{% url 'custom_admin:blog_list' %}"
+                    class="sidebar-link flex items-center px-4 py-3 rounded-lg text-gray-700 dark:text-gray-200 {% if 'blog' in request.resolver_match.url_name %}active{% endif %}">
+                    <i class="fas fa-blog w-5 mr-3"></i> Blog Posts
+                </a>
+                <a href="{% url 'custom_admin:services_list' %}"
+                    class="sidebar-link flex items-center px-4 py-3 rounded-lg text-gray-700 dark:text-gray-200 {% if 'service' in request.resolver_match.url_name %}active{% endif %}">
+                    <i class="fas fa-concierge-bell w-5 mr-3"></i> Services
+                </a>
+
+                <div class="pt-4 pb-2">
+                    <p class="px-4 text-xs font-semibold text-gray-400 uppercase tracking-wider">Security</p>
+                </div>
+                <a href="{% url 'custom_admin:security_dashboard' %}"
+                    class="sidebar-link flex items-center px-4 py-3 rounded-lg text-gray-700 dark:text-gray-200 {% if request.resolver_match.url_name == 'security_dashboard' %}active{% endif %}">
+                    <i class="fas fa-shield-alt w-5 mr-3"></i> Overview
+                </a>
+                <a href="{% url 'custom_admin:security_logs' %}"
+                    class="sidebar-link flex items-center px-4 py-3 rounded-lg text-gray-700 dark:text-gray-200 {% if request.resolver_match.url_name == 'security_logs' %}active{% endif %}">
+                    <i class="fas fa-file-alt w-5 mr-3"></i> Security Logs
+                </a>
+                <a href="{% url 'custom_admin:login_attempts' %}"
+                    class="sidebar-link flex items-center px-4 py-3 rounded-lg text-gray-700 dark:text-gray-200 {% if request.resolver_match.url_name == 'login_attempts' %}active{% endif %}">
+                    <i class="fas fa-sign-in-alt w-5 mr-3"></i> Login Attempts
+                </a>
+                <a href="{% url 'custom_admin:active_sessions' %}"
+                    class="sidebar-link flex items-center px-4 py-3 rounded-lg text-gray-700 dark:text-gray-200 {% if request.resolver_match.url_name == 'active_sessions' %}active{% endif %}">
+                    <i class="fas fa-desktop w-5 mr-3"></i> Active Sessions
+                </a>
+
+                <div class="pt-4 pb-2">
+                    <p class="px-4 text-xs font-semibold text-gray-400 uppercase tracking-wider">Communication</p>
+                </div>
+                <a href="{% url 'custom_admin:contact_messages' %}"
+                    class="sidebar-link flex items-center px-4 py-3 rounded-lg text-gray-700 dark:text-gray-200 {% if 'message' in request.resolver_match.url_name %}active{% endif %}">
+                    <i class="fas fa-envelope w-5 mr-3"></i> Messages
+                </a>
+
+                <div class="pt-6 mt-6 border-t dark:border-gray-700">
+                    <a href="/"
+                        class="sidebar-link flex items-center px-4 py-3 rounded-lg text-gray-700 dark:text-gray-200">
+                        <i class="fas fa-globe w-5 mr-3"></i> View Site
+                    </a>
+                    <a href="/admin/"
+                        class="sidebar-link flex items-center px-4 py-3 rounded-lg text-gray-700 dark:text-gray-200">
+                        <i class="fas fa-cog w-5 mr-3"></i> Django Admin
+                    </a>
+                </div>
+            </nav>
+        </aside>
+
+        <div class="flex-1 lg:ml-64">
+            <header class="sticky top-0 z-40 glass border-b dark:border-gray-700"
+                style="background: rgba(10, 10, 10, 0.8); backdrop-filter: blur(12px); border-bottom: 1px solid #00ff41;">
+                <div class="flex items-center justify-between h-16 px-6 lg:px-10">
+                    <!-- Increased padding for wider feel -->
+                    <button id="openSidebar" class="lg:hidden text-gray-500 hover:text-gray-700">
+                        <i class="fas fa-bars text-xl"></i>
+                    </button>
+
+                    <div class="flex-1 max-w-2xl mx-6 hidden md:block"> <!-- Increased max-width -->
+                        <div class="relative">
+                            <input type="text" placeholder="Search system..."
+                                class="w-full pl-10 pr-4 py-2 rounded-lg border border-gray-700 bg-gray-900 text-green-400 focus:ring-2 focus:ring-green-500 focus:border-transparent placeholder-gray-600"
+                                style="font-family: 'Courier New', monospace;">
+                            <i class="fas fa-search absolute left-3 top-1/2 -translate-y-1/2 text-gray-500"></i>
+                        </div>
+                    </div>
+
+                    <div class="flex items-center space-x-6">
+                        <button id="themeToggle"
+                            class="p-2 rounded-lg hover:bg-gray-800 text-green-400 transition-colors">
+                            <i class="fas fa-moon dark:hidden"></i>
+                            <i class="fas fa-sun hidden dark:inline"></i>
+                        </button>
+
+                        <div class="relative group">
+                            <button
+                                class="flex items-center space-x-3 p-2 rounded-lg hover:bg-gray-800 transition-colors">
+                                <div
+                                    class="w-9 h-9 border border-green-500 rounded-full flex items-center justify-center text-green-400 font-bold font-mono bg-black">
+                                    {{ request.user.username|first|upper }}
+                                </div>
+                                <span class="hidden md:block text-green-400 font-mono">{{ request.user.username
+                                    }}</span>
+                                <i class="fas fa-chevron-down text-gray-500 text-xs"></i>
+                            </button>
+                            <div
+                                class="absolute right-0 mt-2 w-56 bg-black rounded-lg shadow-xl border border-green-500 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50">
+                                <a href="{% url 'core:profile' %}"
+                                    class="block px-4 py-3 text-gray-300 hover:bg-gray-900 hover:text-green-400 rounded-t-lg font-mono transition-colors">
+                                    <i class="fas fa-user mr-2"></i> Profile
+                                </a>
+                                <a href="{% url 'core:logout' %}"
+                                    class="block px-4 py-3 text-red-500 hover:bg-gray-900 hover:text-red-400 rounded-b-lg font-mono transition-colors">
+                                    <i class="fas fa-sign-out-alt mr-2"></i> Logout
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </header>
+
+            <main class="p-4 lg:p-8">
+                {% if messages %}
+                <div class="mb-6 space-y-2">
+                    {% for message in messages %}
+                    <div
+                        class="animate-fadeIn p-4 rounded-lg {% if message.tags == 'success' %}bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-200{% elif message.tags == 'error' %}bg-red-100 text-red-800 dark:bg-red-900 dark:text-red-200{% elif message.tags == 'warning' %}bg-yellow-100 text-yellow-800 dark:bg-yellow-900 dark:text-yellow-200{% else %}bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-200{% endif %}">
+                        <div class="flex items-center justify-between">
+                            <div class="flex items-center">
+                                {% if message.tags == 'success' %}<i class="fas fa-check-circle mr-2"></i>
+                                {% elif message.tags == 'error' %}<i class="fas fa-times-circle mr-2"></i>
+                                {% elif message.tags == 'warning' %}<i class="fas fa-exclamation-triangle mr-2"></i>
+                                {% else %}<i class="fas fa-info-circle mr-2"></i>{% endif %}
+                                {{ message }}
+                            </div>
+                            <button onclick="this.parentElement.parentElement.remove()" class="ml-4 hover:opacity-75">
+                                <i class="fas fa-times"></i>
+                            </button>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+                {% endif %}
+
+                {% block content %}{% endblock %}
+            </main>
+        </div>
+    </div>
+
+    <div id="overlay" class="fixed inset-0 bg-black/50 z-40 hidden lg:hidden"></div>
+
+    <script>
+        const sidebar = document.getElementById('sidebar');
+        const overlay = document.getElementById('overlay');
+        const openBtn = document.getElementById('openSidebar');
+        const closeBtn = document.getElementById('closeSidebar');
+
+        function openSidebar() {
+            sidebar.classList.remove('-translate-x-full');
+            overlay.classList.remove('hidden');
+        }
+
+        function closeSidebar() {
+            sidebar.classList.add('-translate-x-full');
+            overlay.classList.add('hidden');
+        }
+
+        openBtn?.addEventListener('click', openSidebar);
+        closeBtn?.addEventListener('click', closeSidebar);
+        overlay?.addEventListener('click', closeSidebar);
+
+        const themeToggle = document.getElementById('themeToggle');
+        const html = document.documentElement;
+
+        if (localStorage.getItem('theme') === 'dark' || (!localStorage.getItem('theme') && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+            html.classList.add('dark');
+        }
+
+        themeToggle?.addEventListener('click', () => {
+            html.classList.toggle('dark');
+            localStorage.setItem('theme', html.classList.contains('dark') ? 'dark' : 'light');
+        });
+    </script>
+    {% block scripts %}{% endblock %}
+</body>
+
+</html>

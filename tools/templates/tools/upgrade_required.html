@@ -1,0 +1,34 @@
+{% extends "core/base.html" %}
+{% block content %}
+<h2>Upgrade Required</h2>
+<p>Sorry, this detailed tool information is available only for premium customers and admins.</p>
+<p>If you want to access this content, please consider upgrading your account.</p>
+<a href="{% url 'tools:request_premium' %}" class="btn btn-primary">Request Premium Access</a>
+<a href="{% url 'tools:tools_list' %}" class="btn btn-secondary">Back to Tools List</a>
+<style>
+.btn-primary {
+    display: inline-block;
+    margin: 10px 10px 10px 0;
+    padding: 8px 12px;
+    background-color: #007bff;
+    color: white;
+    text-decoration: none;
+    border-radius: 4px;
+}
+.btn-primary:hover {
+    background-color: #0056b3;
+}
+.btn-secondary {
+    display: inline-block;
+    margin: 10px 0 10px 10px;
+    padding: 8px 12px;
+    background-color: #6c757d;
+    color: white;
+    text-decoration: none;
+    border-radius: 4px;
+}
+.btn-secondary:hover {
+    background-color: #5a6268;
+}
+</style>
+{% endblock %}

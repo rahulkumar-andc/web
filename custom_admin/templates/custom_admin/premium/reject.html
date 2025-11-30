@@ -1,0 +1,55 @@
+{% extends "custom_admin/base.html" %}
+{% block title %}Reject Premium Request{% endblock %}
+
+{% block content %}
+<div class="mb-8 flex items-center space-x-4">
+    <a href="{% url 'custom_admin:premium_requests' %}" class="p-2 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg">
+        <i class="fas fa-arrow-left text-gray-600 dark:text-gray-400"></i>
+    </a>
+    <div>
+        <h1 class="text-3xl font-bold text-gray-900 dark:text-white">Reject Request</h1>
+        <p class="text-gray-600 dark:text-gray-400 mt-1">Decline premium access request</p>
+    </div>
+</div>
+
+<div class="max-w-xl">
+    <div class="bg-white dark:bg-gray-800 rounded-xl shadow-sm border dark:border-gray-700 p-6">
+        <div class="flex items-center space-x-4 p-4 bg-gray-50 dark:bg-gray-700 rounded-lg mb-6">
+            <div class="w-14 h-14 bg-gradient-to-br from-primary to-secondary rounded-full flex items-center justify-center text-white text-xl font-bold">
+                {{ premium_request.user.username|first|upper }}
+            </div>
+            <div>
+                <p class="font-semibold text-gray-900 dark:text-white text-lg">{{ premium_request.user.username }}</p>
+                <p class="text-gray-500">Requested: {{ premium_request.get_tier_display }} - {{ premium_request.get_duration_display_text }}</p>
+            </div>
+        </div>
+        
+        <form method="post">
+            {% csrf_token %}
+            
+            <div class="mb-6">
+                <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Rejection Reason (Visible to User)</label>
+                <textarea name="rejection_reason" rows="3" 
+                    class="w-full px-4 py-2 rounded-lg border dark:border-gray-600 dark:bg-gray-700 dark:text-white"
+                    placeholder="Explain why this request is being rejected..."></textarea>
+            </div>
+            
+            <div class="mb-6">
+                <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Admin Notes (Internal)</label>
+                <textarea name="admin_notes" rows="2" 
+                    class="w-full px-4 py-2 rounded-lg border dark:border-gray-600 dark:bg-gray-700 dark:text-white"
+                    placeholder="Internal notes..."></textarea>
+            </div>
+            
+            <div class="flex space-x-4">
+                <button type="submit" class="flex-1 px-6 py-3 bg-red-600 text-white rounded-lg hover:bg-red-700 transition">
+                    <i class="fas fa-times mr-2"></i>Reject Request
+                </button>
+                <a href="{% url 'custom_admin:premium_requests' %}" class="px-6 py-3 border dark:border-gray-600 text-gray-700 dark:text-gray-300 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700 transition">
+                    Cancel
+                </a>
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,14 @@
+{% extends "core/base.html" %}
+{% block content %}
+<h1>Custom Admin Dashboard</h1>
+<ul>
+    <li>Total Tools: {{ total_tools }}</li>
+    <li>Total Users: {{ total_users }}</li>
+    <li>Premium Users: {{ premium_users }}</li>
+    <li>Pending Premium Requests: {{ pending_requests }}</li>
+</ul>
+<nav>
+    <a href="{% url 'tools:manage_tools' %}">Manage Tools</a> |
+    <a href="{% url 'tools:manage_premium_requests' %}">Manage Premium Requests</a>
+</nav>
+{% endblock %}

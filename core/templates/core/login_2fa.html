@@ -1,0 +1,30 @@
+{% extends 'core/base.html' %}
+
+{% block title %}Two-Factor Authentication{% endblock %}
+
+{% block content %}
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-4">
+            <div class="card bg-dark text-light border-success">
+                <div class="card-header border-success">
+                    <h3 class="text-center text-success"><i class="fas fa-lock"></i> 2FA Verification</h3>
+                </div>
+                <div class="card-body">
+                    <p class="text-center">Enter the code from your authenticator app.</p>
+
+                    <form method="post">
+                        {% csrf_token %}
+                        <div class="mb-3">
+                            <input type="text" class="form-control bg-dark text-light border-secondary text-center fs-4"
+                                id="otp_code" name="otp_code" placeholder="000000" maxlength="6" required
+                                autocomplete="off" autofocus>
+                        </div>
+                        <button type="submit" class="btn btn-success w-100">Verify</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

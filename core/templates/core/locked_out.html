@@ -1,0 +1,29 @@
+{% extends 'core/base.html' %}
+
+{% block title %}Account Locked{% endblock %}
+
+{% block content %}
+<div class="container" style="max-width: 500px; margin: 100px auto; text-align: center;">
+    <div class="alert-box" style="background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%); padding: 40px; border-radius: 15px; border: 1px solid #e94560;">
+        <div style="font-size: 60px; margin-bottom: 20px;">
+            <i class="fas fa-lock" style="color: #e94560;"></i>
+        </div>
+        <h1 style="color: #e94560; margin-bottom: 20px;">Account Temporarily Locked</h1>
+        <p style="color: #b8b8b8; margin-bottom: 30px;">
+            Your account has been temporarily locked due to too many failed login attempts.
+            This is a security measure to protect your account.
+        </p>
+        <div style="background: rgba(233, 69, 96, 0.1); padding: 20px; border-radius: 10px; margin-bottom: 30px;">
+            <p style="color: #00d9ff; margin: 0;">
+                <i class="fas fa-clock"></i> Please try again in <strong>30 minutes</strong>
+            </p>
+        </div>
+        <p style="color: #888; font-size: 14px;">
+            If you believe this is an error, please contact support.
+        </p>
+        <a href="{% url 'core:home' %}" style="display: inline-block; margin-top: 20px; padding: 12px 30px; background: linear-gradient(135deg, #00d9ff 0%, #0099cc 100%); color: #000; text-decoration: none; border-radius: 25px; font-weight: bold;">
+            Return to Home
+        </a>
+    </div>
+</div>
+{% endblock %}

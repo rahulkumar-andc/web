@@ -1,0 +1,54 @@
+{% extends 'core/base.html' %}
+
+{% block title %}Security Logs{% endblock %}
+
+{% block content %}
+<div class="container" style="max-width: 1200px; margin: 40px auto; padding: 0 20px;">
+    <h1 style="color: #00d9ff; margin-bottom: 30px;">
+        <i class="fas fa-shield-alt"></i> Security Logs
+    </h1>
+    
+    <div class="table-responsive" style="background: rgba(255,255,255,0.05); border-radius: 10px; overflow: hidden;">
+        <table style="width: 100%; border-collapse: collapse;">
+            <thead>
+                <tr style="background: rgba(0, 217, 255, 0.1);">
+                    <th style="padding: 15px; text-align: left; color: #00d9ff;">User</th>
+                    <th style="padding: 15px; text-align: left; color: #00d9ff;">Action</th>
+                    <th style="padding: 15px; text-align: left; color: #00d9ff;">IP Address</th>
+                    <th style="padding: 15px; text-align: left; color: #00d9ff;">Date/Time</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for log in logs %}
+                <tr style="border-bottom: 1px solid rgba(255,255,255,0.1);">
+                    <td style="padding: 12px 15px; color: #fff;">{{ log.user.username|default:"Unknown" }}</td>
+                    <td style="padding: 12px 15px;">
+                        {% if 'success' in log.action %}
+                            <span style="color: #4ade80;">{{ log.get_action_display }}</span>
+                        {% elif 'failed' in log.action or 'locked' in log.action %}
+                            <span style="color: #e94560;">{{ log.get_action_display }}</span>
+                        {% else %}
+                            <span style="color: #00d9ff;">{{ log.get_action_display }}</span>
+                        {% endif %}
+                    </td>
+                    <td style="padding: 12px 15px; color: #888;">{{ log.ip_address }}</td>
+                    <td style="padding: 12px 15px; color: #888;">{{ log.created_at|date:"M d, Y H:i" }}</td>
+                </tr>
+                {% empty %}
+                <tr>
+                    <td colspan="4" style="padding: 30px; text-align: center; color: #888;">
+                        No security logs found.
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    
+    <div style="margin-top: 20px;">
+        <a href="{% url 'core:home' %}" style="color: #00d9ff; text-decoration: none;">
+            <i class="fas fa-arrow-left"></i> Back to Home
+        </a>
+    </div>
+</div>
+{% endblock %}

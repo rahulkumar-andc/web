@@ -1,0 +1,114 @@
+{% extends "core/base.html" %}
+{% block title %}Request Premium Access - VillenSec{% endblock %}
+{% block content %}
+<div class="container mt-5 pt-5">
+    <div class="row justify-content-center">
+        <div class="col-lg-8">
+            <div class="card bg-dark text-white border-secondary">
+                <div class="card-header bg-primary">
+                    <h4 class="mb-0">Request Premium Access</h4>
+                </div>
+                <div class="card-body">
+                    <p class="text-muted mb-4">Choose your preferred premium plan. Your request will be reviewed by an admin.</p>
+
+                    <form method="post">
+                        {% csrf_token %}
+                        
+                        <div class="mb-4">
+                            <label class="form-label">Select Premium Tier</label>
+                            <div class="row g-3">
+                                {% for tier_value, tier_name in tier_choices %}
+                                <div class="col-md-4">
+                                    <div class="card bg-secondary h-100">
+                                        <div class="card-body text-center">
+                                            <input type="radio" class="btn-check" name="tier" id="tier_{{ tier_value }}" value="{{ tier_value }}" {% if tier_value == 'basic' %}checked{% endif %}>
+                                            <label class="w-100 h-100 d-flex flex-column justify-content-between" for="tier_{{ tier_value }}" style="cursor: pointer;">
+                                                <div>
+                                                    <h5 class="mb-2">{{ tier_name }}</h5>
+                                                    {% if tier_value == 'basic' %}
+                                                    <p class="small text-muted">Access to basic premium tools</p>
+                                                    {% elif tier_value == 'pro' %}
+                                                    <p class="small text-muted">All tools + priority support</p>
+                                                    {% elif tier_value == 'enterprise' %}
+                                                    <p class="small text-muted">Full access + custom features</p>
+                                                    {% endif %}
+                                                </div>
+                                                <span class="badge bg-{% if tier_value == 'basic' %}info{% elif tier_value == 'pro' %}warning{% else %}danger{% endif %} mt-2">
+                                                    {{ tier_name|upper }}
+                                                </span>
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+                                {% endfor %}
+                            </div>
+                        </div>
+
+                        <div class="mb-4">
+                            <label for="duration" class="form-label">Duration</label>
+                            <select name="duration" id="duration" class="form-select bg-dark text-white border-secondary">
+                                {% for days, label in duration_choices %}
+                                <option value="{{ days }}">{{ label }}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+
+                        <div class="mb-4">
+                            <label for="reason" class="form-label">Why do you want premium access? (Optional)</label>
+                            <textarea name="reason" id="reason" class="form-control bg-dark text-white border-secondary" rows="3" placeholder="Tell us why you'd like premium access..."></textarea>
+                        </div>
+
+                        <div class="d-flex gap-2">
+                            <button type="submit" class="btn btn-primary">Submit Request</button>
+                            <a href="{% url 'tools:tools_list' %}" class="btn btn-secondary">Back to Tools</a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+            <div class="card bg-dark text-white border-secondary mt-4">
+                <div class="card-header bg-info text-dark">
+                    <h5 class="mb-0">Premium Benefits</h5>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-4">
+                            <h6>Basic</h6>
+                            <ul class="small">
+                                <li>Access to basic premium tools</li>
+                                <li>Submit tool reviews</li>
+                                <li>Community support</li>
+                            </ul>
+                        </div>
+                        <div class="col-md-4">
+                            <h6>Pro</h6>
+                            <ul class="small">
+                                <li>All Basic features</li>
+                                <li>Access to all premium tools</li>
+                                <li>Priority email support</li>
+                                <li>Early access to new tools</li>
+                            </ul>
+                        </div>
+                        <div class="col-md-4">
+                            <h6>Enterprise</h6>
+                            <ul class="small">
+                                <li>All Pro features</li>
+                                <li>Custom tool requests</li>
+                                <li>Dedicated support</li>
+                                <li>API access</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+.btn-check:checked + label {
+    border: 2px solid #0d6efd;
+    border-radius: 8px;
+}
+</style>
+{% endblock %}

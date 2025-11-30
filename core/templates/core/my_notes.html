@@ -1,0 +1,239 @@
+{% extends 'core/base.html' %}
+{% load static %}
+
+{% block title %}My Notes - VillenSec{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<style>
+  .my-notes-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 30px;
+    flex-wrap: wrap;
+    gap: 20px;
+  }
+  
+  .my-notes-header h1 {
+    color: #00ffe1;
+    font-size: 2rem;
+    text-shadow: 0 0 20px rgba(0, 255, 225, 0.5);
+  }
+  
+  .upload-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: linear-gradient(135deg, #00ffe1, #0088aa);
+    color: #0e0e0e;
+    padding: 12px 25px;
+    border-radius: 10px;
+    font-weight: 600;
+    text-decoration: none;
+    transition: all 0.3s ease;
+  }
+  
+  .upload-btn:hover {
+    box-shadow: 0 0 25px rgba(0, 255, 225, 0.6);
+    transform: translateY(-2px);
+    color: #0e0e0e;
+  }
+  
+  .notes-table {
+    width: 100%;
+    background: #1a1a1a;
+    border-radius: 12px;
+    overflow: hidden;
+    border: 1px solid #222;
+  }
+  
+  .notes-table th,
+  .notes-table td {
+    padding: 16px 20px;
+    text-align: left;
+  }
+  
+  .notes-table th {
+    background: linear-gradient(135deg, rgba(0, 255, 225, 0.1), rgba(0, 136, 170, 0.05));
+    color: #00ffe1;
+    font-weight: 600;
+    text-transform: uppercase;
+    font-size: 0.85rem;
+    letter-spacing: 0.5px;
+  }
+  
+  .notes-table td {
+    border-top: 1px solid #222;
+    color: #ccc;
+  }
+  
+  .notes-table tr:hover td {
+    background: rgba(0, 255, 225, 0.05);
+  }
+  
+  .status-badge {
+    display: inline-block;
+    padding: 5px 12px;
+    border-radius: 20px;
+    font-size: 0.8rem;
+    font-weight: 600;
+  }
+  
+  .status-pending {
+    background: rgba(255, 193, 7, 0.2);
+    color: #ffc107;
+  }
+  
+  .status-approved {
+    background: rgba(0, 255, 136, 0.2);
+    color: #00ff88;
+  }
+  
+  .action-btns {
+    display: flex;
+    gap: 10px;
+  }
+  
+  .action-btn {
+    padding: 8px 12px;
+    border-radius: 6px;
+    font-size: 0.85rem;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+  }
+  
+  .edit-btn {
+    background: rgba(0, 255, 225, 0.1);
+    color: #00ffe1;
+    border: 1px solid rgba(0, 255, 225, 0.3);
+  }
+  
+  .edit-btn:hover {
+    background: rgba(0, 255, 225, 0.2);
+    color: #00ffe1;
+  }
+  
+  .delete-btn {
+    background: rgba(255, 71, 87, 0.1);
+    color: #ff4757;
+    border: 1px solid rgba(255, 71, 87, 0.3);
+  }
+  
+  .delete-btn:hover {
+    background: rgba(255, 71, 87, 0.2);
+    color: #ff4757;
+  }
+  
+  .no-notes {
+    text-align: center;
+    padding: 60px 20px;
+    background: #1a1a1a;
+    border-radius: 12px;
+    border: 1px solid #222;
+  }
+  
+  .no-notes i {
+    font-size: 4rem;
+    color: #333;
+    margin-bottom: 20px;
+  }
+  
+  .no-notes h3 {
+    color: #888;
+    margin-bottom: 15px;
+  }
+  
+  .back-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    color: #888;
+    margin-bottom: 20px;
+    transition: color 0.3s ease;
+  }
+  
+  .back-link:hover {
+    color: #00ffe1;
+  }
+  
+  @media (max-width: 768px) {
+    .notes-table {
+      display: block;
+      overflow-x: auto;
+    }
+    
+    .my-notes-header {
+      flex-direction: column;
+      align-items: flex-start;
+    }
+  }
+</style>
+{% endblock %}
+
+{% block content %}
+<a href="{% url 'core:notes_list' %}" class="back-link">
+  <i class="fas fa-arrow-left"></i> Back to Notes
+</a>
+
+<div class="my-notes-header">
+  <h1><i class="fas fa-folder-open"></i> My Notes</h1>
+  <a href="{% url 'core:note_upload' %}" class="upload-btn">
+    <i class="fas fa-plus"></i> Upload New Note
+  </a>
+</div>
+
+{% if notes %}
+  <table class="notes-table">
+    <thead>
+      <tr>
+        <th>Title</th>
+        <th>Category</th>
+        <th>Downloads</th>
+        <th>Status</th>
+        <th>Uploaded</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for note in notes %}
+        <tr>
+          <td><strong>{{ note.title }}</strong></td>
+          <td>{{ note.get_category_display }}</td>
+          <td><i class="fas fa-download"></i> {{ note.download_count }}</td>
+          <td>
+            {% if note.is_approved %}
+              <span class="status-badge status-approved">Approved</span>
+            {% else %}
+              <span class="status-badge status-pending">Pending</span>
+            {% endif %}
+          </td>
+          <td>{{ note.created_at|date:"M d, Y" }}</td>
+          <td>
+            <div class="action-btns">
+              <a href="{% url 'core:note_edit' note.slug %}" class="action-btn edit-btn">
+                <i class="fas fa-edit"></i> Edit
+              </a>
+              <a href="{% url 'core:note_delete' note.slug %}" class="action-btn delete-btn">
+                <i class="fas fa-trash"></i> Delete
+              </a>
+            </div>
+          </td>
+        </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+{% else %}
+  <div class="no-notes">
+    <i class="fas fa-folder-open"></i>
+    <h3>You haven't uploaded any notes yet</h3>
+    <p>Share your knowledge with the community!</p>
+    <a href="{% url 'core:note_upload' %}" class="upload-btn" style="margin-top: 20px;">
+      <i class="fas fa-plus"></i> Upload Your First Note
+    </a>
+  </div>
+{% endif %}
+{% endblock %}

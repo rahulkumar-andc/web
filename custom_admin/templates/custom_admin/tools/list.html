@@ -1,0 +1,110 @@
+{% extends "custom_admin/base.html" %}
+{% block title %}Tools{% endblock %}
+
+{% block content %}
+<div class="mb-8 flex flex-col md:flex-row md:items-center md:justify-between gap-4">
+    <div>
+        <h1 class="text-3xl font-bold text-gray-900 dark:text-white">Tools</h1>
+        <p class="text-gray-600 dark:text-gray-400 mt-1">Manage all tools and resources</p>
+    </div>
+    <a href="{% url 'custom_admin:tool_create' %}" class="px-6 py-2 bg-primary text-white rounded-lg hover:bg-secondary transition inline-flex items-center">
+        <i class="fas fa-plus mr-2"></i>Add Tool
+    </a>
+</div>
+
+<div class="bg-white dark:bg-gray-800 rounded-xl shadow-sm border dark:border-gray-700 mb-6">
+    <div class="p-4 border-b dark:border-gray-700">
+        <form method="get" class="flex flex-col md:flex-row gap-4">
+            <div class="flex-1">
+                <div class="relative">
+                    <input type="text" name="search" value="{{ search }}" placeholder="Search tools..." 
+                        class="w-full pl-10 pr-4 py-2 rounded-lg border dark:border-gray-600 dark:bg-gray-700 dark:text-white focus:ring-2 focus:ring-primary">
+                    <i class="fas fa-search absolute left-3 top-1/2 -translate-y-1/2 text-gray-400"></i>
+                </div>
+            </div>
+            <select name="category" class="px-4 py-2 rounded-lg border dark:border-gray-600 dark:bg-gray-700 dark:text-white">
+                <option value="">All Categories</option>
+                {% for cat in categories %}
+                <option value="{{ cat }}" {% if category == cat %}selected{% endif %}>{{ cat }}</option>
+                {% endfor %}
+            </select>
+            <button type="submit" class="px-6 py-2 bg-primary text-white rounded-lg hover:bg-secondary transition">
+                <i class="fas fa-filter mr-2"></i>Filter
+            </button>
+        </form>
+    </div>
+    
+    <div class="overflow-x-auto">
+        <table class="w-full">
+            <thead class="bg-gray-50 dark:bg-gray-700">
+                <tr class="text-left text-gray-500 dark:text-gray-400 text-sm">
+                    <th class="px-6 py-4 font-medium">Tool</th>
+                    <th class="px-6 py-4 font-medium">Category</th>
+                    <th class="px-6 py-4 font-medium">Author</th>
+                    <th class="px-6 py-4 font-medium">Created</th>
+                    <th class="px-6 py-4 font-medium">Actions</th>
+                </tr>
+            </thead>
+            <tbody class="divide-y dark:divide-gray-700">
+                {% for tool in tools %}
+                <tr class="hover:bg-gray-50 dark:hover:bg-gray-700">
+                    <td class="px-6 py-4">
+                        <div class="flex items-center space-x-3">
+                            {% if tool.image_url %}
+                            <img src="{{ tool.image_url }}" alt="{{ tool.title }}" class="w-12 h-12 rounded-lg object-cover">
+                            {% else %}
+                            <div class="w-12 h-12 bg-gray-200 dark:bg-gray-600 rounded-lg flex items-center justify-center">
+                                <i class="fas fa-tools text-gray-500"></i>
+                            </div>
+                            {% endif %}
+                            <div>
+                                <p class="font-medium text-gray-900 dark:text-white">{{ tool.title }}</p>
+                                <p class="text-sm text-gray-500">{{ tool.slug }}</p>
+                            </div>
+                        </div>
+                    </td>
+                    <td class="px-6 py-4">
+                        <span class="px-3 py-1 bg-purple-100 text-purple-800 dark:bg-purple-900 dark:text-purple-200 rounded-full text-sm">
+                            {{ tool.category }}
+                        </span>
+                    </td>
+                    <td class="px-6 py-4 text-gray-700 dark:text-gray-300">{{ tool.author.username|default:"-" }}</td>
+                    <td class="px-6 py-4 text-gray-500">{{ tool.created_at|date:"M d, Y" }}</td>
+                    <td class="px-6 py-4">
+                        <div class="flex items-center space-x-2">
+                            <a href="{% url 'tools:tool_detail' tool.pk %}" target="_blank" class="p-2 text-blue-600 hover:bg-blue-100 rounded-lg transition" title="View">
+                                <i class="fas fa-eye"></i>
+                            </a>
+                            <a href="{% url 'custom_admin:tool_edit' tool.id %}" class="p-2 text-green-600 hover:bg-green-100 rounded-lg transition" title="Edit">
+                                <i class="fas fa-edit"></i>
+                            </a>
+                            <a href="{% url 'custom_admin:tool_delete' tool.id %}" class="p-2 text-red-600 hover:bg-red-100 rounded-lg transition" title="Delete">
+                                <i class="fas fa-trash"></i>
+                            </a>
+                        </div>
+                    </td>
+                </tr>
+                {% empty %}
+                <tr>
+                    <td colspan="5" class="px-6 py-8 text-center text-gray-500">No tools found</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    
+    {% if tools.has_other_pages %}
+    <div class="p-4 border-t dark:border-gray-700 flex items-center justify-between">
+        <p class="text-sm text-gray-500">Showing {{ tools.start_index }}-{{ tools.end_index }} of {{ tools.paginator.count }}</p>
+        <div class="flex space-x-2">
+            {% if tools.has_previous %}
+            <a href="?page={{ tools.previous_page_number }}&search={{ search }}&category={{ category }}" class="px-4 py-2 border rounded-lg hover:bg-gray-100">Previous</a>
+            {% endif %}
+            {% if tools.has_next %}
+            <a href="?page={{ tools.next_page_number }}&search={{ search }}&category={{ category }}" class="px-4 py-2 bg-primary text-white rounded-lg hover:bg-secondary">Next</a>
+            {% endif %}
+        </div>
+    </div>
+    {% endif %}
+</div>
+{% endblock %}

@@ -1,0 +1,292 @@
+{% extends 'core/base.html' %}
+{% load static %}
+
+{% block title %}Download Notes - VillenSec{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<style>
+  .notes-hero {
+    text-align: center;
+    padding: 40px 0 30px;
+  }
+  
+  .notes-hero h1 {
+    font-size: 2.5rem;
+    color: #00ffe1;
+    text-shadow: 0 0 20px rgba(0, 255, 225, 0.5);
+    margin-bottom: 10px;
+  }
+  
+  .notes-hero p {
+    color: #888;
+    font-size: 1.1rem;
+  }
+  
+  .category-filter {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 10px;
+    margin-bottom: 40px;
+    padding: 0 20px;
+  }
+  
+  .category-btn {
+    background: #1a1a1a;
+    border: 1px solid #333;
+    color: #ccc;
+    padding: 8px 20px;
+    border-radius: 20px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-decoration: none;
+    font-size: 0.9rem;
+  }
+  
+  .category-btn:hover,
+  .category-btn.active {
+    background: linear-gradient(135deg, #00ffe1, #0088aa);
+    color: #0e0e0e;
+    border-color: #00ffe1;
+    box-shadow: 0 0 15px rgba(0, 255, 225, 0.4);
+  }
+  
+  .notes-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 30px;
+    padding: 20px 0;
+  }
+  
+  .note-card {
+    background: linear-gradient(145deg, #1a1a1a, #121212);
+    border: 1px solid #222;
+    border-radius: 16px;
+    overflow: hidden;
+    transition: all 0.4s ease;
+    position: relative;
+  }
+  
+  .note-card:hover {
+    transform: translateY(-8px);
+    border-color: #00ffe1;
+    box-shadow: 0 15px 40px rgba(0, 255, 225, 0.2);
+  }
+  
+  .note-card-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 160px;
+    background: linear-gradient(135deg, rgba(0, 255, 225, 0.1), rgba(0, 136, 170, 0.05));
+    position: relative;
+  }
+  
+  .note-card-icon i {
+    font-size: 5rem;
+    color: #00ffe1;
+    text-shadow: 0 0 30px rgba(0, 255, 225, 0.5);
+    transition: all 0.3s ease;
+  }
+  
+  .note-card:hover .note-card-icon i {
+    transform: scale(1.1);
+    text-shadow: 0 0 50px rgba(0, 255, 225, 0.8);
+  }
+  
+  .note-card-icon img {
+    max-width: 100px;
+    max-height: 100px;
+    object-fit: contain;
+    filter: drop-shadow(0 0 20px rgba(0, 255, 225, 0.5));
+  }
+  
+  .note-card-body {
+    padding: 20px;
+    text-align: center;
+  }
+  
+  .note-card-title {
+    font-size: 1.2rem;
+    color: #fff;
+    margin-bottom: 8px;
+    font-weight: 600;
+  }
+  
+  .note-card-description {
+    color: #888;
+    font-size: 0.9rem;
+    margin-bottom: 15px;
+    line-height: 1.5;
+  }
+  
+  .note-card-meta {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    margin-bottom: 15px;
+    font-size: 0.8rem;
+    color: #666;
+  }
+  
+  .note-card-meta span {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+  }
+  
+  .download-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    background: linear-gradient(135deg, #00ffe1, #0088aa);
+    color: #0e0e0e;
+    border: none;
+    padding: 12px 30px;
+    border-radius: 8px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-decoration: none;
+    width: 100%;
+  }
+  
+  .download-btn:hover {
+    box-shadow: 0 0 25px rgba(0, 255, 225, 0.6);
+    transform: scale(1.02);
+    color: #0e0e0e;
+  }
+  
+  .upload-floating-btn {
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    width: 60px;
+    height: 60px;
+    background: linear-gradient(135deg, #00ffe1, #0088aa);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #0e0e0e;
+    font-size: 1.5rem;
+    box-shadow: 0 5px 25px rgba(0, 255, 225, 0.4);
+    transition: all 0.3s ease;
+    z-index: 100;
+    text-decoration: none;
+  }
+  
+  .upload-floating-btn:hover {
+    transform: scale(1.1) rotate(90deg);
+    box-shadow: 0 10px 40px rgba(0, 255, 225, 0.6);
+    color: #0e0e0e;
+  }
+  
+  .no-notes {
+    text-align: center;
+    padding: 60px 20px;
+    color: #666;
+  }
+  
+  .no-notes i {
+    font-size: 4rem;
+    color: #333;
+    margin-bottom: 20px;
+  }
+  
+  .category-badge {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background: rgba(0, 255, 225, 0.2);
+    color: #00ffe1;
+    padding: 4px 12px;
+    border-radius: 12px;
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+  
+  @media (max-width: 768px) {
+    .notes-hero h1 {
+      font-size: 1.8rem;
+    }
+    
+    .notes-grid {
+      grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+      gap: 20px;
+    }
+    
+    .category-filter {
+      gap: 8px;
+    }
+    
+    .category-btn {
+      padding: 6px 15px;
+      font-size: 0.85rem;
+    }
+  }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="notes-hero">
+  <h1>Download Notes & Handbooks</h1>
+  <p>Free programming notes, handwritten notes, and study materials</p>
+</div>
+
+<div class="category-filter">
+  <a href="{% url 'core:notes_list' %}" class="category-btn {% if not selected_category %}active{% endif %}">All</a>
+  {% for cat_value, cat_name in categories %}
+    <a href="{% url 'core:notes_list' %}?category={{ cat_value }}" 
+       class="category-btn {% if selected_category == cat_value %}active{% endif %}">
+      {{ cat_name }}
+    </a>
+  {% endfor %}
+</div>
+
+{% if notes %}
+  <div class="notes-grid">
+    {% for note in notes %}
+      <div class="note-card">
+        <div class="note-card-icon">
+          <span class="category-badge">{{ note.get_category_display }}</span>
+          {% if note.icon_image_url %}
+            <img src="{{ note.icon_image_url }}" alt="{{ note.title }}">
+          {% else %}
+            <i class="{{ note.icon_class }}"></i>
+          {% endif %}
+        </div>
+        <div class="note-card-body">
+          <h3 class="note-card-title">{{ note.title }}</h3>
+          {% if note.description %}
+            <p class="note-card-description">{{ note.description|truncatewords:15 }}</p>
+          {% endif %}
+          <div class="note-card-meta">
+            <span><i class="fas fa-download"></i> {{ note.download_count }}</span>
+            <span><i class="fas fa-file"></i> {{ note.get_file_extension }}</span>
+            <span><i class="fas fa-hdd"></i> {{ note.get_file_size }}</span>
+          </div>
+          <a href="{% url 'core:note_download' note.slug %}" class="download-btn">
+            <i class="fas fa-download"></i> Download
+          </a>
+        </div>
+      </div>
+    {% endfor %}
+  </div>
+{% else %}
+  <div class="no-notes">
+    <i class="fas fa-folder-open"></i>
+    <h3>No notes available yet</h3>
+    <p>Check back later or upload your own notes!</p>
+  </div>
+{% endif %}
+
+{% if user.is_authenticated %}
+  <a href="{% url 'core:note_upload' %}" class="upload-floating-btn" title="Upload Notes">
+    <i class="fas fa-plus"></i>
+  </a>
+{% endif %}
+{% endblock %}

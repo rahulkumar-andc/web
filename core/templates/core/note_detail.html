@@ -1,0 +1,293 @@
+{% extends 'core/base.html' %}
+{% load static %}
+
+{% block title %}{{ note.title }} - VillenSec{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<style>
+  .note-detail-container {
+    max-width: 900px;
+    margin: 0 auto;
+  }
+  
+  .back-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    color: #888;
+    margin-bottom: 30px;
+    transition: color 0.3s ease;
+  }
+  
+  .back-link:hover {
+    color: #00ffe1;
+  }
+  
+  .note-detail-card {
+    background: linear-gradient(145deg, #1a1a1a, #121212);
+    border: 1px solid #222;
+    border-radius: 20px;
+    overflow: hidden;
+  }
+  
+  .note-detail-header {
+    display: flex;
+    align-items: center;
+    gap: 30px;
+    padding: 40px;
+    background: linear-gradient(135deg, rgba(0, 255, 225, 0.1), rgba(0, 136, 170, 0.05));
+    border-bottom: 1px solid #222;
+  }
+  
+  .note-icon-large {
+    width: 120px;
+    height: 120px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #0e0e0e;
+    border-radius: 20px;
+    border: 2px solid #00ffe1;
+    flex-shrink: 0;
+  }
+  
+  .note-icon-large i {
+    font-size: 4rem;
+    color: #00ffe1;
+    text-shadow: 0 0 30px rgba(0, 255, 225, 0.5);
+  }
+  
+  .note-icon-large img {
+    max-width: 80px;
+    max-height: 80px;
+    object-fit: contain;
+  }
+  
+  .note-info h1 {
+    color: #fff;
+    font-size: 2rem;
+    margin-bottom: 10px;
+  }
+  
+  .note-meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    color: #888;
+    font-size: 0.95rem;
+  }
+  
+  .note-meta span {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+  
+  .note-meta i {
+    color: #00ffe1;
+  }
+  
+  .note-detail-body {
+    padding: 40px;
+  }
+  
+  .note-description {
+    color: #ccc;
+    line-height: 1.8;
+    margin-bottom: 30px;
+    padding-bottom: 30px;
+    border-bottom: 1px solid #222;
+  }
+  
+  .file-info {
+    background: #0e0e0e;
+    border-radius: 12px;
+    padding: 25px;
+    margin-bottom: 30px;
+  }
+  
+  .file-info h3 {
+    color: #00ffe1;
+    margin-bottom: 15px;
+    font-size: 1.1rem;
+  }
+  
+  .file-details {
+    display: flex;
+    gap: 30px;
+    color: #888;
+    flex-wrap: wrap;
+  }
+  
+  .file-details span {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  
+  .download-section {
+    text-align: center;
+  }
+  
+  .download-btn-large {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    background: linear-gradient(135deg, #00ffe1, #0088aa);
+    color: #0e0e0e;
+    padding: 18px 50px;
+    border-radius: 12px;
+    font-size: 1.2rem;
+    font-weight: 700;
+    text-decoration: none;
+    transition: all 0.3s ease;
+  }
+  
+  .download-btn-large:hover {
+    box-shadow: 0 0 40px rgba(0, 255, 225, 0.6);
+    transform: translateY(-3px);
+    color: #0e0e0e;
+  }
+  
+  .related-notes {
+    margin-top: 50px;
+  }
+  
+  .related-notes h2 {
+    color: #00ffe1;
+    margin-bottom: 25px;
+    font-size: 1.5rem;
+  }
+  
+  .related-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 20px;
+  }
+  
+  .related-card {
+    background: #1a1a1a;
+    border: 1px solid #222;
+    border-radius: 12px;
+    padding: 20px;
+    text-align: center;
+    transition: all 0.3s ease;
+    text-decoration: none;
+  }
+  
+  .related-card:hover {
+    border-color: #00ffe1;
+    transform: translateY(-5px);
+    box-shadow: 0 10px 30px rgba(0, 255, 225, 0.2);
+  }
+  
+  .related-card i {
+    font-size: 2.5rem;
+    color: #00ffe1;
+    margin-bottom: 10px;
+  }
+  
+  .related-card h4 {
+    color: #fff;
+    font-size: 1rem;
+    margin: 0;
+  }
+  
+  .category-tag {
+    display: inline-block;
+    background: rgba(0, 255, 225, 0.1);
+    color: #00ffe1;
+    padding: 6px 15px;
+    border-radius: 20px;
+    font-size: 0.85rem;
+    margin-bottom: 15px;
+  }
+  
+  @media (max-width: 768px) {
+    .note-detail-header {
+      flex-direction: column;
+      text-align: center;
+    }
+    
+    .note-meta {
+      justify-content: center;
+    }
+    
+    .note-info h1 {
+      font-size: 1.5rem;
+    }
+  }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="note-detail-container">
+  <a href="{% url 'core:notes_list' %}" class="back-link">
+    <i class="fas fa-arrow-left"></i> Back to Notes
+  </a>
+  
+  <div class="note-detail-card">
+    <div class="note-detail-header">
+      <div class="note-icon-large">
+        {% if note.icon_image_url %}
+          <img src="{{ note.icon_image_url }}" alt="{{ note.title }}">
+        {% else %}
+          <i class="{{ note.icon_class }}"></i>
+        {% endif %}
+      </div>
+      <div class="note-info">
+        <span class="category-tag">{{ note.get_category_display }}</span>
+        <h1>{{ note.title }}</h1>
+        <div class="note-meta">
+          <span><i class="fas fa-user"></i> {{ note.author.username }}</span>
+          <span><i class="fas fa-calendar"></i> {{ note.created_at|date:"M d, Y" }}</span>
+          <span><i class="fas fa-download"></i> {{ note.download_count }} downloads</span>
+        </div>
+      </div>
+    </div>
+    
+    <div class="note-detail-body">
+      {% if note.description %}
+        <div class="note-description">
+          {{ note.description }}
+        </div>
+      {% endif %}
+      
+      <div class="file-info">
+        <h3><i class="fas fa-file-alt"></i> File Information</h3>
+        <div class="file-details">
+          <span><i class="fas fa-file"></i> Type: {{ note.get_file_extension }}</span>
+          <span><i class="fas fa-hdd"></i> Size: {{ note.get_file_size }}</span>
+          <span><i class="fas fa-clock"></i> Updated: {{ note.updated_at|date:"M d, Y" }}</span>
+        </div>
+      </div>
+      
+      <div class="download-section">
+        <a href="{% url 'core:note_download' note.slug %}" class="download-btn-large">
+          <i class="fas fa-download"></i> Download Notes
+        </a>
+      </div>
+    </div>
+  </div>
+  
+  {% if related_notes %}
+    <div class="related-notes">
+      <h2><i class="fas fa-book-open"></i> Related Notes</h2>
+      <div class="related-grid">
+        {% for related in related_notes %}
+          <a href="{% url 'core:note_detail' related.slug %}" class="related-card">
+            {% if related.icon_image_url %}
+              <img src="{{ related.icon_image_url }}" alt="{{ related.title }}" style="max-width: 50px; max-height: 50px; margin-bottom: 10px;">
+            {% else %}
+              <i class="{{ related.icon_class }}"></i>
+            {% endif %}
+            <h4>{{ related.title }}</h4>
+          </a>
+        {% endfor %}
+      </div>
+    </div>
+  {% endif %}
+</div>
+{% endblock %}

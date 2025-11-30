@@ -1,0 +1,37 @@
+{% extends 'core/base.html' %}
+
+{% block title %}Setup Two-Factor Authentication{% endblock %}
+
+{% block content %}
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="card bg-dark text-light border-success">
+                <div class="card-header border-success">
+                    <h3 class="text-center text-success"><i class="fas fa-shield-alt"></i> Setup 2FA</h3>
+                </div>
+                <div class="card-body text-center">
+                    <p>Scan the QR code below with your authenticator app (Google Authenticator, Authy, etc.).</p>
+
+                    <div class="bg-white p-3 d-inline-block mb-3 rounded">
+                        <img src="data:image/png;base64,{{ qr_image_base64 }}" alt="2FA QR Code" class="img-fluid">
+                    </div>
+
+                    <p class="text-muted small">Secret Key: {{ secret_key }}</p>
+
+                    <form method="post" action="{% url 'core:verify_2fa_setup' %}">
+                        {% csrf_token %}
+                        <div class="mb-3">
+                            <label for="otp_code" class="form-label">Enter Verification Code</label>
+                            <input type="text" class="form-control bg-dark text-light border-secondary text-center"
+                                id="otp_code" name="otp_code" placeholder="000000" maxlength="6" required
+                                autocomplete="off">
+                        </div>
+                        <button type="submit" class="btn btn-success w-100">Verify & Enable</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

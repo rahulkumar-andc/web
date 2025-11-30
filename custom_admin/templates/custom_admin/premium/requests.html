@@ -1,0 +1,107 @@
+{% extends "custom_admin/base.html" %}
+{% block title %}Premium Requests{% endblock %}
+
+{% block content %}
+<div class="mb-8 flex items-center justify-between">
+    <div>
+        <h1 class="text-3xl font-bold text-gray-900 dark:text-white">Premium Requests</h1>
+        <p class="text-gray-600 dark:text-gray-400 mt-1">Review and manage premium access requests</p>
+    </div>
+</div>
+
+<div class="bg-white dark:bg-gray-800 rounded-xl shadow-sm border dark:border-gray-700 mb-6">
+    <div class="p-4 border-b dark:border-gray-700">
+        <form method="get" class="flex flex-wrap gap-4">
+            <select name="status" class="px-4 py-2 rounded-lg border dark:border-gray-600 dark:bg-gray-700 dark:text-white">
+                <option value="">All Status</option>
+                <option value="pending" {% if status_filter == 'pending' %}selected{% endif %}>Pending</option>
+                <option value="approved" {% if status_filter == 'approved' %}selected{% endif %}>Approved</option>
+                <option value="rejected" {% if status_filter == 'rejected' %}selected{% endif %}>Rejected</option>
+            </select>
+            <button type="submit" class="px-6 py-2 bg-primary text-white rounded-lg hover:bg-secondary transition">
+                <i class="fas fa-filter mr-2"></i>Filter
+            </button>
+        </form>
+    </div>
+    
+    <div class="overflow-x-auto">
+        <table class="w-full">
+            <thead class="bg-gray-50 dark:bg-gray-700">
+                <tr class="text-left text-gray-500 dark:text-gray-400 text-sm">
+                    <th class="px-6 py-4 font-medium">User</th>
+                    <th class="px-6 py-4 font-medium">Tier</th>
+                    <th class="px-6 py-4 font-medium">Duration</th>
+                    <th class="px-6 py-4 font-medium">Status</th>
+                    <th class="px-6 py-4 font-medium">Requested</th>
+                    <th class="px-6 py-4 font-medium">Actions</th>
+                </tr>
+            </thead>
+            <tbody class="divide-y dark:divide-gray-700">
+                {% for req in requests %}
+                <tr class="hover:bg-gray-50 dark:hover:bg-gray-700">
+                    <td class="px-6 py-4">
+                        <div class="flex items-center space-x-3">
+                            <div class="w-10 h-10 bg-gradient-to-br from-primary to-secondary rounded-full flex items-center justify-center text-white font-semibold">
+                                {{ req.user.username|first|upper }}
+                            </div>
+                            <div>
+                                <p class="font-medium text-gray-900 dark:text-white">{{ req.user.username }}</p>
+                                <p class="text-sm text-gray-500">{{ req.user.email }}</p>
+                            </div>
+                        </div>
+                    </td>
+                    <td class="px-6 py-4">
+                        <span class="px-3 py-1 bg-purple-100 text-purple-800 dark:bg-purple-900 dark:text-purple-200 rounded-full text-sm">
+                            {{ req.get_tier_display }}
+                        </span>
+                    </td>
+                    <td class="px-6 py-4 text-gray-700 dark:text-gray-300">{{ req.get_duration_display_text }}</td>
+                    <td class="px-6 py-4">
+                        {% if req.status == 'pending' %}
+                        <span class="px-3 py-1 bg-yellow-100 text-yellow-800 rounded-full text-sm">Pending</span>
+                        {% elif req.status == 'approved' %}
+                        <span class="px-3 py-1 bg-green-100 text-green-800 rounded-full text-sm">Approved</span>
+                        {% else %}
+                        <span class="px-3 py-1 bg-red-100 text-red-800 rounded-full text-sm">Rejected</span>
+                        {% endif %}
+                    </td>
+                    <td class="px-6 py-4 text-gray-500">{{ req.requested_at|date:"M d, Y" }}</td>
+                    <td class="px-6 py-4">
+                        {% if req.status == 'pending' %}
+                        <div class="flex space-x-2">
+                            <a href="{% url 'custom_admin:approve_premium' req.id %}" class="px-3 py-1 bg-green-600 text-white rounded-lg hover:bg-green-700 text-sm">
+                                Approve
+                            </a>
+                            <a href="{% url 'custom_admin:reject_premium' req.id %}" class="px-3 py-1 bg-red-600 text-white rounded-lg hover:bg-red-700 text-sm">
+                                Reject
+                            </a>
+                        </div>
+                        {% else %}
+                        <span class="text-gray-400">-</span>
+                        {% endif %}
+                    </td>
+                </tr>
+                {% empty %}
+                <tr>
+                    <td colspan="6" class="px-6 py-8 text-center text-gray-500">No requests found</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    
+    {% if requests.has_other_pages %}
+    <div class="p-4 border-t dark:border-gray-700 flex items-center justify-between">
+        <p class="text-sm text-gray-500">Showing {{ requests.start_index }}-{{ requests.end_index }} of {{ requests.paginator.count }}</p>
+        <div class="flex space-x-2">
+            {% if requests.has_previous %}
+            <a href="?page={{ requests.previous_page_number }}&status={{ status_filter }}" class="px-4 py-2 border rounded-lg hover:bg-gray-100">Previous</a>
+            {% endif %}
+            {% if requests.has_next %}
+            <a href="?page={{ requests.next_page_number }}&status={{ status_filter }}" class="px-4 py-2 bg-primary text-white rounded-lg hover:bg-secondary">Next</a>
+            {% endif %}
+        </div>
+    </div>
+    {% endif %}
+</div>
+{% endblock %}

@@ -1,0 +1,265 @@
+{% extends 'core/base.html' %}
+
+{% block title %}Trusted Devices - VillenSec{% endblock %}
+
+{% block content %}
+<style>
+  body {
+    background-color: #0d0d0d;
+    color: #ccc;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  }
+  .devices-container {
+    max-width: 800px;
+    margin: 40px auto;
+    padding: 30px;
+  }
+  h1 {
+    color: #00aaff;
+    text-shadow: 0 0 10px #00aaff;
+    margin-bottom: 10px;
+  }
+  .subtitle {
+    color: #888;
+    margin-bottom: 30px;
+  }
+  .device-card {
+    background-color: #121212;
+    border-radius: 12px;
+    padding: 20px;
+    margin-bottom: 15px;
+    border-left: 4px solid #00aaff;
+    box-shadow: 0 0 15px rgba(0, 150, 255, 0.2);
+    transition: all 0.3s ease;
+  }
+  .device-card:hover {
+    box-shadow: 0 0 25px rgba(0, 150, 255, 0.4);
+  }
+  .device-card.trusted {
+    border-left-color: #00ff00;
+  }
+  .device-card.pending {
+    border-left-color: #ffa500;
+  }
+  .device-card.blocked {
+    border-left-color: #ff3333;
+    opacity: 0.7;
+  }
+  .device-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 15px;
+  }
+  .device-name {
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: #fff;
+  }
+  .device-status {
+    padding: 4px 12px;
+    border-radius: 20px;
+    font-size: 0.8rem;
+    font-weight: 600;
+  }
+  .status-trusted {
+    background: #00ff0030;
+    color: #00ff00;
+    border: 1px solid #00ff00;
+  }
+  .status-pending {
+    background: #ffa50030;
+    color: #ffa500;
+    border: 1px solid #ffa500;
+  }
+  .status-blocked {
+    background: #ff333330;
+    color: #ff3333;
+    border: 1px solid #ff3333;
+  }
+  .device-info {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 10px;
+    margin-bottom: 15px;
+    font-size: 0.9rem;
+    color: #aaa;
+  }
+  .device-info span {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .device-info i {
+    color: #00aaff;
+    width: 16px;
+  }
+  .device-actions {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+    margin-top: 15px;
+    padding-top: 15px;
+    border-top: 1px solid #333;
+  }
+  .btn-action {
+    padding: 8px 16px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 0.9rem;
+    font-weight: 500;
+    transition: all 0.3s ease;
+  }
+  .btn-rename {
+    background: #00aaff30;
+    color: #00aaff;
+    border: 1px solid #00aaff;
+  }
+  .btn-rename:hover {
+    background: #00aaff;
+    color: #000;
+  }
+  .btn-revoke {
+    background: #ff333330;
+    color: #ff3333;
+    border: 1px solid #ff3333;
+  }
+  .btn-revoke:hover {
+    background: #ff3333;
+    color: #fff;
+  }
+  .no-devices {
+    text-align: center;
+    padding: 50px;
+    background: #121212;
+    border-radius: 12px;
+    color: #888;
+  }
+  .no-devices i {
+    font-size: 48px;
+    color: #333;
+    margin-bottom: 20px;
+  }
+  .alert {
+    padding: 15px;
+    border-radius: 8px;
+    margin-bottom: 20px;
+  }
+  .alert-success {
+    background: #00ff0020;
+    border: 1px solid #00ff00;
+    color: #00ff00;
+  }
+  .alert-error {
+    background: #ff333320;
+    border: 1px solid #ff3333;
+    color: #ff3333;
+  }
+  .alert-info {
+    background: #00aaff20;
+    border: 1px solid #00aaff;
+    color: #00aaff;
+  }
+  .rename-form {
+    display: none;
+    margin-top: 10px;
+  }
+  .rename-form.active {
+    display: flex;
+    gap: 10px;
+  }
+  .rename-form input {
+    flex: 1;
+    padding: 8px 12px;
+    background: #222;
+    border: 1px solid #00aaff;
+    border-radius: 6px;
+    color: #fff;
+  }
+  .back-link {
+    display: inline-block;
+    margin-bottom: 20px;
+    color: #00aaff;
+    text-decoration: none;
+  }
+  .back-link:hover {
+    text-decoration: underline;
+  }
+</style>
+
+<div class="devices-container">
+  <a href="{% url 'core:active_sessions' %}" class="back-link">
+    <i class="fas fa-arrow-left"></i> Back to Sessions
+  </a>
+  
+  <h1><i class="fas fa-shield-alt"></i> Trusted Devices</h1>
+  <p class="subtitle">Manage devices that are trusted to access your account without additional verification.</p>
+  
+  {% if messages %}
+  <div class="messages">
+    {% for message in messages %}
+    <div class="alert alert-{{ message.tags }}">
+      {{ message }}
+    </div>
+    {% endfor %}
+  </div>
+  {% endif %}
+  
+  {% if devices %}
+    {% for device in devices %}
+    <div class="device-card {{ device.trust_level }}">
+      <div class="device-header">
+        <span class="device-name">
+          <i class="fas fa-{% if device.metadata.device_type == 'Mobile' %}mobile-alt{% elif device.metadata.device_type == 'Tablet' %}tablet-alt{% else %}desktop{% endif %}"></i>
+          {{ device.device_label|default:"Unknown Device" }}
+        </span>
+        <span class="device-status status-{{ device.trust_level }}">
+          {{ device.get_trust_level_display }}
+        </span>
+      </div>
+      
+      <div class="device-info">
+        <span><i class="fas fa-globe"></i> {{ device.metadata.browser|default:"Unknown Browser" }}</span>
+        <span><i class="fas fa-laptop"></i> {{ device.metadata.os|default:"Unknown OS" }}</span>
+        <span><i class="fas fa-clock"></i> First seen: {{ device.first_seen_at|date:"M d, Y H:i" }}</span>
+        <span><i class="fas fa-sync"></i> Last active: {{ device.last_seen_at|date:"M d, Y H:i" }}</span>
+      </div>
+      
+      <div class="device-actions">
+        <button class="btn-action btn-rename" onclick="toggleRename({{ device.id }})">
+          <i class="fas fa-edit"></i> Rename
+        </button>
+        <form method="post" action="{% url 'core:revoke_device' device.id %}" style="display: inline;" 
+              onsubmit="return confirm('Are you sure you want to revoke this device? It will need to be verified again on next login.');">
+          {% csrf_token %}
+          <button type="submit" class="btn-action btn-revoke">
+            <i class="fas fa-times-circle"></i> Revoke Trust
+          </button>
+        </form>
+      </div>
+      
+      <form method="post" action="{% url 'core:rename_device' device.id %}" class="rename-form" id="rename-form-{{ device.id }}">
+        {% csrf_token %}
+        <input type="text" name="device_label" placeholder="Enter new device name" maxlength="100" required>
+        <button type="submit" class="btn-action btn-rename">Save</button>
+        <button type="button" class="btn-action" onclick="toggleRename({{ device.id }})" style="background: #333; color: #888;">Cancel</button>
+      </form>
+    </div>
+    {% endfor %}
+  {% else %}
+    <div class="no-devices">
+      <i class="fas fa-shield-alt"></i>
+      <h3>No Trusted Devices</h3>
+      <p>When you log in from a new device and verify it, it will appear here.</p>
+    </div>
+  {% endif %}
+</div>
+
+<script>
+function toggleRename(deviceId) {
+  const form = document.getElementById('rename-form-' + deviceId);
+  form.classList.toggle('active');
+}
+</script>
+{% endblock %}

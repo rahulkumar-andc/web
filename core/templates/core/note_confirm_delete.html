@@ -1,0 +1,105 @@
+{% extends 'core/base.html' %}
+{% load static %}
+
+{% block title %}Delete Note - VillenSec{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<style>
+  .delete-container {
+    max-width: 500px;
+    margin: 60px auto;
+    padding: 40px;
+    background: linear-gradient(145deg, #1a1a1a, #121212);
+    border: 1px solid #ff4757;
+    border-radius: 20px;
+    text-align: center;
+    box-shadow: 0 10px 40px rgba(255, 71, 87, 0.2);
+  }
+  
+  .delete-icon {
+    font-size: 4rem;
+    color: #ff4757;
+    margin-bottom: 20px;
+    animation: pulse 2s infinite;
+  }
+  
+  @keyframes pulse {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.1); }
+  }
+  
+  .delete-container h1 {
+    color: #ff4757;
+    margin-bottom: 15px;
+  }
+  
+  .delete-container p {
+    color: #888;
+    margin-bottom: 25px;
+  }
+  
+  .note-name {
+    color: #00ffe1;
+    font-weight: 600;
+  }
+  
+  .btn-group {
+    display: flex;
+    gap: 15px;
+    justify-content: center;
+  }
+  
+  .cancel-btn {
+    background: #333;
+    color: #fff;
+    border: 1px solid #444;
+    padding: 14px 30px;
+    border-radius: 10px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-decoration: none;
+  }
+  
+  .cancel-btn:hover {
+    background: #444;
+    color: #fff;
+  }
+  
+  .confirm-delete-btn {
+    background: linear-gradient(135deg, #ff4757, #c0392b);
+    color: #fff;
+    border: none;
+    padding: 14px 30px;
+    border-radius: 10px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+  }
+  
+  .confirm-delete-btn:hover {
+    box-shadow: 0 0 25px rgba(255, 71, 87, 0.6);
+    transform: translateY(-2px);
+  }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="delete-container">
+  <i class="fas fa-exclamation-triangle delete-icon"></i>
+  <h1>Delete Note?</h1>
+  <p>Are you sure you want to delete <span class="note-name">"{{ note.title }}"</span>?</p>
+  <p>This action cannot be undone.</p>
+  
+  <form method="post">
+    {% csrf_token %}
+    <div class="btn-group">
+      <a href="{% url 'core:my_notes' %}" class="cancel-btn">Cancel</a>
+      <button type="submit" class="confirm-delete-btn">
+        <i class="fas fa-trash"></i> Delete
+      </button>
+    </div>
+  </form>
+</div>
+{% endblock %}

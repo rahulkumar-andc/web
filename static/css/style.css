@@ -1,0 +1,382 @@
+/* Base Dark Theme */
+body.dark-theme {
+    background: #0e0e0e;
+    color: #eee;
+    font-family: 'Source Code Pro', monospace, monospace;
+    letter-spacing: 0.05em;
+}
+
+a, a:hover, a:focus {
+    color: #08fdd8;
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+a:hover, a:focus {
+    color: #00ffe1;
+    text-shadow:
+      0 0 5px #00ffe1,
+      0 0 10px #00ffe1,
+      0 0 20px #00ffe1;
+}
+
+/* Navbar */
+.navbar-dark .navbar-nav .nav-link.active {
+    color: #00ffe1 !important;
+    font-weight: 700;
+    text-shadow:
+      0 0 8px #00ffe1,
+      0 0 15px #00ffe1;
+}
+
+/* Glitch text effect */
+.glitch-text {
+  position: relative;
+  color: #08fdd8;
+  font-weight: 900;
+  font-size: 1.8rem;
+  animation: flicker 2s infinite alternate;
+}
+
+.glitch-text::before,
+.glitch-text::after {
+  content: attr(data-text);
+  position: absolute;
+  left: 0;
+  right: 0;
+  opacity: 0.8;
+  clip: rect(0, 900px, 0, 0);
+}
+
+.glitch-text::before {
+  animation: glitch-top 1.5s infinite linear alternate-reverse;
+  color: #00ffe1;
+  left: 2px;
+  text-shadow: -2px 0 #0ff;
+}
+
+.glitch-text::after {
+  animation: glitch-bottom 1.5s infinite linear alternate;
+  color: #0ff;
+  left: -2px;
+  text-shadow: 2px 0 #0ff;
+}
+
+@keyframes flicker {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.85; }
+}
+
+@keyframes glitch-top {
+  0% { clip: rect(0, 9999px, 0, 0); }
+  20% { clip: rect(0, 9999px, 20px, 0); }
+  40% { clip: rect(0, 9999px, 0, 0); }
+  60% { clip: rect(0, 9999px, 15px, 0); }
+  80% { clip: rect(0, 9999px, 0, 0); }
+  100% { clip: rect(0, 9999px, 20px, 0); }
+}
+
+@keyframes glitch-bottom {
+  0% { clip: rect(0, 9999px, 0, 0); }
+  20% { clip: rect(10px, 9999px, 40px, 0); }
+  40% { clip: rect(0, 9999px, 0, 0); }
+  60% { clip: rect(5px, 9999px, 25px, 0); }
+  80% { clip: rect(0, 9999px, 0, 0); }
+  100% { clip: rect(10px, 9999px, 40px, 0); }
+}
+
+/* Container padding and main content */
+main.container {
+    max-width: 960px;
+}
+
+/* Footer */
+footer.footer {
+    font-family: 'Source Code Pro', monospace;
+    font-weight: 400;
+    letter-spacing: 0.1em;
+}
+
+/* Buttons with neon glow on hover */
+.btn-primary {
+    background-color: #00ffe1;
+    border-color: #00ffe1;
+    color: #0e0e0e;
+    transition: all 0.3s ease;
+}
+
+.btn-primary:hover {
+    background-color: #08fdd8;
+    border-color: #08fdd8;
+    box-shadow:
+        0 0 10px #08fdd8,
+        0 0 20px #08fdd8,
+        0 0 30px #08fdd8;
+    color: #000;
+}
+
+/* Form inputs styling */
+input, select, textarea {
+    background-color: #121212;
+    border: 1px solid #222;
+    color: #eee;
+    font-family: 'Source Code Pro', monospace;
+}
+
+input:focus, select:focus, textarea:focus {
+    outline: none;
+    border-color: #00ffe1;
+    box-shadow: 0 0 5px #00ffe1;
+}
+
+/* Scrollbar for dark theme */
+::-webkit-scrollbar {
+    width: 8px;
+}
+::-webkit-scrollbar-track {
+    background: #0e0e0e;
+}
+::-webkit-scrollbar-thumb {
+    background: #00ffe1;
+    border-radius: 4px;
+}
+.contact-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 90vh;
+}
+
+/* User Profile Dropdown Styles */
+.user-profile-dropdown {
+    position: relative;
+}
+
+.user-avatar-wrapper {
+    position: relative;
+    cursor: pointer;
+    padding: 4px;
+    border-radius: 50%;
+    transition: all 0.3s ease;
+}
+
+.user-avatar-wrapper:hover {
+    box-shadow: 0 0 15px rgba(0, 255, 225, 0.5);
+}
+
+.user-avatar {
+    width: 42px;
+    height: 42px;
+    border-radius: 50%;
+    border: 2px solid #00ffe1;
+    object-fit: cover;
+    transition: all 0.3s ease;
+}
+
+.user-avatar:hover {
+    border-color: #08fdd8;
+    box-shadow: 0 0 20px #00ffe1;
+}
+
+.user-avatar-default {
+    width: 42px;
+    height: 42px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #00ffe1 0%, #0088aa 100%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 2px solid #00ffe1;
+    transition: all 0.3s ease;
+}
+
+.user-avatar-default span {
+    color: #0e0e0e;
+    font-size: 1.2rem;
+    font-weight: 700;
+    text-transform: uppercase;
+}
+
+.user-avatar-default:hover {
+    box-shadow: 0 0 20px #00ffe1;
+}
+
+.online-indicator {
+    position: absolute;
+    bottom: 4px;
+    right: 4px;
+    width: 12px;
+    height: 12px;
+    background: #00ff88;
+    border-radius: 50%;
+    border: 2px solid #0e0e0e;
+    animation: pulse-online 2s infinite;
+}
+
+@keyframes pulse-online {
+    0%, 100% {
+        box-shadow: 0 0 0 0 rgba(0, 255, 136, 0.7);
+    }
+    50% {
+        box-shadow: 0 0 0 6px rgba(0, 255, 136, 0);
+    }
+}
+
+/* Dropdown Menu Styling */
+.user-dropdown-menu {
+    background: #121212;
+    border: 1px solid #00ffe1;
+    border-radius: 12px;
+    box-shadow: 0 10px 40px rgba(0, 255, 225, 0.2);
+    padding: 0;
+    min-width: 280px;
+    overflow: hidden;
+    margin-top: 10px !important;
+    animation: dropdownSlide 0.3s ease;
+}
+
+@keyframes dropdownSlide {
+    0% {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.user-dropdown-menu .dropdown-header {
+    background: linear-gradient(135deg, rgba(0, 255, 225, 0.1) 0%, rgba(0, 136, 170, 0.1) 100%);
+    padding: 16px;
+    border-bottom: 1px solid rgba(0, 255, 225, 0.2);
+}
+
+.user-info {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.dropdown-avatar {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    border: 2px solid #00ffe1;
+    object-fit: cover;
+}
+
+.dropdown-avatar-default {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #00ffe1 0%, #0088aa 100%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 2px solid #00ffe1;
+}
+
+.dropdown-avatar-default span {
+    color: #0e0e0e;
+    font-size: 1.4rem;
+    font-weight: 700;
+}
+
+.user-details {
+    display: flex;
+    flex-direction: column;
+}
+
+.user-name {
+    color: #00ffe1;
+    font-weight: 700;
+    font-size: 1rem;
+    text-shadow: 0 0 10px rgba(0, 255, 225, 0.5);
+}
+
+.user-email {
+    color: #888;
+    font-size: 0.85rem;
+    margin-top: 2px;
+}
+
+.user-dropdown-menu .dropdown-divider {
+    border-color: rgba(0, 255, 225, 0.2);
+    margin: 0;
+}
+
+.user-dropdown-menu .dropdown-item {
+    color: #ccc;
+    padding: 12px 16px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    transition: all 0.3s ease;
+    font-family: 'Source Code Pro', monospace;
+    font-size: 0.95rem;
+    background: transparent;
+    border: none;
+    width: 100%;
+    text-align: left;
+    cursor: pointer;
+}
+
+.user-dropdown-menu .dropdown-item:hover,
+.user-dropdown-menu .dropdown-item:focus {
+    background: rgba(0, 255, 225, 0.1);
+    color: #00ffe1;
+    text-shadow: 0 0 10px rgba(0, 255, 225, 0.5);
+}
+
+.user-dropdown-menu .dropdown-item svg {
+    stroke: currentColor;
+    transition: all 0.3s ease;
+}
+
+.user-dropdown-menu .dropdown-item:hover svg {
+    stroke: #00ffe1;
+    filter: drop-shadow(0 0 5px #00ffe1);
+}
+
+.dropdown-logout-form {
+    margin: 0;
+    padding: 0;
+}
+
+.dropdown-logout {
+    color: #ff4757 !important;
+}
+
+.dropdown-logout:hover,
+.dropdown-logout:focus {
+    background: rgba(255, 71, 87, 0.1) !important;
+    color: #ff6b7a !important;
+    text-shadow: 0 0 10px rgba(255, 71, 87, 0.5) !important;
+}
+
+.dropdown-logout:hover svg,
+.dropdown-logout:focus svg {
+    stroke: #ff6b7a !important;
+    filter: drop-shadow(0 0 5px #ff4757) !important;
+}
+
+/* Register Button Styling */
+.btn-register {
+    background: linear-gradient(135deg, #00ffe1 0%, #0088aa 100%);
+    color: #0e0e0e !important;
+    border-radius: 20px;
+    padding: 8px 20px !important;
+    font-weight: 600;
+    margin-left: 10px;
+    transition: all 0.3s ease;
+}
+
+.btn-register:hover {
+    box-shadow: 0 0 20px #00ffe1;
+    transform: translateY(-2px);
+}
+
+/* Hide dropdown arrow */
+.user-profile-dropdown .dropdown-toggle::after {
+    display: none;
+}

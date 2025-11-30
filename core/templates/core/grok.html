@@ -1,0 +1,760 @@
+{% extends "core/base.html" %}
+{% load static cache %}
+
+{% block head %}
+    <meta name="description" content="Discover Villen Bhai, a passionate coder, hacker, and dreamer. Explore his education, skills, achievements, and projects.">
+    <meta name="keywords" content="Villen Bhai, coder, hacker, cybersecurity, web development, Django, Python">
+    <meta name="author" content="Villen Bhai">
+    <link rel="preload" href="{% static 'images/villen_bhai.webp' %}" as="image">
+    <link rel="preload" href="{% static 'images/pic1.webp' %}" as="image">
+    <link rel="preload" href="{% static 'images/pic2.webp' %}" as="image">
+    <link rel="preload" href="{% static 'images/pic3.webp' %}" as="image">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Roboto+Mono:wght@300;400;700&display=swap" rel="stylesheet">
+{% endblock %}
+
+{% block title %}
+About Villen Bhai — The Mind Behind the Code
+{% endblock %}
+
+{% block custom_header %}
+    <section class="hero-section text-center py-5 matrix-bg">
+        <h1 class="display-4 fw-bold glow">🌌 Meet Villen Bhai</h1>
+        <p class="fs-5 hacker-text">Code. Hack. Conquer. Repeat.</p>
+        <nav class="mt-4 d-flex justify-content-center flex-wrap gap-3" aria-label="Section navigation">
+            <a href="#education" class="btn btn-neon rounded-pill" aria-label="View Education">🎓 Education</a>
+            <a href="#skills" class="btn btn-neon rounded-pill" aria-label="View Skills">⚙️ Skills</a>
+            <a href="#achievements" class="btn btn-neon rounded-pill" aria-label="View Achievements">🏆 Achievements</a>
+            <a href="#gallery" class="btn btn-neon rounded-pill" aria-label="View Gallery">📸 Gallery</a>
+            <a href="#social" class="btn btn-neon rounded-pill" aria-label="Connect with Villen Bhai">🌐 Connect</a>
+        </nav>
+    </section>
+{% endblock %}
+
+{% cache 500 about_page request.user.username %}
+{% block content %}
+    <!-- About Section -->
+    <section id="about" class="container my-5 text-light rounded-4 p-5 shadow full-page matrix-bg">
+        <div class="section-content">
+            <h2 class="hacker-heading text-center">Who is Villen Bhai?</h2>
+            <p id="dynamic-about" class="text-center fs-4 hacker-text" aria-live="polite">I'm not just a student... I'm a coder, hacker, and dreamer. From Delhi’s streets to DU’s tech labs, I’m Villen Bhai — crafting digital futures.</p>
+        </div>
+    </section>
+
+    <!-- Education Section -->
+    <section id="education" class="container my-5 text-light rounded-4 p-5 shadow full-page matrix-bg">
+        <div class="section-content">
+            <h2 class="hacker-heading text-center glow mb-4">🎓 Education</h2>
+            <p class="hacker-text text-center">Learning, Growing, Conquering</p>
+            <div class="horizontal-scroll">
+                <article class="card standard-card">
+                    <div class="card-body">
+                        <h3 class="card-title">B.Sc. Computer Science</h3>
+                        <p>📍 Delhi University (2023)</p>
+                        <p>🧠 Major in CS, Minor in Electronics. Cybersecurity + Coding hustle.</p>
+                    </div>
+                </article>
+                <article class="card standard-card">
+                    <div class="card-body">
+                        <h3 class="card-title">Class 12th (Bihar Board)</h3>
+                        <p>📍 Dhira High School (2022)</p>
+                        <p>✍️ 322/500 marks in PCM.</p>
+                    </div>
+                </article>
+                <article class="card standard-card">
+                    <div class="card-body">
+                        <h3 class="card-title">Class 10th (CBSE)</h3>
+                        <p>📍 Tirthankar Mahaveer Vidya Mandir (2020)</p>
+                        <p>💪 59.2% — Humble beginning, big ambition.</p>
+                    </div>
+                </article>
+            </div>
+        </div>
+    </section>
+
+    <!-- Skills Section -->
+    <section id="skills" class="container my-5 text-light rounded-4 p-5 shadow full-page matrix-bg">
+        <div class="section-content">
+            <h2 class="hacker-heading text-center glow mb-4">⚙️ Skills</h2>
+            <div class="horizontal-scroll">
+                <div class="card standard-card">
+                    <div class="card-body">
+                        <h5 class="card-title">Programming Languages</h5>
+                        <ul class="card-text">
+                            <li>Python</li>
+                            <li>C++</li>
+                            <li>Java</li>
+                            <li>HTML/CSS</li>
+                            <li>JavaScript</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="card standard-card">
+                    <div class="card-body">
+                        <h5 class="card-title">Cybersecurity Tools</h5>
+                        <ul class="card-text">
+                            <li>Kali Linux</li>
+                            <li>Nmap</li>
+                            <li>Nuclei</li>
+                            <li>OSINT</li>
+                            <li>Subdomain Takeover</li>
+                            <li>Pentester</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="card standard-card">
+                    <div class="card-body">
+                        <h5 class="card-title">Web Development</h5>
+                        <ul class="card-text">
+                            <li>Django</li>
+                            <li>Bootstrap</li>
+                            <li>LangChain</li>
+                            <li> </li>
+                            <li> </li>
+                            <li> </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Achievements Section -->
+    <section id="achievements" class="container my-5 text-light rounded-4 p-5 shadow full-page matrix-bg">
+        <div class="section-content">
+            <h2 class="hacker-heading text-center glow mb-4">🏆 Achievements</h2>
+            <p class="hacker-text text-center">— Amazing People —</p>
+            <div id="contributorCarousel" class="carousel slide" data-bs-ride="carousel">
+                <div class="carousel-inner">
+                    <div class="carousel-item active">
+                        <div class="horizontal-scroll">
+                            <div class="card standard-card">
+                                <img src="{% static 'images/villen_bhai.webp' %}" class="card-img-top avatar glow-border" alt="Villen Bhai" width="140" height="140" loading="lazy">
+                                <div class="card-body">
+                                    <h5 class="card-title">Villen Bhai</h5>
+                                    <p class="card-text">Founder, Developer</p>
+                                </div>
+                            </div>
+                            <div class="card standard-card">
+                                <img src="{% static 'images/sudo_whoami.webp' %}" class="card-img-top avatar glow-border" alt="Sudo Whoami" width="140" height="140" loading="lazy">
+                                <div class="card-body">
+                                    <h5 class="card-title">Sudo Whoami</h5>
+                                    <p class="card-text">Supporter, Developer</p>
+                                </div>
+                            </div>
+                            <div class="card standard-card">
+                                <img src="{% static 'images/flampt.webp' %}" class="card-img-top avatar glow-border" alt="Flampt" width="140" height="140" loading="lazy">
+                                <div class="card-body">
+                                    <h5 class="card-title">Flampt</h5>
+                                    <p class="card-text">Contributor</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="carousel-item">
+                        <div class="horizontal-scroll">
+                            <div class="card standard-card">
+                                <img src="{% static 'images/taj.webp' %}" class="card-img-top avatar glow-border" alt="Taj" width="140" height="140" loading="lazy">
+                                <div class="card-body">
+                                    <h5 class="card-title">Taj</h5>
+                                    <p class="card-text">Contributor</p>
+                                </div>
+                            </div>
+                            <div class="card standard-card">
+                                <img src="{% static 'images/denzven.webp' %}" class="card-img-top avatar glow-border" alt="Denzven" width="140" height="140" loading="lazy">
+                                <div class="card-body">
+                                    <h5 class="card-title">Denzven</h5>
+                                    <p class="card-text">Contributor</p>
+                                </div>
+                            </div>
+                            <div class="card standard-card">
+                                <img src="{% static 'images/professor_kueue.webp' %}" class="card-img-top avatar glow-border" alt="Professor Kueue" width="140" height="140" loading="lazy">
+                                <div class="card-body">
+                                    <h5 class="card-title">Professor Kueue</h5>
+                                    <p class="card-text">Contributor</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="carousel-item">
+                        <div class="horizontal-scroll">
+                            <div class="card standard-card">
+                                <img src="{% static 'images/khrys.webp' %}" class="card-img-top avatar glow-border" alt="Khrys" width="140" height="140" loading="lazy">
+                                <div class="card-body">
+                                    <h5 class="card-title">Khrys</h5>
+                                    <p class="card-text">Staff</p>
+                                </div>
+                            </div>
+                            <div class="card standard-card">
+                                <img src="{% static 'images/villen_bhai_osint.webp' %}" class="card-img-top avatar glow-border" alt="Villen Bhai OSINT" width="140" height="140" loading="lazy">
+                                <div class="card-body">
+                                    <h5 class="card-title">Villen Bhai</h5>
+                                    <p class="card-text">OSINT Lead & Developer</p>
+                                </div>
+                            </div>
+                            <div class="card standard-card">
+                                <img src="{% static 'images/guest.webp' %}" class="card-img-top avatar glow-border" alt="Guest" width="140" height="140" loading="lazy">
+                                <div class="card-body">
+                                    <h5 class="card-title">Guest</h5>
+                                    <p class="card-text">Contributor</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <button class="carousel-control-prev btn-neon" type="button" data-bs-target="#contributorCarousel" data-bs-slide="prev">
+                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Previous</span>
+                </button>
+                <button class="carousel-control-next btn-neon" type="button" data-bs-target="#contributorCarousel" data-bs-slide="next">
+                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Next</span>
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Gallery Section -->
+    <section id="gallery" class="container my-5 text-light rounded-4 p-5 shadow full-page matrix-bg">
+        <div class="section-content">
+            <h2 class="hacker-heading text-center glow mb-4">📸 Gallery</h2>
+            <div class="row justify-content-center">
+                <div class="col-md-4 mb-4">
+                    <picture>
+                        <source srcset="{% static 'images/pic1.webp' %}" type="image/webp">
+                        <img src="{% static 'images/pic1.jpg' %}" class="img-fluid hacker-img" alt="Villen Bhai speaking at a coding event" width="400" height="400" loading="lazy">
+                    </picture>
+                </div>
+                <div class="col-md-4 mb-4">
+                    <picture>
+                        <source srcset="{% static 'images/pic2.webp' %}" type="image/webp">
+                        <img src="{% static 'images/pic2.jpg' %}" class="img-fluid hacker-img" alt="Villen Bhai presenting a tech project" width="400" height="400" loading="lazy">
+                    </picture>
+                </div>
+                <div class="col-md-4 mb-4">
+                    <picture>
+                        <source srcset="{% static 'images/pic3.webp' %}" type="image/webp">
+                        <img src="{% static 'images/pic3.jpg' %}" class="img-fluid hacker-img" alt="Villen Bhai competing in a hackathon" width="400" height="400" loading="lazy">
+                    </picture>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Social Section -->
+    <section id="social" class="container my-5 text-light rounded-4 p-5 shadow full-page matrix-bg">
+        <div class="section-content">
+            <h2 class="hacker-heading text-center glow mb-4">🌐 Connect with Me</h2>
+            <p class="hacker-text text-center">Let’s collaborate, connect, or hack together! 💬</p>
+            <div class="d-flex justify-content-center gap-3 flex-wrap mt-3">
+                <a href="{% if social_links.instagram %}{{ social_links.instagram }}{% else %}#{% endif %}" class="btn btn-neon rounded-pill" {% if social_links.instagram %}target="_blank" rel="noopener noreferrer"{% endif %} aria-label="Follow Villen Bhai on Instagram">Instagram</a>
+                <a href="{% if social_links.email %}mailto:{{ social_links.email }}{% else %}#{% endif %}" class="btn btn-neon rounded-pill copyable" data-clipboard-text="{{ social_links.email }}" aria-label="Email Villen Bhai">Email</a>
+                <a href="{% if social_links.github %}{{ social_links.github }}{% else %}#{% endif %}" class="btn btn-neon rounded-pill" {% if social_links.github %}target="_blank" rel="noopener noreferrer"{% endif %} aria-label="View Villen Bhai's GitHub profile">GitHub</a>
+            </div>
+        </div>
+    </section>
+{% endblock %}
+{% endcache %}
+
+{% block extra_css %}
+<style>
+/* === Custom CSS Variables === */
+:root {
+    --primary-color: #00ff88;
+    --secondary-color: #ff3366;
+    --neon-cyan: #00f2ff;
+    --neon-purple: #d500cc;
+    --dark-bg: #0a0d0d;
+    --dark-bg-alt: #1c2526;
+    --text-light: #e0e6e0;
+    --shadow: 0 8px 24px rgba(0, 255, 136, 0.2);
+    --neon-glow: 0 0 12px var(--neon-cyan), 0 0 6px var(--primary-color);
+    --gradient-bg: linear-gradient(45deg, var(--dark-bg), var(--dark-bg-alt));
+    --glass-bg: rgba(255, 255, 255, 0.05);
+}
+
+/* === Global Reset and Base Styles === */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Orbitron', 'Roboto Mono', monospace;
+}
+
+html {
+    scroll-behavior: smooth;
+    scroll-snap-type: y mandatory;
+    overflow-x: hidden;
+}
+
+body {
+    background: var(--gradient-bg);
+    color: var(--text-light);
+    line-height: 1.6;
+    overflow-x: hidden;
+    position: relative;
+    cursor: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4" fill="%2300ff88" fill-opacity="0.5" stroke="%2300f2ff" stroke-width="2"/></svg>'), auto;
+}
+
+/* Particle Background */
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="2" height="2"><circle cx="1" cy="1" r="1" fill="%2300f2ff" fill-opacity="0.2"/></svg>') repeat;
+    animation: particle-drift 60s linear infinite;
+    z-index: -2;
+    opacity: 0.2;
+}
+
+/* === Fix for Full Page Layout === */
+.full-page {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    scroll-snap-align: start;
+    scroll-snap-stop: always;
+    overflow-y: auto;
+    overflow-x: hidden;
+    position: relative;
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+    width: 8px;
+}
+::-webkit-scrollbar-track {
+    background: var(--dark-bg);
+}
+::-webkit-scrollbar-thumb {
+    background: var(--neon-cyan);
+    border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+    background: var(--primary-color);
+}
+
+/* === Utility Classes === */
+.neon-glow {
+    text-shadow: var(--neon-glow);
+    box-shadow: var(--neon-glow);
+}
+.transition-in {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity 0.8s ease, transform 0.8s ease;
+}
+.transition-in.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* === Animations === */
+@keyframes glitch {
+    0% { text-shadow: 0.05em 0 var(--neon-cyan), -0.05em 0 var(--neon-purple); }
+    50% { text-shadow: -0.05em 0.03em var(--neon-cyan), 0.05em 0 var(--neon-purple); }
+    100% { text-shadow: 0.05em 0 var(--neon-cyan), -0.05em 0 var(--neon-purple); }
+}
+@keyframes pulse-glow {
+    0% { box-shadow: 0 0 5px var(--neon-cyan), 0 0 10px var(--neon-cyan); }
+    50% { box-shadow: 0 0 15px var(--neon-cyan), 0 0 25px var(--neon-cyan); }
+    100% { box-shadow: 0 0 5px var(--neon-cyan), 0 0 10px var(--neon-cyan); }
+}
+@keyframes matrix-rain {
+    0% { background-position: 0 0; }
+    100% { background-position: 0 100%; }
+}
+@keyframes particle-drift {
+    0% { background-position: 0 0; }
+    100% { background-position: 100px 100px; }
+}
+@keyframes card-pop {
+    0% { transform: scale(0.95) rotate(-1deg); opacity: 0; }
+    100% { transform: scale(1) rotate(0); opacity: 1; }
+}
+
+/* Matrix Background */
+.matrix-bg {
+    position: relative;
+    background: var(--gradient-bg);
+}
+.matrix-bg::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100"><text x="0" y="20" font-family="monospace" font-size="14" fill="%2300ff88" fill-opacity="0.15">101010</text><text x="0" y="40" font-family="monospace" font-size="14" fill="%2300ff88" fill-opacity="0.15">010101</text><text x="0" y="60" font-family="monospace" font-size="14" fill="%2300ff88" fill-opacity="0.15">110011</text><text x="0" y="80" font-family="monospace" font-size="14" fill="%2300ff88" fill-opacity="0.15">001100</text></svg>') repeat;
+    animation: matrix-rain 20s linear infinite;
+    z-index: -1;
+    opacity: 0.3;
+}
+
+/* === Container === */
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: clamp(1.5rem, 3vw, 2.5rem) clamp(1rem, 2vw, 1.25rem);
+    width: 100%;
+}
+
+/* === Section Content === */
+.section-content {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: clamp(1.5rem, 3vw, 2rem);
+    width: 100%;
+    min-height: 100vh;
+}
+
+/* === Header === */
+.hero-section {
+    padding: clamp(3rem, 8vw, 5rem) 1.5rem;
+    background: var(--gradient-bg);
+}
+.glow {
+    font-size: clamp(2.5rem, 7vw, 3.5rem);
+    color: var(--primary-color);
+    animation: glitch 3s infinite alternate;
+    letter-spacing: 0.1em;
+    margin-bottom: 1.5rem;
+}
+.hacker-text {
+    color: var(--neon-cyan);
+    font-family: 'Roboto Mono', monospace;
+    font-size: clamp(1.1rem, 3.5vw, 1.4rem);
+    text-shadow: 0 0 8px var(--neon-cyan);
+    letter-spacing: 0.06em;
+}
+
+/* === Buttons === */
+.btn-neon {
+    background: var(--glass-bg);
+    border: 2px solid var(--neon-cyan);
+    color: var(--neon-cyan);
+    padding: 0.75rem 1.75rem;
+    font-size: clamp(0.9rem, 2.5vw, 1rem);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    border-radius: 50px;
+    backdrop-filter: blur(10px);
+    transition: all 0.3s ease;
+}
+.btn-neon:hover {
+    background: var(--neon-cyan);
+    color: var(--dark-bg);
+    box-shadow: 0 0 15px var(--neon-cyan);
+    transform: scale(1.05) rotate(1deg);
+}
+.btn-neon:focus {
+    outline: none;
+    box-shadow: 0 0 10px var(--neon-purple), 0 0 0 3px var(--neon-purple);
+}
+.btn-neon:active {
+    transform: scale(0.95);
+}
+.copied {
+    background: var(--primary-color) !important;
+    color: var(--dark-bg) !important;
+}
+
+/* === Section Basics === */
+section {
+    position: relative;
+    border-radius: 1rem;
+}
+.hacker-heading {
+    font-size: clamp(1.8rem, 5vw, 2.2rem);
+    color: var(--primary-color);
+    text-shadow: 0 0 8px var(--primary-color);
+    text-align: center;
+    padding-bottom: 1.5rem;
+}
+.card-title {
+    font-size: clamp(1.2rem, 3.5vw, 1.4rem);
+    color: var(--neon-cyan);
+    text-shadow: 0 0 6px var(--neon-cyan);
+    margin-bottom: 0.75rem;
+}
+
+/* === Horizontal Scroll Container === */
+.horizontal-scroll {
+    display: flex;
+    flex-direction: row;
+    overflow-x: auto;
+    gap: 1rem;
+    padding: 1.5rem;
+    scroll-behavior: smooth;
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch;
+    justify-content: center;
+}
+.carousel-item .horizontal-scroll {
+    overflow-x: hidden;
+}
+.horizontal-scroll::-webkit-scrollbar {
+    height: 8px;
+}
+.horizontal-scroll::-webkit-scrollbar-thumb {
+    background: var(--neon-cyan);
+    border-radius: 4px;
+}
+.horizontal-scroll::-webkit-scrollbar-track {
+    background: var(--dark-bg);
+}
+.horizontal-scroll > * {
+    flex: 0 0 auto;
+    scroll-snap-align: center;
+}
+
+/* === Cards === */
+.card {
+    background: var(--glass-bg);
+    border: 1px solid var(--neon-cyan);
+    border-radius: 1rem;
+    backdrop-filter: blur(10px);
+    transition: transform 0.4s ease, box-shadow 0.4s ease;
+}
+.card:hover {
+    transform: translateY(-8px) scale(1.02);
+    box-shadow: 0 0 20px var(--neon-cyan);
+}
+.standard-card {
+    min-height: 200px;
+    height: 200px;
+    max-width: 300px;
+    width: 300px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    animation: card-pop 0.6s ease-out forwards;
+}
+.standard-card .card-body {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    height: 100%;
+    text-align: center;
+    padding: 1rem;
+}
+.standard-card .card-img-top {
+    margin: 0 auto;
+}
+.standard-card ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    font-size: clamp(0.9rem, 2.5vw, 1rem);
+}
+.standard-card ul li {
+    margin: 0.3rem 0;
+    color: var(--text-light);
+}
+.avatar {
+    width: 140px;
+    height: 140px;
+    object-fit: cover;
+    border-radius: 50%;
+    animation: pulse-glow 2s infinite ease-in-out;
+}
+.avatar:hover {
+    transform: scale(1.1);
+    box-shadow: 0 0 25px var(--neon-cyan);
+    animation: none;
+}
+.glow-border {
+    border: 2px solid var(--neon-cyan);
+    box-shadow: 0 0 12px var(--neon-cyan);
+}
+.hacker-img {
+    border-radius: 0.5rem;
+    transition: transform 0.4s ease, box-shadow 0.4s ease;
+}
+.hacker-img:hover {
+    transform: scale(1.05);
+    box-shadow: 0 0 15px var(--neon-cyan);
+}
+
+/* === Carousel === */
+.carousel-control-prev, .carousel-control-next {
+    background: var(--glass-bg);
+    border: 2px solid var(--neon-cyan);
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    top: 50%;
+    transform: translateY(-50%);
+}
+.carousel-control-prev-icon, .carousel-control-next-icon {
+    background-size: 50%;
+}
+.carousel-control-prev:hover, .carousel-control-next:hover {
+    background: var(--neon-cyan);
+    box-shadow: 0 0 15px var(--neon-cyan);
+}
+
+/* === Responsive === */
+@media (max-width: 768px) {
+    .hero-section h1 {
+        font-size: clamp(2rem, 6vw, 2.5rem);
+    }
+    .horizontal-scroll {
+        padding: 1rem;
+    }
+    .standard-card {
+        min-height: 150px;
+        height: auto;
+        max-width: 250px;
+        width: 250px;
+    }
+    .full-page {
+        height: auto;
+        min-height: 100vh;
+        padding: 2rem 1rem;
+    }
+    .avatar {
+        width: 120px;
+        height: 120px;
+    }
+    .carousel-control-prev, .carousel-control-next {
+        width: 40px;
+        height: 40px;
+    }
+}
+</style>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+// Debounce utility
+function debounce(func, wait) {
+    let timeout;
+    return function executedFunction(...args) {
+        const later = () => {
+            clearTimeout(timeout);
+            func(...args);
+        };
+        clearTimeout(timeout);
+        timeout = setTimeout(later, wait);
+    };
+}
+
+// Wait for DOM to be fully loaded
+document.addEventListener('DOMContentLoaded', () => {
+    // Typewriter Effect for About Section
+    const aboutText = "I'm not just a student... I'm a coder, hacker, and dreamer. From Delhi’s streets to DU’s tech labs, I’m Villen Bhai — crafting digital futures.";
+    const textElement = document.querySelector('#dynamic-about');
+    if (textElement) {
+        let index = 0;
+        function typewriter() {
+            if (index < aboutText.length) {
+                textElement.textContent = aboutText.slice(0, index + 1);
+                index++;
+                requestAnimationFrame(typewriter);
+            }
+        }
+        const observer = new IntersectionObserver((entries) => {
+            if (entries[0].isIntersecting) {
+                requestAnimationFrame(typewriter);
+                observer.unobserve(textElement);
+            }
+        }, { threshold: 0.2 });
+        observer.observe(textElement);
+    }
+
+    // Animation for Cards (Education, Skills, Achievements)
+    function animateCards(selector) {
+        const cards = document.querySelectorAll(selector);
+        if (cards.length) {
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach((entry, index) => {
+                    if (entry.isIntersecting) {
+                        setTimeout(() => {
+                            entry.target.classList.add('visible');
+                        }, index * 150);
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, { threshold: 0.2 });
+            cards.forEach(card => observer.observe(card));
+        }
+    }
+    animateCards('.standard-card');
+
+    // Section Fade-In Animation
+    const sections = document.querySelectorAll('section');
+    const sectionObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('visible');
+                sectionObserver.unobserve(entry.target);
+            }
+        });
+    }, { threshold: 0.2 });
+    sections.forEach(section => sectionObserver.observe(section));
+
+    // Parallax Effect
+    const matrixBgs = document.querySelectorAll('.matrix-bg');
+    const handleScroll = debounce(() => {
+        matrixBgs.forEach(bg => {
+            const rect = bg.getBoundingClientRect();
+            const offset = window.scrollY - rect.top;
+            bg.style.backgroundPositionY = `${offset * 0.1}px`;
+        });
+    }, 10);
+    window.addEventListener('scroll', handleScroll);
+
+    // Click-to-Copy for Email
+    const copyButtons = document.querySelectorAll('.copyable');
+    copyButtons.forEach(btn => {
+        btn.addEventListener('click', (e) => {
+            const text = btn.getAttribute('data-clipboard-text');
+            if (text) {
+                navigator.clipboard.writeText(text).then(() => {
+                    const originalText = btn.textContent;
+                    btn.textContent = 'Copied!';
+                    btn.classList.add('copied');
+                    setTimeout(() => {
+                        btn.textContent = originalText;
+                        btn.classList.remove('copied');
+                    }, 2000);
+                });
+            }
+        });
+    });
+
+    // Touch Support for Carousel and Horizontal Scroll
+    const touchAreas = [document.querySelector('#contributorCarousel'), ...document.querySelectorAll('.horizontal-scroll')];
+    touchAreas.forEach(area => {
+        if (area) {
+            let touchStartX = 0;
+            let touchEndX = 0;
+            area.addEventListener('touchstart', e => {
+                touchStartX = e.changedTouches[0].screenX;
+            });
+            area.addEventListener('touchend', e => {
+                touchEndX = e.changedTouches[0].screenX;
+                if (touchStartX - touchEndX > 50) {
+                    if (area.id === 'contributorCarousel') {
+                        bootstrap.Carousel.getInstance(area).next();
+                    } else {
+                        area.scrollBy({ left: 300, behavior: 'smooth' });
+                    }
+                } else if (touchEndX - touchStartX > 50) {
+                    if (area.id === 'contributorCarousel') {
+                        bootstrap.Carousel.getInstance(area).prev();
+                    } else {
+                        area.scrollBy({ left: -300, behavior: 'smooth' });
+                    }
+                }
+            });
+        }
+    });
+});
+</script>
+{% endblock %}

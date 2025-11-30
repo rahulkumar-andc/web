@@ -1,0 +1,52 @@
+{% extends "custom_admin/base.html" %}
+{% block title %}Message Details{% endblock %}
+
+{% block content %}
+<div class="mb-8 flex items-center space-x-4">
+    <a href="{% url 'custom_admin:contact_messages' %}" class="p-2 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg">
+        <i class="fas fa-arrow-left text-gray-600 dark:text-gray-400"></i>
+    </a>
+    <div>
+        <h1 class="text-3xl font-bold text-gray-900 dark:text-white">Message Details</h1>
+        <p class="text-gray-600 dark:text-gray-400 mt-1">{{ msg.subject }}</p>
+    </div>
+</div>
+
+<div class="max-w-3xl">
+    <div class="bg-white dark:bg-gray-800 rounded-xl shadow-sm border dark:border-gray-700 p-6">
+        <div class="flex items-center justify-between mb-6 pb-6 border-b dark:border-gray-700">
+            <div class="flex items-center space-x-4">
+                <div class="w-14 h-14 bg-gradient-to-br from-primary to-secondary rounded-full flex items-center justify-center text-white text-xl font-bold">
+                    {{ msg.name|first|upper }}
+                </div>
+                <div>
+                    <p class="font-semibold text-gray-900 dark:text-white text-lg">{{ msg.name }}</p>
+                    <a href="mailto:{{ msg.email }}" class="text-primary hover:underline">{{ msg.email }}</a>
+                </div>
+            </div>
+            <span class="text-gray-500">{{ msg.created_at|date:"F d, Y H:i" }}</span>
+        </div>
+        
+        <div class="mb-6">
+            <h3 class="font-semibold text-gray-900 dark:text-white mb-2">Subject</h3>
+            <p class="text-gray-700 dark:text-gray-300">{{ msg.subject }}</p>
+        </div>
+        
+        <div class="mb-6">
+            <h3 class="font-semibold text-gray-900 dark:text-white mb-2">Message</h3>
+            <div class="p-4 bg-gray-50 dark:bg-gray-700 rounded-lg">
+                <p class="text-gray-700 dark:text-gray-300 whitespace-pre-wrap">{{ msg.message }}</p>
+            </div>
+        </div>
+        
+        <div class="flex space-x-4">
+            <a href="mailto:{{ msg.email }}?subject=Re: {{ msg.subject }}" class="px-6 py-2 bg-primary text-white rounded-lg hover:bg-secondary transition">
+                <i class="fas fa-reply mr-2"></i>Reply
+            </a>
+            <a href="{% url 'custom_admin:message_delete' msg.id %}" class="px-6 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700 transition">
+                <i class="fas fa-trash mr-2"></i>Delete
+            </a>
+        </div>
+    </div>
+</div>
+{% endblock %}

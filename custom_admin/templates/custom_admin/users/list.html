@@ -1,0 +1,125 @@
+{% extends "custom_admin/base.html" %}
+{% block title %}Users{% endblock %}
+
+{% block content %}
+<div class="mb-8 flex flex-col md:flex-row md:items-center md:justify-between gap-4">
+    <div>
+        <h1 class="text-3xl font-bold text-gray-900 dark:text-white">Users</h1>
+        <p class="text-gray-600 dark:text-gray-400 mt-1">Manage all registered users</p>
+    </div>
+</div>
+
+<div class="bg-white dark:bg-gray-800 rounded-xl shadow-sm border dark:border-gray-700 mb-6">
+    <div class="p-4 border-b dark:border-gray-700">
+        <form method="get" class="flex flex-col md:flex-row gap-4">
+            <div class="flex-1">
+                <div class="relative">
+                    <input type="text" name="search" value="{{ search }}" placeholder="Search users..." 
+                        class="w-full pl-10 pr-4 py-2 rounded-lg border dark:border-gray-600 dark:bg-gray-700 dark:text-white focus:ring-2 focus:ring-primary">
+                    <i class="fas fa-search absolute left-3 top-1/2 -translate-y-1/2 text-gray-400"></i>
+                </div>
+            </div>
+            <select name="status" class="px-4 py-2 rounded-lg border dark:border-gray-600 dark:bg-gray-700 dark:text-white">
+                <option value="">All Status</option>
+                <option value="active" {% if status_filter == 'active' %}selected{% endif %}>Active</option>
+                <option value="inactive" {% if status_filter == 'inactive' %}selected{% endif %}>Inactive</option>
+                <option value="premium" {% if status_filter == 'premium' %}selected{% endif %}>Premium</option>
+                <option value="staff" {% if status_filter == 'staff' %}selected{% endif %}>Staff</option>
+            </select>
+            <button type="submit" class="px-6 py-2 bg-primary text-white rounded-lg hover:bg-secondary transition">
+                <i class="fas fa-filter mr-2"></i>Filter
+            </button>
+        </form>
+    </div>
+    
+    <div class="overflow-x-auto">
+        <table class="w-full">
+            <thead class="bg-gray-50 dark:bg-gray-700">
+                <tr class="text-left text-gray-500 dark:text-gray-400 text-sm">
+                    <th class="px-6 py-4 font-medium">User</th>
+                    <th class="px-6 py-4 font-medium">Email</th>
+                    <th class="px-6 py-4 font-medium">Status</th>
+                    <th class="px-6 py-4 font-medium">Joined</th>
+                    <th class="px-6 py-4 font-medium">Actions</th>
+                </tr>
+            </thead>
+            <tbody class="divide-y dark:divide-gray-700">
+                {% for user in users %}
+                <tr class="hover:bg-gray-50 dark:hover:bg-gray-700 transition">
+                    <td class="px-6 py-4">
+                        <div class="flex items-center space-x-3">
+                            <div class="w-10 h-10 bg-gradient-to-br from-primary to-secondary rounded-full flex items-center justify-center text-white font-semibold">
+                                {{ user.username|first|upper }}
+                            </div>
+                            <div>
+                                <p class="font-medium text-gray-900 dark:text-white">{{ user.username }}</p>
+                                <p class="text-sm text-gray-500">{{ user.first_name }} {{ user.last_name }}</p>
+                            </div>
+                        </div>
+                    </td>
+                    <td class="px-6 py-4 text-gray-700 dark:text-gray-300">{{ user.email }}</td>
+                    <td class="px-6 py-4">
+                        <div class="flex flex-wrap gap-1">
+                            {% if user.is_active %}
+                            <span class="px-2 py-1 bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-200 text-xs rounded-full">Active</span>
+                            {% else %}
+                            <span class="px-2 py-1 bg-red-100 text-red-800 dark:bg-red-900 dark:text-red-200 text-xs rounded-full">Inactive</span>
+                            {% endif %}
+                            {% if user.is_premium %}
+                            <span class="px-2 py-1 bg-yellow-100 text-yellow-800 dark:bg-yellow-900 dark:text-yellow-200 text-xs rounded-full">Premium</span>
+                            {% endif %}
+                            {% if user.is_staff %}
+                            <span class="px-2 py-1 bg-purple-100 text-purple-800 dark:bg-purple-900 dark:text-purple-200 text-xs rounded-full">Staff</span>
+                            {% endif %}
+                            {% if user.is_superuser %}
+                            <span class="px-2 py-1 bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-200 text-xs rounded-full">Admin</span>
+                            {% endif %}
+                        </div>
+                    </td>
+                    <td class="px-6 py-4 text-gray-500">{{ user.date_joined|date:"M d, Y" }}</td>
+                    <td class="px-6 py-4">
+                        <div class="flex items-center space-x-2">
+                            <a href="{% url 'custom_admin:user_detail' user.id %}" class="p-2 text-blue-600 hover:bg-blue-100 rounded-lg transition" title="View">
+                                <i class="fas fa-eye"></i>
+                            </a>
+                            <a href="{% url 'custom_admin:user_edit' user.id %}" class="p-2 text-green-600 hover:bg-green-100 rounded-lg transition" title="Edit">
+                                <i class="fas fa-edit"></i>
+                            </a>
+                            <form method="post" action="{% url 'custom_admin:user_toggle_active' user.id %}" class="inline">
+                                {% csrf_token %}
+                                <button type="submit" class="p-2 text-orange-600 hover:bg-orange-100 rounded-lg transition" title="Toggle Active">
+                                    <i class="fas fa-power-off"></i>
+                                </button>
+                            </form>
+                            {% if not user.is_superuser %}
+                            <a href="{% url 'custom_admin:user_delete' user.id %}" class="p-2 text-red-600 hover:bg-red-100 rounded-lg transition" title="Delete">
+                                <i class="fas fa-trash"></i>
+                            </a>
+                            {% endif %}
+                        </div>
+                    </td>
+                </tr>
+                {% empty %}
+                <tr>
+                    <td colspan="5" class="px-6 py-8 text-center text-gray-500">No users found</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    
+    {% if users.has_other_pages %}
+    <div class="p-4 border-t dark:border-gray-700 flex items-center justify-between">
+        <p class="text-sm text-gray-500">Showing {{ users.start_index }}-{{ users.end_index }} of {{ users.paginator.count }}</p>
+        <div class="flex space-x-2">
+            {% if users.has_previous %}
+            <a href="?page={{ users.previous_page_number }}&search={{ search }}&status={{ status_filter }}" class="px-4 py-2 border rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700">Previous</a>
+            {% endif %}
+            {% if users.has_next %}
+            <a href="?page={{ users.next_page_number }}&search={{ search }}&status={{ status_filter }}" class="px-4 py-2 bg-primary text-white rounded-lg hover:bg-secondary">Next</a>
+            {% endif %}
+        </div>
+    </div>
+    {% endif %}
+</div>
+{% endblock %}

@@ -1,0 +1,137 @@
+{% extends "custom_admin/base.html" %}
+{% block title %}Premium Overview{% endblock %}
+
+{% block content %}
+<div class="mb-8">
+    <h1 class="text-3xl font-bold text-gray-900 dark:text-white">Premium Overview</h1>
+    <p class="text-gray-600 dark:text-gray-400 mt-1">Manage premium subscriptions and requests</p>
+</div>
+
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+    <div class="stat-card bg-white dark:bg-gray-800 rounded-xl p-6 shadow-sm border dark:border-gray-700">
+        <div class="flex items-center justify-between">
+            <div>
+                <p class="text-gray-500 dark:text-gray-400 text-sm">Pending Requests</p>
+                <p class="text-3xl font-bold text-orange-600 mt-1">{{ pending_count }}</p>
+            </div>
+            <div class="w-14 h-14 bg-orange-100 dark:bg-orange-900 rounded-xl flex items-center justify-center">
+                <i class="fas fa-clock text-2xl text-orange-600"></i>
+            </div>
+        </div>
+    </div>
+    
+    <div class="stat-card bg-white dark:bg-gray-800 rounded-xl p-6 shadow-sm border dark:border-gray-700">
+        <div class="flex items-center justify-between">
+            <div>
+                <p class="text-gray-500 dark:text-gray-400 text-sm">Total Approved</p>
+                <p class="text-3xl font-bold text-green-600 mt-1">{{ approved_count }}</p>
+            </div>
+            <div class="w-14 h-14 bg-green-100 dark:bg-green-900 rounded-xl flex items-center justify-center">
+                <i class="fas fa-check text-2xl text-green-600"></i>
+            </div>
+        </div>
+    </div>
+    
+    <div class="stat-card bg-white dark:bg-gray-800 rounded-xl p-6 shadow-sm border dark:border-gray-700">
+        <div class="flex items-center justify-between">
+            <div>
+                <p class="text-gray-500 dark:text-gray-400 text-sm">Total Rejected</p>
+                <p class="text-3xl font-bold text-red-600 mt-1">{{ rejected_count }}</p>
+            </div>
+            <div class="w-14 h-14 bg-red-100 dark:bg-red-900 rounded-xl flex items-center justify-center">
+                <i class="fas fa-times text-2xl text-red-600"></i>
+            </div>
+        </div>
+    </div>
+    
+    <div class="stat-card bg-white dark:bg-gray-800 rounded-xl p-6 shadow-sm border dark:border-gray-700">
+        <div class="flex items-center justify-between">
+            <div>
+                <p class="text-gray-500 dark:text-gray-400 text-sm">Premium Users</p>
+                <p class="text-3xl font-bold text-yellow-600 mt-1">{{ premium_users }}</p>
+            </div>
+            <div class="w-14 h-14 bg-yellow-100 dark:bg-yellow-900 rounded-xl flex items-center justify-center">
+                <i class="fas fa-crown text-2xl text-yellow-600"></i>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-8">
+    <div class="bg-white dark:bg-gray-800 rounded-xl shadow-sm border dark:border-gray-700 p-6">
+        <h3 class="text-lg font-semibold text-gray-900 dark:text-white mb-4">Tier Distribution</h3>
+        <div class="space-y-4">
+            <div>
+                <div class="flex justify-between text-sm mb-1">
+                    <span class="text-gray-600 dark:text-gray-400">Basic</span>
+                    <span class="font-medium text-gray-900 dark:text-white">{{ basic_tier }}</span>
+                </div>
+                <div class="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-2">
+                    <div class="bg-blue-500 h-2 rounded-full" style="width: {% widthratio basic_tier premium_users 100 %}%"></div>
+                </div>
+            </div>
+            <div>
+                <div class="flex justify-between text-sm mb-1">
+                    <span class="text-gray-600 dark:text-gray-400">Pro</span>
+                    <span class="font-medium text-gray-900 dark:text-white">{{ pro_tier }}</span>
+                </div>
+                <div class="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-2">
+                    <div class="bg-purple-500 h-2 rounded-full" style="width: {% widthratio pro_tier premium_users 100 %}%"></div>
+                </div>
+            </div>
+            <div>
+                <div class="flex justify-between text-sm mb-1">
+                    <span class="text-gray-600 dark:text-gray-400">Enterprise</span>
+                    <span class="font-medium text-gray-900 dark:text-white">{{ enterprise_tier }}</span>
+                </div>
+                <div class="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-2">
+                    <div class="bg-yellow-500 h-2 rounded-full" style="width: {% widthratio enterprise_tier premium_users 100 %}%"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="lg:col-span-2 bg-white dark:bg-gray-800 rounded-xl shadow-sm border dark:border-gray-700">
+        <div class="p-6 border-b dark:border-gray-700 flex items-center justify-between">
+            <h3 class="text-lg font-semibold text-gray-900 dark:text-white">Pending Requests</h3>
+            <a href="{% url 'custom_admin:premium_requests' %}" class="text-primary hover:underline text-sm">View All</a>
+        </div>
+        <div class="p-6">
+            <div class="space-y-4">
+                {% for req in recent_requests %}
+                <div class="flex items-center justify-between p-4 bg-gray-50 dark:bg-gray-700 rounded-lg">
+                    <div class="flex items-center space-x-4">
+                        <div class="w-10 h-10 bg-gradient-to-br from-primary to-secondary rounded-full flex items-center justify-center text-white font-semibold">
+                            {{ req.user.username|first|upper }}
+                        </div>
+                        <div>
+                            <p class="font-medium text-gray-900 dark:text-white">{{ req.user.username }}</p>
+                            <p class="text-sm text-gray-500">{{ req.get_tier_display }} - {{ req.get_duration_display_text }}</p>
+                        </div>
+                    </div>
+                    <div class="flex space-x-2">
+                        <a href="{% url 'custom_admin:approve_premium' req.id %}" class="px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 text-sm">
+                            <i class="fas fa-check mr-1"></i>Approve
+                        </a>
+                        <a href="{% url 'custom_admin:reject_premium' req.id %}" class="px-4 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700 text-sm">
+                            <i class="fas fa-times mr-1"></i>Reject
+                        </a>
+                    </div>
+                </div>
+                {% empty %}
+                <p class="text-gray-500 text-center py-8">No pending requests</p>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="flex space-x-4">
+    <a href="{% url 'custom_admin:premium_requests' %}" class="px-6 py-3 bg-primary text-white rounded-lg hover:bg-secondary transition">
+        <i class="fas fa-list mr-2"></i>All Requests
+    </a>
+    <a href="{% url 'custom_admin:premium_users' %}" class="px-6 py-3 border dark:border-gray-600 text-gray-700 dark:text-gray-300 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700 transition">
+        <i class="fas fa-crown mr-2"></i>Premium Users
+    </a>
+</div>
+{% endblock %}

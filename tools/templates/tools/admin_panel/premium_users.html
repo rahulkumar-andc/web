@@ -1,0 +1,118 @@
+{% extends "core/base.html" %}
+{% block title %}Premium Users - Admin - VillenSec{% endblock %}
+{% block content %}
+<div class="container-fluid mt-5 pt-4">
+    <div class="row mb-4">
+        <div class="col">
+            <h2 class="text-white">Premium Users Management</h2>
+            <a href="{% url 'tools:admin_dashboard' %}" class="btn btn-secondary btn-sm">Back to Dashboard</a>
+        </div>
+    </div>
+
+    {% if messages %}
+    {% for message in messages %}
+    <div class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert">
+        {{ message }}
+        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+    </div>
+    {% endfor %}
+    {% endif %}
+
+    <div class="card bg-dark text-white border-secondary">
+        <div class="card-header bg-success">
+            <h5 class="mb-0">Active Premium Users ({{ premium_users|length }})</h5>
+        </div>
+        <div class="card-body">
+            {% if premium_users %}
+            <div class="table-responsive">
+                <table class="table table-dark table-hover">
+                    <thead>
+                        <tr>
+                            <th>Username</th>
+                            <th>Email</th>
+                            <th>Tier</th>
+                            <th>Activated</th>
+                            <th>Expires</th>
+                            <th>Days Left</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for user in premium_users %}
+                        <tr>
+                            <td><strong>{{ user.username }}</strong></td>
+                            <td>{{ user.email }}</td>
+                            <td>
+                                <span class="badge bg-{% if user.premium_tier == 'basic' %}info{% elif user.premium_tier == 'pro' %}warning{% else %}danger{% endif %}">
+                                    {{ user.get_premium_tier_display_name }}
+                                </span>
+                            </td>
+                            <td>{{ user.premium_activated_at|date:"M d, Y"|default:"-" }}</td>
+                            <td>
+                                {% if user.premium_expires_at %}
+                                {{ user.premium_expires_at|date:"M d, Y" }}
+                                {% else %}
+                                <span class="text-success">Lifetime</span>
+                                {% endif %}
+                            </td>
+                            <td>
+                                {% if user.premium_expires_at %}
+                                <span class="{% if user.get_premium_days_remaining < 30 %}text-warning{% else %}text-success{% endif %}">
+                                    {{ user.get_premium_days_remaining }} days
+                                </span>
+                                {% else %}
+                                -
+                                {% endif %}
+                            </td>
+                            <td>
+                                <button type="button" class="btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#revokeModal{{ user.id }}">
+                                    Revoke
+                                </button>
+                            </td>
+                        </tr>
+
+                        <div class="modal fade" id="revokeModal{{ user.id }}" tabindex="-1">
+                            <div class="modal-dialog">
+                                <div class="modal-content bg-dark text-white">
+                                    <form method="post" action="{% url 'tools:revoke_premium' user.id %}">
+                                        {% csrf_token %}
+                                        <div class="modal-header bg-danger">
+                                            <h5 class="modal-title">Revoke Premium Access</h5>
+                                            <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <div class="alert alert-warning">
+                                                <strong>Warning:</strong> This will immediately remove premium access for <strong>{{ user.username }}</strong>.
+                                            </div>
+                                            
+                                            <div class="mb-3">
+                                                <p><strong>Current Tier:</strong> {{ user.get_premium_tier_display_name }}</p>
+                                                <p><strong>Expires:</strong> {% if user.premium_expires_at %}{{ user.premium_expires_at|date:"M d, Y" }}{% else %}Lifetime{% endif %}</p>
+                                            </div>
+                                            
+                                            <div class="mb-3">
+                                                <label class="form-label">Reason for Revocation (Optional - will be sent to user)</label>
+                                                <textarea name="revoke_reason" class="form-control bg-dark text-white" rows="3" placeholder="Reason for revoking premium..."></textarea>
+                                            </div>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                                            <button type="submit" class="btn btn-danger">Revoke Premium</button>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+            {% else %}
+            <div class="alert alert-info mb-0">
+                No premium users found.
+            </div>
+            {% endif %}
+        </div>
+    </div>
+</div>
+{% endblock %}
