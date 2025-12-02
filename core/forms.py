@@ -4,7 +4,7 @@ from django.contrib.auth.forms import UserCreationForm
 from django import forms
 from django.core.exceptions import ValidationError
 from django.core.validators import URLValidator
-from .models import CustomUser, ContactMessage, Service, BlogPost, Note
+from .models import CustomUser, ContactMessage, Service, BlogPost, Note, Video
 from django.utils.text import slugify
 from django_ckeditor_5.widgets import CKEditor5Widget
 from .validators import validate_safe_url, validate_phone_number, sanitize_html
@@ -209,3 +209,37 @@ class CustomUserCreationForm(UserCreationForm):
         if len(username) > 30:
             raise ValidationError("Username must be 30 characters or fewer.")
         return username
+
+
+class VideoForm(forms.ModelForm):
+    class Meta:
+        model = Video
+        fields = ['title', 'slug', 'description', 'video_url', 'category', 'thumbnail_url']
+        widgets = {
+            'title': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Video Title'}),
+            'slug': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'URL slug (optional)'}),
+            'description': forms.Textarea(attrs={'class': 'form-control', 'rows': 3, 'placeholder': 'Video description'}),
+            'video_url': forms.URLInput(attrs={'class': 'form-control', 'placeholder': 'Google Drive or YouTube URL'}),
+            'category': forms.Select(attrs={'class': 'form-control'}),
+            'thumbnail_url': forms.URLInput(attrs={'class': 'form-control', 'placeholder': 'Thumbnail image URL (optional)'}),
+        }
+    
+    def clean_title(self):
+        title = self.cleaned_data.get('title', '')
+        return bleach.clean(title, tags=[], strip=True)
+    
+    def clean_description(self):
+        description = self.cleaned_data.get('description', '')
+        return bleach.clean(description, tags=[], strip=True)
+    
+    def clean_video_url(self):
+        url = self.cleaned_data.get('video_url')
+        if url:
+            validate_safe_url(url)
+        return url
+    
+    def clean_thumbnail_url(self):
+        url = self.cleaned_data.get('thumbnail_url')
+        if url:
+            validate_safe_url(url)
+        return url

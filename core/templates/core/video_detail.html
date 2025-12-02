@@ -1,0 +1,123 @@
+{% extends 'core/base.html' %}
+{% load static %}
+
+{% block title %}{{ video.title }} | VillenSec{% endblock %}
+
+{% block content %}
+<div class="container py-5">
+  <div class="row">
+    <div class="col-lg-8">
+      <div class="video-player mb-4">
+        <div class="ratio ratio-16x9" style="border-radius: 12px; overflow: hidden; border: 2px solid rgba(0, 255, 65, 0.3);">
+          <iframe src="{{ video.get_embed_url }}" 
+                  title="{{ video.title }}"
+                  frameborder="0" 
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+                  allowfullscreen>
+          </iframe>
+        </div>
+      </div>
+      
+      <div class="video-info mb-4">
+        <div class="d-flex justify-content-between align-items-start flex-wrap">
+          <div>
+            <h2 class="text-light mb-2">{{ video.title }}</h2>
+            <div class="d-flex gap-3 text-muted mb-3">
+              <span><i class="fas fa-eye me-1"></i>{{ video.view_count }} views</span>
+              <span><i class="fas fa-calendar me-1"></i>{{ video.created_at|date:"M d, Y" }}</span>
+              <span class="badge bg-neon text-dark">{{ video.get_category_display }}</span>
+            </div>
+          </div>
+          {% if user.is_staff or user.is_superuser %}
+          <a href="{% url 'core:video_delete' slug=video.slug %}" class="btn btn-outline-danger btn-sm">
+            <i class="fas fa-trash me-1"></i>Delete
+          </a>
+          {% endif %}
+        </div>
+        
+        {% if video.description %}
+        <div class="card bg-dark border-secondary">
+          <div class="card-body">
+            <p class="text-light mb-0">{{ video.description }}</p>
+          </div>
+        </div>
+        {% endif %}
+      </div>
+    </div>
+    
+    <div class="col-lg-4">
+      <div class="d-flex justify-content-between align-items-center mb-3">
+        <h5 class="text-neon mb-0">Related Videos</h5>
+        <a href="{% url 'core:video_list_category' category=video.category %}" class="btn btn-sm btn-outline-neon">
+          View All
+        </a>
+      </div>
+      
+      {% if related_videos %}
+      <div class="related-videos">
+        {% for related in related_videos %}
+        <a href="{% url 'core:video_detail' slug=related.slug %}" class="text-decoration-none">
+          <div class="card bg-dark border-secondary mb-3 related-card">
+            <div class="row g-0">
+              <div class="col-4">
+                <div class="h-100 d-flex align-items-center justify-content-center" 
+                     style="background: #1a1a2e; min-height: 80px; border-radius: 8px 0 0 8px;">
+                  {% if related.thumbnail_url %}
+                  <img src="{{ related.thumbnail_url }}" alt="{{ related.title }}" 
+                       style="width: 100%; height: 100%; object-fit: cover; border-radius: 8px 0 0 8px;">
+                  {% else %}
+                  <i class="fas fa-play-circle text-neon" style="font-size: 2rem;"></i>
+                  {% endif %}
+                </div>
+              </div>
+              <div class="col-8">
+                <div class="card-body py-2 px-3">
+                  <h6 class="card-title text-light mb-1 small">{{ related.title|truncatewords:8 }}</h6>
+                  <small class="text-muted"><i class="fas fa-eye me-1"></i>{{ related.view_count }}</small>
+                </div>
+              </div>
+            </div>
+          </div>
+        </a>
+        {% endfor %}
+      </div>
+      {% else %}
+      <div class="text-center py-4">
+        <p class="text-muted">No related videos</p>
+      </div>
+      {% endif %}
+    </div>
+  </div>
+</div>
+
+<style>
+.text-neon {
+  color: #00ff41;
+  text-shadow: 0 0 10px rgba(0, 255, 65, 0.5);
+}
+
+.bg-neon {
+  background-color: #00ff41 !important;
+}
+
+.btn-outline-neon {
+  border: 1px solid #00ff41;
+  color: #00ff41;
+  background: transparent;
+}
+
+.btn-outline-neon:hover {
+  background: rgba(0, 255, 65, 0.1);
+  color: #00ff41;
+}
+
+.related-card {
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.related-card:hover {
+  transform: translateX(5px);
+  box-shadow: 0 5px 15px rgba(0, 255, 65, 0.2);
+}
+</style>
+{% endblock %}

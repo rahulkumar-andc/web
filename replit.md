@@ -60,6 +60,28 @@ python manage.py createsuperuser
 - `GITHUB_CLIENT_SECRET`: GitHub OAuth secret
 
 ## Recent Changes
+- **December 2, 2025 (Videos Feature)**:
+  - **Video Management System**:
+    - Added Video model with categories: Hacking, Fun, Study, Course
+    - Videos dropdown menu in header with category navigation
+    - Video list page with category filtering
+    - Video detail page with embedded player (supports Google Drive and YouTube)
+    - Admin-only video add functionality
+    - Admin-only video delete functionality
+    - View count tracking for each video
+  - **Video Model Fields**:
+    - Title, slug, description
+    - Video URL (Google Drive or YouTube)
+    - Category (hacking, fun, study, course)
+    - Thumbnail URL (optional)
+    - View count, is_active flag
+    - Added by (admin user)
+  - **Initial Video Added**:
+    - Title: "120 yadav"
+    - Category: Fun
+    - Description: "jut enjoy bro"
+    - Slug: yadav
+
 - **December 2, 2025 (Replit Environment Setup)**:
   - **Environment Configuration**:
     - Installed Python 3.11 and all project dependencies

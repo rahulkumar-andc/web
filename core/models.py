@@ -578,3 +578,66 @@ class DeviceVerificationOTP(models.Model):
     def increment_attempts(self):
         self.attempts += 1
         self.save(update_fields=['attempts'])
+
+
+class Video(models.Model):
+    CATEGORY_CHOICES = [
+        ('hacking', 'Hacking'),
+        ('fun', 'Fun'),
+        ('study', 'Study'),
+        ('course', 'Course'),
+    ]
+    
+    title = models.CharField(max_length=200)
+    slug = models.SlugField(max_length=200, unique=True, blank=True)
+    description = models.TextField(blank=True)
+    video_url = models.URLField(max_length=500, help_text="Google Drive or YouTube video URL")
+    category = models.CharField(max_length=20, choices=CATEGORY_CHOICES, default='fun')
+    thumbnail_url = models.URLField(max_length=500, blank=True, null=True, help_text="Optional thumbnail image URL")
+    added_by = models.ForeignKey(
+        settings.AUTH_USER_MODEL,
+        on_delete=models.SET_NULL,
+        null=True,
+        blank=True,
+        related_name='videos_added'
+    )
+    view_count = models.PositiveIntegerField(default=0)
+    is_active = models.BooleanField(default=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+    
+    class Meta:
+        ordering = ['-created_at']
+    
+    def save(self, *args, **kwargs):
+        if not self.slug:
+            base_slug = slugify(self.title)
+            slug = base_slug
+            counter = 1
+            while Video.objects.filter(slug=slug).exclude(pk=self.pk).exists():
+                slug = f"{base_slug}-{counter}"
+                counter += 1
+            self.slug = slug
+        super().save(*args, **kwargs)
+    
+    def __str__(self):
+        return f"{self.title} ({self.get_category_display()})"
+    
+    def get_embed_url(self):
+        url = self.video_url
+        if 'drive.google.com' in url:
+            if '/file/d/' in url:
+                file_id = url.split('/file/d/')[1].split('/')[0]
+                return f"https://drive.google.com/file/d/{file_id}/preview"
+        elif 'youtube.com' in url or 'youtu.be' in url:
+            if 'watch?v=' in url:
+                video_id = url.split('watch?v=')[1].split('&')[0]
+                return f"https://www.youtube.com/embed/{video_id}"
+            elif 'youtu.be/' in url:
+                video_id = url.split('youtu.be/')[1].split('?')[0]
+                return f"https://www.youtube.com/embed/{video_id}"
+        return url
+    
+    def increment_view(self):
+        self.view_count += 1
+        self.save(update_fields=['view_count'])

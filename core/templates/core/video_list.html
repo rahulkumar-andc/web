@@ -1,0 +1,136 @@
+{% extends 'core/base.html' %}
+{% load static %}
+
+{% block title %}{{ category_display }} | VillenSec{% endblock %}
+
+{% block content %}
+<div class="container py-5">
+  <div class="row mb-4">
+    <div class="col-12">
+      <div class="d-flex justify-content-between align-items-center flex-wrap">
+        <h1 class="text-neon mb-3">{{ category_display }}</h1>
+        {% if user.is_staff or user.is_superuser %}
+        <a href="{% url 'core:video_add' %}" class="btn btn-cwh-login">
+          <i class="fas fa-plus me-2"></i>Add Video
+        </a>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+
+  <div class="row mb-4">
+    <div class="col-12">
+      <div class="d-flex flex-wrap gap-2">
+        <a href="{% url 'core:video_list' %}" 
+           class="btn {% if not current_category %}btn-neon{% else %}btn-outline-neon{% endif %}">
+          All
+        </a>
+        {% for cat_key, cat_name in categories %}
+        <a href="{% url 'core:video_list_category' category=cat_key %}" 
+           class="btn {% if current_category == cat_key %}btn-neon{% else %}btn-outline-neon{% endif %}">
+          {{ cat_name }}
+        </a>
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+
+  {% if videos %}
+  <div class="row g-4">
+    {% for video in videos %}
+    <div class="col-md-6 col-lg-4">
+      <div class="card bg-dark border-neon h-100 video-card">
+        <div class="card-body">
+          <div class="video-thumbnail mb-3 position-relative" style="aspect-ratio: 16/9; background: #1a1a2e; border-radius: 8px; overflow: hidden;">
+            {% if video.thumbnail_url %}
+            <img src="{{ video.thumbnail_url }}" alt="{{ video.title }}" style="width: 100%; height: 100%; object-fit: cover;">
+            {% else %}
+            <div class="d-flex align-items-center justify-content-center h-100">
+              <i class="fas fa-play-circle text-neon" style="font-size: 4rem;"></i>
+            </div>
+            {% endif %}
+            <span class="badge bg-neon text-dark position-absolute" style="top: 10px; right: 10px;">
+              {{ video.get_category_display }}
+            </span>
+          </div>
+          <h5 class="card-title text-light">{{ video.title }}</h5>
+          <p class="card-text text-muted small">{{ video.description|truncatewords:20 }}</p>
+          <div class="d-flex justify-content-between align-items-center mt-3">
+            <a href="{% url 'core:video_detail' slug=video.slug %}" class="btn btn-sm btn-neon">
+              <i class="fas fa-play me-1"></i>Watch
+            </a>
+            {% if user.is_staff or user.is_superuser %}
+            <a href="{% url 'core:video_delete' slug=video.slug %}" class="btn btn-sm btn-outline-danger">
+              <i class="fas fa-trash"></i>
+            </a>
+            {% endif %}
+          </div>
+        </div>
+        <div class="card-footer bg-transparent border-top border-secondary">
+          <small class="text-muted">
+            <i class="fas fa-eye me-1"></i>{{ video.view_count }} views
+          </small>
+        </div>
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+  {% else %}
+  <div class="row">
+    <div class="col-12 text-center py-5">
+      <i class="fas fa-video-slash text-muted" style="font-size: 4rem;"></i>
+      <h4 class="text-muted mt-3">No videos available</h4>
+      <p class="text-muted">Check back later for new content!</p>
+    </div>
+  </div>
+  {% endif %}
+</div>
+
+<style>
+.text-neon {
+  color: #00ff41;
+  text-shadow: 0 0 10px rgba(0, 255, 65, 0.5);
+}
+
+.border-neon {
+  border: 1px solid rgba(0, 255, 65, 0.3) !important;
+}
+
+.btn-neon {
+  background: linear-gradient(135deg, #00ff41, #00cc33);
+  color: #000;
+  border: none;
+  font-weight: 600;
+}
+
+.btn-neon:hover {
+  background: linear-gradient(135deg, #00cc33, #00ff41);
+  color: #000;
+  box-shadow: 0 0 15px rgba(0, 255, 65, 0.5);
+}
+
+.btn-outline-neon {
+  border: 1px solid #00ff41;
+  color: #00ff41;
+  background: transparent;
+}
+
+.btn-outline-neon:hover {
+  background: rgba(0, 255, 65, 0.1);
+  color: #00ff41;
+}
+
+.bg-neon {
+  background-color: #00ff41 !important;
+}
+
+.video-card {
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.video-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 30px rgba(0, 255, 65, 0.2);
+}
+</style>
+{% endblock %}

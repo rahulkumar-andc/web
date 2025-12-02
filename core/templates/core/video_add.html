@@ -1,0 +1,123 @@
+{% extends 'core/base.html' %}
+{% load static %}
+
+{% block title %}Add Video | VillenSec{% endblock %}
+
+{% block content %}
+<div class="container py-5">
+  <div class="row justify-content-center">
+    <div class="col-md-8 col-lg-6">
+      <div class="card bg-dark border-neon">
+        <div class="card-header bg-transparent border-bottom border-secondary">
+          <h3 class="text-neon mb-0">
+            <i class="fas fa-video me-2"></i>Add New Video
+          </h3>
+        </div>
+        <div class="card-body">
+          <form method="post">
+            {% csrf_token %}
+            
+            <div class="mb-3">
+              <label for="id_title" class="form-label text-light">Title</label>
+              {{ form.title }}
+              {% if form.title.errors %}
+              <div class="text-danger small mt-1">{{ form.title.errors }}</div>
+              {% endif %}
+            </div>
+            
+            <div class="mb-3">
+              <label for="id_slug" class="form-label text-light">Slug (optional)</label>
+              {{ form.slug }}
+              <small class="text-muted">Leave empty to auto-generate from title</small>
+              {% if form.slug.errors %}
+              <div class="text-danger small mt-1">{{ form.slug.errors }}</div>
+              {% endif %}
+            </div>
+            
+            <div class="mb-3">
+              <label for="id_description" class="form-label text-light">Description</label>
+              {{ form.description }}
+              {% if form.description.errors %}
+              <div class="text-danger small mt-1">{{ form.description.errors }}</div>
+              {% endif %}
+            </div>
+            
+            <div class="mb-3">
+              <label for="id_video_url" class="form-label text-light">Video URL</label>
+              {{ form.video_url }}
+              <small class="text-muted">Google Drive or YouTube link</small>
+              {% if form.video_url.errors %}
+              <div class="text-danger small mt-1">{{ form.video_url.errors }}</div>
+              {% endif %}
+            </div>
+            
+            <div class="mb-3">
+              <label for="id_category" class="form-label text-light">Category</label>
+              {{ form.category }}
+              {% if form.category.errors %}
+              <div class="text-danger small mt-1">{{ form.category.errors }}</div>
+              {% endif %}
+            </div>
+            
+            <div class="mb-4">
+              <label for="id_thumbnail_url" class="form-label text-light">Thumbnail URL (optional)</label>
+              {{ form.thumbnail_url }}
+              {% if form.thumbnail_url.errors %}
+              <div class="text-danger small mt-1">{{ form.thumbnail_url.errors }}</div>
+              {% endif %}
+            </div>
+            
+            <div class="d-grid gap-2">
+              <button type="submit" class="btn btn-neon">
+                <i class="fas fa-plus me-2"></i>Add Video
+              </button>
+              <a href="{% url 'core:video_list' %}" class="btn btn-outline-secondary">Cancel</a>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<style>
+.text-neon {
+  color: #00ff41;
+  text-shadow: 0 0 10px rgba(0, 255, 65, 0.5);
+}
+
+.border-neon {
+  border: 1px solid rgba(0, 255, 65, 0.3) !important;
+}
+
+.btn-neon {
+  background: linear-gradient(135deg, #00ff41, #00cc33);
+  color: #000;
+  border: none;
+  font-weight: 600;
+}
+
+.btn-neon:hover {
+  background: linear-gradient(135deg, #00cc33, #00ff41);
+  color: #000;
+  box-shadow: 0 0 15px rgba(0, 255, 65, 0.5);
+}
+
+.form-control {
+  background-color: #1a1a2e;
+  border: 1px solid #374151;
+  color: #fff;
+}
+
+.form-control:focus {
+  background-color: #1a1a2e;
+  border-color: #00ff41;
+  color: #fff;
+  box-shadow: 0 0 0 0.2rem rgba(0, 255, 65, 0.25);
+}
+
+.form-control::placeholder {
+  color: #6b7280;
+}
+</style>
+{% endblock %}

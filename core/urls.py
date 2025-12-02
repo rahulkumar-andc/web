@@ -96,4 +96,11 @@ urlpatterns = [
          name='password_reset_complete'),
 
     path('test-error/<str:code>/', views.test_error_page, name='test_error'),
+    
+    # Videos
+    path('videos/', views.video_list, name='video_list'),
+    path('videos/category/<str:category>/', views.video_list, name='video_list_category'),
+    path('videos/add/', views.video_add, name='video_add'),
+    path('videos/<slug:slug>/', views.video_detail, name='video_detail'),
+    path('videos/<slug:slug>/delete/', views.video_delete, name='video_delete'),
 ]

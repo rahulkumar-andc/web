@@ -4,8 +4,8 @@ from django.contrib import messages
 from django.contrib.auth.decorators import login_required, user_passes_test
 from .tasks import send_email_task
 from django.conf import settings
-from .models import CustomUser, Service, BlogPost, ContactMessage, OTP, OTPAttemptLog, SecurityLog, DeviceFingerprint, DeviceVerificationOTP, Note
-from .forms import ContactForm, UserProfileForm, BlogPostForm, NoteUploadForm
+from .models import CustomUser, Service, BlogPost, ContactMessage, OTP, OTPAttemptLog, SecurityLog, DeviceFingerprint, DeviceVerificationOTP, Note, Video
+from .forms import ContactForm, UserProfileForm, BlogPostForm, NoteUploadForm, VideoForm
 from django import forms
 import logging
 from django.contrib.auth import authenticate, login, logout
@@ -1264,3 +1264,73 @@ def custom_403_view(request, exception=None):
 
 def test_error_page(request, code):
     return render(request, f'core/{code}.html')
+
+
+def video_list(request, category=None):
+    categories = Video.CATEGORY_CHOICES
+    
+    if category:
+        videos = Video.objects.filter(category=category, is_active=True)
+        category_display = dict(categories).get(category, category.title())
+    else:
+        videos = Video.objects.filter(is_active=True)
+        category_display = 'All Videos'
+    
+    return render(request, 'core/video_list.html', {
+        'videos': videos,
+        'categories': categories,
+        'current_category': category,
+        'category_display': category_display,
+    })
+
+
+@login_required
+@user_passes_test(lambda u: u.is_staff or u.is_superuser)
+def video_add(request):
+    if request.method == 'POST':
+        form = VideoForm(request.POST)
+        if form.is_valid():
+            video = form.save(commit=False)
+            video.added_by = request.user
+            video.save()
+            messages.success(request, f'Video "{video.title}" added successfully!')
+            return redirect('core:video_list_category', category=video.category)
+    else:
+        form = VideoForm()
+    
+    return render(request, 'core/video_add.html', {'form': form})
+
+
+@login_required
+@user_passes_test(lambda u: u.is_staff or u.is_superuser)
+def video_delete(request, slug):
+    video = get_object_or_404(Video, slug=slug)
+    
+    if request.method == 'POST':
+        category = video.category
+        video_title = video.title
+        video.delete()
+        messages.success(request, f'Video "{video_title}" deleted successfully!')
+        return redirect('core:video_list_category', category=category)
+    
+    return render(request, 'core/video_confirm_delete.html', {'video': video})
+
+
+def video_detail(request, slug):
+    video = get_object_or_404(Video, slug=slug, is_active=True)
+    
+    viewed_videos = request.session.get('viewed_videos', [])
+    if video.id not in viewed_videos:
+        video.increment_view()
+        viewed_videos.append(video.id)
+        request.session['viewed_videos'] = viewed_videos
+    
+    related_videos = Video.objects.filter(
+        category=video.category,
+        is_active=True
+    ).exclude(pk=video.pk)[:4]
+    
+    return render(request, 'core/video_detail.html', {
+        'video': video,
+        'related_videos': related_videos,
+    })
