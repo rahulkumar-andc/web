@@ -30,7 +30,7 @@ WAF_ENABLED = True
 
 DEBUG = not IS_PRODUCTION
 
-ALLOWED_HOSTS = os.getenv('ALLOWED_HOSTS', 'localhost,127.0.0.1').split(',')
+ALLOWED_HOSTS = ['*']
 
 AUTH_USER_MODEL = 'core.CustomUser'
 
