@@ -60,6 +60,23 @@ python manage.py createsuperuser
 - `GITHUB_CLIENT_SECRET`: GitHub OAuth secret
 
 ## Recent Changes
+- **December 2, 2025 (Replit Environment Setup)**:
+  - **Environment Configuration**:
+    - Installed Python 3.11 and all project dependencies
+    - Configured Django to accept all hosts (ALLOWED_HOSTS = ['*']) for Replit proxy
+    - Applied all database migrations (using SQLite for development)
+    - Collected static files (220 files)
+    - Set up workflow to run Django development server on port 5000
+    - Configured deployment settings for Replit autoscale deployment
+  - **Workflow Setup**:
+    - Django Server: `python manage.py runserver 0.0.0.0:5000`
+    - Output type: webview on port 5000
+  - **Deployment Configuration**:
+    - Build command: `python manage.py collectstatic --noinput`
+    - Run command: `gunicorn --bind=0.0.0.0:5000 --reuse-port --workers=2 --threads=2 villen.wsgi:application`
+    - Deployment target: autoscale (for cost-efficient web hosting)
+  - **Status**: Application is running successfully in Replit environment
+
 - **November 28, 2025 (UI Update)**:
   - **User Profile Dropdown**:
     - Added user profile photo in header (top right corner) after login
