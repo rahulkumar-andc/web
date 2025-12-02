@@ -388,39 +388,42 @@ def register(request):
         
         form = CustomUserCreationForm(request.POST)
         if form.is_valid():
-            user = form.save(commit=False)
-            user.is_active = False
-            user.save()
-
-            OTP.objects.filter(user=user).delete()
-
-            otp_code = generate_secure_otp()
-            expires_at = timezone.now() + timedelta(minutes=10)
-
-            OTP.objects.create(
-                user=user,
-                otp_code=otp_code,
-                expires_at=expires_at
-            )
+            # Check if username already exists
+            username = form.cleaned_data['username']
+            email = form.cleaned_data['email']
             
-            log_security_event(
-                user=user,
-                action='registration',
-                request=request,
-                details={'email': user.email, 'username': user.username}
-            )
+            if CustomUser.objects.filter(username=username).exists():
+                form.add_error('username', 'A user with this username already exists.')
+                return render(request, 'core/register.html', {'form': form})
+            
+            if CustomUser.objects.filter(email=email).exists():
+                form.add_error('email', 'A user with this email already exists.')
+                return render(request, 'core/register.html', {'form': form})
+            
+            # Store registration data in session (NOT in database yet)
+            request.session['pending_registration_username'] = username
+            request.session['pending_registration_email'] = email
+            request.session['pending_registration_password'] = form.cleaned_data['password1']
+            request.session['pending_registration_phone'] = form.cleaned_data.get('phone_number', '')
 
+            # Generate OTP and store in session
+            otp_code = generate_secure_otp()
+            request.session['pending_registration_otp'] = otp_code
+            request.session['pending_registration_otp_expires'] = (timezone.now() + timedelta(minutes=10)).isoformat()
+            request.session['pending_registration_otp_attempts'] = 0
+            
+            # Send OTP email
             try:
                 send_email_task.delay(
                     'Your OTP Code - VillenSec',
                     f'Your OTP code is {otp_code}. It expires in 10 minutes.\n\nIf you did not request this, please ignore this email.',
-                    [user.email]
+                    [email]
                 )
             except Exception as e:
                 logger.error('OTP email delivery failed: %s', str(e))
 
-            messages.success(request, 'Account created! Please enter the OTP sent to your email.')
-            return redirect('core:verify_otp', user_id=user.id)
+            messages.success(request, 'Please enter the OTP sent to your email to complete registration.')
+            return redirect('core:verify_otp', user_id=0)  # user_id=0 indicates session-based
 
     else:
         form = CustomUserCreationForm()
@@ -449,6 +452,129 @@ def clear_otp_attempts(user_id, ip_address):
 
 
 def verify_otp(request, user_id):
+    # Check if this is a session-based registration (user_id=0)
+    is_session_based = (user_id == 0)
+    
+    if is_session_based:
+        # Session-based registration - check if session data exists
+        if 'pending_registration_otp' not in request.session:
+            messages.error(request, 'Registration session expired. Please register again.')
+            return redirect('core:register')
+        
+        email = request.session.get('pending_registration_email')
+        ip_address = get_client_ip(request)
+        
+        # Rate limiting for session-based OTP
+        attempts = request.session.get('pending_registration_otp_attempts', 0)
+        remaining_attempts = max(0, 5 - attempts)
+        
+        if attempts >= 5:
+            messages.error(request, 'Too many failed attempts. Please register again.')
+            # Clear session data
+            for key in list(request.session.keys()):
+                if key.startswith('pending_registration_'):
+                    del request.session[key]
+            return redirect('core:register')
+        
+        if request.method == 'POST':
+            otp_input = request.POST.get('otp', '').strip()
+            
+            if len(otp_input) != 6 or not otp_input.isdigit():
+                messages.error(request, 'Please enter a valid 6-digit OTP.')
+                return render(request, 'core/verify_otp.html', {
+                    'user_id': user_id,
+                    'remaining_attempts': remaining_attempts
+                })
+            
+            # Check OTP expiry
+            otp_expires_str = request.session.get('pending_registration_otp_expires')
+            if not otp_expires_str or timezone.now() > timezone.datetime.fromisoformat(otp_expires_str):
+                messages.error(request, 'OTP has expired. Please register again.')
+                for key in list(request.session.keys()):
+                    if key.startswith('pending_registration_'):
+                        del request.session[key]
+                return redirect('core:register')
+            
+            stored_otp = request.session.get('pending_registration_otp')
+            
+            if stored_otp == otp_input:
+                # OTP is correct - NOW create the user in database
+                username = request.session.get('pending_registration_username')
+                email = request.session.get('pending_registration_email')
+                password = request.session.get('pending_registration_password')
+                phone = request.session.get('pending_registration_phone', '')
+                
+                # Final check if username/email is still available
+                if CustomUser.objects.filter(username=username).exists():
+                    messages.error(request, 'Username is no longer available. Please register again.')
+                    for key in list(request.session.keys()):
+                        if key.startswith('pending_registration_'):
+                            del request.session[key]
+                    return redirect('core:register')
+                
+                if CustomUser.objects.filter(email=email).exists():
+                    messages.error(request, 'Email is no longer available. Please register again.')
+                    for key in list(request.session.keys()):
+                        if key.startswith('pending_registration_'):
+                            del request.session[key]
+                    return redirect('core:register')
+                
+                # Create user
+                user = CustomUser.objects.create_user(
+                    username=username,
+                    email=email,
+                    password=password
+                )
+                user.phone_number = phone
+                user.is_active = True
+                user.email_verified = True
+                user.save()
+                
+                # Log security event
+                log_security_event(
+                    user=user,
+                    action='registration',
+                    request=request,
+                    details={'email': user.email, 'username': user.username}
+                )
+                log_security_event(user, 'otp_success', request)
+                
+                # Clear session data
+                for key in list(request.session.keys()):
+                    if key.startswith('pending_registration_'):
+                        del request.session[key]
+                
+                # Login user
+                user.backend = 'django.contrib.auth.backends.ModelBackend'
+                login(request, user)
+                messages.success(request, 'Account verified successfully. You are now logged in.')
+                return redirect('core:home')
+            else:
+                # Wrong OTP
+                request.session['pending_registration_otp_attempts'] = attempts + 1
+                remaining = max(0, 5 - (attempts + 1))
+                
+                if remaining == 0:
+                    messages.error(request, 'Too many failed attempts. Please register again.')
+                    for key in list(request.session.keys()):
+                        if key.startswith('pending_registration_'):
+                            del request.session[key]
+                    return redirect('core:register')
+                else:
+                    messages.error(request, f'Invalid OTP. {remaining} attempts remaining.')
+                
+                return render(request, 'core/verify_otp.html', {
+                    'user_id': user_id,
+                    'remaining_attempts': remaining,
+                    'locked': remaining == 0
+                })
+        
+        return render(request, 'core/verify_otp.html', {
+            'user_id': user_id,
+            'remaining_attempts': remaining_attempts
+        })
+    
+    # Original database-based flow (for backward compatibility with existing users)
     user = get_object_or_404(CustomUser, id=user_id)
     ip_address = get_client_ip(request)
     
@@ -556,6 +682,35 @@ def resend_otp(request, user_id):
         messages.error(request, 'Too many OTP requests. Please try again later.')
         return redirect('core:verify_otp', user_id=user_id)
     
+    # Check if this is session-based registration
+    if user_id == 0:
+        # Session-based registration
+        if 'pending_registration_email' not in request.session:
+            messages.error(request, 'Registration session expired. Please register again.')
+            return redirect('core:register')
+        
+        email = request.session.get('pending_registration_email')
+        
+        # Generate new OTP
+        otp_code = generate_secure_otp()
+        request.session['pending_registration_otp'] = otp_code
+        request.session['pending_registration_otp_expires'] = (timezone.now() + timedelta(minutes=10)).isoformat()
+        request.session['pending_registration_otp_attempts'] = 0  # Reset attempts
+        
+        try:
+            send_email_task.delay(
+                'Your New OTP Code - VillenSec',
+                f'Your new OTP code is {otp_code}. It expires in 10 minutes.\n\nIf you did not request this, please ignore this email.',
+                [email]
+            )
+            messages.success(request, 'A new OTP has been sent to your email.')
+        except Exception as e:
+            logger.error('OTP email delivery failed: %s', str(e))
+            messages.error(request, 'Failed to send OTP. Please try again.')
+        
+        return redirect('core:verify_otp', user_id=0)
+    
+    # Database-based flow (backward compatibility)
     user = get_object_or_404(CustomUser, id=user_id)
     ip_address = get_client_ip(request)
     

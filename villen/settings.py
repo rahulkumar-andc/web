@@ -30,15 +30,7 @@ WAF_ENABLED = True
 
 DEBUG = not IS_PRODUCTION
 
-ALLOWED_HOSTS = [
-    'localhost',
-    '127.0.0.1',
-    '.replit.dev',
-    '.repl.co',
-    '.replit.app',
-    'www.villen.me',
-    'villen.me',
-]
+ALLOWED_HOSTS = os.getenv('ALLOWED_HOSTS', 'localhost,127.0.0.1').split(',')
 
 AUTH_USER_MODEL = 'core.CustomUser'
 
@@ -163,11 +155,7 @@ LOGIN_URL = 'core:login'
 CSRF_COOKIE_SECURE = False
 SESSION_COOKIE_SECURE = False
 
-CSRF_TRUSTED_ORIGINS = [
-    "https://www.villen.me",
-    "https://*.replit.dev",
-    "https://*.repl.co",
-]
+CSRF_TRUSTED_ORIGINS = os.getenv('CSRF_TRUSTED_ORIGINS', 'https://www.villen.me,https://villen.me').split(',')
 
 SESSION_SAVE_EVERY_REQUEST = True
 

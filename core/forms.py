@@ -202,8 +202,8 @@ class CustomUserCreationForm(UserCreationForm):
     def clean_username(self):
         username = self.cleaned_data.get('username', '')
         username = bleach.clean(username, tags=[], strip=True)
-        if not re.match(r'^[\w.@+-]+$', username):
-            raise ValidationError("Username may only contain letters, numbers, and @/./+/-/_ characters.")
+        if not re.match(r'^\w+$', username):
+            raise ValidationError("Username may only contain letters, numbers, and underscores.")
         if len(username) < 3:
             raise ValidationError("Username must be at least 3 characters long.")
         if len(username) > 30:
