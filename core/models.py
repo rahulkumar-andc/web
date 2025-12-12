@@ -62,7 +62,7 @@ class CustomUser(AbstractUser):
     last_login_user_agent = models.TextField(blank=True)
     
     # TOTP 2FA Fields
-    totp_secret = models.CharField(max_length=32, blank=True, null=True)
+    totp_secret = models.CharField(max_length=255, blank=True, null=True)
     is_2fa_enabled = models.BooleanField(default=False)
     
     # User Reputation System
@@ -283,7 +283,7 @@ class OTP(models.Model):
         settings.AUTH_USER_MODEL,
         on_delete=models.CASCADE
     )
-    otp_code = models.CharField(max_length=6)
+    otp_hash = models.CharField(max_length=64)
     expires_at = models.DateTimeField()
     created_at = models.DateTimeField(auto_now_add=True)
     attempts = models.PositiveIntegerField(default=0)
@@ -556,7 +556,7 @@ class DeviceVerificationOTP(models.Model):
         on_delete=models.CASCADE
     )
     fingerprint_hash = models.CharField(max_length=64)
-    otp_code = models.CharField(max_length=6)
+    otp_hash = models.CharField(max_length=64)
     expires_at = models.DateTimeField()
     created_at = models.DateTimeField(auto_now_add=True)
     attempts = models.PositiveIntegerField(default=0)
@@ -578,6 +578,15 @@ class DeviceVerificationOTP(models.Model):
     def increment_attempts(self):
         self.attempts += 1
         self.save(update_fields=['attempts'])
+from django.db import models
+from django.conf import settings
+from django.core.exceptions import ValidationError
+from django.utils.text import slugify
+
+
+class VideoQuerySet(models.QuerySet):
+    def active(self):
+        return self.filter(is_active=True)
 
 
 class Video(models.Model):
@@ -588,11 +597,23 @@ class Video(models.Model):
         ('course', 'Course'),
     ]
     
+    VISIBILITY_CHOICES = [
+        ('public', 'Public'),
+        ('private', 'Private'),
+    ]
+
     title = models.CharField(max_length=200)
     slug = models.SlugField(max_length=200, unique=True, blank=True)
     description = models.TextField(blank=True)
     video_url = models.URLField(max_length=500, help_text="Google Drive or YouTube video URL")
     category = models.CharField(max_length=20, choices=CATEGORY_CHOICES, default='fun')
+    
+    visibility = models.CharField(
+        max_length=20,
+        choices=VISIBILITY_CHOICES,
+        default='public'
+    )
+
     thumbnail_url = models.URLField(max_length=500, blank=True, null=True, help_text="Optional thumbnail image URL")
     added_by = models.ForeignKey(
         settings.AUTH_USER_MODEL,
@@ -605,39 +626,96 @@ class Video(models.Model):
     is_active = models.BooleanField(default=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
-    
+
+    objects = VideoQuerySet.as_manager()
+
     class Meta:
         ordering = ['-created_at']
-    
+
+    # ------------------------
+    # URL VALIDATION
+    # ------------------------
+    def clean(self):
+        url = self.video_url.lower()
+        if not (
+            "youtube.com" in url or 
+            "youtu.be" in url or 
+            "drive.google.com" in url
+        ):
+            raise ValidationError("Only YouTube or Google Drive URLs are allowed.")
+
+    # ------------------------
+    # AUTO SLUG GENERATION
+    # ------------------------
     def save(self, *args, **kwargs):
         if not self.slug:
             base_slug = slugify(self.title)
             slug = base_slug
             counter = 1
+
             while Video.objects.filter(slug=slug).exclude(pk=self.pk).exists():
                 slug = f"{base_slug}-{counter}"
                 counter += 1
+
             self.slug = slug
+
+        # Auto-thumbnail for YouTube if blank
+        if not self.thumbnail_url:
+            yt_thumb = self.get_youtube_thumbnail()
+            if yt_thumb:
+                self.thumbnail_url = yt_thumb
+
         super().save(*args, **kwargs)
-    
+
     def __str__(self):
         return f"{self.title} ({self.get_category_display()})"
-    
+
+    # ------------------------
+    # EMBED URL PARSER
+    # ------------------------
     def get_embed_url(self):
         url = self.video_url
+
         if 'drive.google.com' in url:
             if '/file/d/' in url:
                 file_id = url.split('/file/d/')[1].split('/')[0]
                 return f"https://drive.google.com/file/d/{file_id}/preview"
+
         elif 'youtube.com' in url or 'youtu.be' in url:
+
+            # Standard YouTube link
             if 'watch?v=' in url:
                 video_id = url.split('watch?v=')[1].split('&')[0]
                 return f"https://www.youtube.com/embed/{video_id}"
-            elif 'youtu.be/' in url:
+
+            # Short youtu.be link
+            if 'youtu.be/' in url:
                 video_id = url.split('youtu.be/')[1].split('?')[0]
                 return f"https://www.youtube.com/embed/{video_id}"
+
         return url
-    
+
+    # ------------------------
+    # YOUTUBE THUMBNAIL GENERATOR
+    # ------------------------
+    def get_youtube_thumbnail(self):
+        url = self.video_url
+
+        # Handle normal YouTube link
+        if "watch?v=" in url:
+            vid = url.split("watch?v=")[1].split("&")[0]
+            return f"https://img.youtube.com/vi/{vid}/0.jpg"
+
+        # Handle youtu.be short link
+        if "youtu.be/" in url:
+            vid = url.split("youtu.be/")[1].split("?")[0]
+            return f"https://img.youtube.com/vi/{vid}/0.jpg"
+
+        return None
+
+    # ------------------------
+    # VIEW COUNTER
+    # ------------------------
     def increment_view(self):
         self.view_count += 1
         self.save(update_fields=['view_count'])

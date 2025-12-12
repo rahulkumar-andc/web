@@ -197,12 +197,8 @@ class SessionSecurityMiddleware:
             )
     
     def _get_client_ip(self, request):
-        x_forwarded_for = request.META.get('HTTP_X_FORWARDED_FOR')
-        if x_forwarded_for:
-            ip = x_forwarded_for.split(',')[0].strip()
-        else:
-            ip = request.META.get('REMOTE_ADDR', '0.0.0.0')
-        return ip
+        from .utils import get_client_ip
+        return get_client_ip(request)
 
 
 class WAFMiddleware:
@@ -318,12 +314,8 @@ class WAFMiddleware:
         return response
 
     def _get_client_ip(self, request):
-        x_forwarded_for = request.META.get('HTTP_X_FORWARDED_FOR')
-        if x_forwarded_for:
-            ip = x_forwarded_for.split(',')[0].strip()
-        else:
-            ip = request.META.get('REMOTE_ADDR', '0.0.0.0')
-        return ip
+        from .utils import get_client_ip
+        return get_client_ip(request)
 
     def _check_ip_reputation(self, ip):
         from django.core.cache import cache

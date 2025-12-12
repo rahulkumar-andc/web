@@ -30,7 +30,7 @@ WAF_ENABLED = True
 
 DEBUG = not IS_PRODUCTION
 
-ALLOWED_HOSTS = ['*']
+ALLOWED_HOSTS = os.getenv('ALLOWED_HOSTS', '*').split(',')
 
 AUTH_USER_MODEL = 'core.CustomUser'
 
@@ -202,6 +202,12 @@ AXES_LOCKOUT_TEMPLATE = 'core/locked_out.html'
 AXES_VERBOSE = True
 AXES_ENABLE_ADMIN = True
 AXES_LOCKOUT_PARAMETERS = ['username', 'ip_address']
+AXES_META_PRECEDENCE_ORDER = [
+   'HTTP_CF_CONNECTING_IP',
+   'HTTP_X_REAL_IP',
+   'HTTP_X_FORWARDED_FOR',
+   'REMOTE_ADDR',
+]
 
 SOCIALACCOUNT_PROVIDERS = {
     'google': {
@@ -291,4 +297,13 @@ CELERY_ACCEPT_CONTENT = ['json']
 CELERY_TASK_SERIALIZER = 'json'
 CELERY_RESULT_SERIALIZER = 'json'
 CELERY_TIMEZONE = TIME_ZONE
+
+
+# Security: DoS Protection
+# Limit request body size (2.5MB)
+DATA_UPLOAD_MAX_MEMORY_SIZE = 2621440
+# Limit number of GET/POST parameters
+DATA_UPLOAD_MAX_NUMBER_FIELDS = 1000
+# Limit file upload size (50MB) - matches form validation
+FILE_UPLOAD_MAX_MEMORY_SIZE = 52428800
 

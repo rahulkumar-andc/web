@@ -4,6 +4,7 @@ from django import forms
 from django.utils.html import format_html
 from django_ckeditor_5.widgets import CKEditor5Widget
 from .models import CustomUser, Service, BlogPost, ContactMessage, OTP, OTPAttemptLog, LoginAttemptLog, SecurityLog, Note
+from .models import Video
 
 
 @admin.register(CustomUser)
@@ -165,7 +166,7 @@ class OTPAdmin(admin.ModelAdmin):
     list_display = ('user', 'created_at', 'expires_at', 'attempts', 'is_used', 'is_locked_display')
     list_filter = ('is_used', 'created_at')
     search_fields = ('user__username', 'user__email')
-    readonly_fields = ('otp_code', 'created_at')
+    readonly_fields = ('otp_hash', 'created_at')
     
     def is_locked_display(self, obj):
         return obj.is_locked()
@@ -213,3 +214,12 @@ class SecurityLogAdmin(admin.ModelAdmin):
     
     def has_change_permission(self, request, obj=None):
         return False
+
+
+# admin.py
+@admin.register(Video)
+class VideoAdmin(admin.ModelAdmin):
+    list_display = ('title', 'category', 'visibility', 'view_count', 'is_active', 'created_at')
+    list_filter = ('category', 'visibility', 'is_active', 'created_at')
+    search_fields = ('title', 'description', 'slug')
+    prepopulated_fields = {"slug": ("title",)}

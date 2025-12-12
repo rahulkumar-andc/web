@@ -1219,6 +1219,7 @@ def verify_2fa_setup(request):
     return redirect('core:setup_2fa')
 
 
+
 @ratelimit(key='ip', rate='5/m', method='POST', block=True)
 def login_2fa(request):
     user_id = request.session.get('pending_2fa_user_id')
@@ -1269,11 +1270,29 @@ def test_error_page(request, code):
 def video_list(request, category=None):
     categories = Video.CATEGORY_CHOICES
     
+    # Base query: Active videos
+    videos = Video.objects.filter(is_active=True)
+    
+    # Filter by visibility
+    if request.user.is_authenticated:
+        if request.user.is_superuser:
+            # Superuser sees all active videos
+            pass
+        else:
+            # Authenticated users see public videos AND their own private videos
+            from django.db.models import Q
+            videos = videos.filter(
+                Q(visibility='public') | 
+                Q(visibility='private', added_by=request.user)
+            )
+    else:
+        # Anonymous users only see public videos
+        videos = videos.filter(visibility='public')
+    
     if category:
-        videos = Video.objects.filter(category=category, is_active=True)
+        videos = videos.filter(category=category)
         category_display = dict(categories).get(category, category.title())
     else:
-        videos = Video.objects.filter(is_active=True)
         category_display = 'All Videos'
     
     return render(request, 'core/video_list.html', {
@@ -1319,18 +1338,41 @@ def video_delete(request, slug):
 def video_detail(request, slug):
     video = get_object_or_404(Video, slug=slug, is_active=True)
     
+    # Check visibility
+    if video.visibility == 'private':
+        if not request.user.is_authenticated:
+            raise Http404("Video not found")
+        
+        if not request.user.is_superuser and video.added_by != request.user:
+            raise Http404("Video not found")
+    
     viewed_videos = request.session.get('viewed_videos', [])
     if video.id not in viewed_videos:
         video.increment_view()
         viewed_videos.append(video.id)
         request.session['viewed_videos'] = viewed_videos
     
+    # For related videos, apply same visibility logic
     related_videos = Video.objects.filter(
         category=video.category,
         is_active=True
-    ).exclude(pk=video.pk)[:4]
+    ).exclude(pk=video.pk)
+    
+    if request.user.is_authenticated:
+        if not request.user.is_superuser:
+            from django.db.models import Q
+            related_videos = related_videos.filter(
+                Q(visibility='public') | 
+                Q(visibility='private', added_by=request.user)
+            )
+    else:
+        related_videos = related_videos.filter(visibility='public')
+        
+    related_videos = related_videos[:4]
     
     return render(request, 'core/video_detail.html', {
         'video': video,
         'related_videos': related_videos,
     })
+
+

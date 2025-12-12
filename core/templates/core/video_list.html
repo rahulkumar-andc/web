@@ -52,6 +52,11 @@
             <span class="badge bg-neon text-dark position-absolute" style="top: 10px; right: 10px;">
               {{ video.get_category_display }}
             </span>
+            {% if video.visibility == 'private' %}
+            <span class="badge bg-danger text-white position-absolute" style="top: 10px; left: 10px;">
+              <i class="fas fa-lock me-1"></i>Private
+            </span>
+            {% endif %}
           </div>
           <h5 class="card-title text-light">{{ video.title }}</h5>
           <p class="card-text text-muted small">{{ video.description|truncatewords:20 }}</p>

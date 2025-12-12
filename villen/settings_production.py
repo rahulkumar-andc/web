@@ -11,13 +11,7 @@ from .settings import *
 
 DEBUG = True  # Set to False in production
 
-ALLOWED_HOSTS = [
-    'localhost', 
-    '127.0.0.1', 
-    'villen.me', 
-    'www.villen.me', 
-    'web-soz1.onrender.com'  # Add your Heroku or DigitalOcean domains here
-]
+ALLOWED_HOSTS = os.getenv('ALLOWED_HOSTS', 'localhost,127.0.0.1,villen.me,www.villen.me,web-soz1.onrender.com').split(',')
 
 # Static files - collected by collectstatic for production serving
 STATIC_ROOT = BASE_DIR / 'staticfiles'
