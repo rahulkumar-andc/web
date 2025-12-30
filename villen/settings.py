@@ -12,7 +12,8 @@ import os
 from dotenv import load_dotenv
 from decouple import config, UndefinedValueError
 import dj_database_url
-
+from decouple import config, UndefinedValueError
+import dj_database_url
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 load_dotenv()
