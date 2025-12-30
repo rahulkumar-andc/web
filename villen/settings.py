@@ -9,26 +9,31 @@ https://docs.djangoproject.com/en/5.2/topics/settings/
 
 from pathlib import Path
 import os
+import dj_database_url
 from dotenv import load_dotenv
-from decouple import config, UndefinedValueError
-import dj_database_url
-from decouple import config, UndefinedValueError
-import dj_database_url
+
 BASE_DIR = Path(__file__).resolve().parent.parent
 
+# Load environment variables from .env file (for local development)
 load_dotenv()
 
+# PRODUCTION CHECK
+# We check if the environment variable 'PRODUCTION' is set to 'true'
 IS_PRODUCTION = os.getenv('PRODUCTION', 'False').lower() == 'true'
 
+# SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = os.getenv('SECRET_KEY')
 if not SECRET_KEY:
     if IS_PRODUCTION:
+        # In production, we must have a secret key
         raise ValueError("SECRET_KEY environment variable is required in production")
+    # In development, we can use a fallback key
     SECRET_KEY = 'django-insecure-dev-only-key-do-not-use-in-production'
 
 ABUSEIPDB_API_KEY = os.getenv('ABUSEIPDB_API_KEY', '')
 WAF_ENABLED = True
 
+# SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = not IS_PRODUCTION
 
 ALLOWED_HOSTS = os.getenv('ALLOWED_HOSTS', '*').split(',')
@@ -57,7 +62,6 @@ INSTALLED_APPS = [
     'django_ckeditor_5',
     'axes',
 ]
-
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -97,18 +101,15 @@ WSGI_APPLICATION = 'villen.wsgi.application'
 
 
 # Database Configuration
-try:
-    DATABASE_URL = config('DATABASE_URL')
-    DATABASES = {
-        'default': dj_database_url.config(default=DATABASE_URL)
-    }
-except UndefinedValueError:
-    DATABASES = {
-        'default': {
-            'ENGINE': 'django.db.backends.sqlite3',
-            'NAME': BASE_DIR / "db.sqlite3",
-        }
-    }
+# UPDATED: This now uses dj_database_url to find the DATABASE_URL env var automatically.
+# It handles the connection string provided by Render.
+# If no DATABASE_URL is found (like on your laptop), it defaults to db.sqlite3.
+DATABASES = {
+    'default': dj_database_url.config(
+        default=f"sqlite:///{BASE_DIR / 'db.sqlite3'}",
+        conn_max_age=600
+    )
+}
 
 AUTH_PASSWORD_VALIDATORS = [
     {'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator'},
@@ -307,4 +308,3 @@ DATA_UPLOAD_MAX_MEMORY_SIZE = 2621440
 DATA_UPLOAD_MAX_NUMBER_FIELDS = 1000
 # Limit file upload size (50MB) - matches form validation
 FILE_UPLOAD_MAX_MEMORY_SIZE = 52428800
-
