@@ -97,7 +97,13 @@ WSGI_APPLICATION = 'villen.wsgi.application'
 
 # Database Configuration
 try:
-    DATABASE_URL = config('DATABASE_URL')
+    DATABASE_URL = config('DATABASE_URL', default=None)
+    if not DATABASE_URL:
+        # If explicitly set to empty string or not found (if default=None works), fallback to sqlite
+        # But config() without default raises UndefinedValueError if missing.
+        # If it returns empty string, we want to skip to except.
+        raise UndefinedValueError("DATABASE_URL is empty")
+
     DATABASES = {
         'default': dj_database_url.config(default=DATABASE_URL)
     }
@@ -202,12 +208,13 @@ AXES_LOCKOUT_TEMPLATE = 'core/locked_out.html'
 AXES_VERBOSE = True
 AXES_ENABLE_ADMIN = True
 AXES_LOCKOUT_PARAMETERS = ['username', 'ip_address']
-AXES_META_PRECEDENCE_ORDER = [
-   'HTTP_CF_CONNECTING_IP',
-   'HTTP_X_REAL_IP',
-   'HTTP_X_FORWARDED_FOR',
-   'REMOTE_ADDR',
-]
+AXES_IPWARE_PROXY_COUNT = 1
+AXES_IPWARE_META_PRECEDENCE_ORDER = (
+    'HTTP_CF_CONNECTING_IP',
+    'HTTP_X_REAL_IP',
+    'HTTP_X_FORWARDED_FOR',
+    'REMOTE_ADDR',
+)
 
 SOCIALACCOUNT_PROVIDERS = {
     'google': {
