@@ -19,3 +19,4 @@ services:
         value: 3.11.5
       - key: DATABASE_URL
         sync: false
+        
